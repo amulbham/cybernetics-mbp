@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amulbham.com/sitemap-index.xml

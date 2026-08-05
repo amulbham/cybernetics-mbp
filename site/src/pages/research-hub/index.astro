@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { formatPillarLabel } from '../../lib/pillars';
+
+const papers = await getCollection('papers');
+const pillars = [...new Set(papers.map((paper) => paper.data.pillar))].sort();
+
+const pillarGroups = pillars.map((pillar) => ({
+	pillar,
+	label: formatPillarLabel(pillar),
+	entries: papers
+		.filter((paper) => paper.data.pillar === pillar)
+		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+}));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="Research Hub"
+			description="Research from Amul Bham, organized by pillar: AI systems, SEO architecture, and systems architecture."
+		/>
+		<style>
+			main {
+				width: 960px;
+				max-width: calc(100% - 2em);
+			}
+			.intro {
+				margin-bottom: 2.5em;
+				color: rgb(var(--gray-dark));
+			}
+			.pillar-section {
+				margin-bottom: 3em;
+			}
+			.pillar-section h2 {
+				border-bottom: 1px solid rgb(var(--gray-light));
+				padding-bottom: 0.3em;
+			}
+			.entries {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5em;
+				list-style: none;
+				margin: 1em 0 0;
+				padding: 0;
+			}
+			.entries li {
+				padding: 1.25em;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+			}
+			.entries a {
+				text-decoration: none;
+				color: inherit;
+			}
+			.entries h3 {
+				margin: 0 0 0.4em;
+				font-size: 1.2em;
+				color: rgb(var(--black));
+			}
+			.entries a:hover h3 {
+				color: rgb(var(--accent));
+			}
+			.entries .date {
+				display: block;
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+				font-size: 0.85em;
+			}
+			.entries p {
+				margin: 0;
+				color: rgb(var(--gray-dark));
+				font-size: 0.95em;
+			}
+			.empty {
+				color: rgb(var(--gray));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Research Hub</h1>
+			<p class="intro">
+				Research organized by pillar. Each entry links to a dedicated write-up with full citation
+				metadata.
+			</p>
+			{
+				pillarGroups.length === 0 && (
+					<p class="empty">No research published yet — check back soon.</p>
+				)
+			}
+			{
+				pillarGroups.map(({ pillar, label, entries }) => (
+					<section class="pillar-section" id={pillar}>
+						<h2>{label}</h2>
+						<ul class="entries">
+							{entries.map((entry) => (
+								<li>
+									<a href={`/research-hub/${pillar}/${entry.id}/`}>
+										<span class="date">
+											<FormattedDate date={entry.data.pubDate} />
+										</span>
+										<h3>{entry.data.title}</h3>
+										<p>{entry.data.description}</p>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				))
+			}
+		</main>
+		<Footer />
+	</body>
+</html>

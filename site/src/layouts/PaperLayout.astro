@@ -1,0 +1,162 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { formatPillarLabel } from '../lib/pillars';
+
+type Props = CollectionEntry<'papers'>['data'];
+
+const { title, description, pubDate, dateModified, canonicalURL, tags, pdfUrl, pillar } = Astro.props;
+const pillarLabel = formatPillarLabel(pillar);
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': ['ScholarlyArticle', 'Article'],
+	headline: title,
+	description,
+	datePublished: pubDate.toISOString(),
+	dateModified: (dateModified ?? pubDate).toISOString(),
+	url: canonicalURL,
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': canonicalURL,
+	},
+	articleSection: pillarLabel,
+	keywords: tags.join(', '),
+	author: {
+		'@type': 'Person',
+		name: 'Amul Bham',
+		url: new URL('/about', Astro.site),
+	},
+	...(pdfUrl && {
+		encoding: {
+			'@type': 'MediaObject',
+			contentUrl: pdfUrl,
+			encodingFormat: 'application/pdf',
+		},
+	}),
+};
+
+// Escape `<` so a value like `</script>` in frontmatter can't break out of the JSON-LD block.
+const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+---
+
+<html lang="en">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			article={{
+				publishedTime: pubDate.toISOString(),
+				modifiedTime: dateModified?.toISOString(),
+				tags,
+			}}
+		/>
+		<script type="application/ld+json" set:html={jsonLdString} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 0.5em;
+				margin: 0 0 1em;
+				padding: 0;
+				list-style: none;
+			}
+			.tags li {
+				padding: 0.2em 0.7em;
+				border-radius: 999px;
+				background-color: rgb(var(--gray-light));
+				color: rgb(var(--gray-dark));
+				font-size: 0.8em;
+			}
+			.pdf-link {
+				margin-bottom: 1em;
+			}
+			.breadcrumb {
+				margin: 0 0 0.5em;
+				text-align: center;
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+			}
+			.breadcrumb a {
+				color: rgb(var(--gray));
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="prose">
+					<div class="title">
+						<p class="breadcrumb">
+							<a href="/research-hub">Research Hub</a> / <a href={`/research-hub#${pillar}`}>{pillarLabel}</a>
+						</p>
+						<div class="date">
+							<FormattedDate date={pubDate} />
+							{
+								dateModified && (
+									<div class="last-updated-on">
+										Last updated on <FormattedDate date={dateModified} />
+									</div>
+								)
+							}
+						</div>
+						<h1>{title}</h1>
+						{
+							tags.length > 0 && (
+								<ul class="tags">
+									{tags.map((tag) => (
+										<li>{tag}</li>
+									))}
+								</ul>
+							)
+						}
+						{
+							pdfUrl && (
+								<p class="pdf-link">
+									<a href={pdfUrl}>Download PDF</a>
+								</p>
+							)
+						}
+						<hr />
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

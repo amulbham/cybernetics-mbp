@@ -17,4 +17,20 @@ const blog = defineCollection({
 		}),
 });
 
-export const collections = { blog };
+const papers = defineCollection({
+	// Load Markdown and MDX files in the `src/content/papers/` directory.
+	loader: glob({ base: './src/content/papers', pattern: '**/*.{md,mdx}' }),
+	// Type-check frontmatter using a schema
+	schema: z.object({
+		title: z.string(),
+		pillar: z.string(),
+		pubDate: z.coerce.date(),
+		dateModified: z.coerce.date().optional(),
+		description: z.string(),
+		canonicalURL: z.url(),
+		tags: z.array(z.string()),
+		pdfUrl: z.url().optional(),
+	}),
+});
+
+export const collections = { blog, papers };
