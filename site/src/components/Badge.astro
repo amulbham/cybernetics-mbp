@@ -1,0 +1,42 @@
+---
+interface Props {
+	variant?: 'pillar' | 'neutral';
+	/** Pillar slug (e.g. 'ai-systems') — selects the badge's tint color when variant="pillar". */
+	pillar?: string;
+}
+
+const { variant = 'neutral', pillar } = Astro.props;
+const style = variant === 'pillar' && pillar ? `--badge-color: var(--pillar-${pillar});` : undefined;
+---
+
+<span class:list={['badge meta', `badge-${variant}`]} style={style}>
+	{variant === 'pillar' && <span class="dot" aria-hidden="true" />}
+	<slot />
+</span>
+
+<style>
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		padding: 0.2em 0.7em;
+		border-radius: var(--radius-full);
+		/* .meta (global.css) supplies font-family/letter-spacing/font-size/color */
+	}
+	.badge-neutral {
+		background-color: var(--bg-subtle);
+	}
+	/* Compound selector so this reliably beats .meta's color regardless of
+	   CSS bundle ordering (both are otherwise single-class, same-specificity rules). */
+	.badge.badge-pillar {
+		background-color: color-mix(in oklab, var(--badge-color, var(--accent)) 12%, transparent);
+		color: var(--badge-color, var(--accent));
+	}
+	.dot {
+		width: 0.45em;
+		height: 0.45em;
+		flex-shrink: 0;
+		border-radius: 50%;
+		background-color: currentColor;
+	}
+</style>

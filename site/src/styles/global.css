@@ -1,36 +1,99 @@
 /*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+  Base layout rules originally derived from Bear Blog's default CSS
+  (https://github.com/HermanMartinus/bearblog, MIT). Design tokens below
+  are a full rewrite: semantic color tokens with a dark-mode variant,
+  a spacing/radius/shadow scale, and a modular type scale.
  */
 
 :root {
+	--bg: #ffffff;
+	--bg-subtle: #f7f8fa;
+	--border: #e2e5eb;
+	--text-primary: #12141c;
+	--text-secondary: #4b5568;
 	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+	--accent-hover: #1b2ad1;
+	--shadow-sm: 0 1px 2px rgba(15, 18, 25, 0.06);
+	--shadow-md: 0 4px 12px rgba(15, 18, 25, 0.08);
+	--shadow-lg: 0 12px 32px rgba(15, 18, 25, 0.12);
+
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 24px;
+	--space-6: 32px;
+	--space-7: 48px;
+	--space-8: 64px;
+
+	--radius-sm: 6px;
+	--radius-md: 10px;
+	--radius-lg: 16px;
+	--radius-full: 999px;
+
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1rem;
+	--text-lg: 1.25rem;
+	--text-xl: 1.563rem;
+	--text-2xl: 1.953rem;
+	--text-3xl: 2.441rem;
+	--text-4xl: 3.052rem;
+
+	/* Reading-column width for prose (papers, posts) vs. wider grid/listing pages */
+	--content-width-prose: 720px;
+	--content-width-wide: 960px;
+
+	/* Pillar accents — used as muted tints (color-mix), not full-saturation fills */
+	--pillar-ai-systems: #2337ff;
+	--pillar-seo-architecture: #0e9f6e;
+	--pillar-systems-architecture: #7c3aed;
+	--pillar-policy-systems: #b45309;
 }
+
+:root[data-theme='dark'] {
+	--bg: #0b0d12;
+	--bg-subtle: #14171f;
+	--border: #262b38;
+	--text-primary: #f3f4f7;
+	--text-secondary: #9aa3b8;
+	--accent: #5b6bff;
+	--accent-hover: #7583ff;
+	/* Dark surfaces read better with a 1px border than a shadow */
+	--shadow-sm: none;
+	--shadow-md: none;
+	--shadow-lg: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--bg: #0b0d12;
+		--bg-subtle: #14171f;
+		--border: #262b38;
+		--text-primary: #f3f4f7;
+		--text-secondary: #9aa3b8;
+		--accent: #5b6bff;
+		--accent-hover: #7583ff;
+		--shadow-sm: none;
+		--shadow-md: none;
+		--shadow-lg: none;
+	}
+}
+
 body {
 	font-family: var(--font-atkinson);
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: var(--bg);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	color: var(--text-primary);
 	font-size: 20px;
 	line-height: 1.7;
 }
 main {
-	width: 720px;
+	width: var(--content-width-prose);
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
@@ -42,23 +105,25 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
+	color: var(--text-primary);
+	font-weight: 700;
+	letter-spacing: -0.01em;
 	line-height: 1.2;
 }
 h1 {
-	font-size: 3.052em;
+	font-size: var(--text-4xl);
 }
 h2 {
-	font-size: 2.441em;
+	font-size: var(--text-3xl);
 }
 h3 {
-	font-size: 1.953em;
+	font-size: var(--text-2xl);
 }
 h4 {
-	font-size: 1.563em;
+	font-size: var(--text-xl);
 }
 h5 {
-	font-size: 1.25em;
+	font-size: var(--text-lg);
 }
 strong,
 b {
@@ -68,7 +133,7 @@ a {
 	color: var(--accent);
 }
 a:hover {
-	color: var(--accent);
+	color: var(--accent-hover);
 }
 p {
 	margin-bottom: 1em;
@@ -89,16 +154,18 @@ table {
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: var(--radius-sm);
 }
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	background-color: var(--bg-subtle);
+	border-radius: var(--radius-sm);
+	font-family: var(--font-mono);
 }
 pre {
 	padding: 1.5em;
-	border-radius: 8px;
+	border-radius: var(--radius-md);
+	font-family: var(--font-mono);
 }
 pre > code {
 	all: unset;
@@ -111,7 +178,14 @@ blockquote {
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--border);
+}
+/* Technical/metadata accent role: dates, tags, breadcrumbs, pillar labels */
+.meta {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: 0.02em;
+	color: var(--text-secondary);
 }
 @media (max-width: 720px) {
 	body {
@@ -119,6 +193,26 @@ hr {
 	}
 	main {
 		padding: 1em;
+	}
+}
+
+/* Dual-theme Shiki code blocks — mirrors the [data-theme] mechanism above,
+   since `defaultColor: false` disables Shiki's own prefers-color-scheme switch. */
+pre.astro-code,
+pre.astro-code span {
+	color: var(--shiki-light);
+	background-color: var(--shiki-light-bg) !important;
+}
+:root[data-theme='dark'] pre.astro-code,
+:root[data-theme='dark'] pre.astro-code span {
+	color: var(--shiki-dark);
+	background-color: var(--shiki-dark-bg) !important;
+}
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) pre.astro-code,
+	:root:not([data-theme='light']) pre.astro-code span {
+		color: var(--shiki-dark);
+		background-color: var(--shiki-dark-bg) !important;
 	}
 }
 

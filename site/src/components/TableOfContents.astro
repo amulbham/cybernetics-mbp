@@ -1,0 +1,76 @@
+---
+// Sticky spatial-orientation aid for long-form papers. Deliberately minimal:
+// no scroll-spy/IntersectionObserver — a static outline of ## sections is
+// enough to answer "where am I", and gating by heading count keeps short
+// papers (4 ## headings each, measured) from getting a token TOC that adds
+// nothing. The financial-aid paper has 15.
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+interface Props {
+	headings: Heading[];
+}
+
+const MIN_SECTIONS = 6;
+
+const { headings } = Astro.props;
+const sections = headings.filter((heading) => heading.depth === 2);
+---
+
+{
+	sections.length >= MIN_SECTIONS && (
+		<nav class="toc-rail" aria-label="Table of contents">
+			<p class="toc-label meta">Contents</p>
+			<ul>
+				{sections.map((heading) => (
+					<li>
+						<a href={`#${heading.slug}`}>{heading.text}</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	)
+}
+
+<style>
+	.toc-rail {
+		display: none;
+	}
+	@media (min-width: 1100px) {
+		.toc-rail {
+			display: block;
+			width: 220px;
+			flex-shrink: 0;
+			position: sticky;
+			top: var(--space-8);
+			align-self: flex-start;
+			max-height: calc(100vh - var(--space-8) * 2);
+			overflow-y: auto;
+		}
+	}
+	.toc-label {
+		margin: 0 0 0.75em;
+		text-transform: uppercase;
+	}
+	.toc-rail ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6em;
+	}
+	.toc-rail a {
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-size: 0.9em;
+		line-height: 1.4;
+	}
+	.toc-rail a:hover,
+	.toc-rail a:focus-visible {
+		color: var(--accent);
+	}
+</style>

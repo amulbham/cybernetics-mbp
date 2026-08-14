@@ -1,0 +1,55 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Button from '../components/Button.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Page Not Found" description="This page doesn't exist." noindex />
+		<style>
+			.not-found {
+				max-width: var(--content-width-prose);
+				margin: 4em auto;
+				text-align: center;
+			}
+			.not-found .code {
+				margin: 0;
+				font-family: var(--font-mono);
+				font-size: var(--text-lg);
+				letter-spacing: 0.05em;
+				color: var(--text-secondary);
+			}
+			.not-found h1 {
+				margin: 0.25em 0 0.75em;
+			}
+			.not-found p {
+				color: var(--text-secondary);
+			}
+			.actions {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 0.75em;
+				margin-top: 1.75em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main data-pagefind-ignore>
+			<section class="not-found">
+				<p class="code">404</p>
+				<h1>Page not found</h1>
+				<p>The page you're looking for doesn't exist or has moved.</p>
+				<nav class="actions" aria-label="Suggested pages">
+					<Button href="/" variant="primary">Go home</Button>
+					<Button href="/research-hub" variant="secondary">Browse Research Hub</Button>
+				</nav>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

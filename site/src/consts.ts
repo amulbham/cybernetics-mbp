@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = 'Amul Bham';
 export const SITE_DESCRIPTION =
-	'Applied research on AI systems, SEO architecture, and systems design.';
+	'Applied research on AI systems, SEO architecture, systems design, and policy systems.';

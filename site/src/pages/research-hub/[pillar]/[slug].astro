@@ -12,9 +12,14 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'papers'>;
 
 const paper = Astro.props;
-const { Content } = await render(paper);
+const { Content, headings, remarkPluginFrontmatter } = await render(paper);
 ---
 
-<PaperLayout {...paper.data}>
+<PaperLayout
+	{...paper.data}
+	id={paper.id}
+	minutesRead={remarkPluginFrontmatter.minutesRead}
+	headings={headings}
+>
 	<Content />
 </PaperLayout>

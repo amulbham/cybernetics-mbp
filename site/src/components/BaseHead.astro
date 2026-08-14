@@ -4,6 +4,7 @@
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import { SEO } from 'astro-seo';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { SITE_TITLE } from '../consts';
@@ -11,18 +12,42 @@ import { SITE_TITLE } from '../consts';
 interface Props {
 	title: string;
 	description: string;
-	image?: ImageMetadata;
+	/** A local imported image, or a URL string (e.g. a generated OG image route). */
+	image?: ImageMetadata | string;
 	/** Set for content pages (e.g. research papers) to emit Open Graph article tags. */
 	article?: {
 		publishedTime: string;
 		modifiedTime?: string;
 		tags?: string[];
 	};
+	/** Force this specific page to stay out of search results regardless of SITE_WIDE_NOINDEX (e.g. 404.astro). */
+	noindex?: boolean;
 }
 
-const { title, description, image = FallbackImage, article } = Astro.props;
-const ogImageUrl = new URL(image.src, Astro.url).toString();
+// Site-wide deindex while the redesign is still in progress. Flip to `false`
+// only when the site is confirmed launch-ready (see Phase 5 in the design
+// plan) — also restore the `Sitemap:` line in public/robots.txt at the same
+// time. Individual pages can still force noindex via the `noindex` prop
+// (e.g. 404.astro) regardless of this flag.
+const SITE_WIDE_NOINDEX = true;
+
+const { title, description, image = FallbackImage, article, noindex } = Astro.props;
+const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.url).toString();
 ---
+
+<script is:inline>
+	// Runs before first paint so the page never flashes the wrong theme.
+	// Only sets data-theme when the user has made an explicit choice (via
+	// ThemeToggle) — otherwise the CSS prefers-color-scheme fallback applies.
+	(function () {
+		try {
+			var stored = localStorage.getItem('theme');
+			if (stored === 'light' || stored === 'dark') {
+				document.documentElement.setAttribute('data-theme', stored);
+			}
+		} catch (e) {}
+	})();
+</script>
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
@@ -39,13 +64,14 @@ const ogImageUrl = new URL(image.src, Astro.url).toString();
 <meta name="generator" content={Astro.generator} />
 
 <Font cssVariable="--font-atkinson" preload />
+<Font cssVariable="--font-mono" />
 
 <!-- Title, description, canonical URL, Open Graph, and Twitter cards -->
 <SEO
 	title={title}
 	description={description}
-	noindex={true}
-	nofollow={true}
+	noindex={noindex ?? SITE_WIDE_NOINDEX}
+	nofollow={noindex ?? SITE_WIDE_NOINDEX}
 	openGraph={{
 		basic: {
 			title,
@@ -58,3 +84,5 @@ const ogImageUrl = new URL(image.src, Astro.url).toString();
 	}}
 	twitter={{ card: 'summary_large_image' }}
 />
+
+<ClientRouter />

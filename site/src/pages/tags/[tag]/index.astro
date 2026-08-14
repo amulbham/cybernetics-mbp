@@ -1,0 +1,90 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Card from '../../../components/Card.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { slugifyTag } from '../../../lib/tags.ts';
+
+export async function getStaticPaths() {
+	const papers = await getCollection('papers');
+	const bySlug = new Map<string, { label: string; papers: CollectionEntry<'papers'>[] }>();
+
+	for (const paper of papers) {
+		for (const tag of paper.data.tags) {
+			const slug = slugifyTag(tag);
+			if (!bySlug.has(slug)) bySlug.set(slug, { label: tag, papers: [] });
+			bySlug.get(slug)!.papers.push(paper);
+		}
+	}
+
+	return [...bySlug.entries()].map(([slug, { label, papers }]) => ({
+		params: { tag: slug },
+		props: {
+			label,
+			papers: papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+interface Props {
+	label: string;
+	papers: CollectionEntry<'papers'>[];
+}
+
+const { label, papers } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Tag: ${label}`} description={`Research tagged "${label}".`} />
+		<style>
+			.intro {
+				margin-bottom: 2.5em;
+				color: var(--text-secondary);
+			}
+			.entries {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5em;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.entries h3 {
+				margin: 0.6em 0 0.4em;
+				font-size: 1.2em;
+				color: var(--card-hover-color, var(--text-primary));
+				transition: color 0.15s ease;
+			}
+			.entries p {
+				margin: 0;
+				color: var(--text-primary);
+				font-size: 0.95em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Tag: {label}</h1>
+			<p class="intro">{papers.length} paper{papers.length === 1 ? '' : 's'} tagged "{label}".</p>
+			<ul class="entries">
+				{
+					papers.map((paper) => (
+						<Card href={`/research-hub/${paper.data.pillar}/${paper.id}/`}>
+							<span class="meta">
+								<FormattedDate date={paper.data.pubDate} />
+							</span>
+							<h3>{paper.data.title}</h3>
+							<p>{paper.data.description}</p>
+						</Card>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>

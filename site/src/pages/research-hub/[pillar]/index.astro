@@ -1,0 +1,91 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Card from '../../../components/Card.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { formatPillarLabel, PILLAR_DESCRIPTIONS } from '../../../lib/pillars';
+
+export async function getStaticPaths() {
+	const papers = await getCollection('papers');
+	const pillars = [...new Set(papers.map((paper) => paper.data.pillar))];
+
+	return pillars.map((pillar) => ({
+		params: { pillar },
+		props: {
+			pillar,
+			entries: papers
+				.filter((paper) => paper.data.pillar === pillar)
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+interface Props {
+	pillar: string;
+	entries: CollectionEntry<'papers'>[];
+}
+
+const { pillar, entries } = Astro.props;
+const label = formatPillarLabel(pillar);
+const description = PILLAR_DESCRIPTIONS[pillar] ?? `Research on ${label}.`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${label} Research`} description={description} />
+		<style>
+			.breadcrumbs {
+				margin: 0 0 1.5em;
+			}
+			.intro {
+				max-width: var(--content-width-prose);
+				margin-bottom: 2.5em;
+				color: var(--text-primary);
+			}
+			.entries {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5em;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.entries h3 {
+				margin: 0.6em 0 0.4em;
+				font-size: 1.2em;
+				color: var(--card-hover-color, var(--text-primary));
+				transition: color 0.15s ease;
+			}
+			.entries p {
+				margin: 0;
+				color: var(--text-primary);
+				font-size: 0.95em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<p class="breadcrumbs meta"><a href="/research-hub">Research Hub</a></p>
+			<h1>{label}</h1>
+			<p class="intro">{description}</p>
+			<ul class="entries">
+				{
+					entries.map((entry) => (
+						<Card href={`/research-hub/${pillar}/${entry.id}/`}>
+							<span class="meta">
+								<FormattedDate date={entry.data.pubDate} />
+							</span>
+							<h3>{entry.data.title}</h3>
+							<p>{entry.data.description}</p>
+						</Card>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>

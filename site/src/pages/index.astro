@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
+import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
@@ -18,7 +21,7 @@ const recentPapers = (await getCollection('papers'))
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			.hero {
-				max-width: 720px;
+				max-width: var(--content-width-prose);
 				margin: 0 auto 3.5em;
 				text-align: center;
 			}
@@ -27,14 +30,14 @@ const recentPapers = (await getCollection('papers'))
 				font-size: 0.85em;
 				letter-spacing: 0.15em;
 				text-transform: uppercase;
-				color: rgb(var(--accent));
+				color: var(--accent);
 			}
 			.hero h1 {
 				margin-bottom: 0.6em;
 			}
 			.hero .positioning {
 				font-size: 1.1em;
-				color: rgb(var(--gray-dark));
+				color: var(--text-primary);
 			}
 			.cta-links {
 				display: flex;
@@ -43,25 +46,8 @@ const recentPapers = (await getCollection('papers'))
 				gap: 0.75em;
 				margin-top: 1.75em;
 			}
-			.cta {
-				display: inline-flex;
-				align-items: center;
-				height: 2.5em;
-				padding: 0 1.25em;
-				border-radius: 0.6em;
-				text-decoration: none;
-				font-weight: 500;
-			}
-			.cta.primary {
-				background: var(--accent);
-				color: white;
-			}
-			.cta.secondary {
-				border: 1px solid rgb(var(--gray-light));
-				color: rgb(var(--black));
-			}
 			.recent-research {
-				max-width: 960px;
+				max-width: var(--content-width-wide);
 				margin: 0 auto;
 			}
 			.section-heading {
@@ -86,43 +72,19 @@ const recentPapers = (await getCollection('papers'))
 				margin: 0;
 				padding: 0;
 			}
-			.research-feed li {
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 12px;
-				padding: 1.25em;
-			}
-			.research-feed a {
-				text-decoration: none;
-				color: inherit;
-			}
-			.pillar-badge {
-				display: inline-block;
-				margin-bottom: 0.6em;
-				padding: 0.2em 0.7em;
-				border-radius: 999px;
-				background-color: rgb(var(--gray-light));
-				color: rgb(var(--gray-dark));
-				font-size: 0.75em;
-			}
 			.research-feed h3 {
-				margin: 0 0 0.4em;
+				margin: 0.6em 0 0.4em;
 				font-size: 1.15em;
-				color: rgb(var(--black));
-			}
-			.research-feed a:hover h3 {
-				color: rgb(var(--accent));
+				color: var(--card-hover-color, var(--text-primary));
+				transition: color 0.15s ease;
 			}
 			.research-feed p {
 				margin: 0 0 0.6em;
 				font-size: 0.95em;
-				color: rgb(var(--gray-dark));
-			}
-			.research-feed .date {
-				color: rgb(var(--gray));
-				font-size: 0.85em;
+				color: var(--text-primary);
 			}
 			.empty {
-				color: rgb(var(--gray));
+				color: var(--text-secondary);
 			}
 		</style>
 	</head>
@@ -131,15 +93,15 @@ const recentPapers = (await getCollection('papers'))
 		<main>
 			<section class="hero">
 				<p class="eyebrow">Amul Bham</p>
-				<h1>Applied research on AI systems, SEO architecture, and systems design.</h1>
+				<h1>Applied research on AI systems, SEO architecture, systems design, and policy systems.</h1>
 				<p class="positioning">
 					I design and build systems at the intersection of AI infrastructure, information
 					architecture, and technical SEO — and publish research on how those disciplines converge
 					in production.
 				</p>
 				<nav class="cta-links" aria-label="Primary">
-					<a class="cta primary" href="/research-hub">Browse Research Hub</a>
-					<a class="cta secondary" href="/about">About Amul</a>
+					<Button href="/research-hub" variant="primary">Browse Research Hub</Button>
+					<Button href="/about" variant="secondary">About Amul</Button>
 				</nav>
 			</section>
 
@@ -152,16 +114,16 @@ const recentPapers = (await getCollection('papers'))
 					recentPapers.length > 0 ? (
 						<ul class="research-feed">
 							{recentPapers.map((paper) => (
-								<li>
-									<a href={`/research-hub/${paper.data.pillar}/${paper.id}/`}>
-										<span class="pillar-badge">{formatPillarLabel(paper.data.pillar)}</span>
-										<h3>{paper.data.title}</h3>
-										<p>{paper.data.description}</p>
-										<span class="date">
-											<FormattedDate date={paper.data.pubDate} />
-										</span>
-									</a>
-								</li>
+								<Card href={`/research-hub/${paper.data.pillar}/${paper.id}/`}>
+									<Badge variant="pillar" pillar={paper.data.pillar}>
+										{formatPillarLabel(paper.data.pillar)}
+									</Badge>
+									<h3>{paper.data.title}</h3>
+									<p>{paper.data.description}</p>
+									<span class="meta">
+										<FormattedDate date={paper.data.pubDate} />
+									</span>
+								</Card>
 							))}
 						</ul>
 					) : (

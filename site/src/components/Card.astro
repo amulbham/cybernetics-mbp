@@ -1,0 +1,43 @@
+---
+interface Props {
+	href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<li class="card">
+	<a href={href}>
+		<slot />
+	</a>
+</li>
+
+<style>
+	.card {
+		list-style: none;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		padding: 1.25em;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+	.card:hover,
+	.card:focus-within {
+		border-color: var(--accent);
+		box-shadow: var(--shadow-md);
+		/* Exposed so slotted content (e.g. a title) can react to card hover:
+		   color: var(--card-hover-color, var(--text-primary)); */
+		--card-hover-color: var(--accent);
+	}
+	.card a {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+	}
+	.card a:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+		border-radius: var(--radius-sm);
+	}
+</style>

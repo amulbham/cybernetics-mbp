@@ -3,14 +3,28 @@ import rss from '@astrojs/rss';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 export async function GET(context) {
-	const posts = await getCollection('blog');
+	const [posts, papers] = await Promise.all([getCollection('blog'), getCollection('papers')]);
+
+	const items = [
+		...posts.map((post) => ({
+			title: post.data.title,
+			description: post.data.description,
+			pubDate: post.data.pubDate,
+			link: `/blog/${post.id}/`,
+		})),
+		...papers.map((paper) => ({
+			title: paper.data.title,
+			description: paper.data.description,
+			pubDate: paper.data.pubDate,
+			link: `/research-hub/${paper.data.pillar}/${paper.id}/`,
+			categories: paper.data.tags,
+		})),
+	].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
+
 	return rss({
 		title: SITE_TITLE,
 		description: SITE_DESCRIPTION,
 		site: context.site,
-		items: posts.map((post) => ({
-			...post.data,
-			link: `/blog/${post.id}/`,
-		})),
+		items,
 	});
 }

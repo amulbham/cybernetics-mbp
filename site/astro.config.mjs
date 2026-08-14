@@ -1,13 +1,27 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
+import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://amulbham.com',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		processor: unified({ remarkPlugins: [remarkReadingTime] }),
+		shikiConfig: {
+			themes: {
+				light: 'github-light',
+				dark: 'github-dark',
+			},
+			// We control light/dark via our own [data-theme] attribute, not Shiki's
+			// default media-query switch — see the dual-theme rules in global.css.
+			defaultColor: false,
+		},
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),
@@ -30,6 +44,15 @@ export default defineConfig({
 					},
 				],
 			},
+		},
+		{
+			provider: fontProviders.google(),
+			name: 'IBM Plex Mono',
+			cssVariable: '--font-mono',
+			weights: [400],
+			styles: ['normal'],
+			subsets: ['latin'],
+			fallbacks: ['monospace'],
 		},
 	],
 });

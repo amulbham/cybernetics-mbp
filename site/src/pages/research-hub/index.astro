@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
+import Card from '../../components/Card.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
@@ -23,23 +24,30 @@ const pillarGroups = pillars.map((pillar) => ({
 	<head>
 		<BaseHead
 			title="Research Hub"
-			description="Research from Amul Bham, organized by pillar: AI systems, SEO architecture, and systems architecture."
+			description="Research from Amul Bham, organized by pillar: AI systems, SEO architecture, systems architecture, and policy systems."
 		/>
 		<style>
 			main {
-				width: 960px;
+				width: var(--content-width-wide);
 				max-width: calc(100% - 2em);
 			}
 			.intro {
 				margin-bottom: 2.5em;
-				color: rgb(var(--gray-dark));
+				color: var(--text-primary);
 			}
 			.pillar-section {
 				margin-bottom: 3em;
 			}
 			.pillar-section h2 {
-				border-bottom: 1px solid rgb(var(--gray-light));
+				border-bottom: 1px solid var(--border);
 				padding-bottom: 0.3em;
+			}
+			.pillar-section h2 a {
+				color: inherit;
+				text-decoration: none;
+			}
+			.pillar-section h2 a:hover {
+				color: var(--accent);
 			}
 			.entries {
 				display: grid;
@@ -49,36 +57,19 @@ const pillarGroups = pillars.map((pillar) => ({
 				margin: 1em 0 0;
 				padding: 0;
 			}
-			.entries li {
-				padding: 1.25em;
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 12px;
-			}
-			.entries a {
-				text-decoration: none;
-				color: inherit;
-			}
 			.entries h3 {
-				margin: 0 0 0.4em;
+				margin: 0.6em 0 0.4em;
 				font-size: 1.2em;
-				color: rgb(var(--black));
-			}
-			.entries a:hover h3 {
-				color: rgb(var(--accent));
-			}
-			.entries .date {
-				display: block;
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-				font-size: 0.85em;
+				color: var(--card-hover-color, var(--text-primary));
+				transition: color 0.15s ease;
 			}
 			.entries p {
 				margin: 0;
-				color: rgb(var(--gray-dark));
+				color: var(--text-primary);
 				font-size: 0.95em;
 			}
 			.empty {
-				color: rgb(var(--gray));
+				color: var(--text-secondary);
 			}
 		</style>
 	</head>
@@ -98,18 +89,16 @@ const pillarGroups = pillars.map((pillar) => ({
 			{
 				pillarGroups.map(({ pillar, label, entries }) => (
 					<section class="pillar-section" id={pillar}>
-						<h2>{label}</h2>
+						<h2><a href={`/research-hub/${pillar}/`}>{label}</a></h2>
 						<ul class="entries">
 							{entries.map((entry) => (
-								<li>
-									<a href={`/research-hub/${pillar}/${entry.id}/`}>
-										<span class="date">
-											<FormattedDate date={entry.data.pubDate} />
-										</span>
-										<h3>{entry.data.title}</h3>
-										<p>{entry.data.description}</p>
-									</a>
-								</li>
+								<Card href={`/research-hub/${pillar}/${entry.id}/`}>
+									<span class="meta">
+										<FormattedDate date={entry.data.pubDate} />
+									</span>
+									<h3>{entry.data.title}</h3>
+									<p>{entry.data.description}</p>
+								</Card>
 							))}
 						</ul>
 					</section>

@@ -1,0 +1,39 @@
+---
+interface Props {
+	items: { label: string; href?: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<p class="breadcrumbs meta">
+	{
+		items.map((item, i) => (
+			<Fragment>
+				{item.href ? <a href={item.href}>{item.label}</a> : <span>{item.label}</span>}
+				{i < items.length - 1 && (
+					<span class="sep" aria-hidden="true">
+						/
+					</span>
+				)}
+			</Fragment>
+		))
+	}
+</p>
+
+<style>
+	.breadcrumbs {
+		margin: 0 0 0.5em;
+		text-align: center;
+		/* .meta (global.css) supplies font-family/letter-spacing/font-size/color */
+	}
+	.breadcrumbs a {
+		color: var(--text-secondary);
+	}
+	.breadcrumbs a:hover {
+		color: var(--accent);
+	}
+	.sep {
+		margin: 0 0.3em;
+	}
+</style>

@@ -1,0 +1,49 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Search" description="Search Amul Bham's research." />
+		<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+		<style>
+			#search {
+				max-width: var(--content-width-prose);
+				margin: 0 auto;
+			}
+			/* Pagefind's default UI ships its own colors — re-point them at our tokens
+			   so search results respect light/dark mode instead of looking hardcoded. */
+			#search {
+				--pagefind-ui-primary: var(--accent);
+				--pagefind-ui-text: var(--text-primary);
+				--pagefind-ui-background: var(--bg);
+				--pagefind-ui-border: var(--border);
+				--pagefind-ui-tag: var(--bg-subtle);
+				--pagefind-ui-font: var(--font-atkinson);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Search</h1>
+			<div id="search"></div>
+		</main>
+		<Footer />
+		<script is:inline src="/pagefind/pagefind-ui.js"></script>
+		<script is:inline>
+			// astro:page-load (not DOMContentLoaded) so this also re-initializes
+			// when a View Transitions client-side navigation lands on this page —
+			// DOMContentLoaded only fires on a true full page load.
+			document.addEventListener('astro:page-load', () => {
+				var el = document.getElementById('search');
+				if (!el || el.childElementCount > 0) return;
+				// eslint-disable-next-line no-undef
+				new PagefindUI({ element: '#search', showSubResults: true });
+			});
+		</script>
+	</body>
+</html>

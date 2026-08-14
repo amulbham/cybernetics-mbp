@@ -1,0 +1,86 @@
+---
+// Shared body shell for long-form article layouts (PaperLayout, BlogPost):
+// Header + title/date block + prose container + Footer. Each layout still
+// owns its own <html><head> (they need different BaseHead/JSON-LD calls) and
+// projects layout-specific pieces (breadcrumb, tags, hero image) into the
+// named slots below.
+import FormattedDate from '../components/FormattedDate.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title: string;
+	pubDate: Date;
+	updatedDate?: Date;
+	minutesRead?: number;
+}
+
+const { title, pubDate, updatedDate, minutesRead } = Astro.props;
+---
+
+<Header />
+<main>
+	<article>
+		<slot name="hero" />
+		<div class="article-body">
+			<div class="prose">
+				<div class="title">
+					<slot name="before-title" />
+					<div class="date meta">
+						<FormattedDate date={pubDate} />
+						{minutesRead && <span> · {minutesRead} min read</span>}
+						{
+							updatedDate && (
+								<div class="last-updated-on">
+									Last updated on <FormattedDate date={updatedDate} />
+								</div>
+							)
+						}
+					</div>
+					<h1>{title}</h1>
+					<slot name="after-title" />
+					<hr />
+				</div>
+				<slot />
+			</div>
+			<slot name="toc" />
+		</div>
+	</article>
+</main>
+<Footer />
+
+<style>
+	main {
+		width: calc(100% - 2em);
+		max-width: 100%;
+		margin: 0;
+	}
+	.article-body {
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 3em;
+	}
+	.prose {
+		width: var(--content-width-prose);
+		max-width: calc(100% - 2em);
+		margin: 0;
+		padding: 1em;
+		color: var(--text-primary);
+	}
+	.title {
+		margin-bottom: 1em;
+		padding: 1em 0;
+		text-align: center;
+		line-height: 1;
+	}
+	.title h1 {
+		margin: 0 0 0.5em 0;
+	}
+	.date {
+		margin-bottom: 0.5em;
+	}
+	.last-updated-on {
+		font-style: italic;
+	}
+</style>

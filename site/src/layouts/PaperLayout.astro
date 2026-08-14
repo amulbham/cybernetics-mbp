@@ -1,15 +1,46 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedPapers from '../components/RelatedPapers.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import { formatPillarLabel } from '../lib/pillars';
+import { slugifyTag } from '../lib/tags';
+import ArticleShell from './ArticleShell.astro';
 
-type Props = CollectionEntry<'papers'>['data'];
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
 
-const { title, description, pubDate, dateModified, canonicalURL, tags, pdfUrl, pillar } = Astro.props;
+type Props = CollectionEntry<'papers'>['data'] & {
+	id: string;
+	minutesRead?: number;
+	headings: Heading[];
+};
+
+const {
+	title,
+	description,
+	pubDate,
+	dateModified,
+	canonicalURL,
+	tags,
+	pdfUrl,
+	pillar,
+	id,
+	minutesRead,
+	headings,
+} = Astro.props;
 const pillarLabel = formatPillarLabel(pillar);
+const pillarUrl = `/research-hub/${pillar}/`;
+
+const breadcrumbItems = [
+	{ label: 'Research Hub', href: '/research-hub' },
+	{ label: pillarLabel, href: pillarUrl },
+];
 
 const jsonLd = {
 	'@context': 'https://schema.org',
@@ -39,8 +70,28 @@ const jsonLd = {
 	}),
 };
 
-// Escape `<` so a value like `</script>` in frontmatter can't break out of the JSON-LD block.
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		...breadcrumbItems.map((item, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			name: item.label,
+			item: new URL(item.href, Astro.site).toString(),
+		})),
+		{
+			'@type': 'ListItem',
+			position: breadcrumbItems.length + 1,
+			name: title,
+			item: canonicalURL,
+		},
+	],
+};
+
+// Escape `<` so a value like `</script>` in frontmatter can't break out of the JSON-LD blocks.
 const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c');
 ---
 
 <html lang="en">
@@ -48,6 +99,7 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 		<BaseHead
 			title={title}
 			description={description}
+			image={`/open-graph/${pillar}/${id}.png`}
 			article={{
 				publishedTime: pubDate.toISOString(),
 				modifiedTime: dateModified?.toISOString(),
@@ -55,35 +107,8 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 			}}
 		/>
 		<script type="application/ld+json" set:html={jsonLdString} />
+		<script type="application/ld+json" set:html={breadcrumbJsonLdString} />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
 			.tags {
 				display: flex;
 				flex-wrap: wrap;
@@ -93,70 +118,51 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 				padding: 0;
 				list-style: none;
 			}
-			.tags li {
-				padding: 0.2em 0.7em;
-				border-radius: 999px;
-				background-color: rgb(var(--gray-light));
-				color: rgb(var(--gray-dark));
-				font-size: 0.8em;
+			.tags a {
+				text-decoration: none;
+			}
+			.tags a:hover :global(.badge),
+			.tags a:focus-visible :global(.badge) {
+				background-color: var(--border);
 			}
 			.pdf-link {
 				margin-bottom: 1em;
-			}
-			.breadcrumb {
-				margin: 0 0 0.5em;
-				text-align: center;
-				font-size: 0.85em;
-				color: rgb(var(--gray));
-			}
-			.breadcrumb a {
-				color: rgb(var(--gray));
 			}
 		</style>
 	</head>
 
 	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="prose">
-					<div class="title">
-						<p class="breadcrumb">
-							<a href="/research-hub">Research Hub</a> / <a href={`/research-hub#${pillar}`}>{pillarLabel}</a>
+		<ArticleShell title={title} pubDate={pubDate} updatedDate={dateModified} minutesRead={minutesRead}>
+			<Fragment slot="before-title">
+				<Breadcrumbs items={breadcrumbItems} />
+			</Fragment>
+			<Fragment slot="after-title">
+				{
+					tags.length > 0 && (
+						<ul class="tags">
+							{tags.map((tag) => (
+								<li>
+									<a href={`/tags/${slugifyTag(tag)}/`}>
+										<Badge variant="neutral">{tag}</Badge>
+									</a>
+								</li>
+							))}
+						</ul>
+					)
+				}
+				{
+					pdfUrl && (
+						<p class="pdf-link">
+							<a href={pdfUrl}>Download PDF</a>
 						</p>
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								dateModified && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={dateModified} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						{
-							tags.length > 0 && (
-								<ul class="tags">
-									{tags.map((tag) => (
-										<li>{tag}</li>
-									))}
-								</ul>
-							)
-						}
-						{
-							pdfUrl && (
-								<p class="pdf-link">
-									<a href={pdfUrl}>Download PDF</a>
-								</p>
-							)
-						}
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
+					)
+				}
+			</Fragment>
+			<Fragment slot="toc">
+				<TableOfContents headings={headings} />
+			</Fragment>
+			<slot />
+			<RelatedPapers currentId={id} pillar={pillar} tags={tags} />
+		</ArticleShell>
 	</body>
 </html>
