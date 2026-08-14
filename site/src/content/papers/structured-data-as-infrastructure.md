@@ -3,7 +3,6 @@ title: 'Structured Data as Infrastructure: JSON-LD Patterns for Programmatic SEO
 pillar: 'seo-architecture'
 pubDate: 2026-07-15
 description: 'Why structured data should be treated as a build-time system output rather than a manual annotation task, and what that means for site architecture.'
-canonicalURL: 'https://amulbham.com/research-hub/seo-architecture/structured-data-as-infrastructure/'
 tags: ['seo-architecture', 'structured-data', 'schema.org']
 ---
 

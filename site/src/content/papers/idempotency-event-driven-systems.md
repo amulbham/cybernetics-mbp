@@ -4,7 +4,6 @@ pillar: 'systems-architecture'
 pubDate: 2026-07-28
 dateModified: 2026-08-01
 description: 'A practical framework for reasoning about idempotency guarantees in event-driven systems, and where those guarantees tend to quietly break.'
-canonicalURL: 'https://amulbham.com/research-hub/systems-architecture/idempotency-event-driven-systems/'
 tags: ['systems-architecture', 'distributed-systems', 'event-driven']
 ---
 

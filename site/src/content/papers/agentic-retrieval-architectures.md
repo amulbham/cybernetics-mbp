@@ -3,7 +3,6 @@ title: 'Agentic Retrieval Architectures for Production AI Systems'
 pillar: 'ai-systems'
 pubDate: 2026-06-20
 description: 'A survey of retrieval-augmented agent architectures and the tradeoffs between latency, grounding accuracy, and system complexity in production deployments.'
-canonicalURL: 'https://amulbham.com/research-hub/ai-systems/agentic-retrieval-architectures/'
 tags: ['ai-systems', 'retrieval-augmented-generation', 'agents']
 pdfUrl: 'https://amulbham.com/papers/agentic-retrieval-architectures.pdf'
 ---

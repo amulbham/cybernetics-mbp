@@ -26,7 +26,6 @@ const {
 	description,
 	pubDate,
 	dateModified,
-	canonicalURL,
 	tags,
 	pdfUrl,
 	pillar,
@@ -36,6 +35,10 @@ const {
 } = Astro.props;
 const pillarLabel = formatPillarLabel(pillar);
 const pillarUrl = `/research-hub/${pillar}/`;
+// Derived, not frontmatter, so it can never drift from the paper's actual
+// route (this previously happened: a paper's canonicalURL frontmatter still
+// said `systems-architecture` after its `pillar` was changed to `policy-systems`).
+const canonicalURL = new URL(`/research-hub/${pillar}/${id}/`, Astro.site).toString();
 
 const breadcrumbItems = [
 	{ label: 'Research Hub', href: '/research-hub' },
