@@ -86,3 +86,11 @@ const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.
 />
 
 <ClientRouter />
+
+<!-- Cloudflare Web Analytics -->
+<script
+	is:inline
+	type="module"
+	src="https://static.cloudflareinsights.com/beacon.min.js"
+	data-cf-beacon='{"token": "764bccbd70d141d8867cbddfa95f42be"}'></script>
+<!-- End Cloudflare Web Analytics -->
