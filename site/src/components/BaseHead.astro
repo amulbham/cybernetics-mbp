@@ -44,6 +44,8 @@ const ogImageUrl = new URL(image.src, Astro.url).toString();
 <SEO
 	title={title}
 	description={description}
+	noindex={true}
+	nofollow={true}
 	openGraph={{
 		basic: {
 			title,
