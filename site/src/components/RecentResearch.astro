@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import { formatPillarLabel } from '../lib/pillars';
+import Badge from './Badge.astro';
+import Card from './Card.astro';
+import FormattedDate from './FormattedDate.astro';
+
+const recentPapers = (await getCollection('papers'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<section class="recent-research">
+	<div class="section-heading">
+		<h2>Recent Research</h2>
+		<a href="/research-hub">View all research →</a>
+	</div>
+	{
+		recentPapers.length > 0 ? (
+			<ul class="research-feed">
+				{recentPapers.map((paper) => (
+					<Card href={`/research-hub/${paper.data.pillar}/${paper.id}/`}>
+						<Badge variant="pillar" pillar={paper.data.pillar}>
+							{formatPillarLabel(paper.data.pillar)}
+						</Badge>
+						<h3>{paper.data.title}</h3>
+						<p>{paper.data.description}</p>
+						<span class="meta">
+							<FormattedDate date={paper.data.pubDate} />
+						</span>
+					</Card>
+				))}
+			</ul>
+		) : (
+			<p class="empty">No research published yet — check back soon.</p>
+		)
+	}
+</section>
+
+<style>
+	.recent-research {
+		max-width: var(--content-width-wide);
+		margin: 0 auto;
+	}
+	.section-heading {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1em;
+		margin-bottom: 1em;
+	}
+	.section-heading h2 {
+		margin: 0;
+	}
+	.section-heading a {
+		font-size: 0.9em;
+		white-space: nowrap;
+	}
+	.research-feed {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1.5em;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.research-feed h3 {
+		margin: 0.6em 0 0.4em;
+		font-size: 1.15em;
+		color: var(--card-hover-color, var(--text-primary));
+		transition: color 0.15s ease;
+	}
+	.research-feed p {
+		margin: 0 0 0.6em;
+		font-size: 0.95em;
+		color: var(--text-primary);
+	}
+	.empty {
+		color: var(--text-secondary);
+	}
+</style>

@@ -1,18 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
-import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Button from '../components/Button.astro';
-import Card from '../components/Card.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import RecentResearch from '../components/RecentResearch.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { formatPillarLabel } from '../lib/pillars';
-
-const recentPapers = (await getCollection('papers'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
 ---
 
 <!doctype html>
@@ -20,6 +12,10 @@ const recentPapers = (await getCollection('papers'))
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			main {
+				width: var(--content-width-wide);
+				max-width: calc(100% - 2em);
+			}
 			.hero {
 				max-width: var(--content-width-prose);
 				margin: 0 auto 3.5em;
@@ -46,46 +42,6 @@ const recentPapers = (await getCollection('papers'))
 				gap: 0.75em;
 				margin-top: 1.75em;
 			}
-			.recent-research {
-				max-width: var(--content-width-wide);
-				margin: 0 auto;
-			}
-			.section-heading {
-				display: flex;
-				align-items: baseline;
-				justify-content: space-between;
-				gap: 1em;
-				margin-bottom: 1em;
-			}
-			.section-heading h2 {
-				margin: 0;
-			}
-			.section-heading a {
-				font-size: 0.9em;
-				white-space: nowrap;
-			}
-			.research-feed {
-				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-				gap: 1.5em;
-				list-style: none;
-				margin: 0;
-				padding: 0;
-			}
-			.research-feed h3 {
-				margin: 0.6em 0 0.4em;
-				font-size: 1.15em;
-				color: var(--card-hover-color, var(--text-primary));
-				transition: color 0.15s ease;
-			}
-			.research-feed p {
-				margin: 0 0 0.6em;
-				font-size: 0.95em;
-				color: var(--text-primary);
-			}
-			.empty {
-				color: var(--text-secondary);
-			}
 		</style>
 	</head>
 	<body>
@@ -105,32 +61,7 @@ const recentPapers = (await getCollection('papers'))
 				</nav>
 			</section>
 
-			<section class="recent-research">
-				<div class="section-heading">
-					<h2>Recent Research</h2>
-					<a href="/research-hub">View all research →</a>
-				</div>
-				{
-					recentPapers.length > 0 ? (
-						<ul class="research-feed">
-							{recentPapers.map((paper) => (
-								<Card href={`/research-hub/${paper.data.pillar}/${paper.id}/`}>
-									<Badge variant="pillar" pillar={paper.data.pillar}>
-										{formatPillarLabel(paper.data.pillar)}
-									</Badge>
-									<h3>{paper.data.title}</h3>
-									<p>{paper.data.description}</p>
-									<span class="meta">
-										<FormattedDate date={paper.data.pubDate} />
-									</span>
-								</Card>
-							))}
-						</ul>
-					) : (
-						<p class="empty">No research published yet — check back soon.</p>
-					)
-				}
-			</section>
+			<RecentResearch />
 		</main>
 		<Footer />
 	</body>

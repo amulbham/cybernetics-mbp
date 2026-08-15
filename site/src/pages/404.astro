@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Button from '../components/Button.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import RecentResearch from '../components/RecentResearch.astro';
 ---
 
 <!doctype html>
@@ -10,9 +11,13 @@ import Header from '../components/Header.astro';
 	<head>
 		<BaseHead title="Page Not Found" description="This page doesn't exist." noindex />
 		<style>
+			main {
+				width: var(--content-width-wide);
+				max-width: calc(100% - 2em);
+			}
 			.not-found {
 				max-width: var(--content-width-prose);
-				margin: 4em auto;
+				margin: 3em auto 3.5em;
 				text-align: center;
 			}
 			.not-found .code {
@@ -46,9 +51,10 @@ import Header from '../components/Header.astro';
 				<p>The page you're looking for doesn't exist or has moved.</p>
 				<nav class="actions" aria-label="Suggested pages">
 					<Button href="/" variant="primary">Go home</Button>
-					<Button href="/research-hub" variant="secondary">Browse Research Hub</Button>
+					<Button href="/search" variant="secondary">Search</Button>
 				</nav>
 			</section>
+			<RecentResearch />
 		</main>
 		<Footer />
 	</body>

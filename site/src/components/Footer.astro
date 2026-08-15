@@ -1,13 +1,37 @@
 ---
+import SocialLinks from './SocialLinks.astro';
+
 const today = new Date();
 ---
 
-<footer data-pagefind-ignore>&copy; {today.getFullYear()} Amul Bham. All rights reserved.</footer>
+<footer data-pagefind-ignore>
+	<div class="footer-inner">
+		<p class="copyright">&copy; {today.getFullYear()} Amul Bham. All rights reserved.</p>
+		<SocialLinks />
+	</div>
+</footer>
 <style>
 	footer {
 		padding: 2em 1em 6em 1em;
 		background: var(--bg-subtle);
 		color: var(--text-secondary);
-		text-align: center;
+	}
+	.footer-inner {
+		max-width: var(--content-width-wide);
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+	}
+	.copyright {
+		margin: 0;
+	}
+	@media (max-width: 480px) {
+		.footer-inner {
+			justify-content: center;
+			text-align: center;
+		}
 	}
 </style>
