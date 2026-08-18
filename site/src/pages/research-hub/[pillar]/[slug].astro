@@ -19,6 +19,7 @@ const { Content, headings, remarkPluginFrontmatter } = await render(paper);
 	{...paper.data}
 	id={paper.id}
 	minutesRead={remarkPluginFrontmatter.minutesRead}
+	wordCount={remarkPluginFrontmatter.wordCount}
 	headings={headings}
 >
 	<Content />

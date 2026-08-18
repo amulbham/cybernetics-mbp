@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedPapers from '../components/RelatedPapers.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import { SOCIAL_LINKS } from '../consts';
 import { formatPillarLabel } from '../lib/pillars';
 import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
@@ -18,6 +19,7 @@ interface Heading {
 type Props = CollectionEntry<'papers'>['data'] & {
 	id: string;
 	minutesRead?: number;
+	wordCount?: number;
 	headings: Heading[];
 };
 
@@ -31,6 +33,7 @@ const {
 	pillar,
 	id,
 	minutesRead,
+	wordCount,
 	headings,
 } = Astro.props;
 const pillarLabel = formatPillarLabel(pillar);
@@ -39,6 +42,8 @@ const pillarUrl = `/research-hub/${pillar}/`;
 // route (this previously happened: a paper's canonicalURL frontmatter still
 // said `systems-architecture` after its `pillar` was changed to `policy-systems`).
 const canonicalURL = new URL(`/research-hub/${pillar}/${id}/`, Astro.site).toString();
+const ogImagePath = `/open-graph/${pillar}/${id}.png`;
+const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
 
 const breadcrumbItems = [
 	{ label: 'Research Hub', href: '/research-hub' },
@@ -50,6 +55,7 @@ const jsonLd = {
 	'@type': ['ScholarlyArticle', 'Article'],
 	headline: title,
 	description,
+	image: ogImageUrl,
 	datePublished: pubDate.toISOString(),
 	dateModified: (dateModified ?? pubDate).toISOString(),
 	url: canonicalURL,
@@ -57,12 +63,21 @@ const jsonLd = {
 		'@type': 'WebPage',
 		'@id': canonicalURL,
 	},
+	isPartOf: {
+		'@type': 'CollectionPage',
+		name: pillarLabel,
+		url: new URL(pillarUrl, Astro.site).toString(),
+	},
 	articleSection: pillarLabel,
 	keywords: tags.join(', '),
+	inLanguage: 'en-US',
+	...(wordCount && { wordCount }),
+	...(minutesRead && { timeRequired: `PT${minutesRead}M` }),
 	author: {
 		'@type': 'Person',
 		name: 'Amul Bham',
 		url: new URL('/about', Astro.site),
+		sameAs: Object.values(SOCIAL_LINKS),
 	},
 	...(pdfUrl && {
 		encoding: {
@@ -102,7 +117,7 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 		<BaseHead
 			title={title}
 			description={description}
-			image={`/open-graph/${pillar}/${id}.png`}
+			image={ogImagePath}
 			article={{
 				publishedTime: pubDate.toISOString(),
 				modifiedTime: dateModified?.toISOString(),
