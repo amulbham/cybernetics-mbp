@@ -1,9 +1,9 @@
 ---
-// Sticky spatial-orientation aid for long-form papers. Deliberately minimal:
-// no scroll-spy/IntersectionObserver — a static outline of ## sections is
-// enough to answer "where am I", and gating by heading count keeps short
-// papers (4 ## headings each, measured) from getting a token TOC that adds
-// nothing. The financial-aid paper has 15.
+// Sticky spatial-orientation aid for long-form papers. A scroll-spy
+// (IntersectionObserver, see the script below) highlights the current
+// section as the reader scrolls. Gating by heading count keeps short papers
+// (4 ## headings each, measured) from getting a token TOC that adds nothing.
+// The financial-aid paper has 15.
 interface Heading {
 	depth: number;
 	slug: string;
@@ -22,12 +22,14 @@ const sections = headings.filter((heading) => heading.depth === 2);
 
 {
 	sections.length >= MIN_SECTIONS && (
-		<nav class="toc-rail" aria-label="Table of contents">
+		<nav class="toc-rail" aria-label="Table of contents" data-toc-rail>
 			<p class="toc-label meta">Contents</p>
 			<ul>
 				{sections.map((heading) => (
 					<li>
-						<a href={`#${heading.slug}`}>{heading.text}</a>
+						<a href={`#${heading.slug}`} data-toc-link={heading.slug}>
+							{heading.text}
+						</a>
 					</li>
 				))}
 			</ul>
@@ -73,4 +75,57 @@ const sections = headings.filter((heading) => heading.depth === 2);
 	.toc-rail a:focus-visible {
 		color: var(--accent);
 	}
+	.toc-rail a.active {
+		color: var(--accent);
+		font-weight: 700;
+	}
 </style>
+
+<script is:inline>
+	// astro:page-load (not DOMContentLoaded) so this also re-initializes when a
+	// View Transitions client-side navigation lands on a paper page — the TOC
+	// rail and article body are both swapped, so any previous observer and its
+	// element references are stale.
+	(function () {
+		var observer;
+		function initTocScrollSpy() {
+			if (observer) observer.disconnect();
+			var links = document.querySelectorAll('[data-toc-link]');
+			if (links.length === 0) return;
+			var headings = [];
+			links.forEach(function (link) {
+				var slug = link.getAttribute('data-toc-link');
+				var heading = slug && document.getElementById(slug);
+				if (heading) headings.push({ heading: heading, link: link });
+			});
+			if (headings.length === 0) return;
+
+			function setActive(activeLink) {
+				links.forEach(function (l) {
+					l.classList.toggle('active', l === activeLink);
+				});
+			}
+
+			observer = new IntersectionObserver(
+				function (entries) {
+					var visible = entries.filter(function (e) {
+						return e.isIntersecting;
+					});
+					if (visible.length === 0) return;
+					var topmost = visible.reduce(function (a, b) {
+						return a.boundingClientRect.top < b.boundingClientRect.top ? a : b;
+					});
+					var match = headings.find(function (h) {
+						return h.heading === topmost.target;
+					});
+					if (match) setActive(match.link);
+				},
+				{ rootMargin: '0px 0px -70% 0px', threshold: 0 }
+			);
+			headings.forEach(function (h) {
+				observer.observe(h.heading);
+			});
+		}
+		document.addEventListener('astro:page-load', initTocScrollSpy);
+	})();
+</script>

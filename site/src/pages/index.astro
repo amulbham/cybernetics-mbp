@@ -4,13 +4,42 @@ import Button from '../components/Button.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import RecentResearch from '../components/RecentResearch.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+
+// Homepage entity graph: establishes Amul Bham as a disambiguated Person
+// entity (linked to LinkedIn/Substack/GitHub/ORCID via the same SOCIAL_LINKS
+// used in PaperLayout.astro's author.sameAs) and the site itself as a
+// WebSite entity, for crawler/LLM entity association — see AGENTS.md's
+// "Content-section transforms" area for why SOCIAL_LINKS is the single
+// source of truth these both draw from.
+const personJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Amul Bham',
+	url: new URL('/about', Astro.site).toString(),
+	sameAs: Object.values(SOCIAL_LINKS),
+};
+
+const websiteJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: SITE_TITLE,
+	description: SITE_DESCRIPTION,
+	url: Astro.site?.toString(),
+	author: { '@type': 'Person', name: 'Amul Bham' },
+};
+
+// Escape `<` so JSON-LD can't break out of the script tag — same guard as PaperLayout.astro.
+const personJsonLdString = JSON.stringify(personJsonLd).replace(/</g, '\\u003c');
+const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script type="application/ld+json" set:html={personJsonLdString} />
+		<script type="application/ld+json" set:html={websiteJsonLdString} />
 		<style>
 			main {
 				width: var(--content-width-wide);

@@ -49,6 +49,13 @@
 	--pillar-seo-architecture: #0e9f6e;
 	--pillar-systems-architecture: #7c3aed;
 	--pillar-policy-systems: #b45309;
+
+	/* Admonition severity colors — same muted-tint treatment as pillar accents. */
+	--alert-note: #0969da;
+	--alert-tip: #1a7f37;
+	--alert-important: #8250df;
+	--alert-warning: #9a6700;
+	--alert-caution: #cf222e;
 }
 
 :root[data-theme='dark'] {
@@ -209,6 +216,81 @@ hr {
 .references-list li {
 	margin-bottom: 0.75em;
 }
+
+/* Table wrapper — produced by the rehype-table-wrap build-time transform
+   (src/lib/rehype-table-wrap.mjs). Unscoped for the same reason as
+   .references above: it targets markdown content injected via <slot />. */
+.table-container {
+	margin: 2em 0;
+	overflow-x: auto;
+}
+.table-container table {
+	width: auto;
+	min-width: 100%;
+}
+.table-container:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+/* Admonitions — produced by the remark-github-blockquote-alert transform
+   (GFM alert syntax, e.g. `> [!WARNING]`), re-themed here with this site's
+   own tokens instead of the package's default GitHub-styled CSS, so it
+   stays consistent in dark mode. Unscoped for the same reason as above. */
+.markdown-alert {
+	margin: 1.5em 0;
+	padding: 1em 1.25em;
+	border-left: 4px solid var(--alert-note);
+	border-radius: var(--radius-sm);
+	background: color-mix(in oklab, var(--alert-note) 8%, transparent);
+}
+.markdown-alert-title {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin: 0 0 0.5em;
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--alert-note);
+}
+.markdown-alert-title .octicon {
+	fill: currentColor;
+}
+.markdown-alert p:last-child {
+	margin-bottom: 0;
+}
+.markdown-alert-tip {
+	border-left-color: var(--alert-tip);
+	background: color-mix(in oklab, var(--alert-tip) 8%, transparent);
+}
+.markdown-alert-tip .markdown-alert-title {
+	color: var(--alert-tip);
+}
+.markdown-alert-important {
+	border-left-color: var(--alert-important);
+	background: color-mix(in oklab, var(--alert-important) 8%, transparent);
+}
+.markdown-alert-important .markdown-alert-title {
+	color: var(--alert-important);
+}
+.markdown-alert-warning {
+	border-left-color: var(--alert-warning);
+	background: color-mix(in oklab, var(--alert-warning) 8%, transparent);
+}
+.markdown-alert-warning .markdown-alert-title {
+	color: var(--alert-warning);
+}
+.markdown-alert-caution {
+	border-left-color: var(--alert-caution);
+	background: color-mix(in oklab, var(--alert-caution) 8%, transparent);
+}
+.markdown-alert-caution .markdown-alert-title {
+	color: var(--alert-caution);
+}
+
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;

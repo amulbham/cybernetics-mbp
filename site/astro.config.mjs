@@ -3,8 +3,10 @@
 import mdx from '@astrojs/mdx';
 import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
+import { remarkAlert } from 'remark-github-blockquote-alert';
 import { defineConfig, fontProviders } from 'astro/config';
 import { rehypeReferences } from './src/lib/rehype-references.mjs';
+import { rehypeTableWrap } from './src/lib/rehype-table-wrap.mjs';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
 
 // https://astro.build/config
@@ -13,8 +15,8 @@ export default defineConfig({
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		processor: unified({
-			remarkPlugins: [remarkReadingTime],
-			rehypePlugins: [rehypeReferences],
+			remarkPlugins: [remarkReadingTime, remarkAlert],
+			rehypePlugins: [rehypeReferences, rehypeTableWrap],
 		}),
 		shikiConfig: {
 			themes: {
