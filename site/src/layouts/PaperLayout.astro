@@ -176,8 +176,11 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 					)
 				}
 			</Fragment>
+			<Fragment slot="mobile-toc">
+				<TableOfContents headings={headings} variant="mobile" />
+			</Fragment>
 			<Fragment slot="toc">
-				<TableOfContents headings={headings} />
+				<TableOfContents headings={headings} variant="rail" />
 			</Fragment>
 			<slot />
 			<RelatedPapers currentId={id} pillar={pillar} tags={tags} />

@@ -5,7 +5,6 @@ Things flagged during past work but deliberately not done yet, plus open questio
 ## Blocking the actual public launch
 
 - **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state."
-- `/about` is still the starter template's Lorem Ipsum placeholder text. Content gap, not a code task.
 - Hero images are still stock placeholders (`blog-placeholder-*.jpg`). `alt=""` is *correct* for them right now (purely decorative placeholders) but will need real alt text once real images go in — don't just leave `alt=""` when the images become real.
 
 ## Worth a visual check

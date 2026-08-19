@@ -1,63 +1,206 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE, SOCIAL_LINKS } from '../consts';
+
+const pageTitle = `About — ${SITE_TITLE}`;
+const pageDescription =
+	'Systems researcher working at the intersection of AI infrastructure, technical SEO architecture, and policy rules engines.';
+
+const sameAsLinks = Object.values(SOCIAL_LINKS);
+const canonicalURL = new URL('/about/', Astro.site).toString();
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfilePage',
+	dateCreated: '2026-08-01T00:00:00Z',
+	dateModified: new Date().toISOString(),
+	mainEntity: {
+		'@type': 'Person',
+		name: 'Amul Bham',
+		jobTitle: 'Systems & AI Researcher',
+		url: canonicalURL,
+		sameAs: sameAsLinks,
+		knowsAbout: [
+			'AI Systems & Infrastructure',
+			'Information Architecture & Technical SEO',
+			'Distributed Systems & Event-Driven Architecture',
+			'Institutional Policy Rules Engines',
+		],
+	},
+};
+
+const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={pageTitle} description={pageDescription} />
+		<script type="application/ld+json" set:html={jsonLdString} />
+		<style>
+			main {
+				width: var(--content-width-prose);
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 3em 1em;
+			}
+			.about-header {
+				margin-bottom: 2.5em;
+				text-align: left;
+			}
+			.eyebrow {
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+				color: var(--accent);
+				margin-bottom: 0.75em;
+			}
+			.about-header h1 {
+				margin-bottom: 0.5em;
+			}
+			.lead {
+				font-size: 1.15em;
+				line-height: 1.6;
+				color: var(--text-primary);
+			}
+			.pillar-grid {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 1.5em;
+				margin: 2em 0;
+			}
+			.pillar-card {
+				padding: 1.25em 1.5em;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-md);
+				background-color: var(--bg-subtle);
+			}
+			.pillar-card h3 {
+				font-size: 1.1em;
+				margin: 0 0 0.5em 0;
+			}
+			.pillar-card p {
+				margin: 0;
+				font-size: 0.95em;
+				color: var(--text-secondary);
+				line-height: 1.5;
+			}
+			.credentials-list {
+				list-style: none;
+				padding: 0;
+				margin: 1.5em 0;
+				display: flex;
+				flex-direction: column;
+				gap: 0.75em;
+			}
+			.credentials-list li {
+				font-size: 0.95em;
+				display: flex;
+				align-items: baseline;
+				gap: 0.5em;
+			}
+			.credentials-list strong {
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				text-transform: uppercase;
+				color: var(--text-secondary);
+				min-width: 110px;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="about-header">
+				<p class="eyebrow">Researcher Profile</p>
+				<h1>Amul Bham</h1>
+				<p class="lead">
+					Independent systems researcher and engineer investigating how AI infrastructure,
+					information retrieval, and deterministic policy systems converge in production.
+				</p>
+			</div>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			<section class="prose">
+				<h2>Research Focus</h2>
+				<p>
+					My work explores systems where published rules, economic incentives, and computational
+					models meet. Rather than treating software engineering, search mechanics, and policy as
+					siloed domains, I analyze them as structural architectures:
+				</p>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+				<div class="pillar-grid">
+					<div class="pillar-card">
+						<h3>AI Systems</h3>
+						<p>
+							Agentic retrieval architectures, deterministic pipelines, and the operational
+							tradeoffs of running language models at production scale.
+						</p>
+					</div>
+					<div class="pillar-card">
+						<h3>SEO Architecture</h3>
+						<p>
+							Information architecture, crawl graph topology, and structured data deployed as
+							foundational software infrastructure.
+						</p>
+					</div>
+					<div class="pillar-card">
+						<h3>Systems Architecture</h3>
+						<p>
+							Distributed systems mechanics, idempotency protocols, and fault-tolerant event-driven
+							pipelines.
+						</p>
+					</div>
+					<div class="pillar-card">
+						<h3>Policy Systems</h3>
+						<p>
+							Institutional and financial policies modeled as deterministic compilers and rules
+							engines, examining rational-actor adaptations.
+						</p>
+					</div>
+				</div>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+				<h2>Methodology</h2>
+				<p>
+					All research papers published here prioritize reproducible systems models, empirical
+					data, and explicit formal protocols over speculative commentary.
+				</p>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+				<h2>Verified Credentials & Channels</h2>
+				<ul class="credentials-list">
+					<li>
+						<strong>ORCID</strong>
+						<a href={SOCIAL_LINKS.orcid} target="_blank" rel="noopener noreferrer">
+							0009-0009-7660-4031
+						</a>
+					</li>
+					<li>
+						<strong>LinkedIn</strong>
+						<a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
+							linkedin.com/in/amul-bham
+						</a>
+					</li>
+					<li>
+						<strong>Substack</strong>
+						<a href={SOCIAL_LINKS.substack} target="_blank" rel="noopener noreferrer">
+							amulbham.substack.com
+						</a>
+					</li>
+					<li>
+						<strong>GitHub</strong>
+						<a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">
+							github.com/amulbham
+						</a>
+					</li>
+					<li>
+						<strong>Correspondence</strong>
+						<a href="mailto:amul.bham@gmail.com">amul.bham@gmail.com</a>
+					</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

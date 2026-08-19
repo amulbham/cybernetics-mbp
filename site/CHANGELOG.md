@@ -2,6 +2,13 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-19 (latest) — Custom favicon, mobile TOC disclosure, high-grade table styling, entity-aligned About page
+
+- **Custom Favicon Assets**: Replaced starter Astro rocket logo with custom "AB" brand monogram. Generated `favicon.svg`, `favicon-512.png`, `favicon-32x32.png`, `favicon.ico`, and `apple-touch-icon.png` (180x180) in `public/`. Wired full icon suite into `BaseHead.astro` and replaced placeholder fallback OG images with the brand asset.
+- **Mobile Table of Contents (`<details class="toc-mobile">`)**: Added native HTML disclosure widget for mobile viewports (< 1100px) in `TableOfContents.astro`, slotted before article body in `ArticleShell.astro`. Integrated auto-collapse JavaScript: tapping any section link instantly removes the `open` attribute so the menu closes immediately after navigation without obscuring reader view. Desktop sticky rail with `IntersectionObserver` scroll-spy continues to serve >= 1100px viewports seamlessly.
+- **High-Grade Data Tables & Figures**: Elevated markdown `<table>` elements and `.table-container` in `global.css` with `border-collapse: collapse;`, subtle `--bg-subtle` headers, monospace uppercase metadata labels, cell padding, horizontal scroll protection, and row hover states. Added `<figure>` and `<figcaption>` typography styling.
+- **Entity-Aligned `/about` Page**: Replaced starter `Lorem Ipsum` placeholder with structured researcher profile detailing research pillars (AI Systems, SEO Architecture, Systems Architecture, Policy Systems), methodology, verified identifiers (ORCID, LinkedIn, Substack, GitHub, email), and Schema.org `ProfilePage` + `Person` JSON-LD.
+
 ## 2026-08-18 (latest) — TOC scroll-spy, table wrapper, homepage entity schema, admonitions
 
 An external plan was proposed (five items across three phases) and revised before building: verified real repo state first — no paper used footnote syntax anywhere, so the sidenote/footnote phase was pulled out to `ROADMAP.md` rather than built speculatively; confirmed the existing `MIN_SECTIONS = 6` TOC threshold was a deliberate measured decision, not a guess, and kept it rather than silently lowering it to 4 as the plan proposed.

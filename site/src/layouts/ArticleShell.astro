@@ -41,6 +41,7 @@ const { title, pubDate, updatedDate, minutesRead } = Astro.props;
 					<slot name="after-title" />
 					<hr />
 				</div>
+				<slot name="mobile-toc" />
 				<slot />
 			</div>
 			<slot name="toc" />

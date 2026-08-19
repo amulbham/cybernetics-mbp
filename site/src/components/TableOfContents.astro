@@ -12,16 +12,38 @@ interface Heading {
 
 interface Props {
 	headings: Heading[];
+	variant?: 'rail' | 'mobile' | 'both';
 }
 
 const MIN_SECTIONS = 6;
 
-const { headings } = Astro.props;
+const { headings, variant = 'both' } = Astro.props;
 const sections = headings.filter((heading) => heading.depth === 2);
+const showToc = sections.length >= MIN_SECTIONS;
 ---
 
 {
-	sections.length >= MIN_SECTIONS && (
+	showToc && (variant === 'mobile' || variant === 'both') && (
+		<details class="toc-mobile" data-toc-mobile>
+			<summary>
+				<span>Table of Contents</span>
+				<span class="toc-count">({sections.length} sections)</span>
+			</summary>
+			<ul>
+				{sections.map((heading) => (
+					<li>
+						<a href={`#${heading.slug}`} data-toc-mobile-link={heading.slug}>
+							{heading.text}
+						</a>
+					</li>
+				))}
+			</ul>
+		</details>
+	)
+}
+
+{
+	showToc && (variant === 'rail' || variant === 'both') && (
 		<nav class="toc-rail" aria-label="Table of contents" data-toc-rail>
 			<p class="toc-label meta">Contents</p>
 			<ul>
@@ -88,7 +110,19 @@ const sections = headings.filter((heading) => heading.depth === 2);
 	// element references are stale.
 	(function () {
 		var observer;
-		function initTocScrollSpy() {
+		function initToc() {
+			// 1. Mobile TOC: automatically collapse <details> when a section link is tapped
+			var mobileDetails = document.querySelector('[data-toc-mobile]');
+			var mobileLinks = document.querySelectorAll('[data-toc-mobile-link]');
+			if (mobileDetails && mobileLinks.length > 0) {
+				mobileLinks.forEach(function (link) {
+					link.addEventListener('click', function () {
+						mobileDetails.removeAttribute('open');
+					});
+				});
+			}
+
+			// 2. Desktop TOC rail scroll-spy
 			if (observer) observer.disconnect();
 			var links = document.querySelectorAll('[data-toc-link]');
 			if (links.length === 0) return;
@@ -126,6 +160,6 @@ const sections = headings.filter((heading) => heading.depth === 2);
 				observer.observe(h.heading);
 			});
 		}
-		document.addEventListener('astro:page-load', initTocScrollSpy);
+		document.addEventListener('astro:page-load', initToc);
 	})();
 </script>
