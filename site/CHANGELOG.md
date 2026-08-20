@@ -2,7 +2,11 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
-## 2026-08-19 (latest) — Hero images and inline figures for papers (Sprint A of a multi-sprint plan)
+## 2026-08-19 (latest) — Reference anchor IDs (Sprint B of the multi-sprint plan)
+
+Every `<li>` in a paper's `.references-list` now gets `id="ref-N"` (1-based document order) via `rehype-references.mjs`, enabling manual `[Bennett, 1987](#ref-1)`-style links from body text. Automatic detection/linking of the financial-aid paper's ~19 existing plain-text citations was deliberately not attempted in this pass — real parsing complexity confirmed against the actual content (multi-source semicolon groups, `et al.`, at least one `n.d.` entry with no year) — logged as its own future phase in `ROADMAP.md` rather than rushed.
+
+## 2026-08-19 (earlier) — Hero images and inline figures for papers (Sprint A of a multi-sprint plan)
 
 First sprint of a plan covering figures, citation linking, and visual polish — see `ROADMAP.md`/`AGENTS.md` for the rest. Reviewed the prior day's other-platform session first: found `figure`/`figcaption` CSS already added with nothing producing those elements, and two unresolved issues logged to `ROADMAP.md` (the TOC scroll-spy script running twice per page; `favicon.svg` now a 127KB embedded PNG instead of a real vector).
 
