@@ -5,7 +5,7 @@ Things flagged during past work but deliberately not done yet, plus open questio
 ## Blocking the actual public launch
 
 - **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state."
-- `blog` collection's hero images are still stock placeholders (`blog-placeholder-*.jpg`), moot until the blog collection itself is repopulated (see "Blog collection" below). `alt=""` is *correct* for them right now (purely decorative placeholders) but will need real alt text once real images go in. Papers now have their own `heroImage`/`heroImageAlt` fields (added 2026-08-19) which already require real alt text via a schema `.refine()` — this note is blog-specific only.
+- `blog-placeholder-*.jpg` stock images are unused now that the blog collection's first real post (2026-08-19) didn't use a hero image — they were only ever the starter template's leftover placeholders and can be deleted whenever someone notices them in `src/assets/`.
 
 ## Worth a visual check
 
@@ -14,17 +14,12 @@ Things flagged during past work but deliberately not done yet, plus open questio
 ## Content-shaped (grow the corpus, these activate on their own)
 
 - **Related-papers module** is fully built and correct, but won't visibly show anything until at least two papers share a pillar or a tag — right now there's only 1 published paper (the 3 sample papers were removed 2026-08-19), so it's empty everywhere by construction. Nothing to build; it activates naturally as more real papers get published.
-- **Tag governance** (raised by the user, discussed and deliberately deferred — see `CHANGELOG.md` 2026-08-14 entry for the reasoning): a hard `z.enum()` on tags was considered and rejected as disproportionate for a solo-author site; a thin-content generation threshold for `/tags/[tag]/` pages was agreed on in principle but would currently delete all 8 existing tag pages (every tag has a count of exactly 1 right now). Revisit once there's actual tag overlap to threshold against — check current counts before picking a number, the way the TOC threshold was picked from real data rather than guessed.
+- **Tag governance** (raised by the user, discussed and deliberately deferred — see `CHANGELOG.md` 2026-08-14 entry for the reasoning): a hard `z.enum()` on tags was considered and rejected as disproportionate for a solo-author site; a thin-content generation threshold for `/tags/[tag]/` pages was agreed on in principle but would currently delete all 12 existing tag pages (every tag has a count of exactly 1 right now, across both `papers` and `blog` — the two collections were merged into one tag system 2026-08-19). Revisit once there's actual tag overlap to threshold against — check current counts before picking a number, the way the TOC threshold was picked from real data rather than guessed.
 - **`policy-systems` pillar** currently has the only published paper; the other 3 pillars (`ai-systems`, `seo-architecture`, `systems-architecture`) currently have zero — confirmed `research-hub/[pillar]/index.astro` and `research-hub/index.astro` both handle this gracefully (no page/section generated for a pillar with no papers, not an empty broken section). Fills in naturally as real papers get added to those pillars.
 
 ## Polish, not urgent (continued)
 
 - **`favicon.svg` is a 127KB base64-embedded PNG, not a real vector.** Found during review of the other-platform session's work (2026-08-19). The previous favicon was a genuine `<path>` (~600 bytes) with a `@media (prefers-color-scheme: dark)` fill-color swap; the replacement (the "AB" monogram) lost that dark-mode reactivity entirely (one fixed raster image regardless of theme) and is 200x larger. **Decision made**: leave it as-is for now — user's call, revisit only if it becomes visually bothersome. Not blocking anything.
-
-## Blog collection
-
-- `blog` collection, layout, and routes are fully intact (schema, `BlogPost.astro`, `/blog` index and `[...slug]` route) but have **zero posts** and no nav link (removed in Phase 3 for having nothing to link to). Two live options, no decision made yet: repopulate it, or formally retire the collection/routes/layout if it's not going to be used. Either is a small, contained change whenever there's an answer.
-- `BlogPosting` JSON-LD for blog posts was deferred for the same reason — nothing to verify it against yet.
 
 ## Polish, not urgent
 

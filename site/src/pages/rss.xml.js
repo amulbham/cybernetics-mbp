@@ -8,9 +8,10 @@ export async function GET(context) {
 	const items = [
 		...posts.map((post) => ({
 			title: post.data.title,
-			description: post.data.description,
+			description: post.data.excerpt,
 			pubDate: post.data.pubDate,
 			link: `/blog/${post.id}/`,
+			categories: post.data.tags,
 		})),
 		...papers.map((paper) => ({
 			title: paper.data.title,

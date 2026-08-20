@@ -7,14 +7,28 @@ const blog = defineCollection({
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
 	// Type-check frontmatter using a schema
 	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-		}),
+		z
+			.object({
+				title: z.string(),
+				// Full-length version — used for the BlogPosting JSON-LD `description`.
+				// NOT the <meta name="description"> tag or any listing blurb — see
+				// `excerpt` and the matching note on the papers schema below.
+				description: z.string(),
+				// Short (~155-160 char target) summary — <meta name="description">,
+				// blog/index.astro cards, RSS. Mirrors the papers collection's split,
+				// added 2026-08-19 when the blog collection was revived.
+				excerpt: z.string().max(200),
+				// Transform string to Date object
+				pubDate: z.coerce.date(),
+				updatedDate: z.coerce.date().optional(),
+				tags: z.array(z.string()).default([]),
+				heroImage: z.optional(image()),
+				heroImageAlt: z.string().optional(),
+			})
+			.refine((data) => !data.heroImage || !!data.heroImageAlt, {
+				message: 'heroImageAlt is required whenever heroImage is set',
+				path: ['heroImageAlt'],
+			}),
 });
 
 const papers = defineCollection({

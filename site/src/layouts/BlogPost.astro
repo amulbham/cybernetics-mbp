@@ -1,18 +1,118 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { SOCIAL_LINKS } from '../consts';
+import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
 
-type Props = CollectionEntry<'blog'>['data'] & { minutesRead?: number };
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
 
-const { title, description, pubDate, updatedDate, heroImage, minutesRead } = Astro.props;
+type Props = CollectionEntry<'blog'>['data'] & {
+	id: string;
+	minutesRead?: number;
+	wordCount?: number;
+	headings: Heading[];
+};
+
+const {
+	title,
+	description,
+	excerpt,
+	pubDate,
+	updatedDate,
+	tags,
+	id,
+	minutesRead,
+	wordCount,
+	headings,
+	heroImage,
+	heroImageAlt,
+} = Astro.props;
+
+// Derived, not frontmatter — mirrors PaperLayout.astro's canonicalURL, for
+// the same reason: it can never drift from the actual route.
+const canonicalURL = new URL(`/blog/${id}/`, Astro.site).toString();
+const ogImagePath = `/open-graph/blog/${id}.png`;
+const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
+
+const breadcrumbItems = [{ label: 'Blog', href: '/blog' }];
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: title,
+	description,
+	image: ogImageUrl,
+	datePublished: pubDate.toISOString(),
+	dateModified: (updatedDate ?? pubDate).toISOString(),
+	url: canonicalURL,
+	mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+	keywords: tags.join(', '),
+	inLanguage: 'en-US',
+	...(wordCount && { wordCount }),
+	...(minutesRead && { timeRequired: `PT${minutesRead}M` }),
+	author: {
+		'@type': 'Person',
+		name: 'Amul Bham',
+		url: new URL('/about', Astro.site),
+		sameAs: Object.values(SOCIAL_LINKS),
+	},
+};
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		...breadcrumbItems.map((item, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			name: item.label,
+			item: new URL(item.href, Astro.site).toString(),
+		})),
+		{
+			'@type': 'ListItem',
+			position: breadcrumbItems.length + 1,
+			name: title,
+			item: canonicalURL,
+		},
+	],
+};
+
+// Escape `<` so a value like `</script>` in frontmatter can't break out of the JSON-LD blocks.
+const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c');
 ---
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={excerpt} image={ogImagePath} />
+		<script type="application/ld+json" set:html={jsonLdString} />
+		<script type="application/ld+json" set:html={breadcrumbJsonLdString} />
 		<style>
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 0.5em;
+				margin: 0 0 1em;
+				padding: 0;
+				list-style: none;
+			}
+			.tags a {
+				text-decoration: none;
+			}
+			.tags a:hover :global(.badge),
+			.tags a:focus-visible :global(.badge) {
+				background-color: var(--border);
+			}
 			.hero-image {
 				width: 100%;
 			}
@@ -28,9 +128,37 @@ const { title, description, pubDate, updatedDate, heroImage, minutesRead } = Ast
 	<body>
 		<ArticleShell title={title} pubDate={pubDate} updatedDate={updatedDate} minutesRead={minutesRead}>
 			<Fragment slot="hero">
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
+				{
+					heroImage && (
+						<div class="hero-image">
+							<Image width={1020} height={510} src={heroImage} alt={heroImageAlt ?? ''} />
+						</div>
+					)
+				}
+			</Fragment>
+			<Fragment slot="before-title">
+				<Breadcrumbs items={breadcrumbItems} />
+			</Fragment>
+			<Fragment slot="after-title">
+				{
+					tags.length > 0 && (
+						<ul class="tags">
+							{tags.map((tag) => (
+								<li>
+									<a href={`/tags/${slugifyTag(tag)}/`}>
+										<Badge variant="neutral">{tag}</Badge>
+									</a>
+								</li>
+							))}
+						</ul>
+					)
+				}
+			</Fragment>
+			<Fragment slot="mobile-toc">
+				<TableOfContents headings={headings} variant="mobile" />
+			</Fragment>
+			<Fragment slot="toc">
+				<TableOfContents headings={headings} variant="rail" />
 			</Fragment>
 			<slot />
 		</ArticleShell>

@@ -1,11 +1,10 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
+import Card from '../../components/Card.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
+import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -15,101 +14,65 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title="Blog"
+			description="Essays and shorter pieces from Amul Bham, alongside the formal research in the Research Hub."
+		/>
 		<style>
 			main {
 				width: var(--content-width-wide);
+				max-width: calc(100% - 2em);
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
+			.intro {
+				color: var(--text-primary);
+				margin-bottom: 2.5em;
+			}
+			.entries {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5em;
+				list-style: none;
 				margin: 0;
 				padding: 0;
 			}
-			ul li {
-				width: calc(50% - 1rem);
+			.entries h3 {
+				margin: 0.6em 0 0.4em;
+				font-size: 1.2em;
+				color: var(--card-hover-color, var(--text-primary));
+				transition: color 0.15s ease;
 			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: var(--radius-lg);
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
+			.entries p {
 				margin: 0;
 				color: var(--text-primary);
-				line-height: 1;
+				font-size: 0.95em;
 			}
-			.date {
-				margin: 0;
+			.empty {
 				color: var(--text-secondary);
-				font-family: var(--font-mono);
-				letter-spacing: 0.02em;
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: var(--accent);
-			}
-			ul a:hover img {
-				box-shadow: var(--shadow-md);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+			<h1>Blog</h1>
+			<p class="intro">Essays and shorter pieces — the formal research lives in the Research Hub.</p>
+			{
+				posts.length > 0 ? (
+					<ul class="entries">
+						{posts.map((post) => (
+							<Card href={`/blog/${post.id}/`}>
+								<span class="meta">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+								<h3>{post.data.title}</h3>
+								<p>{post.data.excerpt}</p>
+							</Card>
+						))}
+					</ul>
+				) : (
+					<p class="empty">No posts published yet — check back soon.</p>
+				)
+			}
 		</main>
 		<Footer />
 	</body>

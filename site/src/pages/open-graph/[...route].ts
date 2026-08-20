@@ -12,18 +12,24 @@ const PILLAR_RGB: Record<string, [number, number, number]> = {
 	'systems-architecture': [124, 58, 237],
 	'policy-systems': [180, 83, 9],
 };
+// Mirrors --accent's dark-theme value in global.css — blog posts have no
+// pillar to derive a border color from, so they get the plain accent instead.
+const ACCENT_RGB: [number, number, number] = [91, 107, 255];
 
-// Paper `description` frontmatter is the full abstract — too long for the
-// image canvas. Truncate to a short blurb at a word boundary.
+// `description` frontmatter is the full abstract — too long for the image
+// canvas. Truncate to a short blurb at a word boundary.
 function truncate(text: string, maxLength: number): string {
 	if (text.length <= maxLength) return text;
 	return text.slice(0, maxLength).replace(/\s+\S*$/, '') + '…';
 }
 
-const papers = await getCollection('papers');
-const pages = Object.fromEntries(
-	papers.map((paper) => [`${paper.data.pillar}/${paper.id}`, paper.data]),
-);
+const [papers, posts] = await Promise.all([getCollection('papers'), getCollection('blog')]);
+const pages = {
+	...Object.fromEntries(papers.map((paper) => [`${paper.data.pillar}/${paper.id}`, paper.data])),
+	// Namespaced under `blog/` (papers are namespaced under their pillar) so
+	// the two id spaces can never collide.
+	...Object.fromEntries(posts.map((post) => [`blog/${post.id}`, post.data])),
+};
 
 export const { getStaticPaths, GET } = await OGImageRoute({
 	pages,
@@ -32,7 +38,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
 		description: truncate(page.description, 180),
 		bgGradient: [DARK_BG],
 		border: {
-			color: PILLAR_RGB[page.pillar] ?? TEXT_SECONDARY,
+			color: 'pillar' in page ? (PILLAR_RGB[page.pillar] ?? TEXT_SECONDARY) : ACCENT_RGB,
 			width: 8,
 			side: 'block-start',
 		},
