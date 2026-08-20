@@ -5,7 +5,7 @@ Things flagged during past work but deliberately not done yet, plus open questio
 ## Blocking the actual public launch
 
 - **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state."
-- Hero images are still stock placeholders (`blog-placeholder-*.jpg`). `alt=""` is *correct* for them right now (purely decorative placeholders) but will need real alt text once real images go in — don't just leave `alt=""` when the images become real.
+- `blog` collection's hero images are still stock placeholders (`blog-placeholder-*.jpg`), moot until the blog collection itself is repopulated (see "Blog collection" below). `alt=""` is *correct* for them right now (purely decorative placeholders) but will need real alt text once real images go in. Papers now have their own `heroImage`/`heroImageAlt` fields (added 2026-08-19) which already require real alt text via a schema `.refine()` — this note is blog-specific only.
 
 ## Worth a visual check
 
@@ -16,6 +16,11 @@ Things flagged during past work but deliberately not done yet, plus open questio
 - **Related-papers module** is fully built and correct, but won't visibly show anything until at least two papers share a pillar or a tag — right now there are 4 papers across 4 distinct pillars with zero tag overlap, so it's empty everywhere. Nothing to build; it activates naturally as more papers get published.
 - **Tag governance** (raised by the user, discussed and deliberately deferred — see `CHANGELOG.md` 2026-08-14 entry for the reasoning): a hard `z.enum()` on tags was considered and rejected as disproportionate for a solo-author site; a thin-content generation threshold for `/tags/[tag]/` pages was agreed on in principle but would currently delete all 17 existing tag pages (every tag has a count of exactly 1 right now). Revisit once there's actual tag overlap to threshold against — check current counts before picking a number, the way the TOC threshold was picked from real data rather than guessed.
 - **`policy-systems` pillar** currently has one paper. Not a problem, just worth knowing the pillar landing page and hub grouping are effectively single-item sections right now.
+
+## Found during review of the other-platform session's work (2026-08-19)
+
+- **TOC scroll-spy script runs twice per paper page.** `PaperLayout.astro` renders `<TableOfContents>` twice (`variant="mobile"` and `variant="rail"`), and each instance carries its own `<script is:inline>`, so `initToc()` and its `IntersectionObserver` get set up twice on every page load — confirmed in the built HTML (`initToc` defined twice, `astro:page-load` registered twice). Harmless today (both do the same redundant DOM work), but should be consolidated into one script instance.
+- **`favicon.svg` is a 127KB base64-embedded PNG, not a real vector.** The previous favicon was a genuine `<path>` (~600 bytes) with a `@media (prefers-color-scheme: dark)` fill-color swap; the replacement lost that dark-mode reactivity entirely (one fixed raster image regardless of theme) and is 200x larger. Undecided whether to restore a real small vector monogram.
 
 ## Blog collection
 
