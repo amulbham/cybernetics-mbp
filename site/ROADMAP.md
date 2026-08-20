@@ -19,8 +19,7 @@ Things flagged during past work but deliberately not done yet, plus open questio
 
 ## Found during review of the other-platform session's work (2026-08-19)
 
-- **TOC scroll-spy script runs twice per paper page.** `PaperLayout.astro` renders `<TableOfContents>` twice (`variant="mobile"` and `variant="rail"`), and each instance carries its own `<script is:inline>`, so `initToc()` and its `IntersectionObserver` get set up twice on every page load — confirmed in the built HTML (`initToc` defined twice, `astro:page-load` registered twice). Harmless today (both do the same redundant DOM work), but should be consolidated into one script instance.
-- **`favicon.svg` is a 127KB base64-embedded PNG, not a real vector.** The previous favicon was a genuine `<path>` (~600 bytes) with a `@media (prefers-color-scheme: dark)` fill-color swap; the replacement lost that dark-mode reactivity entirely (one fixed raster image regardless of theme) and is 200x larger. Undecided whether to restore a real small vector monogram.
+- **`favicon.svg` is a 127KB base64-embedded PNG, not a real vector.** The previous favicon was a genuine `<path>` (~600 bytes) with a `@media (prefers-color-scheme: dark)` fill-color swap; the replacement lost that dark-mode reactivity entirely (one fixed raster image regardless of theme) and is 200x larger. Undecided whether to restore a real small vector monogram — needs a decision, not just a code fix (someone has to produce the vector art).
 
 ## Blog collection
 

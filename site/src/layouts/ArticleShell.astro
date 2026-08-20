@@ -87,3 +87,72 @@ const { title, pubDate, updatedDate, minutesRead } = Astro.props;
 		font-style: italic;
 	}
 </style>
+
+<script is:inline>
+	// Lives here, not in TableOfContents.astro, because PaperLayout renders
+	// that component twice (variant="mobile" + "rail") — a script inside a
+	// twice-rendered component runs twice. ArticleShell renders exactly once
+	// per page, so this initializes exactly once regardless of how many TOC
+	// variants are on the page. No-ops harmlessly on BlogPost pages, which
+	// don't render a TableOfContents at all (both querySelectorAll calls just
+	// return empty).
+	//
+	// astro:page-load (not DOMContentLoaded) so this also re-initializes when
+	// a View Transitions client-side navigation lands on a paper page — the
+	// TOC rail and article body are both swapped, so any previous observer
+	// and its element references are stale.
+	(function () {
+		var observer;
+		function initToc() {
+			// 1. Mobile TOC: automatically collapse <details> when a section link is tapped
+			var mobileDetails = document.querySelector('[data-toc-mobile]');
+			var mobileLinks = document.querySelectorAll('[data-toc-mobile-link]');
+			if (mobileDetails && mobileLinks.length > 0) {
+				mobileLinks.forEach(function (link) {
+					link.addEventListener('click', function () {
+						mobileDetails.removeAttribute('open');
+					});
+				});
+			}
+
+			// 2. Desktop TOC rail scroll-spy
+			if (observer) observer.disconnect();
+			var links = document.querySelectorAll('[data-toc-link]');
+			if (links.length === 0) return;
+			var headings = [];
+			links.forEach(function (link) {
+				var slug = link.getAttribute('data-toc-link');
+				var heading = slug && document.getElementById(slug);
+				if (heading) headings.push({ heading: heading, link: link });
+			});
+			if (headings.length === 0) return;
+
+			function setActive(activeLink) {
+				links.forEach(function (l) {
+					l.classList.toggle('active', l === activeLink);
+				});
+			}
+
+			observer = new IntersectionObserver(
+				function (entries) {
+					var visible = entries.filter(function (e) {
+						return e.isIntersecting;
+					});
+					if (visible.length === 0) return;
+					var topmost = visible.reduce(function (a, b) {
+						return a.boundingClientRect.top < b.boundingClientRect.top ? a : b;
+					});
+					var match = headings.find(function (h) {
+						return h.heading === topmost.target;
+					});
+					if (match) setActive(match.link);
+				},
+				{ rootMargin: '0px 0px -70% 0px', threshold: 0 }
+			);
+			headings.forEach(function (h) {
+				observer.observe(h.heading);
+			});
+		}
+		document.addEventListener('astro:page-load', initToc);
+	})();
+</script>
