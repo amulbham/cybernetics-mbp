@@ -287,6 +287,33 @@ figcaption {
 	line-height: 1.4;
 }
 
+/* Key Findings callout — produced by the rehype-key-findings build-time
+   transform (src/lib/rehype-key-findings.mjs). Reuses the .pillar-card
+   visual language from /about (bordered box, --bg-subtle, --radius-md)
+   rather than inventing a new treatment. Unscoped for the same reason as
+   .references/.table-container above. */
+.key-findings {
+	margin: 2.5em 0;
+	padding: 1.5em 1.75em;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	background-color: var(--bg-subtle);
+}
+.key-findings-heading {
+	margin-top: 0;
+	font-size: var(--text-lg);
+}
+.key-findings-list {
+	margin: 0;
+	padding-left: 1.25em;
+}
+.key-findings-list li {
+	margin-bottom: 0.5em;
+}
+.key-findings-list li:last-child {
+	margin-bottom: 0;
+}
+
 /* Admonitions — produced by the remark-github-blockquote-alert transform
    (GFM alert syntax, e.g. `> [!WARNING]`), re-themed here with this site's
    own tokens instead of the package's default GitHub-styled CSS, so it

@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import { defineConfig, fontProviders } from 'astro/config';
 import { rehypeFigures } from './src/lib/rehype-figures.mjs';
+import { rehypeKeyFindings } from './src/lib/rehype-key-findings.mjs';
 import { rehypeReferences } from './src/lib/rehype-references.mjs';
 import { rehypeTableWrap } from './src/lib/rehype-table-wrap.mjs';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
@@ -17,7 +18,7 @@ export default defineConfig({
 	markdown: {
 		processor: unified({
 			remarkPlugins: [remarkReadingTime, remarkAlert],
-			rehypePlugins: [rehypeReferences, rehypeTableWrap, rehypeFigures],
+			rehypePlugins: [rehypeReferences, rehypeTableWrap, rehypeFigures, rehypeKeyFindings],
 		}),
 		shikiConfig: {
 			themes: {
