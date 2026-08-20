@@ -18,6 +18,12 @@ function isWhitespaceText(node) {
  * only restructures, never rewrites citation content (including entries with
  * no link).
  *
+ * Also gives each <li> a stable id="ref-N" (1-based document order), so a
+ * citation can be linked with a plain `[Bennett, 1987](#ref-1)` in body
+ * Markdown. Automatically detecting and linking existing inline citations
+ * (e.g. "(Bennett, 1987)") to these anchors is a separate, harder problem —
+ * deliberately not attempted here, see ROADMAP.md.
+ *
  * Note: the heading and list are *not* strictly adjacent in the hast tree —
  * there's a whitespace-only text node between them (a literal "\n" from the
  * blank line separating them in the source Markdown) — so this skips
@@ -49,6 +55,13 @@ export function rehypeReferences() {
 						...next.properties,
 						className: [...(next.properties?.className ?? []), 'references-list'],
 					};
+					let refNumber = 0;
+					for (const item of next.children) {
+						if (item.type === 'element' && item.tagName === 'li') {
+							refNumber++;
+							item.properties = { ...item.properties, id: `ref-${refNumber}` };
+						}
+					}
 					const section = {
 						type: 'element',
 						tagName: 'section',
