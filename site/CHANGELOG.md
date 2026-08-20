@@ -2,7 +2,11 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
-## 2026-08-19 (latest) — Reference anchor IDs (Sprint B of the multi-sprint plan)
+## 2026-08-19 — "Key Findings" callout box (Sprint C of the multi-sprint plan)
+
+Extracted `rehype-references.mjs`'s heading→list detection logic into a shared `createHeadingSectionWrapper()` factory (`rehype-section-utils.mjs`) before adding a second consumer, rather than copy-pasting a second near-identical transform. Verified the refactor produced byte-identical output (same `<section class="references">`, same 35 `ref-N` ids in the same order) before building anything new on top of it. New `rehype-key-findings.mjs` wraps an optional `## Key Findings` heading + list in a highlighted callout box, reusing the `.pillar-card` visual language from `/about` rather than inventing a new one. Entirely opt-in — verified all 4 real papers (none currently use the heading) render unaffected, and a temporary smoke-test section confirmed the wrap itself works before being removed.
+
+## 2026-08-19 (Sprint B) — Reference anchor IDs
 
 Every `<li>` in a paper's `.references-list` now gets `id="ref-N"` (1-based document order) via `rehype-references.mjs`, enabling manual `[Bennett, 1987](#ref-1)`-style links from body text. Automatic detection/linking of the financial-aid paper's ~19 existing plain-text citations was deliberately not attempted in this pass — real parsing complexity confirmed against the actual content (multi-source semicolon groups, `et al.`, at least one `n.d.` entry with no year) — logged as its own future phase in `ROADMAP.md` rather than rushed.
 
