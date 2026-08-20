@@ -79,7 +79,7 @@ const { label, papers } = Astro.props;
 								<FormattedDate date={paper.data.pubDate} />
 							</span>
 							<h3>{paper.data.title}</h3>
-							<p>{paper.data.description}</p>
+							<p>{paper.data.excerpt}</p>
 						</Card>
 					))
 				}

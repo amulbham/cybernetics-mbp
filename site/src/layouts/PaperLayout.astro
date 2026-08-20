@@ -27,6 +27,7 @@ type Props = CollectionEntry<'papers'>['data'] & {
 const {
 	title,
 	description,
+	excerpt,
 	pubDate,
 	dateModified,
 	tags,
@@ -119,7 +120,7 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 	<head>
 		<BaseHead
 			title={title}
-			description={description}
+			description={excerpt}
 			image={ogImagePath}
 			article={{
 				publishedTime: pubDate.toISOString(),

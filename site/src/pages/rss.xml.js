@@ -14,7 +14,7 @@ export async function GET(context) {
 		})),
 		...papers.map((paper) => ({
 			title: paper.data.title,
-			description: paper.data.description,
+			description: paper.data.excerpt,
 			pubDate: paper.data.pubDate,
 			link: `/research-hub/${paper.data.pillar}/${paper.id}/`,
 			categories: paper.data.tags,

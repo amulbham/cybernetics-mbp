@@ -28,7 +28,18 @@ const papers = defineCollection({
 				pillar: z.string(),
 				pubDate: z.coerce.date(),
 				dateModified: z.coerce.date().optional(),
+				// Full abstract — shown as the JSON-LD `description` (schema.org has no
+				// length concern) and rendered on the paper page itself. NOT used for
+				// the <meta name="description"> tag or any card/listing blurb — that's
+				// `excerpt`, kept short on purpose. See AGENTS.md.
 				description: z.string(),
+				// Short (~155-160 char target for SEO) summary — the <meta
+				// name="description"> tag and every card/listing blurb (research hub
+				// index, pillar pages, tag pages, related papers, homepage, RSS). Kept
+				// separate from `description` specifically so a full-length abstract
+				// never gets truncated mid-sentence in a search snippet or bloats a
+				// listing card.
+				excerpt: z.string().max(200),
 				tags: z.array(z.string()),
 				pdfUrl: z.url().optional(),
 				// Optional 1020x510 (2:1) banner, same spec as the blog collection's
