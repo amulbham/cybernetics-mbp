@@ -5,6 +5,7 @@ import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import { defineConfig, fontProviders } from 'astro/config';
+import { rehypeCitationLinks } from './src/lib/rehype-citation-links.mjs';
 import { rehypeFigures } from './src/lib/rehype-figures.mjs';
 import { rehypeKeyFindings } from './src/lib/rehype-key-findings.mjs';
 import { rehypeReferences } from './src/lib/rehype-references.mjs';
@@ -18,7 +19,15 @@ export default defineConfig({
 	markdown: {
 		processor: unified({
 			remarkPlugins: [remarkReadingTime, remarkAlert],
-			rehypePlugins: [rehypeReferences, rehypeTableWrap, rehypeFigures, rehypeKeyFindings],
+			rehypePlugins: [
+				rehypeReferences,
+				rehypeTableWrap,
+				rehypeFigures,
+				rehypeKeyFindings,
+				// Must run after rehypeReferences — depends on id="ref-N" already
+				// being assigned to build its reference lookup table.
+				rehypeCitationLinks,
+			],
 		}),
 		shikiConfig: {
 			themes: {
