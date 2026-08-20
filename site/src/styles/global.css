@@ -70,6 +70,25 @@
 	--shadow-sm: none;
 	--shadow-md: none;
 	--shadow-lg: none;
+
+	/* Brightened for legibility against the dark --bg, same treatment --accent
+	   already got (light #2337ff -> dark #5b6bff) — the light-mode values were
+	   tuned for a white background and read muddy/low-contrast on a dark one.
+	   --pillar-ai-systems reuses the dark --accent value directly since the
+	   two were already identical in light mode. */
+	--pillar-ai-systems: #5b6bff;
+	--pillar-seo-architecture: #34d399;
+	--pillar-systems-architecture: #a78bfa;
+	--pillar-policy-systems: #fbbf24;
+
+	/* GitHub's own dark-theme alert palette (Primer) — these tokens already
+	   mirror GitHub's alert colors in light mode, so borrowing their real
+	   dark-mode equivalents here rather than inventing new ones. */
+	--alert-note: #58a6ff;
+	--alert-tip: #3fb950;
+	--alert-important: #a371f7;
+	--alert-warning: #d29922;
+	--alert-caution: #f85149;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,6 +103,15 @@
 		--shadow-sm: none;
 		--shadow-md: none;
 		--shadow-lg: none;
+		--pillar-ai-systems: #5b6bff;
+		--pillar-seo-architecture: #34d399;
+		--pillar-systems-architecture: #a78bfa;
+		--pillar-policy-systems: #fbbf24;
+		--alert-note: #58a6ff;
+		--alert-tip: #3fb950;
+		--alert-important: #a371f7;
+		--alert-warning: #d29922;
+		--alert-caution: #f85149;
 	}
 }
 
@@ -270,6 +298,28 @@ tbody tr:hover {
 .table-container:focus-visible {
 	outline: 2px solid var(--accent);
 	outline-offset: 2px;
+}
+
+/* Pull quotes — produced by the rehype-pull-quote build-time transform
+   (src/lib/rehype-pull-quote.mjs): a blockquote whose entire content is one
+   bolded line, e.g. `> **Not a score. A dependency.**`. Deliberately no left
+   border/padding (overriding the base `blockquote` rule below it in cascade
+   order) so it reads as a restated key line, not a citation. Unscoped for
+   the same reason as .references/.table-container above. */
+.pull-quote {
+	margin: 3em auto;
+	max-width: 85%;
+	padding: 0;
+	border: none;
+	text-align: center;
+	font-size: var(--text-2xl);
+	font-weight: 700;
+	line-height: 1.35;
+	color: var(--text-primary);
+	letter-spacing: -0.01em;
+}
+.pull-quote p {
+	margin: 0;
 }
 
 /* Figures and Captions */

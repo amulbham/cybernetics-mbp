@@ -38,13 +38,23 @@ const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.
 	// Runs before first paint so the page never flashes the wrong theme.
 	// Only sets data-theme when the user has made an explicit choice (via
 	// ThemeToggle) — otherwise the CSS prefers-color-scheme fallback applies.
+	//
+	// Also re-runs on astro:after-swap, not just once on initial load: Astro's
+	// <ClientRouter /> swaps <head>/<body> on every internal navigation to
+	// match the destination page's static HTML, which never has data-theme
+	// baked into it (it's only ever added by this script) — without this, the
+	// swap silently resets a dark-mode choice to light on every link click.
 	(function () {
-		try {
-			var stored = localStorage.getItem('theme');
-			if (stored === 'light' || stored === 'dark') {
-				document.documentElement.setAttribute('data-theme', stored);
-			}
-		} catch (e) {}
+		function applyStoredTheme() {
+			try {
+				var stored = localStorage.getItem('theme');
+				if (stored === 'light' || stored === 'dark') {
+					document.documentElement.setAttribute('data-theme', stored);
+				}
+			} catch (e) {}
+		}
+		applyStoredTheme();
+		document.addEventListener('astro:after-swap', applyStoredTheme);
 	})();
 </script>
 

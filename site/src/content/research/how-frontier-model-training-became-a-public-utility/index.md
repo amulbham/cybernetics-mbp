@@ -40,6 +40,13 @@ Strip away the technical vocabulary and that is roughly the shape of what happen
 
 He isn't wrong about the efficiency claim. That is precisely the problem — and it points to something larger than one policy ask. This isn't a story about a bad regulation. It's a story about an entire industry reasoning from a frame that the technology has already made obsolete. Three pieces of evidence show why.
 
+## Key Findings
+
+- Distillation is a decade-old, commercially mainstream technique — not a security threat — and now costs as little as ten to sixteen dollars to run on a rented GPU.
+- Frontier model training has become infrastructure, not a competitive moat: everything a frontier model can do becomes reproducible at lower cost through distillation, shifting the durable advantage to deployment depth and enterprise trust instead.
+- Restricting distillation is categorically different from restricting chips: it's a mathematical operation documented in public literature and taught in graduate programs, not a physical good with a manufacturing chokepoint.
+- Restriction doesn't slow diffusion — it accelerates the search for a cheaper path. Chip controls already produced this dynamic once, with DeepSeek.
+
 ## This Isn't a Chinese Exploit
 
 The first thing to establish: distillation is not a backdoor. It is not a hack. It is not a technique that lives in legal or ethical gray space. If that assumption is forming, here is the quickest way to dissolve it.
@@ -69,6 +76,8 @@ Someone has to build the ceiling. The teacher model has to exist before anyone c
 There's a pattern to how this works. Every technique that becomes demonstrably more efficient and distributes globally stops being a competitive advantage and starts being plumbing. The efficiency gradient — the structural force by which the more efficient path gets taken regardless of what anyone intended — doesn't ask permission. Electricity didn't remain a competitive advantage for Edison. Broadband didn't remain a competitive advantage for the first ISPs. The technique becomes the floor. Everyone builds above it.
 
 Frontier model training just crossed that threshold. The 2026 International AI Safety Report — produced by over one hundred AI experts from more than thirty countries — puts the structural consequence plainly: distillation cannot directly advance state-of-the-art capabilities. It requires a pre-existing teacher. But it can speed up the proliferation of those capabilities, even from closed-source models. Read that carefully. The frontier model is the input. Distillation is how everyone else builds. That's not a workaround. That's a description of infrastructure.
+
+> **The frontier model is the input. Distillation is how everyone else builds.**
 
 The cost curve makes the diffusion visible. GPT-4 at thirty dollars per million tokens when it launched. DeepSeek-V3 fine-tuned to approach frontier performance for approximately ten thousand dollars — confirmed in the International AI Safety Report. Task-specific capability today for ten to sixteen dollars on a rented GPU, overnight, available to any developer with a credit card. The floor isn't a fixed point. It's a line that has been moving downward for a decade and shows no sign of stopping.
 
@@ -107,6 +116,8 @@ The benchmark gets you in the door. The deployment depth is what keeps you there
 Claude Code's $2.5 billion in annualized revenue by February 2026 — faster to $1 billion ARR than any enterprise software product in history — is not a benchmark story. It is an infrastructure story. A terminal tool that developers run locally to write, debug, and ship code became one of the most valuable software products in the world not because it won a benchmark but because it embedded itself in how engineers work. Netflix, Spotify, KPMG, Salesforce — these are not customers who ran an evaluation and picked the highest score. They are customers who built workflows, trained teams, and created switching costs that compound with every passing quarter.
 
 This is what infrastructure looks like. Not a score. A dependency.
+
+> **Not a score. A dependency.**
 
 The companies that have understood this earliest are already building above the floor — in the layer that the efficiency gradient cannot reach, because it isn't capability, it's trust and deployment depth. The policy debate is fighting over who controls the floor. The floor is already everywhere. Task-specific capability costs sixteen dollars and an overnight GPU rental. General capability is getting there. The companies spending resources trying to contain the floor are the ones who haven't yet noticed that the floor has already been poured.
 

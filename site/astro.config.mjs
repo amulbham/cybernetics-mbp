@@ -8,6 +8,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import { rehypeCitationLinks } from './src/lib/rehype-citation-links.mjs';
 import { rehypeFigures } from './src/lib/rehype-figures.mjs';
 import { rehypeKeyFindings } from './src/lib/rehype-key-findings.mjs';
+import { rehypePullQuote } from './src/lib/rehype-pull-quote.mjs';
 import { rehypeReferences } from './src/lib/rehype-references.mjs';
 import { rehypeTableWrap } from './src/lib/rehype-table-wrap.mjs';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
@@ -24,6 +25,7 @@ export default defineConfig({
 				rehypeTableWrap,
 				rehypeFigures,
 				rehypeKeyFindings,
+				rehypePullQuote,
 				// Must run after rehypeReferences — depends on id="ref-N" already
 				// being assigned to build its reference lookup table.
 				rehypeCitationLinks,
