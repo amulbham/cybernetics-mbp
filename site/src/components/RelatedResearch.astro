@@ -1,0 +1,82 @@
+---
+// Surfaces up to 3 other research entries sharing the current one's pillar
+// (papers only) and/or tags. Scored, not just filtered, so a same-pillar
+// paper with no tag overlap still outranks an off-pillar/no-pillar entry
+// with one shared tag.
+import { getCollection } from 'astro:content';
+import Badge from './Badge.astro';
+import Card from './Card.astro';
+import { formatPillarLabel } from '../lib/pillars';
+import { categorySegment, formatLabel } from '../lib/research-routing';
+
+interface Props {
+	currentId: string;
+	pillar?: string;
+	tags: string[];
+}
+
+const { currentId, pillar, tags } = Astro.props;
+
+const all = await getCollection('research');
+const related = all
+	.filter((entry) => entry.id !== currentId)
+	.map((entry) => {
+		const pillarScore = pillar && entry.data.pillar === pillar ? 2 : 0;
+		const tagScore = entry.data.tags.filter((tag) => tags.includes(tag)).length;
+		return { entry, score: pillarScore + tagScore };
+	})
+	.filter((x) => x.score > 0)
+	.sort((a, b) => b.score - a.score || b.entry.data.pubDate.valueOf() - a.entry.data.pubDate.valueOf())
+	.slice(0, 3)
+	.map((x) => x.entry);
+---
+
+{
+	related.length > 0 && (
+		<section class="related-research">
+			<h2>Related Research</h2>
+			<ul>
+				{related.map((entry) => (
+					<Card href={`/research-hub/${categorySegment(entry)}/${entry.id}/`}>
+						{entry.data.format === 'paper' ? (
+							<Badge variant="pillar" pillar={entry.data.pillar}>
+								{formatPillarLabel(entry.data.pillar!)}
+							</Badge>
+						) : (
+							<Badge variant="neutral">{formatLabel(entry.data.format)}</Badge>
+						)}
+						<h3>{entry.data.title}</h3>
+						<p>{entry.data.excerpt}</p>
+					</Card>
+				))}
+			</ul>
+		</section>
+	)
+}
+
+<style>
+	.related-research {
+		margin-top: 3em;
+		padding-top: 2em;
+		border-top: 1px solid var(--border);
+	}
+	.related-research ul {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 1.25em;
+		list-style: none;
+		margin: 1em 0 0;
+		padding: 0;
+	}
+	.related-research h3 {
+		margin: 0.6em 0 0.4em;
+		font-size: 1.05em;
+		color: var(--card-hover-color, var(--text-primary));
+		transition: color 0.15s ease;
+	}
+	.related-research p {
+		margin: 0;
+		font-size: 0.9em;
+		color: var(--text-primary);
+	}
+</style>

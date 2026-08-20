@@ -5,7 +5,7 @@ Things flagged during past work but deliberately not done yet, plus open questio
 ## Blocking the actual public launch
 
 - **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state."
-- `blog-placeholder-*.jpg` stock images are unused now that the blog collection's first real post (2026-08-19) didn't use a hero image — they were only ever the starter template's leftover placeholders and can be deleted whenever someone notices them in `src/assets/`.
+- `blog-placeholder-*.jpg` stock images are unused — no published entry currently has a hero image. They were only ever the starter template's leftover placeholders and can be deleted whenever someone notices them in `src/assets/`.
 
 ## Worth a visual check
 
@@ -13,9 +13,9 @@ Things flagged during past work but deliberately not done yet, plus open questio
 
 ## Content-shaped (grow the corpus, these activate on their own)
 
-- **Related-papers module** is fully built and correct, but won't visibly show anything until at least two papers share a pillar or a tag — right now there's only 1 published paper (the 3 sample papers were removed 2026-08-19), so it's empty everywhere by construction. Nothing to build; it activates naturally as more real papers get published.
-- **Tag governance** (raised by the user, discussed and deliberately deferred — see `CHANGELOG.md` 2026-08-14 entry for the reasoning): a hard `z.enum()` on tags was considered and rejected as disproportionate for a solo-author site; a thin-content generation threshold for `/tags/[tag]/` pages was agreed on in principle but would currently delete all 12 existing tag pages (every tag has a count of exactly 1 right now, across both `papers` and `blog` — the two collections were merged into one tag system 2026-08-19). Revisit once there's actual tag overlap to threshold against — check current counts before picking a number, the way the TOC threshold was picked from real data rather than guessed.
-- **`policy-systems` pillar** currently has the only published paper; the other 3 pillars (`ai-systems`, `seo-architecture`, `systems-architecture`) currently have zero — confirmed `research-hub/[pillar]/index.astro` and `research-hub/index.astro` both handle this gracefully (no page/section generated for a pillar with no papers, not an empty broken section). Fills in naturally as real papers get added to those pillars.
+- **Related-research module** (`RelatedResearch.astro`) is fully built and correct, but won't visibly show anything until at least two entries share a pillar (papers only) or a tag — right now there's only 1 paper and 1 essay with zero tag overlap, so it's empty everywhere by construction. Nothing to build; it activates naturally as more content gets published.
+- **Tag governance** (raised by the user, discussed and deliberately deferred — see `CHANGELOG.md` 2026-08-14 entry for the reasoning): a hard `z.enum()` on tags was considered and rejected as disproportionate for a solo-author site; a thin-content generation threshold for `/tags/[tag]/` pages was agreed on in principle but would currently delete all 12 existing tag pages (every tag has a count of exactly 1 right now, across every format in the `research` collection). Revisit once there's actual tag overlap to threshold against — check current counts before picking a number, the way the TOC threshold was picked from real data rather than guessed.
+- **`policy-systems` pillar** currently has the only published paper; the other 3 pillars (`ai-systems`, `seo-architecture`, `systems-architecture`) currently have zero — confirmed `research-hub/[category]/index.astro` and `research-hub/index.astro` both handle this gracefully for pillars (no page/section generated for a pillar with no papers, not an empty broken section — `essays`/`memos` are the deliberate exception, see `AGENTS.md` → "Categories/URLs"). Fills in naturally as real papers get added to those pillars.
 
 ## Polish, not urgent (continued)
 

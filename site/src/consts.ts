@@ -7,7 +7,7 @@ export const SITE_DESCRIPTION =
 
 // Single source of truth for the site owner's identity/social profiles —
 // used by SocialLinks.astro (footer icons: linkedin/substack/github only),
-// PaperLayout.astro (author.sameAs in ScholarlyArticle JSON-LD), and
+// ResearchLayout.astro (author.sameAs in ScholarlyArticle/Article JSON-LD), and
 // index.astro (Person.sameAs in the homepage entity graph). Don't duplicate
 // these elsewhere; that's exactly how canonicalURL drifted out of sync in an
 // earlier phase. `orcid` is deliberately not rendered as a footer icon (no

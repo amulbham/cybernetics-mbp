@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import { formatPillarLabel } from '../lib/pillars';
+import { categorySegment, formatLabel } from '../lib/research-routing';
 import Badge from './Badge.astro';
 import Card from './Card.astro';
 import FormattedDate from './FormattedDate.astro';
 
-const recentPapers = (await getCollection('papers'))
+const recentEntries = (await getCollection('research'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 ---
@@ -16,17 +17,21 @@ const recentPapers = (await getCollection('papers'))
 		<a href="/research-hub">View all research →</a>
 	</div>
 	{
-		recentPapers.length > 0 ? (
+		recentEntries.length > 0 ? (
 			<ul class="research-feed">
-				{recentPapers.map((paper) => (
-					<Card href={`/research-hub/${paper.data.pillar}/${paper.id}/`}>
-						<Badge variant="pillar" pillar={paper.data.pillar}>
-							{formatPillarLabel(paper.data.pillar)}
-						</Badge>
-						<h3>{paper.data.title}</h3>
-						<p>{paper.data.excerpt}</p>
+				{recentEntries.map((entry) => (
+					<Card href={`/research-hub/${categorySegment(entry)}/${entry.id}/`}>
+						{entry.data.format === 'paper' ? (
+							<Badge variant="pillar" pillar={entry.data.pillar}>
+								{formatPillarLabel(entry.data.pillar!)}
+							</Badge>
+						) : (
+							<Badge variant="neutral">{formatLabel(entry.data.format)}</Badge>
+						)}
+						<h3>{entry.data.title}</h3>
+						<p>{entry.data.excerpt}</p>
 						<span class="meta">
-							<FormattedDate date={paper.data.pubDate} />
+							<FormattedDate date={entry.data.pubDate} />
 						</span>
 					</Card>
 				))}

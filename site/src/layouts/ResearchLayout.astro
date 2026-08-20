@@ -4,8 +4,10 @@ import type { CollectionEntry } from 'astro:content';
 import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedResearch from '../components/RelatedResearch.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import { SOCIAL_LINKS } from '../consts';
+import { categoryLabelFromSegment, categorySegment } from '../lib/research-routing';
 import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
 
@@ -15,7 +17,7 @@ interface Heading {
 	text: string;
 }
 
-type Props = CollectionEntry<'blog'>['data'] & {
+type Props = CollectionEntry<'research'>['data'] & {
 	id: string;
 	minutesRead?: number;
 	wordCount?: number;
@@ -26,9 +28,12 @@ const {
 	title,
 	description,
 	excerpt,
+	format,
 	pubDate,
-	updatedDate,
+	dateModified,
 	tags,
+	pdfUrl,
+	pillar,
 	id,
 	minutesRead,
 	wordCount,
@@ -37,24 +42,48 @@ const {
 	heroImageAlt,
 } = Astro.props;
 
-// Derived, not frontmatter — mirrors PaperLayout.astro's canonicalURL, for
-// the same reason: it can never drift from the actual route.
-const canonicalURL = new URL(`/blog/${id}/`, Astro.site).toString();
-const ogImagePath = `/open-graph/blog/${id}.png`;
+const isPaper = format === 'paper';
+const category = isPaper ? pillar! : `${format}s`;
+const categoryLabel = categoryLabelFromSegment(category);
+const categoryUrl = `/research-hub/${category}/`;
+
+// Derived, not frontmatter, so it can never drift from the entry's actual
+// route (this previously happened: a paper's canonicalURL frontmatter still
+// said `systems-architecture` after its `pillar` was changed to `policy-systems`).
+const canonicalURL = new URL(`/research-hub/${category}/${id}/`, Astro.site).toString();
+const ogImagePath = `/open-graph/${category}/${id}.png`;
 const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
 
-const breadcrumbItems = [{ label: 'Blog', href: '/blog' }];
+const breadcrumbItems = [
+	{ label: 'Research Hub', href: '/research-hub' },
+	{ label: categoryLabel, href: categoryUrl },
+];
 
 const jsonLd = {
 	'@context': 'https://schema.org',
-	'@type': 'BlogPosting',
+	// schema.org has no distinct "essay"/"memo" type — ScholarlyArticle is
+	// reserved for papers specifically; everything else is a plain Article.
+	'@type': isPaper ? ['ScholarlyArticle', 'Article'] : 'Article',
 	headline: title,
 	description,
 	image: ogImageUrl,
 	datePublished: pubDate.toISOString(),
-	dateModified: (updatedDate ?? pubDate).toISOString(),
+	dateModified: (dateModified ?? pubDate).toISOString(),
 	url: canonicalURL,
-	mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': canonicalURL,
+	},
+	// isPartOf/articleSection link a paper to its pillar — essays/memos have
+	// no pillar to link to, so this is paper-only.
+	...(isPaper && {
+		isPartOf: {
+			'@type': 'CollectionPage',
+			name: categoryLabel,
+			url: new URL(categoryUrl, Astro.site).toString(),
+		},
+		articleSection: categoryLabel,
+	}),
 	keywords: tags.join(', '),
 	inLanguage: 'en-US',
 	...(wordCount && { wordCount }),
@@ -65,6 +94,13 @@ const jsonLd = {
 		url: new URL('/about', Astro.site),
 		sameAs: Object.values(SOCIAL_LINKS),
 	},
+	...(pdfUrl && {
+		encoding: {
+			'@type': 'MediaObject',
+			contentUrl: pdfUrl,
+			encodingFormat: 'application/pdf',
+		},
+	}),
 };
 
 const breadcrumbJsonLd = {
@@ -93,7 +129,16 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={excerpt} image={ogImagePath} />
+		<BaseHead
+			title={title}
+			description={excerpt}
+			image={ogImagePath}
+			article={{
+				publishedTime: pubDate.toISOString(),
+				modifiedTime: dateModified?.toISOString(),
+				tags,
+			}}
+		/>
 		<script type="application/ld+json" set:html={jsonLdString} />
 		<script type="application/ld+json" set:html={breadcrumbJsonLdString} />
 		<style>
@@ -113,6 +158,9 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 			.tags a:focus-visible :global(.badge) {
 				background-color: var(--border);
 			}
+			.pdf-link {
+				margin-bottom: 1em;
+			}
 			.hero-image {
 				width: 100%;
 			}
@@ -126,7 +174,7 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 	</head>
 
 	<body>
-		<ArticleShell title={title} pubDate={pubDate} updatedDate={updatedDate} minutesRead={minutesRead}>
+		<ArticleShell title={title} pubDate={pubDate} updatedDate={dateModified} minutesRead={minutesRead}>
 			<Fragment slot="hero">
 				{
 					heroImage && (
@@ -153,6 +201,13 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 						</ul>
 					)
 				}
+				{
+					pdfUrl && (
+						<p class="pdf-link">
+							<a href={pdfUrl}>Download PDF</a>
+						</p>
+					)
+				}
 			</Fragment>
 			<Fragment slot="mobile-toc">
 				<TableOfContents headings={headings} variant="mobile" />
@@ -161,6 +216,7 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 				<TableOfContents headings={headings} variant="rail" />
 			</Fragment>
 			<slot />
+			<RelatedResearch currentId={id} pillar={pillar} tags={tags} />
 		</ArticleShell>
 	</body>
 </html>

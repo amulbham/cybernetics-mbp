@@ -8,7 +8,7 @@ import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 
 // Homepage entity graph: establishes Amul Bham as a disambiguated Person
 // entity (linked to LinkedIn/Substack/GitHub/ORCID via the same SOCIAL_LINKS
-// used in PaperLayout.astro's author.sameAs) and the site itself as a
+// used in ResearchLayout.astro's author.sameAs) and the site itself as a
 // WebSite entity, for crawler/LLM entity association — see AGENTS.md's
 // "Content-section transforms" area for why SOCIAL_LINKS is the single
 // source of truth these both draw from.
@@ -29,7 +29,7 @@ const websiteJsonLd = {
 	author: { '@type': 'Person', name: 'Amul Bham' },
 };
 
-// Escape `<` so JSON-LD can't break out of the script tag — same guard as PaperLayout.astro.
+// Escape `<` so JSON-LD can't break out of the script tag — same guard as ResearchLayout.astro.
 const personJsonLdString = JSON.stringify(personJsonLd).replace(/</g, '\\u003c');
 const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c');
 ---

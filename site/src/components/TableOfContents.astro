@@ -2,7 +2,7 @@
 // Sticky spatial-orientation aid for long-form papers. A scroll-spy
 // (IntersectionObserver) highlights the current section as the reader
 // scrolls — the init script lives in ArticleShell.astro, not here, since
-// PaperLayout renders this component twice (variant="mobile" + "rail") and
+// ResearchLayout renders this component twice (variant="mobile" + "rail") and
 // a script in a twice-rendered component runs twice; ArticleShell renders
 // exactly once per page. Gating by heading count keeps short papers (4 ##
 // headings each, measured) from getting a token TOC that adds nothing. The

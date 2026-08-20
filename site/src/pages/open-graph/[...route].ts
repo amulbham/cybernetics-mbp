@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import { OGImageRoute } from 'astro-og-canvas';
+import { categorySegment } from '../../lib/research-routing';
 
 // RGB mirrors of the dark-theme design tokens in global.css (astro-og-canvas
 // needs raw [r,g,b] tuples, not CSS custom properties).
@@ -12,7 +13,7 @@ const PILLAR_RGB: Record<string, [number, number, number]> = {
 	'systems-architecture': [124, 58, 237],
 	'policy-systems': [180, 83, 9],
 };
-// Mirrors --accent's dark-theme value in global.css — blog posts have no
+// Mirrors --accent's dark-theme value in global.css — essays/memos have no
 // pillar to derive a border color from, so they get the plain accent instead.
 const ACCENT_RGB: [number, number, number] = [91, 107, 255];
 
@@ -23,13 +24,8 @@ function truncate(text: string, maxLength: number): string {
 	return text.slice(0, maxLength).replace(/\s+\S*$/, '') + '…';
 }
 
-const [papers, posts] = await Promise.all([getCollection('papers'), getCollection('blog')]);
-const pages = {
-	...Object.fromEntries(papers.map((paper) => [`${paper.data.pillar}/${paper.id}`, paper.data])),
-	// Namespaced under `blog/` (papers are namespaced under their pillar) so
-	// the two id spaces can never collide.
-	...Object.fromEntries(posts.map((post) => [`blog/${post.id}`, post.data])),
-};
+const entries = await getCollection('research');
+const pages = Object.fromEntries(entries.map((entry) => [`${categorySegment(entry)}/${entry.id}`, entry.data]));
 
 export const { getStaticPaths, GET } = await OGImageRoute({
 	pages,
@@ -38,7 +34,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
 		description: truncate(page.description, 180),
 		bgGradient: [DARK_BG],
 		border: {
-			color: 'pillar' in page ? (PILLAR_RGB[page.pillar] ?? TEXT_SECONDARY) : ACCENT_RGB,
+			color: page.format === 'paper' ? (PILLAR_RGB[page.pillar!] ?? TEXT_SECONDARY) : ACCENT_RGB,
 			width: 8,
 			side: 'block-start',
 		},

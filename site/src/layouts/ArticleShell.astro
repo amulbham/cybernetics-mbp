@@ -1,9 +1,9 @@
 ---
-// Shared body shell for long-form article layouts (PaperLayout, BlogPost):
-// Header + title/date block + prose container + Footer. Each layout still
-// owns its own <html><head> (they need different BaseHead/JSON-LD calls) and
-// projects layout-specific pieces (breadcrumb, tags, hero image) into the
-// named slots below.
+// Shared body shell for ResearchLayout.astro (papers, essays, memos alike):
+// Header + title/date block + prose container + Footer. ResearchLayout still
+// owns its own <html><head> (JSON-LD branches by format there) and projects
+// format-specific pieces (breadcrumb, tags, hero image) into the named slots
+// below.
 import FormattedDate from '../components/FormattedDate.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -89,17 +89,15 @@ const { title, pubDate, updatedDate, minutesRead } = Astro.props;
 </style>
 
 <script is:inline>
-	// Lives here, not in TableOfContents.astro, because PaperLayout renders
+	// Lives here, not in TableOfContents.astro, because ResearchLayout renders
 	// that component twice (variant="mobile" + "rail") — a script inside a
 	// twice-rendered component runs twice. ArticleShell renders exactly once
 	// per page, so this initializes exactly once regardless of how many TOC
-	// variants are on the page. No-ops harmlessly on BlogPost pages, which
-	// don't render a TableOfContents at all (both querySelectorAll calls just
-	// return empty).
+	// variants are on the page.
 	//
 	// astro:page-load (not DOMContentLoaded) so this also re-initializes when
-	// a View Transitions client-side navigation lands on a paper page — the
-	// TOC rail and article body are both swapped, so any previous observer
+	// a View Transitions client-side navigation lands on a research page —
+	// the TOC rail and article body are both swapped, so any previous observer
 	// and its element references are stale.
 	(function () {
 		var observer;

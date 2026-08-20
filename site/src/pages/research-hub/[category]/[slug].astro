@@ -1,0 +1,27 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import ResearchLayout from '../../../layouts/ResearchLayout.astro';
+import { categorySegment } from '../../../lib/research-routing';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('research');
+	return entries.map((entry) => ({
+		params: { category: categorySegment(entry), slug: entry.id },
+		props: entry,
+	}));
+}
+type Props = CollectionEntry<'research'>;
+
+const entry = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+---
+
+<ResearchLayout
+	{...entry.data}
+	id={entry.id}
+	minutesRead={remarkPluginFrontmatter.minutesRead}
+	wordCount={remarkPluginFrontmatter.wordCount}
+	headings={headings}
+>
+	<Content />
+</ResearchLayout>

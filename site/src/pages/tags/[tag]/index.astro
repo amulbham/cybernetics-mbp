@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../../../components/BaseHead.astro';
 import Badge from '../../../components/Badge.astro';
 import Card from '../../../components/Card.astro';
@@ -7,56 +7,33 @@ import Footer from '../../../components/Footer.astro';
 import FormattedDate from '../../../components/FormattedDate.astro';
 import Header from '../../../components/Header.astro';
 import { formatPillarLabel } from '../../../lib/pillars';
+import { categorySegment, formatLabel } from '../../../lib/research-routing';
 import { slugifyTag } from '../../../lib/tags.ts';
 
-interface TagEntry {
-	title: string;
-	href: string;
-	pubDate: Date;
-	excerpt: string;
-	pillar?: string;
-}
-
 export async function getStaticPaths() {
-	const [papers, posts] = await Promise.all([getCollection('papers'), getCollection('blog')]);
-	const bySlug = new Map<string, { label: string; entries: TagEntry[] }>();
+	const entries = await getCollection('research');
+	const bySlug = new Map<string, { label: string; entries: CollectionEntry<'research'>[] }>();
 
-	function addEntry(slug: string, label: string, entry: TagEntry) {
-		if (!bySlug.has(slug)) bySlug.set(slug, { label, entries: [] });
-		bySlug.get(slug)!.entries.push(entry);
-	}
-
-	for (const paper of papers) {
-		for (const tag of paper.data.tags) {
-			addEntry(slugifyTag(tag), tag, {
-				title: paper.data.title,
-				href: `/research-hub/${paper.data.pillar}/${paper.id}/`,
-				pubDate: paper.data.pubDate,
-				excerpt: paper.data.excerpt,
-				pillar: paper.data.pillar,
-			});
-		}
-	}
-	for (const post of posts) {
-		for (const tag of post.data.tags) {
-			addEntry(slugifyTag(tag), tag, {
-				title: post.data.title,
-				href: `/blog/${post.id}/`,
-				pubDate: post.data.pubDate,
-				excerpt: post.data.excerpt,
-			});
+	for (const entry of entries) {
+		for (const tag of entry.data.tags) {
+			const slug = slugifyTag(tag);
+			if (!bySlug.has(slug)) bySlug.set(slug, { label: tag, entries: [] });
+			bySlug.get(slug)!.entries.push(entry);
 		}
 	}
 
 	return [...bySlug.entries()].map(([slug, { label, entries }]) => ({
 		params: { tag: slug },
-		props: { label, entries: entries.sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf()) },
+		props: {
+			label,
+			entries: entries.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
 	}));
 }
 
 interface Props {
 	label: string;
-	entries: TagEntry[];
+	entries: CollectionEntry<'research'>[];
 }
 
 const { label, entries } = Astro.props;
@@ -102,19 +79,19 @@ const { label, entries } = Astro.props;
 			<ul class="entries">
 				{
 					entries.map((entry) => (
-						<Card href={entry.href}>
-							{entry.pillar ? (
-								<Badge variant="pillar" pillar={entry.pillar}>
-									{formatPillarLabel(entry.pillar)}
+						<Card href={`/research-hub/${categorySegment(entry)}/${entry.id}/`}>
+							{entry.data.format === 'paper' ? (
+								<Badge variant="pillar" pillar={entry.data.pillar}>
+									{formatPillarLabel(entry.data.pillar!)}
 								</Badge>
 							) : (
-								<Badge variant="neutral">Blog</Badge>
+								<Badge variant="neutral">{formatLabel(entry.data.format)}</Badge>
 							)}
 							<span class="meta">
-								<FormattedDate date={entry.pubDate} />
+								<FormattedDate date={entry.data.pubDate} />
 							</span>
-							<h3>{entry.title}</h3>
-							<p>{entry.excerpt}</p>
+							<h3>{entry.data.title}</h3>
+							<p>{entry.data.excerpt}</p>
 						</Card>
 					))
 				}

@@ -1,0 +1,115 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Card from '../../../components/Card.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { PILLAR_DESCRIPTIONS } from '../../../lib/pillars';
+import { categorySegment, categoryLabelFromSegment } from '../../../lib/research-routing';
+
+const FORMAT_CATEGORY_DESCRIPTIONS: Record<string, string> = {
+	essays: 'Long-form analytical writing — thesis-driven prose on how systems and incentives actually behave.',
+	memos: 'Shorter, high-conviction notes — quicker reads than a full essay or paper.',
+};
+
+export async function getStaticPaths() {
+	const entries = await getCollection('research');
+	// "essays"/"memos" are fixed, permanent taxonomy categories (unlike
+	// pillars, which are ad-hoc and only get a page once they have a paper) —
+	// force them in here so /research-hub/memos/ builds and shows an empty
+	// state instead of 404ing before the first memo exists. Declared inline
+	// (not as a sibling top-level const) because Astro extracts
+	// getStaticPaths into an isolated build-time chunk that doesn't reliably
+	// close over other module-scope consts in the same file — confirmed by
+	// a real build failure ("FORCED_CATEGORIES is not defined") when this
+	// lived outside the function.
+	const forcedCategories = ['essays', 'memos'];
+	const categories = new Set([...entries.map(categorySegment), ...forcedCategories]);
+
+	return [...categories].map((category) => ({
+		params: { category },
+		props: {
+			category,
+			entries: entries
+				.filter((entry) => categorySegment(entry) === category)
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+interface Props {
+	category: string;
+	entries: CollectionEntry<'research'>[];
+}
+
+const { category, entries } = Astro.props;
+const label = categoryLabelFromSegment(category);
+const description =
+	FORMAT_CATEGORY_DESCRIPTIONS[category] ?? PILLAR_DESCRIPTIONS[category] ?? `Research on ${label}.`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${label} Research`} description={description} />
+		<style>
+			.breadcrumbs {
+				margin: 0 0 1.5em;
+			}
+			.intro {
+				max-width: var(--content-width-prose);
+				margin-bottom: 2.5em;
+				color: var(--text-primary);
+			}
+			.entries {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5em;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.entries h3 {
+				margin: 0.6em 0 0.4em;
+				font-size: 1.2em;
+				color: var(--card-hover-color, var(--text-primary));
+				transition: color 0.15s ease;
+			}
+			.entries p {
+				margin: 0;
+				color: var(--text-primary);
+				font-size: 0.95em;
+			}
+			.empty {
+				color: var(--text-secondary);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<p class="breadcrumbs meta"><a href="/research-hub">Research Hub</a></p>
+			<h1>{label}</h1>
+			<p class="intro">{description}</p>
+			{
+				entries.length > 0 ? (
+					<ul class="entries">
+						{entries.map((entry) => (
+							<Card href={`/research-hub/${category}/${entry.id}/`}>
+								<span class="meta">
+									<FormattedDate date={entry.data.pubDate} />
+								</span>
+								<h3>{entry.data.title}</h3>
+								<p>{entry.data.excerpt}</p>
+							</Card>
+						))}
+					</ul>
+				) : (
+					<p class="empty">Nothing published here yet — check back soon.</p>
+				)
+			}
+		</main>
+		<Footer />
+	</body>
+</html>

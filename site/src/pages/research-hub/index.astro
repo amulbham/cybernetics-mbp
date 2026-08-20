@@ -7,16 +7,33 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { formatPillarLabel } from '../../lib/pillars';
 
-const papers = await getCollection('papers');
-const pillars = [...new Set(papers.map((paper) => paper.data.pillar))].sort();
+const entries = await getCollection('research');
+const papers = entries.filter((entry) => entry.data.format === 'paper');
 
+const pillars = [...new Set(papers.map((paper) => paper.data.pillar!))].sort();
 const pillarGroups = pillars.map((pillar) => ({
-	pillar,
+	category: pillar,
 	label: formatPillarLabel(pillar),
 	entries: papers
 		.filter((paper) => paper.data.pillar === pillar)
 		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
 }));
+
+// Essays/memos sections only show up here once they have at least one entry
+// (same convention as pillar sections) — the dedicated /research-hub/essays/
+// and /research-hub/memos/ pages always exist regardless, with an empty
+// state, since those are fixed taxonomy categories rather than ad-hoc pillars.
+const formatGroups = (['essay', 'memo'] as const)
+	.map((format) => ({
+		category: `${format}s`,
+		label: format === 'essay' ? 'Essays' : 'Memos',
+		entries: entries
+			.filter((entry) => entry.data.format === format)
+			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+	}))
+	.filter((group) => group.entries.length > 0);
+
+const categoryGroups = [...pillarGroups, ...formatGroups];
 ---
 
 <!doctype html>
@@ -24,7 +41,7 @@ const pillarGroups = pillars.map((pillar) => ({
 	<head>
 		<BaseHead
 			title="Research Hub"
-			description="Research from Amul Bham, organized by pillar: AI systems, SEO architecture, systems architecture, and policy systems."
+			description="Research from Amul Bham — papers organized by pillar, plus longer essays and shorter memos."
 		/>
 		<style>
 			main {
@@ -35,18 +52,18 @@ const pillarGroups = pillars.map((pillar) => ({
 				margin-bottom: 2.5em;
 				color: var(--text-primary);
 			}
-			.pillar-section {
+			.category-section {
 				margin-bottom: 3em;
 			}
-			.pillar-section h2 {
+			.category-section h2 {
 				border-bottom: 1px solid var(--border);
 				padding-bottom: 0.3em;
 			}
-			.pillar-section h2 a {
+			.category-section h2 a {
 				color: inherit;
 				text-decoration: none;
 			}
-			.pillar-section h2 a:hover {
+			.category-section h2 a:hover {
 				color: var(--accent);
 			}
 			.entries {
@@ -77,22 +94,17 @@ const pillarGroups = pillars.map((pillar) => ({
 		<Header />
 		<main>
 			<h1>Research Hub</h1>
-			<p class="intro">
-				Research organized by pillar. Each entry links to a dedicated write-up with full citation
-				metadata.
-			</p>
+			<p class="intro">Papers, essays, and memos — each links to a dedicated write-up with full citation metadata.</p>
+			{categoryGroups.length === 0 && <p class="empty">No research published yet — check back soon.</p>}
 			{
-				pillarGroups.length === 0 && (
-					<p class="empty">No research published yet — check back soon.</p>
-				)
-			}
-			{
-				pillarGroups.map(({ pillar, label, entries }) => (
-					<section class="pillar-section" id={pillar}>
-						<h2><a href={`/research-hub/${pillar}/`}>{label}</a></h2>
+				categoryGroups.map(({ category, label, entries }) => (
+					<section class="category-section" id={category}>
+						<h2>
+							<a href={`/research-hub/${category}/`}>{label}</a>
+						</h2>
 						<ul class="entries">
 							{entries.map((entry) => (
-								<Card href={`/research-hub/${pillar}/${entry.id}/`}>
+								<Card href={`/research-hub/${category}/${entry.id}/`}>
 									<span class="meta">
 										<FormattedDate date={entry.data.pubDate} />
 									</span>
