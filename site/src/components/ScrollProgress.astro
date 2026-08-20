@@ -1,0 +1,61 @@
+---
+---
+
+<div class="scroll-progress" aria-hidden="true">
+	<div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+</div>
+
+<style>
+	.scroll-progress {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		z-index: 100;
+		background: transparent;
+	}
+	.scroll-progress-bar {
+		height: 100%;
+		width: 0%;
+		background: var(--accent);
+	}
+</style>
+
+<script is:inline>
+	// astro:page-load (not DOMContentLoaded) so this re-initializes on every
+	// View Transitions client-side navigation — ArticleShell (and this bar's
+	// own #scroll-progress-bar element) gets swapped/recreated on each
+	// navigation, same reason the TOC scroll-spy reinitializes there.
+	(function () {
+		var onScroll;
+		function initScrollProgress() {
+			var bar = document.getElementById('scroll-progress-bar');
+			if (!bar) return;
+
+			// Explicitly drop the previous listener before attaching a new one —
+			// guards against exactly the kind of duplicate-listener accumulation
+			// found in this project's mobile-TOC code (a fresh anonymous closure
+			// added on every reinit, with nothing ever removing the old one).
+			if (onScroll) window.removeEventListener('scroll', onScroll);
+
+			var ticking = false;
+			function update() {
+				var scrollTop = window.scrollY || document.documentElement.scrollTop;
+				var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+				var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+				bar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+				ticking = false;
+			}
+			onScroll = function () {
+				if (!ticking) {
+					window.requestAnimationFrame(update);
+					ticking = true;
+				}
+			};
+			window.addEventListener('scroll', onScroll, { passive: true });
+			update();
+		}
+		document.addEventListener('astro:page-load', initScrollProgress);
+	})();
+</script>
