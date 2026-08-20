@@ -2,6 +2,19 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-19 — Automatic inline citation linking
+
+Built `rehype-citation-links.mjs`, turning plain-text `(Bennett, 1987)` into `<a href="#ref-1">`. This was deliberately deferred earlier in the day as "real parsing work, scope it later" — built now because the user confirmed every inline citation in the FAFSA paper actually maps to a reference-list entry, changing the risk calculus enough to justify it.
+
+Real content ended up needing two citation shapes, not the one originally anticipated in `ROADMAP.md`: the expected parenthetical `(Name, Year)` (including semicolon-separated multi-source groups and `n.d.` entries), plus a narrative `Name (Year)` shape found only once actual extraction ran against the real text — `Macartney et al. (2024)`, and a legal-citation variant `Case v. Case (Year)` (`O'Brien v. Weinberger (1978)`, etc.), where the year has to be read from inside that specific parenthetical rather than the first 19xx/20xx digit anywhere in the entry (a reporter/page citation number could otherwise be misread as the year).
+
+Two real bugs found and fixed before shipping, both from testing against the actual paper rather than trusting the design on paper:
+
+1. A generic capitalized-phrase regex for the narrative shape unsafely captured entire sentences (`"As documented in Macartney et al. (2024)"` matched as the whole citation name) because, unlike the parenthetical shape, there's no literal `(` bounding where the name starts — leftmost-match preference just grabbed the sentence-initial capital. Fixed by matching against the *known* reference names directly (an escaped alternation of every name already in the lookup table) instead of a generic pattern.
+2. Astro's markdown pipeline smartypants-converts straight quotes to curly ones before this plugin sees the text. The parenthetical shape's Map-based lookup already normalized this correctly on both sides; the narrative shape's regex pattern didn't, so `O'Brien v. Weinberger` (curly apostrophe in the rendered HTML) silently failed to match against a pattern built from straight-quote lookup keys. Fixed by searching a straight-quote copy of the text (same length, so match indices stay valid) while still slicing the final linked substring from the original text.
+
+Verified exhaustively, not spot-checked: all 45 generated links individually cross-referenced against the real 35-entry reference list before shipping (both bugs above were caught this way — the link count was 39, then 43, then finally 45 once both fixes landed). Confirmed zero links generated inside the References section itself, and a full regression sweep against every previously-shipped feature on the same page.
+
 ## 2026-08-19 — Split description/excerpt, removed placeholder papers (go-live prep)
 
 Started prepping for an actual go-live: the user flagged that the FAFSA paper's blurb was very long both on-page (research hub cards) and in the raw `<meta name="description">` tag — investigation confirmed the ~1600-character full abstract (`description`) was being reused verbatim in both places, with zero truncation. Added a required `excerpt` field (`z.string().max(200)`, ~155–160 char SEO target) used for the meta/OG description tag and every card blurb site-wide (`RecentResearch`, `RelatedPapers`, `research-hub/index.astro`, `[pillar]/index.astro`, `tags/[tag]/index.astro`, `rss.xml.js`); `description` now stays reserved for the full JSON-LD abstract only. Wrote the FAFSA paper's excerpt (verified at 157 characters).
