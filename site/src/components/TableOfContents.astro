@@ -95,13 +95,18 @@ const showToc = sections.length >= MIN_SECTIONS;
 		text-decoration: none;
 		font-size: 0.9em;
 		line-height: 1.4;
+		display: block;
+		border-left: 2px solid transparent;
+		padding-left: 10px;
 	}
 	.toc-rail a:hover,
 	.toc-rail a:focus-visible {
 		color: var(--accent);
+		border-left-color: var(--accent);
 	}
 	.toc-rail a.active {
 		color: var(--accent);
 		font-weight: 700;
+		border-left-color: var(--accent);
 	}
 </style>

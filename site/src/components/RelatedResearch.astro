@@ -37,7 +37,7 @@ const related = all
 			<h2>Related Research</h2>
 			<ul>
 				{related.map((entry) => (
-					<Card href={`/research-hub/${categorySegment(entry)}/${entry.id}/`}>
+					<Card href={`/research/${categorySegment(entry)}/${entry.id}/`}>
 						{entry.data.format === 'paper' ? (
 							<Badge variant="pillar" pillar={entry.data.pillar}>
 								{formatPillarLabel(entry.data.pillar!)}

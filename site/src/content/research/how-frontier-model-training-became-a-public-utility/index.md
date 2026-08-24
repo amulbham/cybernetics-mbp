@@ -40,7 +40,7 @@ Strip away the technical vocabulary and that is roughly the shape of what happen
 
 He isn't wrong about the efficiency claim. That is precisely the problem — and it points to something larger than one policy ask. This isn't a story about a bad regulation. It's a story about an entire industry reasoning from a frame that the technology has already made obsolete. Three pieces of evidence show why.
 
-## Key Findings
+## Key findings
 
 - Distillation is a decade-old, commercially mainstream technique — not a security threat — and now costs as little as ten to sixteen dollars to run on a rented GPU.
 - Frontier model training has become infrastructure, not a competitive moat: everything a frontier model can do becomes reproducible at lower cost through distillation, shifting the durable advantage to deployment depth and enterprise trust instead.

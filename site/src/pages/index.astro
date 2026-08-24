@@ -5,6 +5,14 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import RecentResearch from '../components/RecentResearch.astro';
 import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { formatPillarLabel, PILLAR_DESCRIPTIONS } from '../lib/pillars';
+
+// Category navigation, not a content listing — shown unconditionally for all
+// 4 pillars regardless of how many papers each currently has (unlike
+// research/index.astro's category sections, which only render once a pillar
+// has at least one paper). An empty pillar is still a legitimate place to
+// browse to, the same way nav links don't disappear when a section is thin.
+const pillars = Object.keys(PILLAR_DESCRIPTIONS);
 
 // Homepage entity graph: establishes Amul Bham as a disambiguated Person
 // entity (linked to LinkedIn/Substack/GitHub/ORCID via the same SOCIAL_LINKS
@@ -71,6 +79,56 @@ const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c
 				gap: 0.75em;
 				margin-top: 1.75em;
 			}
+			.section-label {
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-secondary);
+				margin-bottom: var(--space-5);
+			}
+			.pillars-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: var(--space-4);
+				margin-bottom: var(--space-7);
+				list-style: none;
+				padding: 0;
+			}
+			@media (max-width: 640px) {
+				.pillars-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+			.pillar-card {
+				display: block;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-md);
+				padding: var(--space-5);
+				text-decoration: none;
+				color: inherit;
+				transition: border-color 0.15s ease;
+			}
+			.pillar-card:hover,
+			.pillar-card:focus-visible {
+				border-color: var(--accent);
+			}
+			.pillar-dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				margin-bottom: var(--space-3);
+			}
+			.pillar-card h3 {
+				font-size: var(--text-base);
+				margin: 0 0 var(--space-2);
+			}
+			.pillar-card p {
+				font-size: var(--text-sm);
+				color: var(--text-secondary);
+				margin: 0;
+				line-height: 1.5;
+			}
 		</style>
 	</head>
 	<body>
@@ -85,10 +143,27 @@ const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c
 					in production.
 				</p>
 				<nav class="cta-links" aria-label="Primary">
-					<Button href="/research-hub" variant="primary">Browse Research Hub</Button>
+					<Button href="/research" variant="primary">Browse research</Button>
 					<Button href="/about" variant="secondary">About Amul</Button>
 				</nav>
 			</section>
+
+			<div>
+				<p class="section-label">Research pillars</p>
+				<ul class="pillars-grid">
+					{
+						pillars.map((pillar) => (
+							<li>
+								<a class="pillar-card" href={`/research/${pillar}/`}>
+									<span class="pillar-dot" style={`background: var(--pillar-${pillar})`} />
+									<h3>{formatPillarLabel(pillar)}</h3>
+									<p>{PILLAR_DESCRIPTIONS[pillar]}</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
 
 			<RecentResearch />
 		</main>

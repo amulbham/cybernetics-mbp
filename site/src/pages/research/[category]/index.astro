@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../../../components/BaseHead.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import Card from '../../../components/Card.astro';
 import Footer from '../../../components/Footer.astro';
 import FormattedDate from '../../../components/FormattedDate.astro';
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 	const entries = await getCollection('research');
 	// "essays"/"memos" are fixed, permanent taxonomy categories (unlike
 	// pillars, which are ad-hoc and only get a page once they have a paper) —
-	// force them in here so /research-hub/memos/ builds and shows an empty
+	// force them in here so /research/memos/ builds and shows an empty
 	// state instead of 404ing before the first memo exists. Declared inline
 	// (not as a sibling top-level const) because Astro extracts
 	// getStaticPaths into an isolated build-time chunk that doesn't reliably
@@ -45,6 +46,11 @@ interface Props {
 
 const { category, entries } = Astro.props;
 const label = categoryLabelFromSegment(category);
+const breadcrumbItems = [
+	{ label: 'Home', href: '/' },
+	{ label: 'Research', href: '/research' },
+	{ label },
+];
 const description =
 	FORMAT_CATEGORY_DESCRIPTIONS[category] ?? PILLAR_DESCRIPTIONS[category] ?? `Research on ${label}.`;
 ---
@@ -89,14 +95,14 @@ const description =
 	<body>
 		<Header />
 		<main>
-			<p class="breadcrumbs meta"><a href="/research-hub">Research Hub</a></p>
+			<Breadcrumbs items={breadcrumbItems} />
 			<h1>{label}</h1>
 			<p class="intro">{description}</p>
 			{
 				entries.length > 0 ? (
 					<ul class="entries">
 						{entries.map((entry) => (
-							<Card href={`/research-hub/${category}/${entry.id}/`}>
+							<Card href={`/research/${category}/${entry.id}/`}>
 								<span class="meta">
 									<FormattedDate date={entry.data.pubDate} />
 								</span>

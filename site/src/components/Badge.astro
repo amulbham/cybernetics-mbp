@@ -31,6 +31,7 @@ const style = variant === 'pillar' && pillar ? `--badge-color: var(--pillar-${pi
 	.badge.badge-pillar {
 		background-color: color-mix(in oklab, var(--badge-color, var(--accent)) 12%, transparent);
 		color: var(--badge-color, var(--accent));
+		border: 1px solid color-mix(in oklab, var(--badge-color, var(--accent)) 20%, transparent);
 	}
 	.dot {
 		width: 0.45em;

@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-header.png';
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import ThemeToggle from './ThemeToggle.astro';
@@ -6,10 +8,15 @@ import ThemeToggle from './ThemeToggle.astro';
 
 <header data-pagefind-ignore>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2>
+			<a class="brand" href="/">
+				<Image src={logo} alt="" height={26} />
+				{SITE_TITLE}
+			</a>
+		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/research-hub">Research Hub</HeaderLink>
+			<HeaderLink href="/research">Research</HeaderLink>
 			<HeaderLink href="/search">Search</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
@@ -33,6 +40,15 @@ import ThemeToggle from './ThemeToggle.astro';
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
+	}
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+	.brand img {
+		display: block;
+		width: auto;
 	}
 	nav {
 		display: flex;

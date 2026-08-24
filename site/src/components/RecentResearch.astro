@@ -14,13 +14,13 @@ const recentEntries = (await getCollection('research'))
 <section class="recent-research">
 	<div class="section-heading">
 		<h2>Recent Research</h2>
-		<a href="/research-hub">View all research →</a>
+		<a href="/research">View all research →</a>
 	</div>
 	{
 		recentEntries.length > 0 ? (
 			<ul class="research-feed">
 				{recentEntries.map((entry) => (
-					<Card href={`/research-hub/${categorySegment(entry)}/${entry.id}/`}>
+					<Card href={`/research/${categorySegment(entry)}/${entry.id}/`}>
 						{entry.data.format === 'paper' ? (
 							<Badge variant="pillar" pillar={entry.data.pillar}>
 								{formatPillarLabel(entry.data.pillar!)}

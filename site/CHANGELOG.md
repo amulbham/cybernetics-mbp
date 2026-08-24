@@ -2,6 +2,24 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-24 — Applied the design system: route rename, real logo/favicon, text-chip social links, homepage pillar grid
+
+The user exported a full design system from Claude Design (tokens, component specs, two UI-kit page mockups, a real "AB" monogram logo asset) to their Downloads folder and asked to align the live site to it before adding more content. Read it directly off the local filesystem rather than having it pasted in — nearly every token (colors, spacing, radius, type scale) turned out to be an **exact match** to what was already live, since the export was generated from the current codebase; the real deltas were a handful of concrete additions plus one thing that was simply stale (the export predates the `papers`+`blog` unification and still showed a separate "Blog" nav link — not applied).
+
+Three decisions confirmed with the user before touching anything: rename `/research-hub/` → `/research/` to match every mockup (free to do, nothing indexed yet), use the real logo for both the header and a proper favicon, and switch the footer's inline-SVG social icons to the design system's mono-font text-abbreviation chips (`in`/`S`/`</>`) — this site deliberately has no icon library.
+
+**Route rename**: centralized cleanly through `src/lib/research-routing.ts`'s `canonicalPath()`, built for exactly this kind of change during the collection unification — one string change there, plus the physical directory rename and a handful of hardcoded strings in `Header.astro`, `index.astro`, both `research/` index pages, `tags/[tag]/index.astro`, `RecentResearch.astro`, and `RelatedResearch.astro`. `open-graph/[...route].ts` needed no change — its URL keying never included the `/research-hub`/`/research` prefix in the first place. Grepped `src/` afterward to confirm zero stragglers.
+
+**Logo/favicon**: the source `logo.png` had substantial transparent padding (visible content was roughly the middle 40% of a 784×1168 canvas) — trimmed via a one-off `sharp` script before use anywhere. Learned something building this: trimming the source padding does **not** by itself shrink the final favicon file size, since `favicon.svg`'s embedded base64 PNG is re-rendered at a fixed output canvas regardless of how much padding the original had — the previous attempt at this actually came out *larger* (138KB vs. the old 127KB) until the embed resolution itself was dropped to 256×256 (still sharp at any real favicon display size), landing at ~42KB, a real reduction. `favicon-512.png` (used as the default OG image, a separately-cached file rather than something inlined into every page's `<head>`) stayed at full 512×512 quality since its size doesn't carry the same per-pageview cost. Still a raster embed, not a real vector — logged in `ROADMAP.md`.
+
+**Breadcrumbs** gained a leading "Home" crumb (`ResearchLayout.astro`'s `breadcrumbItems`) — this automatically kept the visual crumbs and the `BreadcrumbList` JSON-LD in sync, since both were already derived from the same array. `research/[category]/index.astro`'s own breadcrumb, previously an ad-hoc `<p>`, was switched to the shared `Breadcrumbs` component for consistency.
+
+**New homepage section**: a "Research pillars" grid between the hero and the recent-research feed, showing all 4 pillars unconditionally (colored dot, label, description from the already-existing `PILLAR_DESCRIPTIONS` map) — deliberately not gated on paper count, since this is category navigation rather than a content listing.
+
+Smaller refinements from the same mockups: a subtle tinted border on pillar badges, a left accent bar on the active/hovered TOC link, a smaller and more muted blockquote treatment, tighter prose paragraph spacing, and a "Key Findings" → "Key findings" casing fix on the one essay that has that section, matching the design system's own stated sentence-case rule.
+
+Verified with the same discipline as every migration this project: cleared `node_modules/.astro`/`dist`/`.astro` first (a route rename touches `getStaticPaths` output, and the content-layer cache has silently served stale routes before), then a clean build confirming zero `/research-hub/` references anywhere in `dist/`, all 45 citation links and the References section still intact on the paper, the JSON-LD `@type` split still correct, noindex/robots still on, and the new pieces (pillar grid, logo, chips, badge border, TOC active bar) all present in the built HTML/CSS.
+
 ## 2026-08-20 (later) — Dark mode fixes, pull quotes for the essay
 
 Two real dark-mode bugs, both found by direct code inspection before touching anything (the user reported "toggle doesn't stick" and "colors look off" — investigated rather than guessed at a fix):

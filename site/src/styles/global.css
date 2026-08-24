@@ -174,7 +174,7 @@ p {
 	margin-bottom: 1em;
 }
 .prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1.5em;
 }
 textarea {
 	width: 100%;
@@ -209,7 +209,8 @@ blockquote {
 	border-left: 4px solid var(--accent);
 	padding: 0 0 0 20px;
 	margin: 0;
-	font-size: 1.333em;
+	font-size: 1.1em;
+	color: var(--text-secondary);
 }
 hr {
 	border: none;

@@ -45,17 +45,18 @@ const {
 const isPaper = format === 'paper';
 const category = isPaper ? pillar! : `${format}s`;
 const categoryLabel = categoryLabelFromSegment(category);
-const categoryUrl = `/research-hub/${category}/`;
+const categoryUrl = `/research/${category}/`;
 
 // Derived, not frontmatter, so it can never drift from the entry's actual
 // route (this previously happened: a paper's canonicalURL frontmatter still
 // said `systems-architecture` after its `pillar` was changed to `policy-systems`).
-const canonicalURL = new URL(`/research-hub/${category}/${id}/`, Astro.site).toString();
+const canonicalURL = new URL(`/research/${category}/${id}/`, Astro.site).toString();
 const ogImagePath = `/open-graph/${category}/${id}.png`;
 const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
 
 const breadcrumbItems = [
-	{ label: 'Research Hub', href: '/research-hub' },
+	{ label: 'Home', href: '/' },
+	{ label: 'Research', href: '/research' },
 	{ label: categoryLabel, href: categoryUrl },
 ];
 

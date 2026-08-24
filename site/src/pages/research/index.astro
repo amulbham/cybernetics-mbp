@@ -20,8 +20,8 @@ const pillarGroups = pillars.map((pillar) => ({
 }));
 
 // Essays/memos sections only show up here once they have at least one entry
-// (same convention as pillar sections) — the dedicated /research-hub/essays/
-// and /research-hub/memos/ pages always exist regardless, with an empty
+// (same convention as pillar sections) — the dedicated /research/essays/
+// and /research/memos/ pages always exist regardless, with an empty
 // state, since those are fixed taxonomy categories rather than ad-hoc pillars.
 const formatGroups = (['essay', 'memo'] as const)
 	.map((format) => ({
@@ -40,7 +40,7 @@ const categoryGroups = [...pillarGroups, ...formatGroups];
 <html lang="en">
 	<head>
 		<BaseHead
-			title="Research Hub"
+			title="Research"
 			description="Research from Amul Bham — papers organized by pillar, plus longer essays and shorter memos."
 		/>
 		<style>
@@ -93,18 +93,18 @@ const categoryGroups = [...pillarGroups, ...formatGroups];
 	<body>
 		<Header />
 		<main>
-			<h1>Research Hub</h1>
+			<h1>Research</h1>
 			<p class="intro">Papers, essays, and memos — each links to a dedicated write-up with full citation metadata.</p>
 			{categoryGroups.length === 0 && <p class="empty">No research published yet — check back soon.</p>}
 			{
 				categoryGroups.map(({ category, label, entries }) => (
 					<section class="category-section" id={category}>
 						<h2>
-							<a href={`/research-hub/${category}/`}>{label}</a>
+							<a href={`/research/${category}/`}>{label}</a>
 						</h2>
 						<ul class="entries">
 							{entries.map((entry) => (
-								<Card href={`/research-hub/${category}/${entry.id}/`}>
+								<Card href={`/research/${category}/${entry.id}/`}>
 									<span class="meta">
 										<FormattedDate date={entry.data.pubDate} />
 									</span>

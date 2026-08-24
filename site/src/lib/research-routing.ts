@@ -14,7 +14,7 @@ export function categorySegment(entry: CollectionEntry<'research'>): string {
 }
 
 export function canonicalPath(entry: CollectionEntry<'research'>): string {
-	return `/research-hub/${categorySegment(entry)}/${entry.id}/`;
+	return `/research/${categorySegment(entry)}/${entry.id}/`;
 }
 
 const FORMAT_PLURAL_LABELS: Record<string, string> = { essays: 'Essays', memos: 'Memos' };
