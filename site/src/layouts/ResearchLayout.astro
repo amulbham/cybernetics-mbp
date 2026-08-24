@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import ArticleMasthead from '../components/ArticleMasthead.astro';
 import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedResearch from '../components/RelatedResearch.astro';
 import TableOfContents from '../components/TableOfContents.astro';
-import { SOCIAL_LINKS } from '../consts';
+import { AUTHOR, LICENSE, SOCIAL_LINKS } from '../consts';
 import { categoryLabelFromSegment, categorySegment } from '../lib/research-routing';
 import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
@@ -26,6 +27,7 @@ type Props = CollectionEntry<'research'>['data'] & {
 
 const {
 	title,
+	subtitle,
 	description,
 	excerpt,
 	format,
@@ -87,11 +89,12 @@ const jsonLd = {
 	}),
 	keywords: tags.join(', '),
 	inLanguage: 'en-US',
+	license: LICENSE.url,
 	...(wordCount && { wordCount }),
 	...(minutesRead && { timeRequired: `PT${minutesRead}M` }),
 	author: {
 		'@type': 'Person',
-		name: 'Amul Bham',
+		name: AUTHOR.name,
 		url: new URL('/about', Astro.site),
 		sameAs: Object.values(SOCIAL_LINKS),
 	},
@@ -175,7 +178,13 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 	</head>
 
 	<body>
-		<ArticleShell title={title} pubDate={pubDate} updatedDate={dateModified} minutesRead={minutesRead}>
+		<ArticleShell
+			title={title}
+			subtitle={subtitle}
+			pubDate={pubDate}
+			updatedDate={dateModified}
+			minutesRead={minutesRead}
+		>
 			<Fragment slot="hero">
 				{
 					heroImage && (
@@ -189,6 +198,7 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 				<Breadcrumbs items={breadcrumbItems} />
 			</Fragment>
 			<Fragment slot="after-title">
+				<ArticleMasthead format={format} />
 				{
 					tags.length > 0 && (
 						<ul class="tags">

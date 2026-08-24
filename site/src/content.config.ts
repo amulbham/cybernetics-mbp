@@ -15,6 +15,11 @@ const research = defineCollection({
 		z
 			.object({
 				title: z.string(),
+					// Optional subheading, rendered directly under the <h1> by
+					// ArticleShell.astro — deliberately a frontmatter field, not a
+					// `##` heading in the body: a subtitle written as a heading gets
+					// picked up by the TOC transform as a real section. See AGENTS.md.
+					subtitle: z.string().optional(),
 				// 'paper': rigorous, protocol-driven research (requires `pillar`).
 				// 'essay': long-form analytical prose, no pillar.
 				// 'memo': shorter, more casual notes, no pillar.

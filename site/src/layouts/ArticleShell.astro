@@ -11,12 +11,13 @@ import ScrollProgress from '../components/ScrollProgress.astro';
 
 interface Props {
 	title: string;
+	subtitle?: string;
 	pubDate: Date;
 	updatedDate?: Date;
 	minutesRead?: number;
 }
 
-const { title, pubDate, updatedDate, minutesRead } = Astro.props;
+const { title, subtitle, pubDate, updatedDate, minutesRead } = Astro.props;
 ---
 
 <ScrollProgress />
@@ -40,6 +41,7 @@ const { title, pubDate, updatedDate, minutesRead } = Astro.props;
 						}
 					</div>
 					<h1>{title}</h1>
+					{subtitle && <p class="subtitle">{subtitle}</p>}
 					<slot name="after-title" />
 					<hr />
 				</div>
@@ -79,6 +81,12 @@ const { title, pubDate, updatedDate, minutesRead } = Astro.props;
 	}
 	.title h1 {
 		margin: 0 0 0.5em 0;
+	}
+	.subtitle {
+		font-style: italic;
+		color: var(--text-secondary);
+		font-size: 1.1em;
+		margin: 0 0 1em;
 	}
 	.date {
 		margin-bottom: 0.5em;

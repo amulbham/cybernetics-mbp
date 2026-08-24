@@ -1,0 +1,48 @@
+---
+// Byline/correspondence block for research entries — a real component
+// instead of hand-typed Markdown in each article's body, specifically
+// because that data (name, affiliation, correspondence) is identical on
+// every entry. Hand-typing it per piece is exactly how two early pieces
+// drifted into different formats from each other. See AGENTS.md.
+import type { CollectionEntry } from 'astro:content';
+import { AUTHOR, LICENSE, SOCIAL_LINKS } from '../consts';
+import { formatLabel } from '../lib/research-routing';
+
+interface Props {
+	format: CollectionEntry<'research'>['data']['format'];
+}
+
+const { format } = Astro.props;
+---
+
+<div class="masthead meta">
+	<p class="name">{AUTHOR.name}</p>
+	<p>{AUTHOR.affiliation}, {AUTHOR.location}</p>
+	<p>
+		<a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
+		{' · '}
+		<a href={SOCIAL_LINKS.linkedin}>linkedin.com/in/amul-bham</a>
+		{' · '}
+		<a href={SOCIAL_LINKS.orcid}>orcid.org/0009-0009-7660-4031</a>
+	</p>
+	<p>{formatLabel(format)} · Licensed <a href={LICENSE.url}>{LICENSE.label}</a></p>
+</div>
+
+<style>
+	.masthead {
+		text-align: center;
+		margin: 0 0 1.5em;
+	}
+	.masthead p {
+		margin: 0 0 0.3em;
+	}
+	.masthead p:last-child {
+		margin-bottom: 0;
+	}
+	.name {
+		font-family: var(--font-atkinson);
+		font-weight: 700;
+		font-size: 1.05em;
+		color: var(--text-primary);
+	}
+</style>

@@ -19,3 +19,20 @@ export const SOCIAL_LINKS = {
 	github: 'https://github.com/amulbham',
 	orcid: 'https://orcid.org/0009-0009-7660-4031',
 } as const;
+
+// Byline/correspondence details for ArticleMasthead.astro — the same on
+// every research entry, so this is a constant, not per-entry frontmatter.
+export const AUTHOR = {
+	name: 'Amul Bham',
+	affiliation: 'Independent Researcher',
+	location: 'Corona, CA, USA',
+	email: 'amul.bham@gmail.com',
+} as const;
+
+// Sitewide content license — shown in ArticleMasthead.astro, the footer, and
+// each entry's JSON-LD `license` field. Single source of truth so these
+// three can't drift out of sync with each other.
+export const LICENSE = {
+	label: 'CC BY-NC 4.0',
+	url: 'https://creativecommons.org/licenses/by-nc/4.0/',
+} as const;
