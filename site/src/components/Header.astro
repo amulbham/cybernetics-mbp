@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo-header.png';
+import logoDark from '../assets/logo-header-dark.png';
+import logoLight from '../assets/logo-header-light.png';
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import ThemeToggle from './ThemeToggle.astro';
@@ -10,7 +11,8 @@ import ThemeToggle from './ThemeToggle.astro';
 	<nav>
 		<h2>
 			<a class="brand" href="/">
-				<Image src={logo} alt="" height={26} />
+				<Image class="logo-light" src={logoLight} alt="" height={26} />
+				<Image class="logo-dark" src={logoDark} alt="" height={26} />
 				{SITE_TITLE}
 			</a>
 		</h2>
@@ -49,6 +51,27 @@ import ThemeToggle from './ThemeToggle.astro';
 	.brand img {
 		display: block;
 		width: auto;
+	}
+	/* Two logo assets, toggled by theme rather than one raster swapped by JS —
+	   mirrors the color-token dark-mode pattern in global.css (explicit choice
+	   via [data-theme], OS default via the media query when no explicit
+	   choice has been made). */
+	.brand .logo-dark {
+		display: none;
+	}
+	:root[data-theme='dark'] .brand .logo-light {
+		display: none;
+	}
+	:root[data-theme='dark'] .brand .logo-dark {
+		display: block;
+	}
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme='light']) .brand .logo-light {
+			display: none;
+		}
+		:root:not([data-theme='light']) .brand .logo-dark {
+			display: block;
+		}
 	}
 	nav {
 		display: flex;

@@ -2,6 +2,18 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-24 (later) — Homepage reorder, v2 logo with real dark/light theming
+
+Two follow-ups to the design-system-alignment sprint, same day.
+
+**Homepage reorder**: moved the "Recent Research" feed above the new pillar grid — recent work should be the first thing a reader sees, with pillar navigation as the secondary browse path underneath, not the other way around.
+
+**Logo v2**: the user wasn't happy with the design system's serif "AB"+dots monogram and supplied a cleaner geometric-ligature "AB" mark instead (the A's right leg merges into the B's stem), in both a dark/charcoal and a white variant. This mark is flat two-tone geometry rather than an illustration, which is exactly what makes it scale to favicon sizes without losing legibility — confirmed visually at 32×32 before shipping.
+
+Went further than a straight asset swap: built the mark as a genuine light/dark **pair**, not one image reused everywhere. The header logo now renders both `logo-header-light.png`/`logo-header-dark.png` and toggles between them with the exact same `[data-theme='dark']`/`prefers-color-scheme` CSS guard already used for every color token and `ThemeToggle.astro`'s own sun/moon swap — so it correctly follows the site's manual toggle, not just OS preference. The favicon got the standard `<link media="(prefers-color-scheme: ...)">` pairing (`favicon.svg`/`favicon-dark.svg`, `favicon-32x32.png`/`-32x32-dark.png`) — worth being precise about what this can and can't do: a static `<link>` reacts to the **OS's** preference, not this site's own JS-driven toggle, since the browser evaluates it independent of page state. That's a hard platform limitation, not a shortcoming — it's the best any site can do for a favicon, and it's what actually restores the dark-mode reactivity the very first favicon (a real `<path>` with a fill-color media query) had before the design-system monogram replaced it with a single fixed raster. `apple-touch-icon.png`/`favicon.ico` stayed single assets, since neither iOS home-screen icons nor legacy bookmark-bar icons support per-scheme swapping at all.
+
+Also a real, if minor, correction to a wrong assumption from the same-day favicon work: trimming the source image's padding does **not** by itself shrink the embedded favicon's file size — that's a function of the output canvas resolution, not how much of the original was blank space. Confirmed again here (the new mark's `favicon.svg` came out at 30KB vs. the previous mark's 42KB, purely because the new geometry compresses better at the same 256×256 embed size, not because of anything padding-related).
+
 ## 2026-08-24 — Applied the design system: route rename, real logo/favicon, text-chip social links, homepage pillar grid
 
 The user exported a full design system from Claude Design (tokens, component specs, two UI-kit page mockups, a real "AB" monogram logo asset) to their Downloads folder and asked to align the live site to it before adding more content. Read it directly off the local filesystem rather than having it pasted in — nearly every token (colors, spacing, radius, type scale) turned out to be an **exact match** to what was already live, since the export was generated from the current codebase; the real deltas were a handful of concrete additions plus one thing that was simply stale (the export predates the `papers`+`blog` unification and still showed a separate "Blog" nav link — not applied).

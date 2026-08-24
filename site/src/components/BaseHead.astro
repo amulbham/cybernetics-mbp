@@ -61,8 +61,16 @@ const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<!-- Light/dark favicon pair: the browser evaluates `media` against the OS's
+     prefers-color-scheme, independent of this site's own manual toggle (a
+     static <link> can't see page JS/CSS state) — the closest a favicon can
+     get to theme-correctness. favicon.ico/apple-touch-icon stay single
+     assets since neither format's consumers (legacy bookmark bars, iOS home
+     screen) support this. -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" media="(prefers-color-scheme: light)" />
+<link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" media="(prefers-color-scheme: light)" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32-dark.png" media="(prefers-color-scheme: dark)" />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="sitemap" href="/sitemap-index.xml" />
