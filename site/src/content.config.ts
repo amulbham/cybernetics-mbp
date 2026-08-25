@@ -38,6 +38,9 @@ const research = defineCollection({
 				excerpt: z.string().max(200),
 				tags: z.array(z.string()).default([]),
 				pdfUrl: z.url().optional(),
+					// Rendered by ArticleMasthead.astro alongside the universal
+					// correspondence details when present — not every entry has one.
+					doi: z.url().optional(),
 				// Optional 1020x510 (2:1) banner — see AGENTS.md for the full image
 				// spec. Alt text is required whenever an image is provided (enforced
 				// below), since a real hero isn't decorative.

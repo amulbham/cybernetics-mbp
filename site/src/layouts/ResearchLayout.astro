@@ -35,6 +35,7 @@ const {
 	dateModified,
 	tags,
 	pdfUrl,
+	doi,
 	pillar,
 	id,
 	minutesRead,
@@ -198,7 +199,7 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 				<Breadcrumbs items={breadcrumbItems} />
 			</Fragment>
 			<Fragment slot="after-title">
-				<ArticleMasthead format={format} />
+				<ArticleMasthead format={format} doi={doi} />
 				{
 					tags.length > 0 && (
 						<ul class="tags">

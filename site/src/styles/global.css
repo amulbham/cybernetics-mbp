@@ -49,6 +49,7 @@
 	--pillar-seo-architecture: #0e9f6e;
 	--pillar-systems-architecture: #7c3aed;
 	--pillar-policy-systems: #b45309;
+	--pillar-cybernetics: #c026d3;
 
 	/* Admonition severity colors — same muted-tint treatment as pillar accents. */
 	--alert-note: #0969da;
@@ -80,6 +81,7 @@
 	--pillar-seo-architecture: #34d399;
 	--pillar-systems-architecture: #a78bfa;
 	--pillar-policy-systems: #fbbf24;
+	--pillar-cybernetics: #e879f9;
 
 	/* GitHub's own dark-theme alert palette (Primer) — these tokens already
 	   mirror GitHub's alert colors in light mode, so borrowing their real
@@ -107,6 +109,7 @@
 		--pillar-seo-architecture: #34d399;
 		--pillar-systems-architecture: #a78bfa;
 		--pillar-policy-systems: #fbbf24;
+		--pillar-cybernetics: #e879f9;
 		--alert-note: #58a6ff;
 		--alert-tip: #3fb950;
 		--alert-important: #a371f7;

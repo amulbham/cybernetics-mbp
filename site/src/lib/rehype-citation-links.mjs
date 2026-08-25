@@ -20,33 +20,53 @@ function cleanCitationName(name) {
 }
 
 /**
- * Parses a reference-list entry's text into a { nameKey, year } signature
- * used to match inline citations against it. Handles two entry shapes:
- *  - "Surname, F. M. (Year)..." / "Org Name. (Year)..." → nameKey is the
- *    first surname (before the first comma) for multi-author/initialed
- *    entries, or the whole name for single-name orgs.
+ * Parses a reference-list entry's text into a { nameKeys, year } signature
+ * used to match inline citations against it (plural: one entry can be cited
+ * multiple valid ways). Handles two entry shapes:
+ *  - "Surname, F. M. (Year)..." / "Org Name. (Year)..." → primary nameKey is
+ *    the first surname (before the first comma) for multi-author/initialed
+ *    entries, or the whole name for single-name orgs. Surnames may contain
+ *    an internal space ("Conway Morris", "Maynard Smith").
  *  - "Case Name v. Other Name, Reporter cite (Court Year)." → nameKey is the
  *    full "X v. Y" case name; year is read from inside that first
  *    parenthetical specifically (not the first 19xx/20xx digit anywhere in
  *    the entry, which could match a page/report number or an unrelated year
  *    mentioned in the title).
+ *
+ * A two-author entry ("Surname1, X. & Surname2, Y. (Year)") also registers
+ * "Surname1 & Surname2" and "Surname1 and Surname2" as additional nameKeys —
+ * standard academic style cites a two-author work with "&" in parentheses
+ * but "and" in running prose (e.g. "(Maturana & Varela, 1974)" vs.
+ * "Maturana and Varela (1974) established..."), and both need to resolve to
+ * the same reference. Three-or-more-author entries stay first-surname-only,
+ * matched against inline "et al." citations by the narrative regex below.
  */
 function extractReferenceKey(refText) {
 	const caseMatch = refText.match(/^([A-Z][\w.'’-]*(?:\s+v\.\s+[A-Z][\w.'’-]*))/);
-	let nameKey;
+	let nameKeys;
 	let searchAfterIndex;
 	if (caseMatch) {
-		nameKey = normalizeName(caseMatch[1]);
+		nameKeys = [normalizeName(caseMatch[1])];
 		searchAfterIndex = caseMatch[0].length;
 	} else {
 		const parenIdx = refText.indexOf(' (');
 		if (parenIdx === -1) return null;
 		const namePart = refText.slice(0, parenIdx);
 		const firstCommaIdx = namePart.indexOf(',');
-		if (firstCommaIdx !== -1 && /^[A-Z][a-zA-Z'’-]+,/.test(namePart)) {
-			nameKey = normalizeName(namePart.slice(0, firstCommaIdx));
+		// \p{L} (any Unicode letter), not [a-zA-Z] — surnames like "Poincaré"
+		// or "Szathmáry" have accented letters a plain ASCII class would
+		// silently reject, breaking the match rather than erroring.
+		if (firstCommaIdx !== -1 && /^\p{Lu}[\p{L}'’\- ]*,/u.test(namePart)) {
+			const firstSurname = namePart.slice(0, firstCommaIdx);
+			nameKeys = [normalizeName(firstSurname)];
+			const twoAuthorMatch = namePart.match(/^\p{Lu}[\p{L}'’\- ]*,\s*[^&]*&\s*(\p{Lu}[\p{L}'’\- ]+),/u);
+			if (twoAuthorMatch) {
+				const secondSurname = twoAuthorMatch[1];
+				nameKeys.push(normalizeName(`${firstSurname} & ${secondSurname}`));
+				nameKeys.push(normalizeName(`${firstSurname} and ${secondSurname}`));
+			}
 		} else {
-			nameKey = normalizeName(namePart);
+			nameKeys = [normalizeName(namePart)];
 		}
 		searchAfterIndex = parenIdx;
 	}
@@ -58,11 +78,15 @@ function extractReferenceKey(refText) {
 	if (/n\.d\./.test(parenContent)) {
 		year = 'n.d.';
 	} else {
-		const yearMatch = parenContent.match(/(19|20)\d{2}/);
+		// (1[6-9]|20), not (19|20) — academic citations regularly predate
+		// 1900 (this project's own content already cites 1850, 1865, 1890),
+		// so excluding whole centuries by construction is a real bug, not a
+		// reasonable bound. 1600 is generous rather than exact.
+		const yearMatch = parenContent.match(/(1[6-9]|20)\d{2}/);
 		year = yearMatch ? yearMatch[0] : null;
 	}
 	if (!year) return null;
-	return { nameKey, year };
+	return { nameKeys, year };
 }
 
 /** Parses "Name, Year" / "Name et al., Year" / "Name, n.d." (one side of a
@@ -70,7 +94,7 @@ function extractReferenceKey(refText) {
 function parseNameYear(s) {
 	const ndMatch = s.match(/^(.*?),\s*n\.d\.$/);
 	if (ndMatch) return { name: cleanCitationName(ndMatch[1]), year: 'n.d.' };
-	const yearMatch = s.match(/^(.*?),\s*((?:19|20)\d{2}[a-z]?)$/);
+	const yearMatch = s.match(/^(.*?),\s*((?:1[6-9]|20)\d{2}[a-z]?)$/);
 	if (yearMatch) return { name: cleanCitationName(yearMatch[1]), year: yearMatch[2] };
 	return null;
 }
@@ -88,11 +112,13 @@ function buildReferenceLookup(tree) {
 			const refNumber = Number(node.properties.id.slice(4));
 			const key = extractReferenceKey(getText(node));
 			if (key) {
-				const mapKey = `${key.nameKey}|${key.year}`;
-				if (lookup.has(mapKey)) {
-					ambiguous.add(mapKey);
-				} else {
-					lookup.set(mapKey, refNumber);
+				for (const nameKey of key.nameKeys) {
+					const mapKey = `${nameKey}|${key.year}`;
+					if (lookup.has(mapKey)) {
+						ambiguous.add(mapKey);
+					} else {
+						lookup.set(mapKey, refNumber);
+					}
 				}
 			}
 			return; // no need to recurse into a reference <li>'s own children
@@ -155,7 +181,7 @@ function findCitationMatches(text, lookup) {
 	const knownNames = [...new Set([...lookup.keys()].map((k) => k.split('|')[0]))].sort((a, b) => b.length - a.length);
 	if (knownNames.length > 0) {
 		const narrativeRe = new RegExp(
-			`(${knownNames.map(escapeRegex).join('|')})(?:\\s+et al\\.?)?\\s*\\(((?:19|20)\\d{2}[a-z]?|n\\.d\\.)\\)`,
+			`(${knownNames.map(escapeRegex).join('|')})(?:\\s+et al\\.?)?\\s*\\(((?:1[6-9]|20)\\d{2}[a-z]?|n\\.d\\.)\\)`,
 			'gi'
 		);
 		while ((m = narrativeRe.exec(searchText))) {

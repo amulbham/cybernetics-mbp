@@ -19,4 +19,6 @@ export const PILLAR_DESCRIPTIONS: Record<string, string> = {
 		'Distributed systems and engineering architecture — the structural properties, like idempotency and failure modes, that hold production systems together.',
 	'policy-systems':
 		'Institutional and financial systems modeled as rules engines — where published policy, incentive design, and rational-actor behavior collide.',
+	cybernetics:
+		'Feedback, control, and self-organization — the structural conditions under which systems, biological, computational, or social, maintain order without external coordination. Includes the Cognitive Physics framework developed here.',
 };

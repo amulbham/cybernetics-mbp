@@ -10,9 +10,10 @@ import { formatLabel } from '../lib/research-routing';
 
 interface Props {
 	format: CollectionEntry<'research'>['data']['format'];
+	doi?: string;
 }
 
-const { format } = Astro.props;
+const { format, doi } = Astro.props;
 ---
 
 <div class="masthead meta">
@@ -24,6 +25,14 @@ const { format } = Astro.props;
 		<a href={SOCIAL_LINKS.linkedin}>linkedin.com/in/amul-bham</a>
 		{' · '}
 		<a href={SOCIAL_LINKS.orcid}>orcid.org/0009-0009-7660-4031</a>
+		{
+			doi && (
+				<>
+					{' · '}
+					<a href={doi}>{doi.replace(/^https?:\/\//, '')}</a>
+				</>
+			)
+		}
 	</p>
 	<p>{formatLabel(format)} · Licensed <a href={LICENSE.url}>{LICENSE.label}</a></p>
 </div>
