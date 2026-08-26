@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-26 (later) — Sprint 1: design-system folder
+
+Added `site/design-system/` (`README.md`, `tokens.md`, `components.md`, `do-not.md`) as the anti-drift visual contract for Signal as shipped in Sprint 0.5 — purely documentation, no visual change. Purpose: stop a future session (or agent) from adding a gradient card, a third font, or reintroducing electric blue, by writing down exactly what exists and what it's for.
+
+Corrected one thing while transcribing rather than copying it forward: the Sprint 0.5 spec's own claim that `AGENTS.md` already had a "once it exists" hedge pointing at this folder didn't hold up — that phrasing was actually in a `global.css` comment, not `AGENTS.md` (which had no pointer at all). Fixed the comment and added the real pointer to `AGENTS.md`'s Design system section as intended either way.
+
+`tokens.md` also documents `--motion-ease: ease`, a token Sprint 0.5 shipped but wasn't called out in this sprint's own spec — included for completeness since the point of this file is to match what's actually live, not just what got explicitly listed.
+
 ## 2026-08-26 — Sprint 0.5: Signal visual pass
 
 First sprint of the new "journal × editorial magazine × technical docs" design direction (locked philosophy: don't optimize research for shorter attention spans, optimize the interface for deeper attention — prose is the default, primitives appear only at cognitive load). This sprint was tokens and quieting only, per spec — no new components, no content/rehype/routing/noindex changes.

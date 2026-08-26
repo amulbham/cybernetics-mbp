@@ -8,8 +8,9 @@
 :root {
 	/* Signal palette (locked 2026-08-26): warm paper/ink/steel, replacing the
 	   original electric-blue/cool-white tokens — long papers should read as
-	   ink on stock, not a blue product UI. See site/AGENTS.md's Design
-	   system section and (once it exists) site/design-system/. */
+	   ink on stock, not a blue product UI. Full token roles/rationale live in
+	   site/design-system/tokens.md — this is the visual contract, don't
+	   invent values here without updating that file too. */
 	--bg: #f4f1ea;
 	--bg-raised: #fbfaf6;
 	--bg-subtle: #ebe7de;
