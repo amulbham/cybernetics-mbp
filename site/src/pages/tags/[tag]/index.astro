@@ -71,7 +71,7 @@ const { label, entries } = Astro.props;
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main-content">
 			<h1>Tag: {label}</h1>
 			<p class="intro">
 				{entries.length} item{entries.length === 1 ? '' : 's'} tagged "{label}".

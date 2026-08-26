@@ -1,7 +1,13 @@
 ---
 ---
 
-<button id="theme-toggle" type="button" class="theme-toggle" aria-label="Toggle color theme">
+<button
+	id="theme-toggle"
+	type="button"
+	class="theme-toggle"
+	aria-label="Toggle color theme"
+	aria-pressed="false"
+>
 	<svg
 		class="icon icon-sun"
 		aria-hidden="true"
@@ -88,6 +94,12 @@
 				(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 			var next = current === 'dark' ? 'light' : 'dark';
 			root.setAttribute('data-theme', next);
+			// aria-pressed only updates here (session-relative), not synced on
+			// initial load: the render-blocking theme script in BaseHead.astro
+			// that knows the stored preference runs in <head> before this
+			// button exists in the DOM yet, so there's no cheap way to set it
+			// correctly before the first click.
+			event.target.closest('#theme-toggle').setAttribute('aria-pressed', String(next === 'dark'));
 			try {
 				localStorage.setItem('theme', next);
 			} catch (e) {}

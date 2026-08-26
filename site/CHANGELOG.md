@@ -2,6 +2,20 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-26 — Sprint 0.5: Signal visual pass
+
+First sprint of the new "journal × editorial magazine × technical docs" design direction (locked philosophy: don't optimize research for shorter attention spans, optimize the interface for deeper attention — prose is the default, primitives appear only at cognitive load). This sprint was tokens and quieting only, per spec — no new components, no content/rehype/routing/noindex changes.
+
+Replaced the electric-blue/cool-white palette with Signal (warm paper `--bg`, ink `--text-primary`, steel `--accent`) across all three token blocks (`:root`, `:root[data-theme='dark']`, and the `prefers-color-scheme` fallback — kept all three in sync, the exact bug class that bit this project once already). New `--bg-raised` (cards/tables) and `--accent-fg` (button label color on `--accent`) tokens. All 5 pillars and all 5 alert severities got new Signal-consistent hex values.
+
+Computed real WCAG contrast ratios for every pair the spec flagged as blocking (relative-luminance formula, plus alpha-composited wash backgrounds for the pillar/alert 12%/8% tints) rather than eyeballing them. Everything passed except one the spec didn't anticipate — `--alert-warning` in light mode landed at 4.05:1 against its own 8% wash, just under the 4.5:1 AA minimum (the spec's own guess, `--pillar-systems-architecture`, actually passed clean at 5.64:1). Fixed by darkening the text token alone (per the spec's own rule — darken the text, not the wash), verified at 4.75:1.
+
+Component changes: `Button.astro`'s primary variant now uses `--accent-fg` instead of a hardcoded `white`; `Card.astro` gets `--bg-raised` + a baseline `--shadow-sm` (invisible in dark mode for free, since dark's shadow tokens are already `none`); `Header.astro`'s active-nav underline dropped from 4px to 2px; `ScrollProgress.astro` dropped from 3px to 2px; the homepage hero is now left-aligned instead of centered (eyebrow set to the mono font, supporting paragraph moved to `--text-secondary`).
+
+Accessibility additions: a skip-link (`.skip-link`, visually hidden until focused, targets `#main-content` — added that id to every page's `<main>`, 8 files), a sitewide `:focus-visible` rule driven by new `--focus-ring`/`--focus-ring-width`/`--focus-ring-offset` tokens, a `prefers-reduced-motion` block that kills transitions/animations and hides the scroll-progress bar outright, and a session-relative `aria-pressed` on the theme toggle (not synced on initial page load — the render-blocking theme script in `BaseHead.astro` that knows the stored preference runs in `<head>` before the button exists in the DOM, so there's no cheap way to set it correctly before the first click; noted in-code rather than silently left incomplete).
+
+Verified zero regressions: FAFSA's 45 citation links and the Invariants paper's 27/32 auto-linked references both unchanged, masthead/TOC/admonitions all still render, `SITE_WIDE_NOINDEX`/`robots.txt` untouched, no stray `#2337ff`/`#5b6bff` left anywhere in `src/` or the built output.
+
 ## 2026-08-24 (even later) — Real-world test of the content-manager skill: a new paper, a new pillar, three real citation-linker bugs fixed
 
 Published the second real paper on the site, "The Invariants of Self-Organizing Systems" — a 32-reference cross-disciplinary complexity-science paper, deliberately used as the first real stress test of everything shipped earlier today (the masthead component, the citation/tag/license conventions, the new content-manager skill), not a synthetic test case.

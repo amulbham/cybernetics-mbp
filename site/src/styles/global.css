@@ -6,16 +6,22 @@
  */
 
 :root {
-	--bg: #ffffff;
-	--bg-subtle: #f7f8fa;
-	--border: #e2e5eb;
-	--text-primary: #12141c;
-	--text-secondary: #4b5568;
-	--accent: #2337ff;
-	--accent-hover: #1b2ad1;
-	--shadow-sm: 0 1px 2px rgba(15, 18, 25, 0.06);
-	--shadow-md: 0 4px 12px rgba(15, 18, 25, 0.08);
-	--shadow-lg: 0 12px 32px rgba(15, 18, 25, 0.12);
+	/* Signal palette (locked 2026-08-26): warm paper/ink/steel, replacing the
+	   original electric-blue/cool-white tokens — long papers should read as
+	   ink on stock, not a blue product UI. See site/AGENTS.md's Design
+	   system section and (once it exists) site/design-system/. */
+	--bg: #f4f1ea;
+	--bg-raised: #fbfaf6;
+	--bg-subtle: #ebe7de;
+	--border: #d5d0c6;
+	--text-primary: #1c1d1f;
+	--text-secondary: #5c6168;
+	--accent: #2e4a68;
+	--accent-hover: #243c56;
+	--accent-fg: #fbfaf6;
+	--shadow-sm: 0 1px 2px rgba(28, 29, 31, 0.05);
+	--shadow-md: 0 4px 16px rgba(28, 29, 31, 0.06);
+	--shadow-lg: 0 12px 32px rgba(28, 29, 31, 0.08);
 
 	--space-1: 4px;
 	--space-2: 8px;
@@ -45,77 +51,118 @@
 	--content-width-wide: 960px;
 
 	/* Pillar accents — used as muted tints (color-mix), not full-saturation fills */
-	--pillar-ai-systems: #2337ff;
-	--pillar-seo-architecture: #0e9f6e;
-	--pillar-systems-architecture: #7c3aed;
-	--pillar-policy-systems: #b45309;
-	--pillar-cybernetics: #c026d3;
+	--pillar-ai-systems: #2e4a68;
+	--pillar-seo-architecture: #2d6a52;
+	--pillar-systems-architecture: #4a5563;
+	--pillar-policy-systems: #6b4e38;
+	--pillar-cybernetics: #6b4a62;
 
-	/* Admonition severity colors — same muted-tint treatment as pillar accents. */
-	--alert-note: #0969da;
-	--alert-tip: #1a7f37;
-	--alert-important: #8250df;
-	--alert-warning: #9a6700;
-	--alert-caution: #cf222e;
+	/* Admonition severity colors — same muted-tint treatment as pillar accents.
+	   --alert-warning is intentionally darker than a literal "scale down the
+	   hue" pass would give you: the straight scale-down failed contrast on
+	   its own 8% wash (4.05:1, computed against WCAG AA's 4.5:1 minimum) —
+	   darkened per the fix-the-text-not-the-wash rule, verified 4.75:1. */
+	--alert-note: #2e4a68;
+	--alert-tip: #2d6a52;
+	--alert-important: #4a5563;
+	--alert-warning: #7c5f26;
+	--alert-caution: #9b3b32;
+
+	--focus-ring: var(--accent);
+	--focus-ring-width: 2px;
+	--focus-ring-offset: 2px;
+	--motion-fast: 150ms;
+	--motion-ease: ease;
 }
 
 :root[data-theme='dark'] {
-	--bg: #0b0d12;
-	--bg-subtle: #14171f;
-	--border: #262b38;
-	--text-primary: #f3f4f7;
-	--text-secondary: #9aa3b8;
-	--accent: #5b6bff;
-	--accent-hover: #7583ff;
+	--bg: #0e1013;
+	--bg-raised: #16191e;
+	--bg-subtle: #1c2026;
+	--border: #2a2f36;
+	--text-primary: #ede9e1;
+	--text-secondary: #9aa0a8;
+	--accent: #8fa8c4;
+	--accent-hover: #a8bdd4;
+	--accent-fg: #0e1013;
 	/* Dark surfaces read better with a 1px border than a shadow */
 	--shadow-sm: none;
 	--shadow-md: none;
 	--shadow-lg: none;
 
-	/* Brightened for legibility against the dark --bg, same treatment --accent
-	   already got (light #2337ff -> dark #5b6bff) — the light-mode values were
-	   tuned for a white background and read muddy/low-contrast on a dark one.
-	   --pillar-ai-systems reuses the dark --accent value directly since the
-	   two were already identical in light mode. */
-	--pillar-ai-systems: #5b6bff;
-	--pillar-seo-architecture: #34d399;
-	--pillar-systems-architecture: #a78bfa;
-	--pillar-policy-systems: #fbbf24;
-	--pillar-cybernetics: #e879f9;
+	--pillar-ai-systems: #8fa8c4;
+	--pillar-seo-architecture: #6fba9a;
+	--pillar-systems-architecture: #a0a8b4;
+	--pillar-policy-systems: #c4a48a;
+	--pillar-cybernetics: #c4a8b8;
 
-	/* GitHub's own dark-theme alert palette (Primer) — these tokens already
-	   mirror GitHub's alert colors in light mode, so borrowing their real
-	   dark-mode equivalents here rather than inventing new ones. */
-	--alert-note: #58a6ff;
-	--alert-tip: #3fb950;
-	--alert-important: #a371f7;
-	--alert-warning: #d29922;
-	--alert-caution: #f85149;
+	--alert-note: #8fa8c4;
+	--alert-tip: #6fba9a;
+	--alert-important: #a0a8b4;
+	--alert-warning: #d4b36a;
+	--alert-caution: #e07068;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root:not([data-theme='light']) {
-		--bg: #0b0d12;
-		--bg-subtle: #14171f;
-		--border: #262b38;
-		--text-primary: #f3f4f7;
-		--text-secondary: #9aa3b8;
-		--accent: #5b6bff;
-		--accent-hover: #7583ff;
+		--bg: #0e1013;
+		--bg-raised: #16191e;
+		--bg-subtle: #1c2026;
+		--border: #2a2f36;
+		--text-primary: #ede9e1;
+		--text-secondary: #9aa0a8;
+		--accent: #8fa8c4;
+		--accent-hover: #a8bdd4;
+		--accent-fg: #0e1013;
 		--shadow-sm: none;
 		--shadow-md: none;
 		--shadow-lg: none;
-		--pillar-ai-systems: #5b6bff;
-		--pillar-seo-architecture: #34d399;
-		--pillar-systems-architecture: #a78bfa;
-		--pillar-policy-systems: #fbbf24;
-		--pillar-cybernetics: #e879f9;
-		--alert-note: #58a6ff;
-		--alert-tip: #3fb950;
-		--alert-important: #a371f7;
-		--alert-warning: #d29922;
-		--alert-caution: #f85149;
+		--pillar-ai-systems: #8fa8c4;
+		--pillar-seo-architecture: #6fba9a;
+		--pillar-systems-architecture: #a0a8b4;
+		--pillar-policy-systems: #c4a48a;
+		--pillar-cybernetics: #c4a8b8;
+		--alert-note: #8fa8c4;
+		--alert-tip: #6fba9a;
+		--alert-important: #a0a8b4;
+		--alert-warning: #d4b36a;
+		--alert-caution: #e07068;
 	}
+}
+
+/* Focus-visible and reduced-motion — Signal visual pass a11y additions. */
+:focus-visible {
+	outline: var(--focus-ring-width) solid var(--focus-ring);
+	outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation: none !important;
+		transition: none !important;
+		scroll-behavior: auto !important;
+	}
+	.scroll-progress {
+		display: none;
+	}
+}
+
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: 0;
+	z-index: 1000;
+	padding: 0.75em 1.25em;
+	background: var(--bg-raised);
+	color: var(--text-primary);
+	border: 1px solid var(--border);
+	border-radius: 0 0 var(--radius-sm) 0;
+	text-decoration: none;
+}
+.skip-link:focus {
+	top: 0;
 }
 
 body {
@@ -178,6 +225,14 @@ p {
 }
 .prose p {
 	margin-bottom: 1.5em;
+}
+.prose a {
+	color: var(--accent);
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+.prose a:hover {
+	color: var(--accent-hover);
 }
 textarea {
 	width: 100%;
