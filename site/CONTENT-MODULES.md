@@ -4,7 +4,7 @@ The single source of truth for every content-section module on this site — wha
 
 Standing policy (see `AGENTS.md`): a recurring content-section pattern gets a build-time remark/rehype transform, registered in `astro.config.mjs`. Not MDX, not a hand-written component in a content file. Authoring stays plain Markdown — paste it exactly as described below, the transform recognizes the shape and styles it automatically.
 
-Visual chrome (tokens, component styling) lives in `site/design-system/`, not here. This file is about content *shapes* — what Markdown triggers what structure. If you're trying to figure out what color something is, that's the other folder.
+Visual chrome (tokens, component styling) lives in `site/design-system/`, not here. This file is about content *shapes* — what Markdown triggers what structure. If you're trying to figure out what color something is, that's the other folder. For what a research page *is* end-to-end (this file is one piece of that map), see `site/PUBLISHING.md`.
 
 ## Contract template
 

@@ -4,7 +4,7 @@ This folder is the visual contract. Tokens live in `src/styles/global.css` — t
 
 **Voice**: paper, ink, one signal. A systems researcher's desk, not a product launch.
 
-**Philosophy**: do not optimize research for shorter attention spans; optimize the interface for deeper attention. Prose is the default. Semantic primitives (see Sprint 2 / `CONTENT-MODULES.md`, once it exists) appear only at cognitive load, not for decoration.
+**Philosophy**: do not optimize research for shorter attention spans; optimize the interface for deeper attention. Prose is the default. Semantic primitives (see `CONTENT-MODULES.md`) appear only at cognitive load, not for decoration.
 
 **Two font families only**: Atkinson Hyperlegible (body and headings — no separate display face) and IBM Plex Mono (`.meta` utility class and code only — dates, tags, breadcrumbs, pillar labels).
 
@@ -16,6 +16,6 @@ This folder is the visual contract. Tokens live in `src/styles/global.css` — t
 - [`components.md`](./components.md) — the existing component set's visual rules as shipped. Not a catalog of what's possible — a record of what's real.
 - [`do-not.md`](./do-not.md) — the load-bearing constraints. Short, no essays.
 
-Pipeline, content, and routing rules (frontmatter schema, citation conventions, the masthead system, deploy discipline) live in `site/AGENTS.md`, not here — this folder is visual only.
+Pipeline, content, and routing rules (frontmatter schema, citation conventions, the masthead system, deploy discipline) live in `site/AGENTS.md`, not here — this folder is visual only. For what a research page *is* end-to-end — frontmatter, transforms, layout, grammar, presentation, all in one map — see `site/PUBLISHING.md`, the publishing specification.
 
 **Last locked**: Signal visual pass, 2026-08-26, `staging` commit `756aa39`.

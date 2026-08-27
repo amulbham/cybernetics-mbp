@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-26 (final) — Sprint 5: publishing specification
+
+Added `site/PUBLISHING.md` — the publishing specification: what a research page *is*, end to end (frontmatter → transforms → layout → grammar → presentation), so a future session can add a fourth entry without reconstructing the system from chat history. Documentation only — no CSS, plugin, or article change.
+
+Fixed one real stale reference while writing it, not left for later: `design-system/README.md` still said "see `CONTENT-MODULES.md`, once it exists" — that file has existed since Sprint 2. Also corrected `ROADMAP.md`'s pillar/paper counts, stale since Sprint 4 (it still said "1 published paper" and "the other 3 pillars," predating both the Invariants paper and the `cybernetics` pillar) — now correctly two of five pillars have a paper each. Added the content-detail pass (Invariants' stacked pull-quote/Counterpoint, the essay's Counterpoint/Key-idea cluster) and the remaining design leftovers to `ROADMAP.md` as deferred items, per `PUBLISHING.md` §7.
+
+Every internal doc now points to exactly one other for anything it doesn't own itself: `AGENTS.md` (pipeline/routing/deploy) ↔ `design-system/` (visual contract) ↔ `CONTENT-MODULES.md` (module contracts) ↔ `PUBLISHING.md` (what a page is) ↔ `.claude/skills/content-manager/` (the procedure). No file duplicates another's tables.
+
 ## 2026-08-26 (yet later) — Sprint 4: scale check across two more pieces
 
 Applied the five research primitives to the two remaining live pieces — the Invariants paper (a theoretical assembly, structurally nothing like FAFSA's policy-and-protocol register) and the frontier-training essay (journalistic voice, external-link citations instead of parenthetical ones). The point of this sprint was the test, not the count: the same five-kind grammar, unmodified, needed to work on all three registers without feeling bolted on.
