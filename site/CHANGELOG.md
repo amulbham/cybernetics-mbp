@@ -2,6 +2,16 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-26 (later) — Sprint 2: five research primitives
+
+Added `rehype-research-primitive.mjs`: a bolded blockquote label — `> **Definition.** ...`, `**Key idea.**`, `**Evidence.**`, `**Counterpoint.**`, `**Implication.**` — becomes a Signal-styled `<aside class="research-primitive research-primitive--{kind}">`. Deliberately five and only five (no Synthesis/Research Note/Data Point/Takeaway) — the set is closed by design, matching the "build grammar from observed research, not imagined requirements" principle already governing every other content module. Uses `<aside>`, not a heading, so it never appears in the table-of-contents or changes the heading outline.
+
+Registered after `rehypePullQuote` and before `rehypeCitationLinks`. That ordering is the actual collision-prevention mechanism, not incidental: pull-quote's shape check requires the *entire* blockquote to be a single bolded line with nothing else, which a well-formed primitive (label plus real body content) never satisfies — so pull-quote correctly declines and leaves it as a real `<blockquote>` for the primitive matcher to see next. Citation links still needs to run last, since Evidence/Implication bodies routinely contain real `(Author, Year)` citations — verified working end-to-end in the smoke test (a citation inside a smoke-test Evidence block resolved to `#ref-N` correctly).
+
+Verified via a temporary smoke-test block appended to the essay file (all five kinds, an id-bearing `{#slug}` variant, an unrecognized-label control, and a genuine pull-quote control), then reverted via `git checkout` before committing — same discipline as the original key-findings sprint. No live paper was rewritten; FAFSA's 45 citation links, the Invariants paper's 27/32, and the essay's existing pull-quotes/alerts all confirmed unchanged afterward.
+
+New `CONTENT-MODULES.md` — the single source of truth for every content-section module's contract (trigger/produces/authoring example/constraints/files), covering both the five new primitives and every module that already shipped (alerts, pull-quote, key findings, references, citation links, table wrap, figures, TOC, scroll progress, masthead). `AGENTS.md`'s Content-section transforms section now points here instead of carrying every contract itself.
+
 ## 2026-08-26 (later) — Sprint 1: design-system folder
 
 Added `site/design-system/` (`README.md`, `tokens.md`, `components.md`, `do-not.md`) as the anti-drift visual contract for Signal as shipped in Sprint 0.5 — purely documentation, no visual change. Purpose: stop a future session (or agent) from adding a gradient card, a third font, or reintroducing electric blue, by writing down exactly what exists and what it's for.

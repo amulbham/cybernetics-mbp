@@ -10,6 +10,7 @@ import { rehypeFigures } from './src/lib/rehype-figures.mjs';
 import { rehypeKeyFindings } from './src/lib/rehype-key-findings.mjs';
 import { rehypePullQuote } from './src/lib/rehype-pull-quote.mjs';
 import { rehypeReferences } from './src/lib/rehype-references.mjs';
+import { rehypeResearchPrimitive } from './src/lib/rehype-research-primitive.mjs';
 import { rehypeTableWrap } from './src/lib/rehype-table-wrap.mjs';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
 
@@ -26,6 +27,11 @@ export default defineConfig({
 				rehypeFigures,
 				rehypeKeyFindings,
 				rehypePullQuote,
+				// Must run after rehypePullQuote (see rehype-research-primitive.mjs
+				// for why that ordering is what actually prevents a collision) and
+				// before rehypeCitationLinks (Evidence/Implication bodies can
+				// contain (Author, Year) citations that still need linking).
+				rehypeResearchPrimitive,
 				// Must run after rehypeReferences — depends on id="ref-N" already
 				// being assigned to build its reference lookup table.
 				rehypeCitationLinks,

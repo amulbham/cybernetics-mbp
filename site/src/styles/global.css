@@ -382,6 +382,34 @@ tbody tr:hover {
 	margin: 0;
 }
 
+/* Research primitives (rehype-research-primitive.mjs): definition, key-idea,
+   evidence, counterpoint, implication. One surface, one signal — the label
+   distinguishes kind, not a per-kind fill color (see design-system/do-not.md
+   — "do not invent a rainbow of cards"). Unscoped for the same reason as
+   .references/.key-findings above. */
+.research-primitive {
+	margin: 2.5em 0;
+	padding: 1.25em 1.5em;
+	border: 1px solid var(--border);
+	border-left: 4px solid var(--accent);
+	border-radius: var(--radius-md);
+	background: var(--bg-raised);
+}
+.research-primitive-label {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--accent);
+	margin: 0 0 0.5em;
+}
+.research-primitive-body {
+	color: var(--text-primary);
+}
+.research-primitive-body > :last-child {
+	margin-bottom: 0;
+}
+
 /* Figures and Captions */
 figure {
 	margin: 2.5em 0;
