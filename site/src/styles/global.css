@@ -391,20 +391,24 @@ tbody tr:hover {
 	margin: 2.5em 0;
 	padding: 1.25em 1.5em;
 	border: 1px solid var(--border);
-	border-left: 4px solid var(--accent);
+	border-left: 6px solid var(--accent);
 	border-radius: var(--radius-md);
-	background: var(--bg-raised);
+	background: var(--bg-subtle);
 }
 .research-primitive-label {
 	font-family: var(--font-mono);
 	font-size: var(--text-xs);
+	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	letter-spacing: 0.06em;
 	color: var(--accent);
-	margin: 0 0 0.5em;
+	margin: 0 0 0.6em;
 }
 .research-primitive-body {
 	color: var(--text-primary);
+}
+.research-primitive-body > :first-child {
+	margin-top: 0;
 }
 .research-primitive-body > :last-child {
 	margin-bottom: 0;

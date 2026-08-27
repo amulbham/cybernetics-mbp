@@ -2,6 +2,12 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-26 (even later) — Sprint 3.1: primitive contrast against the page
+
+Seeing all 11 primitives live on the FAFSA paper (Sprint 3) surfaced a real visual gap: `--bg-raised` barely separated from `--bg`, the label wasn't bold, and the 4px left rule read the same as an ordinary blockquote's. CSS only, no Markdown/plugin/HTML change: `.research-primitive`'s surface moved to `--bg-subtle`, the left rule widened to 6px, and the label got `font-weight: 700`. Alerts (4px + tinted wash) and pull-quote (no rule at all) are unchanged — the three now read as three distinct things at a glance instead of two of them looking alike.
+
+`design-system/components.md` gets its first real primitive entry (Sprint 2 deliberately kept the visual recipe out of it, since primitives hadn't shipped anywhere live yet — now they have). No content, citation, or TOC change; FAFSA's 11 asides and 50 citation links both confirmed unchanged.
+
 ## 2026-08-26 (latest) — Sprint 3: research primitives applied to FAFSA
 
 Applied the five research primitives (Sprint 2) to the FAFSA paper at 11 turning points — 5 definitions (ASA Assumption, Middle-Class Dead Zone, Dependency Paradox, Proximity Fallacy, Literacy Premium), 2 key ideas, 2 evidence, 1 counterpoint, 1 implication — plus one optional pull-quote ("The compiler does not track it."). The argument is unchanged: every primitive restates a load-bearing line already present in the surrounding prose rather than replacing or summarizing it, and no `##` heading was added, removed, or retitled.
