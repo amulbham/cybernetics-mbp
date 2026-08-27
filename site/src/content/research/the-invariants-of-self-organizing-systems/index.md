@@ -74,6 +74,9 @@ That question turns out to have a clean answer.
 
 The term 'self-organizing system' was coined by W. Ross Ashby in 1947 in the context of cybernetics (Ashby, 1947). The operational definition used here builds on that tradition: a self-organizing system is one that maintains ordered structure far from thermodynamic equilibrium, through internal dynamics rather than external coordination, by continuously exchanging energy and information with its environment, and exhibiting attractor behavior — stable configurations the system tends toward after perturbation.
 
+> **Definition.** {#self-organizing-system}
+> **Self-organizing system** — maintains ordered structure far from equilibrium through internal dynamics, not external design, by exchanging energy and information with its environment and returning to attractors after perturbation (Ashby, 1947).
+
 This is operational, not philosophical. It is testable. The definition is precise enough to exclude systems that look similar but don't qualify. Three classes are commonly confused with self-organizing systems:
 
 - **Crystals at equilibrium** — organized but passive. Maintained by thermodynamic stability, not active dynamics. No active maintenance.
@@ -202,9 +205,15 @@ This isn't a proof. It's an empirical observation: no known self-organizing syst
 
 > **The strongest evidence that these seven are the right conditions comes not from the necessity argument above but from what happened across the scientific literature: they kept getting found independently.**
 
+> **Counterpoint.**
+> This is not a deductive proof. It is an empirical pattern: no known self-organizing system requires an eighth condition, and every known failure traces to at least one of these seven being violated.
+
 ## 5. The Independent Convergences
 
 Here's what's interesting about these seven conditions: several of them were discovered independently, in different fields, by researchers who weren't in contact with each other. Same condition. Different systems. Different methods. Different centuries. That convergence is the strongest evidence in this paper. It means these conditions aren't a framework someone chose. They kept getting found.
+
+> **Evidence.**
+> Conservation, attractor dynamics, and hierarchy were each found independently in separate fields by researchers who were not in contact. The conditions kept getting found; they were not chosen as a framework.
 
 Each sub-heading below uses the exact condition name from Section 3. All seven conditions have documented independent discovery across multiple unrelated fields.
 
@@ -213,6 +222,9 @@ Each sub-heading below uses the exact condition name from Section 3. All seven c
 Clausius (thermodynamics, 1850) and Shannon (information theory, 1948) both found that organized systems conserve — energy in one case, information entropy in the other. The mathematical structure is the same. Two independent derivations of the same conservation principle in physically different domains.
 
 A third independent convergence comes from dissipative structures. Prigogine (1977) found that far-from-equilibrium systems maintain organization through continuous input-output accounting of entropy — the system must continuously consume free energy to maintain its organized state. A dissipative structure is a system that maintains organized form by continuously dissipating energy — consuming inputs to pay the ongoing thermodynamic cost of its own organization. Prigogine showed this is not an exception to Conservation but its operating expression at the systems level. Three communities. Three formalisms. Same requirement.
+
+> **Definition.** {#dissipative-structure}
+> **Dissipative structure** — organized form maintained by continuously consuming free energy to pay the thermodynamic cost of its own order (Prigogine, 1977).
 
 ### Continuity — Found Independently Twice
 
@@ -265,6 +277,9 @@ No single field found all seven conditions. The pattern across all seven — rep
 ## 6. What This Enables
 
 With the seven conditions assembled, a question becomes answerable for any system: does it satisfy all seven? If yes, it is a self-organizing system and inherits the structural properties of that class. If no, the specific condition violated identifies the specific structural weakness. The framework applies to any system claiming to be self-organizing — physical, biological, social, computational. The conditions make the classification testable rather than descriptive.
+
+> **Implication.**
+> For any candidate system the question is binary and local: which of the seven fails? The violated condition names the structural weakness.
 
 One application turns out to be particularly testable right now. Gershenson (2025) notes that AI systems may themselves be describable as self-organizing — and cognitive systems are uniquely positioned to test that claim. They are the only class where we can observe both successful operation and failure modes at enormous scale, in real time, with millions of test cases running simultaneously. Whether cognitive systems satisfy the classification, and what the predicted failures look like when they don't, is examined in the companion paper in this series: Cognition as a Self-Organizing System.
 

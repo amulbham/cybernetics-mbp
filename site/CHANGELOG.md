@@ -2,6 +2,18 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-26 (yet later) — Sprint 4: scale check across two more pieces
+
+Applied the five research primitives to the two remaining live pieces — the Invariants paper (a theoretical assembly, structurally nothing like FAFSA's policy-and-protocol register) and the frontier-training essay (journalistic voice, external-link citations instead of parenthetical ones). The point of this sprint was the test, not the count: the same five-kind grammar, unmodified, needed to work on all three registers without feeling bolted on.
+
+**Invariants — 5 primitives, not the planned 6.** Two definitions (`self-organizing-system`, `dissipative-structure`), one evidence, one counterpoint, one implication. The planned Key idea placement was dropped: its exact spec-suggested wording ("The conditions are not new. Their joint necessity across all classes of self-organizing systems is.") is verbatim identical to an existing pull-quote already in the piece. Kept the pull-quote, skipped the primitive — exactly the outcome the spec's own escape hatch anticipated, not an improvisation. Citation auto-links: 27 of 32 references still resolve (unchanged fail-closed band from publication) — the new primitives restate already-citable text (Ashby 1947, Prigogine 1977), so the *link count* rose (54 total instances, more restatements of the same sources) while the *unique-reference* count correctly held at 27, exactly the same 45→50-on-FAFSA pattern from Sprint 3.
+
+**Essay — 5 primitives**, one of each kind, all restating lines already in the prose. Both existing pull-quotes ("The frontier model is the input...", "Not a score. A dependency.") and all of the essay's manually-added inline external links (arXiv, CNBC, etc.) are untouched.
+
+FAFSA: confirmed zero diff — the file wasn't touched this sprint, still 11 primitives, still 50 citation links. TOC heading counts unchanged on both newly-edited pieces (Invariants 9, essay 7) — primitives are `<aside>`, never headings, so this was expected rather than merely hoped for.
+
+`CONTENT-MODULES.md` updated: the five-primitive grammar is now confirmed live and paper-agnostic across all three formats this site actually has (paper/paper/essay). Sprint 5 is the publishing specification.
+
 ## 2026-08-26 (even later) — Sprint 3.1: primitive contrast against the page
 
 Seeing all 11 primitives live on the FAFSA paper (Sprint 3) surfaced a real visual gap: `--bg-raised` barely separated from `--bg`, the label wasn't bold, and the 4px left rule read the same as an ordinary blockquote's. CSS only, no Markdown/plugin/HTML change: `.research-primitive`'s surface moved to `--bg-subtle`, the left rule widened to 6px, and the label got `font-weight: 700`. Alerts (4px + tinted wash) and pull-quote (no rule at all) are unchanged — the three now read as three distinct things at a glance instead of two of them looking alike.

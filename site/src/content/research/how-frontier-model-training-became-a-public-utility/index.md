@@ -48,11 +48,17 @@ That's because distillation has been standard practice for a decade. The techniq
 
 The mechanics are straightforward. You take a large, capable model — the teacher — and use its outputs to train a smaller, cheaper one — the student. The student learns not just the right answers but the reasoning patterns behind them, which turns out to be far more transferable than raw labeled data alone. The result is a smaller model that captures most of what made the teacher useful at a fraction of the cost to run. [DistilBERT](https://www.quantamagazine.org/how-distillation-makes-ai-models-smaller-and-cheaper-20250718/), built by Hugging Face in 2019, is the textbook case: 40% smaller than Google's BERT, 60% faster, retaining 97% of its language understanding. It went on to power search systems and enterprise applications worldwide. Nobody called it a security threat.
 
+> **Definition.** {#distillation}
+> **Distillation** — train a smaller student model on a larger teacher's outputs so the student inherits the teacher's reasoning patterns at a fraction of the cost to run.
+
 By 2026, distillation isn't just academically established — it is commercially mainstream. Google offers it as a service. OpenAI offers it as a service. Amazon offers it as a service. Nvidia used it to build its own Llama Nemotron model family. Researchers who study the technique [describe it plainly](https://www.cnbc.com/2026/07/25/hat-is-distillation-and-why-is-everyone-so-obsessed-with-it-this-week.html): "Distillation is one of the most important tools that companies have today to make models more efficient." The production numbers back that up — [distilled models run at five to thirty times lower cost](https://zylosresearch.com/model-distillation-2026) than their teacher counterparts, respond up to four times faster, and retain 95 to 97 percent of the original model's performance.
 
 All of which makes the phrase "industrial-scale distillation operations" worth examining carefully. Because the scale implied by that framing is already compressing. A [QLoRA fine-tuning run](https://www.spheron.network/blog/how-to-fine-tune-llm-2026/) — the standard distillation-adjacent workflow — on a rented H100 costs between ten and sixteen dollars and runs overnight. Smaller task-specific models can be fine-tuned for under ten dollars on cloud GPUs available to anyone with a credit card.
 
 What exactly does industrial-scale enforcement protect against when the technique it's targeting already costs sixteen dollars to run?
+
+> **Evidence.**
+> The technique was formalized in 2015 by Hinton, Vinyals, and Dean and is sold as a service by Google, OpenAI, and Amazon. A standard distillation-adjacent run on a rented H100 is already ten to sixteen dollars overnight.
 
 ## The Frontier Is Now the Floor
 
@@ -62,7 +68,13 @@ Here is the question the first misframing obscures: if distillation requires a f
 
 Yes. That part Dario gets exactly right — and it's the part that makes the structural problem harder, not easier.
 
+> **Counterpoint.**
+> Someone still has to build the ceiling. Distillation does not replace frontier training; it changes what the frontier *is* — input, not moat.
+
 Someone has to build the ceiling. The teacher model has to exist before anyone can learn from it. Frontier training remains the mechanism that sets the upper bound on what's possible. But once that ceiling exists, everything below it enters a different economic regime entirely. Everything the frontier can do becomes reproducible at lower cost through distillation. That changes what the frontier model actually is. It's no longer a competitive moat. It's infrastructure — the input the rest of the field builds on top of.
+
+> **Key idea.**
+> Once a frontier ceiling exists, everything below it is infrastructure. Distillation is how the rest of the field builds on that floor.
 
 There's a pattern to how this works. Every technique that becomes demonstrably more efficient and distributes globally stops being a competitive advantage and starts being plumbing. The efficiency gradient — the structural force by which the more efficient path gets taken regardless of what anyone intended — doesn't ask permission. Electricity didn't remain a competitive advantage for Edison. Broadband didn't remain a competitive advantage for the first ISPs. The technique becomes the floor. Everyone builds above it.
 
@@ -113,6 +125,9 @@ This is what infrastructure looks like. Not a score. A dependency.
 The companies that have understood this earliest are already building above the floor — in the layer that the efficiency gradient cannot reach, because it isn't capability, it's trust and deployment depth. The policy debate is fighting over who controls the floor. The floor is already everywhere. Task-specific capability costs sixteen dollars and an overnight GPU rental. General capability is getting there. The companies spending resources trying to contain the floor are the ones who haven't yet noticed that the floor has already been poured.
 
 The right battle isn't over who builds the most capable model. It's over who becomes indispensable to the people building above it.
+
+> **Implication.**
+> Durable advantage is deployment depth and trust — workflows, prompting, compliance, switching cost. Those do not distill.
 
 ## The Toothpaste Is Already Out
 
