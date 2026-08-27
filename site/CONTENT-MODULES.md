@@ -114,7 +114,7 @@ One contract, five kinds — they share a trigger shape, differing only in the l
   becomes `id="primitive-asa-assumption"` on the `<aside>` (prefixed, not the bare slug — avoids ever colliding with a heading's auto-generated id landing on the same string).
 - **Constraints**: exactly these five kinds. **Do not add a sixth** (no Synthesis, Research Note, Data Point, or Takeaway) — the set is deliberately closed; if a research entry seems to need a sixth shape, that's a signal to revisit the set itself, not to bolt one on quietly. Uses `<aside>`, not a heading or a `<section>`, specifically so it never appears in the table-of-contents or changes the heading outline. One visual treatment for all five kinds — the label text is the only thing that distinguishes them, never a per-kind fill color (see `design-system/do-not.md`).
 - **Files**: `src/lib/rehype-research-primitive.mjs`, registered after `rehypePullQuote` and before `rehypeCitationLinks`.
-- **Not yet applied to any live paper** — this sprint only enables the module. FAFSA, the Invariants paper, and the essay are unchanged; applying the grammar to real content is Sprint 3.
+- **First applied 2026-08-26 (Sprint 3)**: the FAFSA paper, at 11 turning points — 5 definitions, 2 key ideas, 2 evidence, 1 counterpoint, 1 implication. The grammar itself stayed exactly as designed in Sprint 2; applying it surfaced no paper-specific need to extend or bend the five-kind set. The Invariants paper and the essay are still unchanged — confirming the grammar generalizes across pieces (not just working on the paper it happened to be designed against) is Sprint 4.
 
 ## Collision rules
 

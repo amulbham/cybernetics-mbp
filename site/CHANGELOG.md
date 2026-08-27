@@ -2,6 +2,18 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-26 (latest) — Sprint 3: research primitives applied to FAFSA
+
+Applied the five research primitives (Sprint 2) to the FAFSA paper at 11 turning points — 5 definitions (ASA Assumption, Middle-Class Dead Zone, Dependency Paradox, Proximity Fallacy, Literacy Premium), 2 key ideas, 2 evidence, 1 counterpoint, 1 implication — plus one optional pull-quote ("The compiler does not track it."). The argument is unchanged: every primitive restates a load-bearing line already present in the surrounding prose rather than replacing or summarizing it, and no `##` heading was added, removed, or retitled.
+
+One correction made against the spec while placing them, not silently: the spec's own numbered order for two of the §1.7.1 placements (Proximity Fallacy definition, then the O'Brien evidence beat) didn't match the paper's actual paragraph order — the O'Brien beat comes first in the real text. Followed the spec's own stated intent ("in document order") over its literal numbering and placed both in true document order instead.
+
+FAFSA's citation-link count rose from 45 to 50, not "stays 45" as the spec's verification section expected — a predictable consequence of the spec's own instruction to keep `(Author, Year)` citations inside the Evidence/Implication bodies: restating a citation-bearing sentence in a new location necessarily adds a new, separate linked instance, on top of (not instead of) the original. Confirmed all 5 new instances resolve to the correct existing reference (O'Brien → ref-22, Claremont McKenna → ref-6, UC San Diego → ref-27, Bennett → ref-1, Lucca et al. → ref-18) and that the original 45 are untouched.
+
+Verified via a full build: all 11 `<aside class="research-primitive research-primitive--{kind}">` elements present with the right kind distribution, all 5 `{#slug}` ids present (`primitive-asa-assumption`, `primitive-middle-class-dead-zone`, `primitive-dependency-paradox`, `primitive-proximity-fallacy`, `primitive-literacy-premium`), the paper's 3 existing GFM alerts still `.markdown-alert`, TOC heading count unchanged (primitives are `<aside>`, never counted), and the Invariants paper and the essay both confirmed at zero diff.
+
+`CONTENT-MODULES.md` updated: FAFSA is now the first live application of the five primitives, the grammar itself required no changes to apply — generalizing it to the other two pieces (confirming it isn't secretly FAFSA-specific) is Sprint 4.
+
 ## 2026-08-26 (later) — Sprint 2: five research primitives
 
 Added `rehype-research-primitive.mjs`: a bolded blockquote label — `> **Definition.** ...`, `**Key idea.**`, `**Evidence.**`, `**Counterpoint.**`, `**Implication.**` — becomes a Signal-styled `<aside class="research-primitive research-primitive--{kind}">`. Deliberately five and only five (no Synthesis/Research Note/Data Point/Takeaway) — the set is closed by design, matching the "build grammar from observed research, not imagined requirements" principle already governing every other content module. Uses `<aside>`, not a heading, so it never appears in the table-of-contents or changes the heading outline.
