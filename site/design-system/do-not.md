@@ -16,6 +16,7 @@ Short rules. This is the load-bearing file — if you're about to do one of thes
 - Put unique information only in an image (no alt-text-only content).
 - Flip `SITE_WIDE_NOINDEX` as part of visual work. That's a launch decision, gated on the user's explicit go-ahead, completely unrelated to styling.
 - Introduce Keystatic, MDX-for-decoration, or a "reading mode" UI.
+- Ship header chrome that fails at 375px, or use a hamburger to hide that failure. Shrink or drop chrome instead — the header stays one row at every width.
 
 ## Do
 

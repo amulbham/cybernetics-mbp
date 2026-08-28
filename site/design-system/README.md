@@ -10,6 +10,8 @@ This folder is the visual contract. Tokens live in `src/styles/global.css` — t
 
 **Light and dark are equal reading modes**, not a default plus an afterthought. Every color token ships both values, plus the `prefers-color-scheme` fallback for a reader who hasn't made an explicit choice.
 
+**Responsive**: the header is one row at every width, always — narrower viewports remove or shrink chrome (Home link, brand wordmark) rather than collapsing into a hamburger or a second row. Below 768px: `Home` drops from the nav (Research/About/Search/theme stay) and the brand wordmark hides, leaving just the mark; the search and theme controls stay full-size, since they're the two things a reader reaches for on every visit regardless of screen width. No breakpoint below 768px changes anything else in the header — the same one-row shape holds down to 375px.
+
 ## Index
 
 - [`tokens.md`](./tokens.md) — every color/spacing/radius/type/motion token as shipped, with roles and the one contrast fix that changed a value from its original spec.

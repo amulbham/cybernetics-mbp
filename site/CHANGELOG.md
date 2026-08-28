@@ -2,6 +2,16 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-27 — Sprint 6.1 + 6.5: header and mobile row
+
+First sprint of the new 6.x board (chrome/wayfinding, independent of the content-detail track). Search moves out of the text nav (`.internal-links`) into a circular icon-button utility control (`.search-control`) next to the theme toggle in a new `.right-controls` group — sized and styled to match `ThemeToggle` exactly (same 2.25rem box, border, hover), so the two read as one utility pair. Its active state (`aria-current="page"` on `/search`) is a full border ring rather than a text link's underline, since a circle can't take a `border-bottom` cue without looking like a broken shape.
+
+Below 768px: `Home` drops from the nav and the brand wordmark (`.brand-text`) hides, leaving just the mark — Research/About/Search/theme stay at full size, since those are what a reader actually reaches for regardless of screen width. No hamburger, no second row: the header stays one row at every width down to 375px. `aria-label={SITE_TITLE}` added to the brand link so the accessible name survives the wordmark hiding.
+
+One real bug found and fixed while building this, not copied from anywhere: the search-active check initially reused `HeaderLink.astro`'s `Astro.url.pathname.replace(import.meta.env.BASE_URL, '')` pattern, but without HeaderLink's compensating `|| href === '/' + subpath[0]` fallback. With no `base` configured, `BASE_URL` is `'/'`, so that replace strips the pathname's own leading slash (`/search` → `search`), not a base-path prefix — an exact-match check against `/search` could never succeed. Fixed by comparing `Astro.url.pathname` directly, no stripping needed. Confirmed `aria-current="page"` renders correctly on `/search` and nowhere else after the fix.
+
+Header-only change: `git diff --stat` confirms exactly one file touched (`Header.astro`). No research Markdown, rehype plugin, footer, or homepage change. `design-system/README.md` (new Responsive section), `do-not.md` (no-hamburger-at-375 line), and `components.md` (header recipe) updated to match.
+
 ## 2026-08-26 (final) — Sprint 5: publishing specification
 
 Added `site/PUBLISHING.md` — the publishing specification: what a research page *is*, end to end (frontmatter → transforms → layout → grammar → presentation), so a future session can add a fourth entry without reconstructing the system from chat history. Documentation only — no CSS, plugin, or article change.

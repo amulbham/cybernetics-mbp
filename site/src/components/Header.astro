@@ -5,25 +5,46 @@ import logoLight from '../assets/logo-header-light.png';
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import ThemeToggle from './ThemeToggle.astro';
+
+// Search is a utility control (icon button next to the theme toggle), not a
+// text nav link, so it doesn't go through HeaderLink.astro's active-check —
+// which strips import.meta.env.BASE_URL from the pathname and only works
+// because it separately reconstructs a leading slash afterward. With no
+// `base` configured on this site, BASE_URL is '/', and naively replacing
+// that would strip the pathname's own leading slash too ('/search' ->
+// 'search') — a real gotcha hit building this, not copied on purpose.
+// Astro.url.pathname is already the plain absolute path here; no stripping needed.
+const isSearchActive = Astro.url.pathname === '/search' || Astro.url.pathname === '/search/';
 ---
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header data-pagefind-ignore>
 	<nav>
 		<h2>
-			<a class="brand" href="/">
+			<a class="brand" href="/" aria-label={SITE_TITLE}>
 				<Image class="logo-light" src={logoLight} alt="" height={26} />
 				<Image class="logo-dark" src={logoDark} alt="" height={26} />
-				{SITE_TITLE}
+				<span class="brand-text">{SITE_TITLE}</span>
 			</a>
 		</h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/" class="home-link">Home</HeaderLink>
 			<HeaderLink href="/research">Research</HeaderLink>
-			<HeaderLink href="/search">Search</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 		<div class="right-controls">
+			<a
+				class="search-control"
+				href="/search"
+				aria-label="Search"
+				aria-current={isSearchActive ? 'page' : undefined}
+			>
+				<svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+					<circle cx="10.5" cy="10.5" r="6.25" stroke="currentColor" stroke-width="1.75"></circle>
+					<path d="M15.2 15.2 L20 20" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"
+					></path>
+				</svg>
+			</a>
 			<ThemeToggle />
 		</div>
 	</nav>
@@ -89,9 +110,49 @@ import ThemeToggle from './ThemeToggle.astro';
 		text-decoration: none;
 		border-bottom-color: var(--accent);
 	}
+	.internal-links {
+		display: flex;
+		flex-wrap: nowrap;
+	}
 	.right-controls {
 		display: flex;
 		align-items: center;
 		gap: 0.75em;
+	}
+	/* Matches .theme-toggle's box exactly (same 2.25rem circle, same border/
+	   hover treatment) so the two read as one utility pair, not two different
+	   button styles next to each other. */
+	.search-control {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		padding: 0;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-full);
+		background: transparent;
+		color: var(--text-primary);
+	}
+	.search-control:hover {
+		background: var(--bg-subtle);
+	}
+	/* A circular control can't take a text link's border-bottom underline cue
+	   without looking like a broken shape — a full border ring is the same
+	   signal (border color = current location), adapted to the shape. */
+	.search-control[aria-current='page'] {
+		border-color: var(--accent);
+	}
+
+	@media (max-width: 767px) {
+		nav a {
+			padding: 0.75em 0.4em;
+		}
+		.home-link {
+			display: none;
+		}
+		.brand-text {
+			display: none;
+		}
 	}
 </style>
