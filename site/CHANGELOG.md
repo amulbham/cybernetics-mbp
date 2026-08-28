@@ -2,6 +2,16 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-27 (even later) — Sprint 6.2: footer identity + wayfinding
+
+Footer's job is identity + wayfinding after a paper, not a second sitemap. `SocialLinks.astro` gets a fourth chip — ORCID (`iD`, text-only, same recipe as the existing `in`/`S`/`</>` chips) — that was deliberately omitted before; `consts.ts`'s comment updated to reflect ORCID is now footer chrome, not just JSON-LD. Went text-only rather than fetching the official ORCID SVG: the spec allows either, and text-only keeps the exact existing chip recipe with no new asset to own or risk mis-coloring.
+
+`Footer.astro` grows one new row (`.footer-nav`) under the existing copyright/chips row: site links (`Home · Research · About`) and all 5 pillars, generated from `Object.keys(PILLAR_DESCRIPTIONS)` — never hardcoded, so a future pillar addition doesn't require touching this file. Both lines are `.meta`-styled (mono, `text-xs`, `--text-secondary`), `·`-separated, underline only on hover/focus — quieter than the prose it sits below. Mobile (375): the existing `<480px` centering rule now also centers the new nav row; chips and the pillar line wrap naturally, no horizontal overflow.
+
+Pillar links point at `/research/{pillar}/` for all 5 pillars, same as the homepage's own pillar grid — including the 3 pillars with zero papers today, which is the same pre-existing, accepted empty-category behavior the homepage grid already has, not a new gap.
+
+Zero header, citation, article, or rehype diff — confirmed via `git diff --stat`.
+
 ## 2026-08-27 (later) — Sprint 6.4: citation quieting + routing docs
 
 Inline `#ref-N` citations now render ink-colored with a dotted underline instead of a solid `--accent` underline — a dense paper (FAFSA's 50 citation links) was reading as fifty identical primary buttons instead of pointers into its own bibliography. Hover/focus still reveals the cite (`--accent`, dotted → solid-colored). CSS only, attribute-selector on the `href^="#ref-"` the linker already emits — no change to `rehype-citation-links.mjs`, `rehype-references.mjs`, or any research Markdown. Outbound links (reference-list URLs, essay first-mentions) are untouched — they're not `#ref-*`, so the existing solid `--accent` rule still applies.

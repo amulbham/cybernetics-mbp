@@ -6,13 +6,13 @@ export const SITE_DESCRIPTION =
 	'Applied research on AI systems, SEO architecture, systems design, and policy systems.';
 
 // Single source of truth for the site owner's identity/social profiles —
-// used by SocialLinks.astro (footer icons: linkedin/substack/github only),
+// used by SocialLinks.astro (footer chips: linkedin/substack/github/orcid),
 // ResearchLayout.astro (author.sameAs in ScholarlyArticle/Article JSON-LD), and
 // index.astro (Person.sameAs in the homepage entity graph). Don't duplicate
 // these elsewhere; that's exactly how canonicalURL drifted out of sync in an
-// earlier phase. `orcid` is deliberately not rendered as a footer icon (no
-// icon in SocialLinks.astro's local list) — it's an identity credential for
-// structured data, not a social channel.
+// earlier phase. `orcid` is both JSON-LD *and* footer chrome (added to
+// SocialLinks.astro's chip row Sprint 6.2) — it's an identity credential
+// for structured data first, but that doesn't mean it's hidden from readers.
 export const SOCIAL_LINKS = {
 	linkedin: 'https://www.linkedin.com/in/amul-bham/',
 	substack: 'https://amulbham.substack.com/',

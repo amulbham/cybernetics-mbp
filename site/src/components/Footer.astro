@@ -1,16 +1,39 @@
 ---
 import { LICENSE } from '../consts';
+import { formatPillarLabel, PILLAR_DESCRIPTIONS } from '../lib/pillars';
 import SocialLinks from './SocialLinks.astro';
 
 const today = new Date();
+
+// Same convention as the homepage's pillar grid: all 5 pillars, unconditionally,
+// regardless of paper count — category navigation, not a content listing.
+// Never hardcode the pillar list here; PILLAR_DESCRIPTIONS is the source.
+const pillars = Object.keys(PILLAR_DESCRIPTIONS);
 ---
 
 <footer data-pagefind-ignore>
 	<div class="footer-inner">
-		<p class="copyright">
-			&copy; {today.getFullYear()} Amul Bham. Licensed <a href={LICENSE.url}>{LICENSE.label}</a>.
-		</p>
-		<SocialLinks />
+		<div class="footer-top">
+			<p class="copyright">
+				&copy; {today.getFullYear()} Amul Bham. Licensed <a href={LICENSE.url}>{LICENSE.label}</a>.
+			</p>
+			<SocialLinks />
+		</div>
+		<nav class="footer-nav" aria-label="Footer">
+			<p class="footer-links">
+				<a href="/">Home</a> · <a href="/research">Research</a> · <a href="/about">About</a>
+			</p>
+			<p class="footer-links">
+				{
+					pillars.map((pillar, i) => (
+						<>
+							{i > 0 && ' · '}
+							<a href={`/research/${pillar}/`}>{formatPillarLabel(pillar)}</a>
+						</>
+					))
+				}
+			</p>
+		</nav>
 	</div>
 </footer>
 <style>
@@ -23,6 +46,11 @@ const today = new Date();
 		max-width: var(--content-width-wide);
 		margin: 0 auto;
 		display: flex;
+		flex-direction: column;
+		gap: 1.25em;
+	}
+	.footer-top {
+		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
@@ -31,10 +59,30 @@ const today = new Date();
 	.copyright {
 		margin: 0;
 	}
+	.footer-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+	}
+	.footer-links {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+	}
+	.footer-links a {
+		color: var(--text-secondary);
+		text-decoration: none;
+	}
+	.footer-links a:hover,
+	.footer-links a:focus-visible {
+		text-decoration: underline;
+	}
 	@media (max-width: 480px) {
 		.footer-inner {
-			justify-content: center;
 			text-align: center;
+		}
+		.footer-top {
+			justify-content: center;
 		}
 	}
 </style>
