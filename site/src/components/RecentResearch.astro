@@ -6,8 +6,16 @@ import Badge from './Badge.astro';
 import Card from './Card.astro';
 import FormattedDate from './FormattedDate.astro';
 
+interface Props {
+	/** Entry id to omit — the homepage passes HOMEPAGE_SPOTLIGHT so the pinned piece isn't shown twice. */
+	excludeId?: string;
+}
+
+const { excludeId } = Astro.props;
+
 const recentEntries = (await getCollection('research'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.filter((entry) => entry.id !== excludeId)
 	.slice(0, 3);
 ---
 

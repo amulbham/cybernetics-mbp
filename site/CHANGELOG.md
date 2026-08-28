@@ -2,6 +2,16 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-27 (yet even later) — Sprint 6.3: homepage spotlight
+
+Recency alone can't express editorial intent, so the homepage now has one manually pinned slot above Recent Research: `HOMEPAGE_SPOTLIGHT` in `consts.ts`, a plain string (the entry's collection id), not a `featured:` frontmatter field — pinning a different piece is a one-line change, not a content edit, and a typo'd slug fails `astro build` (new `Spotlight.astro` throws via `getEntry` rather than silently rendering nothing).
+
+**Shipped pin: FAFSA** (`an-engineers-guide-to-structural-financial-aid-exploits`) — the defining long paper, per the spec's own initial pin. Verified both edges before shipping this value: pointed `HOMEPAGE_SPOTLIGHT` at the Invariants slug in a throwaway local build, confirmed the spotlight card and the Recent Research three-up both updated correctly (Invariants dropped out of Recent, the essay and FAFSA took its two slots); then pointed it at a nonexistent slug and confirmed `astro build` actually fails (exit code 1, `Error: HOMEPAGE_SPOTLIGHT "..." is not a research entry`) rather than silently shipping an empty section. Reverted to FAFSA for the shipped commit.
+
+`Spotlight.astro` reuses the exact object language `RecentResearch.astro` already uses — `Card`/`Badge`/`FormattedDate`/`categorySegment` — at full `--content-width-wide` instead of a 3-up grid cell, not a second card system. `RecentResearch.astro` gained an optional `excludeId` prop (filters before `slice(0, 3)`) so the pinned piece never appears twice on the homepage; the homepage passes `excludeId={HOMEPAGE_SPOTLIGHT}`. `/research`'s own listing is untouched — the pin only affects the homepage.
+
+Zero header, footer, citation, rehype, or article-Markdown diff — confirmed via `git diff --stat`.
+
 ## 2026-08-27 (even later) — Sprint 6.2: footer identity + wayfinding
 
 Footer's job is identity + wayfinding after a paper, not a second sitemap. `SocialLinks.astro` gets a fourth chip — ORCID (`iD`, text-only, same recipe as the existing `in`/`S`/`</>` chips) — that was deliberately omitted before; `consts.ts`'s comment updated to reflect ORCID is now footer chrome, not just JSON-LD. Went text-only rather than fetching the official ORCID SVG: the spec allows either, and text-only keeps the exact existing chip recipe with no new asset to own or risk mis-coloring.

@@ -29,6 +29,14 @@ export const AUTHOR = {
 	email: 'amul.bham@gmail.com',
 } as const;
 
+// Collection id (folder slug) pinned in Spotlight.astro on the homepage.
+// Change this to pin a different piece — one line, not a `featured:`
+// frontmatter flag (recency alone can't express editorial intent, but a
+// schema field would make "which piece is pinned" a fact scattered across
+// content files instead of one place to look). A wrong slug fails the build
+// (Spotlight.astro throws via getEntry) rather than silently showing nothing.
+export const HOMEPAGE_SPOTLIGHT = 'an-engineers-guide-to-structural-financial-aid-exploits';
+
 // Sitewide content license — shown in ArticleMasthead.astro, the footer, and
 // each entry's JSON-LD `license` field. Single source of truth so these
 // three can't drift out of sync with each other.

@@ -1,0 +1,66 @@
+---
+import { getEntry } from 'astro:content';
+import { HOMEPAGE_SPOTLIGHT } from '../consts';
+import { formatPillarLabel } from '../lib/pillars';
+import { categorySegment, formatLabel } from '../lib/research-routing';
+import Badge from './Badge.astro';
+import Card from './Card.astro';
+import FormattedDate from './FormattedDate.astro';
+
+// Fails the build, not a silent empty box — a wrong HOMEPAGE_SPOTLIGHT slug
+// is a mistake that should be caught at build time, not shipped as a
+// homepage with a missing section.
+const spotlight = await getEntry('research', HOMEPAGE_SPOTLIGHT);
+if (!spotlight) {
+	throw new Error(`HOMEPAGE_SPOTLIGHT "${HOMEPAGE_SPOTLIGHT}" is not a research entry`);
+}
+---
+
+<section class="spotlight">
+	<p class="meta spotlight-label">Spotlight</p>
+	<ul class="spotlight-feed">
+		<Card href={`/research/${categorySegment(spotlight)}/${spotlight.id}/`}>
+			{
+				spotlight.data.format === 'paper' ? (
+					<Badge variant="pillar" pillar={spotlight.data.pillar}>
+						{formatPillarLabel(spotlight.data.pillar!)}
+					</Badge>
+				) : (
+					<Badge variant="neutral">{formatLabel(spotlight.data.format)}</Badge>
+				)
+			}
+			<h3>{spotlight.data.title}</h3>
+			<p>{spotlight.data.excerpt}</p>
+			<span class="meta">
+				<FormattedDate date={spotlight.data.pubDate} />
+			</span>
+		</Card>
+	</ul>
+</section>
+
+<style>
+	.spotlight {
+		max-width: var(--content-width-wide);
+		margin: 0 auto 3em;
+	}
+	.spotlight-label {
+		margin: 0 0 1em;
+	}
+	.spotlight-feed {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.spotlight-feed h3 {
+		margin: 0.7em 0 0.5em;
+		font-size: 1.5em;
+		color: var(--card-hover-color, var(--text-primary));
+		transition: color 0.15s ease;
+	}
+	.spotlight-feed p {
+		margin: 0 0 0.6em;
+		max-width: var(--content-width-prose);
+		font-size: 1.05em;
+		color: var(--text-primary);
+	}
+</style>

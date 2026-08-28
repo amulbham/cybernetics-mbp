@@ -74,6 +74,8 @@ Full contract: `design-system/` (`tokens.md`, `components.md`, `do-not.md`). Not
 
 State: Signal locked 2026-08-26. Two fonts (Atkinson Hyperlegible body/headings, IBM Plex Mono `.meta`/code). Dual theme, complete pairs, plus the `prefers-color-scheme` fallback for no-explicit-choice readers. Research primitives: `--bg-subtle` field, 6px `--accent` left rule, label `font-weight: 700`. Alerts stay 4px + an 8% severity wash — a deliberately different, quieter system voice than a primitive's argument-topology signal, not an oversight.
 
+The homepage's one editorial pin (above Recent Research) is `HOMEPAGE_SPOTLIGHT` in `consts.ts` — change that one line to pin a different piece; there is no `featured:` frontmatter field, and a wrong slug fails the build rather than silently rendering nothing (Sprint 6.3).
+
 ## 6. Agent file map
 
 | File | Owns |
