@@ -58,6 +58,20 @@ Every module below follows this shape:
 - **Constraints**: fails closed — anything that doesn't resolve to exactly one reference stays plain text, never linked on a guess. Handles semicolon-separated multi-source groups, two-author `&`/`and` forms, two-word and accented surnames, and years back to the 1600s (all fixed 2026-08-24 against a real 32-reference paper — see `AGENTS.md` for the full bug history). Does **not** safely handle freeform journalistic/narrative citation styles with no structural marker — those get a manual editorial pass instead (see `.claude/skills/content-manager/`).
 - **Files**: `src/lib/rehype-citation-links.mjs` — must run after References (needs `id="ref-N"` to exist) and after the five research primitives (Evidence/Implication bodies routinely contain real citations that still need linking). Runs last in the `rehypePlugins` array.
 
+#### Routing
+
+Three layers, not one:
+
+| Layer | Points at |
+|---|---|
+| Paper inline `(Author, Year)` / `Name (Year)` | `#ref-N` on this page |
+| Each `## References` list item | the source's real external URL (DOI preferred) |
+| Essay/memo narrative cite | manual outbound link on the first mention |
+
+Inline cites stay on-page so the reader can see which note backs the sentence. The bibliography is where the reader leaves. Do not invert this. Hash targets are not separate URLs for search/canonicalization; outbound equity lives on the reference entries (and essay first-mentions). Fail-closed linker behavior is unchanged — see Constraints above.
+
+Visually, `#ref-*` links are ink + dotted underline (Sprint 6.4) — a page with fifty citations shouldn't read as fifty primary buttons. Outbound links (reference URLs, essay first-mentions) stay solid `--accent`, since those are the links that actually leave the page.
+
 ### Table wrap
 
 - **Trigger**: any `<table>`, anywhere in the tree (including inside list items).

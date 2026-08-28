@@ -37,6 +37,7 @@ Full procedure: `.claude/skills/content-manager/`. Full rationale: `AGENTS.md`'s
 - Tags: sentence case, except a piece's own coined proper nouns.
 - Do not hand-type a byline. The masthead is automatic from `consts.ts`.
 - Images live in the entry's own slug folder.
+- Citation routing is a three-layer decision (inline → `#ref-N` on-page, reference entry → real external URL, essay narrative cite → manual outbound link) — see `CONTENT-MODULES.md`'s Citation links → Routing subsection, not restated here.
 
 ## 4. Grammar
 

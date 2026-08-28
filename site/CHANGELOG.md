@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-27 (later) — Sprint 6.4: citation quieting + routing docs
+
+Inline `#ref-N` citations now render ink-colored with a dotted underline instead of a solid `--accent` underline — a dense paper (FAFSA's 50 citation links) was reading as fifty identical primary buttons instead of pointers into its own bibliography. Hover/focus still reveals the cite (`--accent`, dotted → solid-colored). CSS only, attribute-selector on the `href^="#ref-"` the linker already emits — no change to `rehype-citation-links.mjs`, `rehype-references.mjs`, or any research Markdown. Outbound links (reference-list URLs, essay first-mentions) are untouched — they're not `#ref-*`, so the existing solid `--accent` rule still applies.
+
+Wrote down the routing decision that was previously implicit: `CONTENT-MODULES.md`'s Citation links entry gets a Routing subsection (three layers — paper inline cite → on-page `#ref-N`, reference-list entry → real external URL, essay narrative cite → manual outbound link on first mention), with a one-line pointer from `PUBLISHING.md` §3 and one line in `design-system/components.md`'s prose-links entry. No table duplicated across files.
+
+Verified: `global.css` + three docs + this changelog is the entire diff — zero article/plugin diffs. FAFSA still 50 `#ref-N` links to the same targets; Invariants still 27/32 fail-closed band; essay's pull-quotes and manual outbound links still solid `--accent`.
+
 ## 2026-08-27 — Sprint 6.1 + 6.5: header and mobile row
 
 First sprint of the new 6.x board (chrome/wayfinding, independent of the content-detail track). Search moves out of the text nav (`.internal-links`) into a circular icon-button utility control (`.search-control`) next to the theme toggle in a new `.right-controls` group — sized and styled to match `ThemeToggle` exactly (same 2.25rem box, border, hover), so the two read as one utility pair. Its active state (`aria-current="page"` on `/search`) is a full border ring rather than a text link's underline, since a circle can't take a `border-bottom` cue without looking like a broken shape.
