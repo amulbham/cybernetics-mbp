@@ -15,7 +15,7 @@ Things flagged during past work but deliberately not done yet, plus open questio
 
 ## Waiting on the corpus, not on work
 
-- **Research relations (Sprint 7)** — 7.1 shipped the contract and an empty live registry (`src/data/research-relations.json`, `[]`; schema in `src/lib/research-relations.ts`, unwired). The only earned future edge is Three SOS `applies` Invariants, and that entry isn't in the collection yet; Pangram → FAFSA `converges_with` is planning-only for the same reason. Sprint 7 is paused, not abandoned — do not schedule the rehype transform, `RelatedResearch` integration, or any UI until a live entry actually earns a row. See `CONTENT-MODULES.md` → "New: research relations" and `PUBLISHING.md` §7.
+- **Research relations (Sprint 7)** — 7.1 shipped the contract and an empty live registry. Three SOS landed in the collection (2026-08-31), and 7.2 added the first live row: `three-sos--invariants` (`applies`), relation-only, no `inline` block — the reader cannot see this edge yet, by design. Pangram → FAFSA `converges_with` stays unadded until its own source entry exists. **7.3 next**: a placement audit — for the one live edge, should it actually appear in prose, and if so where — not new rows. **Rehype is 7.5**, still gated on ≥1 row reaching `inline.status === 'accepted'` with a verified near/anchor; do not schedule it before 7.3/7.4 land. See `CONTENT-MODULES.md` → "New: research relations" and `PUBLISHING.md` §7.
 
 ## Polish, not urgent
 

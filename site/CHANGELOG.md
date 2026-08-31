@@ -2,6 +2,12 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-31 (even later) — Sprint 7.2: first live relation
+
+Sprint 7 unpauses. `src/data/research-relations.json` is no longer `[]` — one row: `three-sos--invariants`, `type: "applies"`, `source: "three-self-organizing-systems"`, `target: "the-invariants-of-self-organizing-systems"`, `reason` only. No `inline` block — relation-only, the common case per the 7.1 contract. Validated against the 7.1 Zod schema directly (`relationsSchema.safeParse`, run standalone, not wired into `astro build` — that wiring is still deferred, per spec).
+
+No placement, no rehype, no Markdown touched (Three SOS's body, including "About the Author," is unchanged — confirmed zero diff). The research graph now has one typed edge and the reader cannot see it yet; that's the correct state, not an unfinished one. 7.3 is next: a placement audit asking whether this specific edge should appear in prose at all, not new rows. Rehype stays 7.5, gated on ≥1 `inline.status === 'accepted'` row.
+
 ## 2026-08-31 (later) — Third paper: Three Self-Organizing Systems
 
 New paper, `cybernetics` pillar: "Three Self-Organizing Systems — A Classification Exercise Using the Seven Invariants," applying Paper A's (the Invariants paper's) seven-condition framework to an ant colony, a financial market, and the immune system. Content publish only — not Sprint 7.2. `src/data/research-relations.json` untouched, still `[]`.

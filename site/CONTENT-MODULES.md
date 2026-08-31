@@ -166,7 +166,8 @@ A typed, directional registry of how published pieces actually relate — not an
   - The inline-link graph (`inline.status === 'accepted'` rows only, once any exist) — a hand-authored `<a>` always wins over anything this system would ever propose.
   - The existing nav graph — `/research`, pillar pages, `RelatedResearch.astro` (pillar/tag proximity) — unchanged by this sprint, a different signal entirely from a declared relation.
   - `#ref-*` citation links (`rehype-citation-links.mjs`) are a fourth, wholly separate system — untouched, not layered with this one at all.
-- **Silence is a valid, permanent-until-earned state.** Sprint 7 pauses after 7.1: no row gets added — not for Three SOS→Invariants (`applies`), not for Pangram→FAFSA (`converges_with`) — until the entry each needs actually exists in `src/content/research/`. An empty file in production is correct, not a placeholder waiting to be filled.
+- **Silence is a valid, permanent-until-earned state.** Sprint 7 paused after 7.1 with the file at `[]`; Sprint 7.2 (2026-08-31) added the first live row, `three-sos--invariants`, once Three SOS actually landed in the collection. Pangram→FAFSA (`converges_with`) stays unadded until its own source entry exists — an empty *or* partially-populated file is correct at any point, never a placeholder waiting to be filled out to some target size.
+- The live file may contain relation-only rows (no `inline` block) — that's the expected common case, not an incomplete one. First (and currently only) row: `three-sos--invariants`.
 - **Files**: `src/data/research-relations.json` (the live data, `[]`), `src/lib/research-relations.ts` (the Zod schema, unwired).
 
 ## Collision rules

@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "three-sos--invariants",
+    "source": "three-self-organizing-systems",
+    "target": "the-invariants-of-self-organizing-systems",
+    "type": "applies",
+    "reason": "The companion applies Paper A's seven-invariant framework across ant colonies, financial markets, and immune systems."
+  }
+]
