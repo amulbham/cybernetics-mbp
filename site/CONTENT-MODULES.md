@@ -130,6 +130,45 @@ One contract, five kinds — they share a trigger shape, differing only in the l
 - **Files**: `src/lib/rehype-research-primitive.mjs`, registered after `rehypePullQuote` and before `rehypeCitationLinks`.
 - **Live on all three research entries** (FAFSA, Sprint 3; the Invariants paper and the essay, Sprint 4, 2026-08-26). Grammar is confirmed paper-agnostic: applying it to a rigorous policy paper, a theoretical assembly paper, and a journalistic essay required zero changes to the five-kind set or the plugin itself. Counts: FAFSA 11 (5 definitions, 2 key ideas, 2 evidence, 1 counterpoint, 1 implication), Invariants 5 (2 definitions, 1 evidence, 1 counterpoint, 1 implication — a planned Key idea placement was dropped because its exact suggested wording duplicated an existing pull-quote verbatim; kept the pull-quote instead), essay 5 (one of each kind). Each placement restates a line already present in the surrounding prose — none introduce new claims.
 
+## New: research relations
+
+A typed, directional registry of how published pieces actually relate — not an autolinker, not a graph UI. Sprint 7 (2026-08-31); 7.1 ships the contract and an empty live file only.
+
+- **Trigger**: none in Markdown. Source of truth is `src/data/research-relations.json`, not a content shape — this module doesn't read the body of any entry.
+- **Produces (7.1)**: nothing. The file is `[]`. No rehype plugin exists for this yet, and nothing wires `getCollection` against it — a malformed file cannot currently fail `astro build`. That wiring is deferred to 7.2+, gated on a live entry actually earning a row (see below).
+- **Row shape** (`src/lib/research-relations.ts`, a Zod schema — present, not yet imported by anything):
+  ```
+  {
+    id: string,
+    source: string,   // research collection id
+    target: string,   // research collection id
+    type: 'depends_on' | 'applies' | 'extends' | 'contrasts' | 'converges_with',
+    reason: string,
+    inline?: {
+      status: 'proposed' | 'accepted' | 'rejected',
+      near?: string,
+      anchor?: string,
+      reason?: string
+    }
+  }
+  ```
+- **The five types** (closed set, same discipline as the five research primitives — no sixth added quietly):
+  - `depends_on` — target's argument requires source's.
+  - `applies` — source uses a mechanism/framework target established.
+  - `extends` — source builds directly on target's specific claim.
+  - `contrasts` — source and target take different positions on the same question.
+  - `converges_with` — independently arrived-at, structurally similar conclusions.
+- **Relation ≠ link.** A row records that two published pieces are intellectually related; that fact exists whether or not a reader ever sees a link. The optional `inline` block is a *separate*, later decision about whether one specific sentence should carry an `<a>`. A relation with no `inline` block is not incomplete — most relations will never get one, and that's the expected outcome, not a gap to fill in later.
+- **`inline.status` lifecycle**: `proposed` (a placement worth considering, not yet placed), `accepted` (placed — only status where `near`/`anchor` are required, since those are what a future rehype pass would need to find and wrap the real sentence), `rejected` (considered and declined — the relation itself stays valid; only the inline placement was rejected, so this status keeps its row rather than deleting it).
+- **Constraints**: `source !== target` (enforced by the schema's refine). Only live `research` collection ids are valid `source`/`target` values — never a planned-paper slug, never an id for a piece that hasn't been published. A row for a piece not yet in the collection is premature by construction, not merely incomplete.
+- **Layered, not merged** — three separate systems that must never collapse into one:
+  - This registry (intellectual edges between pieces).
+  - The inline-link graph (`inline.status === 'accepted'` rows only, once any exist) — a hand-authored `<a>` always wins over anything this system would ever propose.
+  - The existing nav graph — `/research`, pillar pages, `RelatedResearch.astro` (pillar/tag proximity) — unchanged by this sprint, a different signal entirely from a declared relation.
+  - `#ref-*` citation links (`rehype-citation-links.mjs`) are a fourth, wholly separate system — untouched, not layered with this one at all.
+- **Silence is a valid, permanent-until-earned state.** Sprint 7 pauses after 7.1: no row gets added — not for Three SOS→Invariants (`applies`), not for Pangram→FAFSA (`converges_with`) — until the entry each needs actually exists in `src/content/research/`. An empty file in production is correct, not a placeholder waiting to be filled.
+- **Files**: `src/data/research-relations.json` (the live data, `[]`), `src/lib/research-relations.ts` (the Zod schema, unwired).
+
 ## Collision rules
 
 - **Alerts never collide with anything** — `remarkAlert` consumes GFM alert syntax in the remark (mdast) phase, before any rehype plugin below runs. By the time pull-quote or the research-primitive matcher walks the tree, an alert is already a `<div class="markdown-alert...">`, not a `<blockquote>`.
@@ -149,4 +188,4 @@ One contract, five kinds — they share a trigger shape, differing only in the l
 - **System Map** — no shape defined yet.
 - **Protocol Registry** — no shape defined yet.
 - **Quick Read** — explicitly rejected as a product direction (see `design-system/do-not.md`), not merely deferred.
-- **Research graph / concept-link UI** — the `{#slug}` ids the five primitives can optionally carry are reserved for this, but nothing reads them yet. No graph, no UI, no plan to build one this sprint or next.
+- **Research graph / concept-link UI** — no visible graph, no UI. The underlying registry (typed relations, not a UI) is now real as of Sprint 7.1 — see "New: research relations" above — but a rehype transform, a rendered graph, and any use of the `{#slug}` ids the five primitives can optionally carry are all still deferred, gated on a live entry earning the first `inline.status === 'accepted'` row.

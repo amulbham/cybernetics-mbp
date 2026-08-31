@@ -12,6 +12,10 @@ Philosophy:
 - Build the grammar from observed research, not imagined requirements.
 - Prose is the default. A primitive appears only when cognitive load changes.
 - Voice: paper, ink, one signal. A systems researcher's desk, not a product launch.
+- The corpus defines the relationship model; the model does not manufacture a corpus.
+- A link is a presentation of a relationship, not the relationship itself.
+- Declared lineage outranks inferred similarity.
+- Fail closed. An empty accepted set (and an empty registry file) is valid production, not an unfinished state.
 
 ## 2. What a research page is
 
@@ -95,5 +99,5 @@ Do not dump token tables into `AGENTS.md`, and do not dump module contracts into
 - Vectorize the AB mark; load Atkinson/Plex into the OG image generator instead of its default font; a print stylesheet; an optional radius tighten to 4/8/12; `.table-container` still sits on `--bg`, not `--bg-raised`, despite being conceptually elevated chrome like a card.
 - Footnotes/sidenotes only once a paper actually uses `[^1]` syntax — nothing to build against yet.
 - Keystatic, if it ever happens, as an authoring layer on top of the *same* collection, schema, grammar, and renderer — not a parallel system.
-- A research graph / concept-link UI. The `{#slug}` ids primitives can carry are reserved for this and unread by anything today.
+- A research graph / concept-link UI. The `{#slug}` ids primitives can carry are reserved for this and unread by anything today. Sprint 7.1 (2026-08-31) shipped only the relation contract and an empty `src/data/research-relations.json` — see `CONTENT-MODULES.md`'s "New: research relations." Deferred, not built in 7.1: machine discovery of relations, a relation-driven `RelatedResearch`, series navigation, a visible graph, and `placements[]`/multiple inline sites per edge. The file exists as `[]`; the sprint pauses until a live entry (Three SOS, or another real id) earns a row.
 - Do not flip `SITE_WIDE_NOINDEX` / restore `robots.txt` to `Allow: /` unless the user explicitly asks.

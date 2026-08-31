@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-31 — Sprint 7.1: relation contract + empty registry
+
+Sprint 7 is research relations, not an autolinker — a typed, directional registry of how published pieces actually relate, separate from whether any sentence should ever carry a link for it. 7.0 (closed prior to this commit) audited the three live pieces and found zero honest cross-links: FAFSA↔Invariants and any Frontier-essay edge were rejected as thematic fog, not placed. Frontier stays an isolation test — zero rows, and that's a correct outcome, not a gap.
+
+This PR ships the contract and an empty live file, nothing else. `src/data/research-relations.json` is `[]`. `src/lib/research-relations.ts` is a small Zod schema (five locked types — `depends_on`/`applies`/`extends`/`contrasts`/`converges_with`; `source !== target`; `inline` optional, and only `accepted` requires `near`+`anchor`) — present but **unwired**: no `getCollection` call, nothing fails `astro build` on a malformed file yet. That's 7.2+ work.
+
+No rehype plugin, no prose wrapped, no rows for planned slugs (Three SOS, Pangram — neither exists in the collection yet). Documented in `CONTENT-MODULES.md` ("New: research relations"), `PUBLISHING.md` (§1 four new governing lines, §7 pointer), and `ROADMAP.md` (new "Waiting on the corpus, not on work" section). Zero article/CSS/plugin diff — confirmed via `git diff --stat`. Sprint 7 pauses here until a live entry (Three SOS, or another real id) actually earns a row.
+
 ## 2026-08-27 (yet even later) — Sprint 6.3: homepage spotlight
 
 Recency alone can't express editorial intent, so the homepage now has one manually pinned slot above Recent Research: `HOMEPAGE_SPOTLIGHT` in `consts.ts`, a plain string (the entry's collection id), not a `featured:` frontmatter field — pinning a different piece is a one-line change, not a content edit, and a typo'd slug fails `astro build` (new `Spotlight.astro` throws via `getEntry` rather than silently rendering nothing).
