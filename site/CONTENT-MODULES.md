@@ -132,10 +132,10 @@ One contract, five kinds — they share a trigger shape, differing only in the l
 
 ## New: research relations
 
-A typed, directional registry of how published pieces actually relate — not an autolinker, not a graph UI. Sprint 7 (2026-08-31); 7.1 ships the contract and an empty live file only.
+A typed, directional registry of how published pieces actually relate — not an autolinker, not a graph UI. Sprint 7 (2026-08-31, ongoing): 7.1 shipped the contract and an empty live file; one row with an accepted placement decision is live as of 7.4.
 
 - **Trigger**: none in Markdown. Source of truth is `src/data/research-relations.json`, not a content shape — this module doesn't read the body of any entry.
-- **Produces (7.1)**: nothing. The file is `[]`. No rehype plugin exists for this yet, and nothing wires `getCollection` against it — a malformed file cannot currently fail `astro build`. That wiring is deferred to 7.2+, gated on a live entry actually earning a row (see below).
+- **Produces**: nothing rendered yet, even with an accepted row live. No rehype plugin exists for this, and nothing wires `getCollection` against it — a malformed file cannot currently fail `astro build`. That wiring is deferred to 7.5, gated on exactly the row already accepted (see below).
 - **Row shape** (`src/lib/research-relations.ts`, a Zod schema — present, not yet imported by anything):
   ```
   {
@@ -168,7 +168,7 @@ A typed, directional registry of how published pieces actually relate — not an
   - `#ref-*` citation links (`rehype-citation-links.mjs`) are a fourth, wholly separate system — untouched, not layered with this one at all.
 - **Silence is a valid, permanent-until-earned state.** Sprint 7 paused after 7.1 with the file at `[]`; Sprint 7.2 (2026-08-31) added the first live row, `three-sos--invariants`, once Three SOS actually landed in the collection. Pangram→FAFSA (`converges_with`) stays unadded until its own source entry exists — an empty *or* partially-populated file is correct at any point, never a placeholder waiting to be filled out to some target size.
 - The live file may contain relation-only rows (no `inline` block) — that's the expected common case, not an incomplete one. First (and currently only) row: `three-sos--invariants` — as of Sprint 7.4 (2026-08-31) its `inline` block is `status: "accepted"`, `near: "1-introduction"`, `anchor: "Paper A in the Cognitive Physics Series"` (the verbatim, globally-unique opening sentence of Three SOS's own §1 — audited in 7.3, verified against the built page before accepting). Accepting the placement decision in data does not wrap the phrase — that's the rehype transform, still 7.5, gated on this exact row.
-- **Files**: `src/data/research-relations.json` (the live data, `[]`), `src/lib/research-relations.ts` (the Zod schema, unwired).
+- **Files**: `src/data/research-relations.json` (the live data — one row, `three-sos--invariants`, as of 7.4), `src/lib/research-relations.ts` (the Zod schema, unwired).
 
 ## Collision rules
 
