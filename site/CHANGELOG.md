@@ -2,6 +2,18 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-08-31 (later) — Third paper: Three Self-Organizing Systems
+
+New paper, `cybernetics` pillar: "Three Self-Organizing Systems — A Classification Exercise Using the Seven Invariants," applying Paper A's (the Invariants paper's) seven-condition framework to an ant colony, a financial market, and the immune system. Content publish only — not Sprint 7.2. `src/data/research-relations.json` untouched, still `[]`.
+
+Cleaned up for the site's own conventions, not a verbatim paste: the source document's mojibake (a Google Docs export — curly quotes, em dashes, and accented characters had all corrupted) was fully re-encoded; the three per-system "Classification: Self-Organizing System" verdict boxes, originally a one-cell-table hack, became real `> [!NOTE]` alerts; the reference list dropped its italic category subheadings (References requires one continuous `<ol>` for stable `id="ref-N"` — subheadings between groups would have broken that into several restarting lists).
+
+Two deliberate omissions from the source, per the publish ticket: the "Paper 0" reference (an unpublished, unverifiable companion piece) is dropped entirely, not just unlinked; every in-body mention of Paper A stays plain text — `(Bham, 2026)` and `Bham (2026)` forms were rewritten out of the intro and the table caption specifically because those forms invoke the citation linker, and this piece is deliberately not an inline citation of Paper A, just a companion that names it. The References entry for Paper A still exists and is expected — it links to Paper A's own DOI (`10.5281/zenodo.20531589`), not to this site's internal Invariants page, so the body carries zero contextual or reference-list links back to the Invariants research page.
+
+Every reference in the 10-entry list carries a verified real URL (DOI, JSTOR stable link, or publisher page) — checked individually via web search/fetch against each publisher/JSTOR/DOI resolver, not carried over from the source document's own citations. One real correction made in the process: the source titled the Fama reference "...A Review of Theory and Empirical **Evidence**" — the actual published title is "...Empirical **Work**"; fixed against the verified DOI record, not left as typed.
+
+Masthead automatic (Paper, CC BY-NC 4.0, ORCID) — no hand-typed byline, no MIT license string anywhere in the body (the source document's own MIT-License framing was for a different, non-site context). Builds clean; TOC renders (8 `##` headings, well above the 6-heading threshold); FAFSA (50 citation links) and Invariants (54 links, 27/32 fail-closed band) both confirmed unchanged; homepage spotlight still FAFSA. `RelatedResearch.astro` naturally cross-links this piece with the Invariants paper (shared `cybernetics` pillar) — that's the existing nav-graph layer, unrelated to and untouched by the Sprint 7 relation registry.
+
 ## 2026-08-31 — Sprint 7.1: relation contract + empty registry
 
 Sprint 7 is research relations, not an autolinker — a typed, directional registry of how published pieces actually relate, separate from whether any sentence should ever carry a link for it. 7.0 (closed prior to this commit) audited the three live pieces and found zero honest cross-links: FAFSA↔Invariants and any Frontier-essay edge were rejected as thematic fog, not placed. Frontier stays an isolation test — zero rows, and that's a correct outcome, not a gap.
