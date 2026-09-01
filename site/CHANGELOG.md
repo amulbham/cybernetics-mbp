@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-01 (yet later) — Sprint 7.7: future-topology check
+
+Docs only, zero code — a written fitness check of the v1 contract against the known planned slate, not new work on the registry. Verdict: the five locked types (`depends_on`/`applies`/`extends`/`contrasts`/`converges_with`) can represent every planned edge honestly, with no sixth type and no live rows added. Paper B (working title "Cognition as a Self-Organizing System") → Invariants types as `depends_on` — if Invariants were removed, B loses the classification it depends on. Pangram → FAFSA types as `converges_with` — the same mechanism recognized in a different domain, once Pangram is live and the argument still holds. P18 → Pangram (once it exists) types as `extends` — a prescription building on a standard. Three SOS → Invariants stays `applies`, unchanged, already live.
+
+Two things explicitly confirmed as *not* needing new capability: a future Cognitive Physics series chain (A→B→C…) is navigation, not a chain of in-body relation links — deferred to a future nav layer, never encoded here. A hub paper with many incoming/outgoing typed edges needs no new type either — hub-ness is a count of ordinary five-type rows, not a schema shape. `related`/`background`/`validates`/`supersedes`, `placements[]`, embeddings, and reciprocal edges added purely for symmetry all stay out, same as every prior sprint this thread. `converges_with` stays recorded in one direction even where the relationship reads as conceptually symmetric — no automatic mirror row.
+
+Registry unchanged: still exactly one row (`three-sos--invariants`). FAFSA↔Invariants stays rejected, unchanged from the 7.0 audit. 7.8 next: freeze the shipped contract.
+
 ## 2026-09-01 (later) — Sprint 7.6: corpus QA
 
 Verification only — no new relations, no plugin changes, no CSS, no argument edits. 7.5's guarantees checked directly, not re-assumed.
