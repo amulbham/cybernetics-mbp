@@ -1,7 +1,7 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
-import { unified } from '@astrojs/markdown-remark';
+import { unified, rehypeHeadingIds } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import { defineConfig, fontProviders } from 'astro/config';
@@ -10,6 +10,7 @@ import { rehypeFigures } from './src/lib/rehype-figures.mjs';
 import { rehypeKeyFindings } from './src/lib/rehype-key-findings.mjs';
 import { rehypePullQuote } from './src/lib/rehype-pull-quote.mjs';
 import { rehypeReferences } from './src/lib/rehype-references.mjs';
+import { rehypeResearchLinks } from './src/lib/rehype-research-links.mjs';
 import { rehypeResearchPrimitive } from './src/lib/rehype-research-primitive.mjs';
 import { rehypeTableWrap } from './src/lib/rehype-table-wrap.mjs';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
@@ -35,6 +36,20 @@ export default defineConfig({
 				// Must run after rehypeReferences — depends on id="ref-N" already
 				// being assigned to build its reference lookup table.
 				rehypeCitationLinks,
+				// Astro's own default heading-id assignment always runs *after*
+				// every plugin in this array (it's appended once, unconditionally,
+				// at the very end of the real pipeline this `unified()` config
+				// wrapper builds — see @astrojs/markdown-remark's own
+				// createMarkdownProcessor). rehypeResearchLinks needs heading ids
+				// to already exist when it runs, so rehypeHeadingIds is included
+				// here explicitly, positioned right before it — Astro's automatic
+				// pass still runs again afterward, harmlessly (it only assigns an
+				// id when one isn't already set).
+				rehypeHeadingIds,
+				// Must run after rehypeCitationLinks (never contests the same text)
+				// and after the rehypeHeadingIds above (needs `near` to resolve
+				// against a real heading id).
+				rehypeResearchLinks,
 			],
 		}),
 		shikiConfig: {
