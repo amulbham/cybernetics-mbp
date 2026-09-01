@@ -24,3 +24,7 @@ pnpm-debug.log*
 .idea/
 
 node_modules
+
+# Sprint 8.0 PDF architecture spike — throwaway experiment output, not a
+# shipped artifact. See CHANGELOG.md for the decision record.
+scripts/spike/

@@ -7,6 +7,13 @@ Things flagged during past work but deliberately not done yet, plus open questio
 - **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state."
 - `blog-placeholder-*.jpg` stock images are unused — no published entry currently has a hero image. They were only ever the starter template's leftover placeholders and can be deleted whenever someone notices them in `src/assets/`.
 
+## In progress
+
+- **Scholarly PDF + Google Scholar compatibility (Sprint 8)** — 8.0 (2026-09-01, architecture spike, decision record in `CHANGELOG.md`) picked the renderer (Vivliostyle CLI, Puppeteer + Chrome — confirmed, no fallback needed), the builder machine (Path B: GitHub Actions, not a Cloudflare Pages native build — Cloudflare's own build-image docs don't confirm Chrome support there), and proved the deploy handoff for Path B against Cloudflare's own "Git integration" docs (disable automatic branch deployments, `wrangler pages deploy` to the same existing project). **8.1 next**, with these as its explicit starting assumptions:
+  - The one confirmed DOM blocker — `ArticleShell.astro`'s `.article-body { display: flex }` must be neutralized to block display in the print stylesheet, or pagination silently clips to page 1.
+  - The one confirmed hyperlink gap — internal/research-relation links resolve to whatever origin served the HTML at typeset time; the PDF build step needs the real `https://amulbham.com` origin (or a rewrite) before it can pass the canonical-URL gate.
+  - One unresolved dashboard-level question, not yet checked against the live Cloudflare project: whether "disable automatic production branch deployments" is production-only or also affects the `staging` preview branch's existing auto-build behavior — confirm before wiring 8.1+'s actual CI workflow.
+
 ## Content-shaped (grow the corpus, these activate on their own)
 
 - **Related-research module** (`RelatedResearch.astro`) is fully built and correct, but won't visibly show anything until at least two entries share a pillar (papers only) or a tag — right now there are 2 papers (different pillars) and 1 essay with zero tag overlap between any of them, so it's still empty everywhere by construction. Nothing to build; it activates naturally as more content gets published.
