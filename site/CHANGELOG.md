@@ -2,6 +2,37 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-02 (even yet later still) — Sprint 8.5: paper PDF corpus QA
+
+Evidence only, as scoped. Every gate passed on all three papers — **production code diff is zero**: no CSS, no builder, no layout, no content changes. This entry and the matching `ROADMAP.md` update are the only diff this sprint produced.
+
+**Gate matrix** (Inv = Invariants, FAFSA = the financial-aid paper, 3SOS = Three Self-Organizing Systems):
+
+| Gate | Inv | FAFSA | 3SOS |
+|---|---|---|---|
+| Searchable/selectable text | pass | pass | pass |
+| Size < 5 MB | pass — 218 KB | pass — 383 KB | pass — 179 KB |
+| Exactly one paper's title→author→body→References, no other entry concatenated in | pass | pass | pass |
+| Page 1: title first/largest, date not above title, no "min read", no site chrome | pass | pass | pass |
+| Abstract + body present | pass | pass | pass |
+| Tables survive (visual) | pass | pass — the stress case, 12 tables | pass — including a table that spans a page break (see below) |
+| Primitives/alerts survive | pass — 5 primitives | pass — 11 primitives | pass — 0 primitives (correct: this piece uses GFM alerts instead), 3 alerts |
+| `#ref-*` intra-PDF `/Dest` links, if the HTML has them | pass — 76 | pass — 89 | pass — 29 |
+| References heading + list present | pass | pass | pass |
+| No Download/nav/TOC/Related-research leak into the PDF | pass | pass | pass |
+| `citation_pdf_url` = JSON-LD `MediaObject.contentUrl` = Download href = `{canonical}paper.pdf` | pass | pass | pass |
+| Three SOS PDF's own **link-annotation URI** (not just the HTML's `data-relation`) = `https://amulbham.com/research/cybernetics/the-invariants-of-self-organizing-systems/` | — | — | pass |
+
+Sizes read directly off `dist/`, not estimated. The `#ref-*` counts are `/Dest` destination counts extracted from the real compressed PDF object streams (`extract-pdf-links.mjs`, inflating every `stream…endstream` block rather than a raw-bytes search, which silently misses anything inside `/ObjStm`), not a guess from the HTML's own anchor count. The last row was checked the way the spec required — `data-relation` on the HTML source node only identifies *which* link this is; the actual Scholar-relevant fact is what URI the PDF's `/Type /Annot /Subtype /Link` annotation resolves to, and that was extracted and diffed against the literal expected string, not eyeballed.
+
+**Visual pages checked** (raster screenshots via Chrome's native PDF viewer, reusing the binary Vivliostyle itself downloads — `pdftotext` alone is not trusted for this, see below): page 1 on all three; a table at a page boundary (FAFSA pp. 4, 47 — two different real tables mid-document; Three SOS pp. 17–19, where its own §5 summary table starts on 17, is cut by the page break after row 5, and resumes on 19 with the header row correctly repeated rather than dropped or duplicated wrong); a primitive box on FAFSA (DEFINITION, COUNTERPOINT); the References section start (FAFSA p. 20, real linked entries); the true last page (FAFSA p. 55, matched byte-for-byte against the literal last line of the source Markdown — a table-caption legend, confirming the PDF doesn't truncate or run past the real document end even though FAFSA has an Appendix *after* References).
+
+**Honest gap, not a defect**: `pdftotext` cannot extract text from at least some of these tables at all — confirmed twice now, independently, on two different real tables in two different papers (an Invariants table in Sprint 8.1, and Three SOS's own §5 comparison table this sprint: searching the full `pdftotext` dump for "Ant Colony" or even the section's own heading text returned zero matches anywhere in the document, despite the table rendering correctly on screen with every cell intact). This is a known `pdftotext`/Paged-Media-table limitation, not content loss — the raster check is what actually gates this row, per the spec's own instruction, and it passed. Recording it here so a future session doesn't re-discover the same false alarm from scratch.
+
+**Verify block**: essay still emits no `paper.pdf` (`dist/research/essays/how-frontier-model-training-became-a-public-utility/` contains only `index.html`); screen HTML unchanged (`git status` clean before and after this sprint's checking — nothing to build differently); `npm run build:pdfs` still reports `papers discovered: 3` / `PDFs generated: 3`, exit 0.
+
+Certifies the three live papers on the Scholar **presentation** bar: `citation_*` tags resolve to a real, correctly-typeset, correctly-linked PDF that matches its own HTML's identity exactly, with no chrome leakage and no cross-document contamination. Indexing stays off (`SITE_WIDE_NOINDEX`, `robots.txt` — both untouched, not in scope).
+
 ## 2026-09-02 (even yet later) — Sprint 8.4: one canonical paper PDF identity
 
 `pdfUrl` retired. Removed from `content.config.ts`'s schema outright — it was never set on any live entry (grep-confirmed zero corpus usages before removing it), so this is a schema cleanup, not a content migration. No "keep it just in case" — the field simply had no reason to exist once every consumer could derive the same URL itself.
