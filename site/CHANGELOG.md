@@ -2,6 +2,34 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-02 (even yet later still, again) — Sprint 8.6: Scholar/PDF identity validator
+
+The fail-closed gate 8.5's manual pass earned: `site/scripts/validate-research-pdfs.mjs` (`npm run validate:pdfs`), inserted into `.github/workflows/deploy-pages.yml` right after `npm run build:pdfs` and right before `wrangler pages deploy`. From here on, CI cannot deploy HTML that disagrees with its own PDF's identity or that dropped a `#ref-*`/research-relation annotation — a real build failure, not a thing a human has to notice on Google Scholar months later.
+
+**`SOURCE IDENTITY → HTML IDENTITY → PDF IDENTITY → PDF LINK STRUCTURE → DEPLOY`** — the shape of every check in the script, in that order.
+
+**Shared manifest, not a second copy.** `discoverPapers()` moved out of `build-research-pdfs.mjs` into a new `site/scripts/discover-research.mjs`, which now also exports `discoverNonPapers()` (the essay/memo complement, for leak checks) and the hand-synced `SITE_ORIGIN` literal (`'https://amulbham.com'`, kept in sync with `astro.config.mjs`'s `site:` field and `absolutize-pdf-links.mjs`'s own `DEFAULT_ORIGIN` by hand — importing `astro.config.mjs` directly from a plain `tsx` script isn't safe, it runs Astro's own integration setup at import time, so this repeats the exact precedent 8.1 already established rather than inventing a new one). Both scripts import from this module now; neither defines its own copy. `build-research-pdfs.mjs` re-verified 3/3 after the refactor.
+
+**Parser: `pdfjs-dist`, pinned exact `6.3.289` (`package-lock.json` committed), not a raw-bytes/compressed-stream grep and not a `%PDF`-header check.** A real parse (page count ≥ 1) is required — confirmed directly that a truncated file which still starts `%PDF-1.4` fails `getDocument()` with a catchable `InvalidPDFException`, so a bytes-only check would have been a real gap. Link annotations are read via the same API used for the working link-extraction spike since Sprint 8.0, now on real per-page `getAnnotations()` calls rather than a hand-rolled inflate-and-regex pass.
+
+**Checks, all-or-nothing per run (every failure is collected and printed, not just the first — this is a validator a maintainer reads once, not a builder that reruns per fix):**
+
+- Manifest entry + route sanity (a malformed source shows up as its own clear message, not a downstream 404).
+- `index.html` and same-directory `paper.pdf` both exist.
+- `0 < size < 5 MB`.
+- The PDF parses; page count ≥ 1.
+- `citation_title` / `citation_author` / `citation_publication_date` / `citation_pdf_url` each appear **exactly once** — and each **matches its real source**, not just "is present": `citation_title` against frontmatter `title`, `citation_publication_date` against the same UTC `YYYY/MM/DD` derivation `ResearchLayout.astro` itself uses, `citation_doi` against the stripped frontmatter `doi` when one exists (and flagged if present with no frontmatter `doi` to back it), `citation_author` against `AUTHOR.name` from `consts.ts`.
+- The one identity chain: `citation_pdf_url` = JSON-LD `MediaObject.contentUrl` = the reader-facing Download href = JSON-LD article `url` and `mainEntityOfPage.@id` = `{canonical}paper.pdf`, computed once from the manifest's own route, never re-derived per check.
+- `#ref-*` citation reachability — the *set* of ref numbers the HTML's `a[href^="#ref-"]` reach must equal the set the PDF's own `/Dest` link-annotation destinations can reach. **Deliberately a set comparison, not a raw count comparison** — found directly while building this: a single HTML citation link that wraps across a printed line legitimately becomes two PDF Link annotations (one rectangle per line), both pointing at the same destination, so Three SOS alone showed 16 HTML anchors against 21 PDF annotations while the actual reachable ref numbers (`{3..9}`) matched exactly on both sides. Comparing counts would have been a false-failure generator on real content; comparing sets is both correct and immune to it.
+- Every `a[data-relation]` href resolves to a real PDF link-annotation URI. **Generic, not Three-SOS-specific** — reads whatever relations are actually accepted in `research-relations.json` for the page being checked; Three SOS is simply the one live fixture today, not a hardcoded case.
+- Non-paper complement: zero `citation_*` tags, no `paper.pdf`, no Download link, no JSON-LD `MediaObject` — checked against every entry `discoverNonPapers()` returns, not just the one essay that exists today.
+
+**Verified clean**, `papers: 3 / pdfs: 3 / ok`, and **against all 7 adversarial classes named in the spec**, each mutated directly against the real built `dist/`, each restored immediately after, corpus re-verified clean after every one: a deleted `paper.pdf` (caught — missing file), a duplicated `citation_title` meta tag (caught — count ≠ 1), a Download href pointed at the wrong path (caught — identity drift), Highwire tags leaked onto the essay (caught — non-paper leak), a `paper.pdf` replaced with truncated garbage still prefixed `%PDF-1.4` (caught — parse failure, proving the bytes-check gap the spec warned about is real and closed), a `#ref-*` HTML link pointed at a nonexistent `ref-999` (caught — citations lost), and a research-relation link's `href` swapped to a wrong target (caught — relation URI mismatch). Each failure message was specific enough to act on without re-reading this script.
+
+**`npm run build` (Cloudflare's own native build) is untouched** — confirmed by wiping `dist/` and rerunning plain `npm run build` alone: it stays green, produces zero PDFs, same as before this sprint. `validate:pdfs` exists only as its own script and its own Actions step.
+
+Diff: two new files (`discover-research.mjs`, `validate-research-pdfs.mjs`), `build-research-pdfs.mjs` trimmed (its own `discoverPapers()` removed, now imported), `package.json`/`package-lock.json` (`validate:pdfs` script, `pdfjs-dist` pinned devDependency), one new step in `deploy-pages.yml`. Zero touch to `print-research.css`, `ResearchLayout.astro`, `content.config.ts`, Pagefind, or `noindex`/`robots.txt`.
+
 ## 2026-09-02 (even yet later still) — Sprint 8.5: paper PDF corpus QA
 
 Evidence only, as scoped. Every gate passed on all three papers — **production code diff is zero**: no CSS, no builder, no layout, no content changes. This entry and the matching `ROADMAP.md` update are the only diff this sprint produced.

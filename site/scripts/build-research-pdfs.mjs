@@ -27,17 +27,15 @@
 
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from 'node:fs';
+import { existsSync, mkdtempSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import sirv from 'sirv';
-import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { absolutizePdfLinks } from './absolutize-pdf-links.mjs';
-import { canonicalPath } from '../src/lib/research-routing.ts';
+import { discoverPapers } from './discover-research.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url)); // site/
-const CONTENT_DIR = join(ROOT, 'src', 'content', 'research');
 const REAL_DIST = join(ROOT, 'dist');
 const PRINT_STYLESHEET = join(ROOT, 'src', 'styles', 'print-research.css');
 // Invoke the pinned CLI's own JS entry point directly with `node`.
@@ -50,28 +48,6 @@ const SERVER_PORT = 5327; // arbitrary, loopback-only, not the dev/preview ports
 // typeset in well under this. Left high on purpose: cheap insurance against
 // a future, larger paper, not a value to shrink casually.
 const VIVLIOSTYLE_TIMEOUT_SECONDS = 900;
-
-/**
- * Discovers papers directly from the content source, never from dist/ —
- * dist/ only exists after a build and its shape is a *consequence* of the
- * frontmatter, not a second source of truth for what should exist.
- */
-function discoverPapers() {
-	const papers = [];
-	for (const slug of readdirSync(CONTENT_DIR)) {
-		const dir = join(CONTENT_DIR, slug);
-		if (!statSync(dir).isDirectory()) continue;
-		const mdPath = join(dir, 'index.md');
-		const mdxPath = join(dir, 'index.mdx');
-		const filePath = existsSync(mdPath) ? mdPath : existsSync(mdxPath) ? mdxPath : null;
-		if (!filePath) continue;
-		const { frontmatter } = parseFrontmatter(readFileSync(filePath, 'utf8'));
-		if (frontmatter.format !== 'paper') continue;
-		const entry = { id: slug, data: { format: frontmatter.format, pillar: frontmatter.pillar } };
-		papers.push({ id: slug, title: frontmatter.title, route: canonicalPath(entry) });
-	}
-	return papers;
-}
 
 function startStaticServer(root, port) {
 	// Uses sirv (the same static-file-serving package Astro's own `astro

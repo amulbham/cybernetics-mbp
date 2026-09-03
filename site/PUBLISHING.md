@@ -86,6 +86,8 @@ A paper's `<head>` also emits Highwire Press `citation_*` tags (`citation_title`
 
 **One paper-PDF identity, not a field to author (Sprint 8.4).** `ResearchLayout.astro` derives a single `paperPdfUrl` (`new URL('paper.pdf', canonicalURL)`) and every consumer reads that same value: `citation_pdf_url`, the JSON-LD `MediaObject.contentUrl`, and the reader-facing Download PDF link. There is no `pdfUrl` frontmatter field (removed from `content.config.ts` this sprint) and no authored override — a paper's PDF is always at its own canonical HTML URL plus `paper.pdf`, never anywhere else.
 
+**That identity is CI-enforced, not just author discipline (Sprint 8.6).** `npm run validate:pdfs` (`site/scripts/validate-research-pdfs.mjs`) runs in `.github/workflows/deploy-pages.yml` after `build:pdfs` and before deploy — a paper whose `citation_pdf_url`/`MediaObject.contentUrl`/Download href/JSON-LD article URL disagree, whose PDF fails to parse, or whose `#ref-*`/research-relation links don't survive typesetting, fails CI rather than shipping quietly wrong. Full check list: `AGENTS.md`'s "Two validators" note and `CHANGELOG.md`'s Sprint 8.6 entry — not repeated here.
+
 ## 6. Agent file map
 
 | File | Owns |

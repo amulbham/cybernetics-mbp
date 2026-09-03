@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "tsx scripts/validate-research-links.mjs && astro build && pagefind --site dist",
     "build:pdfs": "tsx scripts/build-research-pdfs.mjs",
+    "validate:pdfs": "tsx scripts/validate-research-pdfs.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@vivliostyle/cli": "11.2.0",
     "pagefind": "^1.5.2",
+    "pdfjs-dist": "6.3.289",
     "sirv": "3.0.1",
     "tsx": "^4.23.13"
   }

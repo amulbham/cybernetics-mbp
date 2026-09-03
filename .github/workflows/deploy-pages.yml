@@ -61,6 +61,18 @@ jobs:
         # the same lazy-download behavior confirmed locally.
         run: npm run build:pdfs
 
+      - name: Validate Scholar/PDF identity
+        # Sprint 8.6 — the fail-closed gate: a paper's citation_pdf_url /
+        # MediaObject.contentUrl / Download href / JSON-LD article URL all
+        # have to agree with each other and with the real route, the PDF
+        # itself has to parse and carry every #ref-* citation and research-
+        # relation link the HTML promises, and no non-paper entry may carry
+        # any of this. See site/scripts/validate-research-pdfs.mjs's own
+        # header for exactly what this does and does not check (visual
+        # rows — table/primitive rendering, page-1 layout — stay a human
+        # raster check, not automated here).
+        run: npm run validate:pdfs
+
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
