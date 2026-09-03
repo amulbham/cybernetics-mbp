@@ -21,7 +21,7 @@ Philosophy:
 
 A research page is:
 
-1. Frontmatter in `src/content/research/<slug>/index.md` (`format`, `title`, `pubDate`, `description`, `excerpt`, paper-only `pillar`, optional `subtitle` / `doi` / `tags` / `pdfUrl` / hero pair).
+1. Frontmatter in `src/content/research/<slug>/index.md` (`format`, `title`, `pubDate`, `description`, `excerpt`, paper-only `pillar`, optional `subtitle` / `doi` / `tags` / hero pair). Authors never specify a PDF field — a paper's PDF is always `{canonicalURL}/paper.pdf`, derived (Sprint 8.4).
 2. Body Markdown.
 3. Build-time transforms (reading time, alerts, references, tables, figures, key findings, pull quotes, primitives, citation links).
 4. `ResearchLayout` → `ArticleShell`: masthead, TOC if ≥6 `##`, scroll progress, related research, JSON-LD, OG route.
@@ -82,7 +82,9 @@ The homepage's one editorial pin (above Recent Research) is `HOMEPAGE_SPOTLIGHT`
 
 A paper's scholarly PDF is the same built HTML plus a dedicated print stylesheet (`site/src/styles/print-research.css`) and a PDF-only anchor canonicalization step (`site/scripts/absolutize-pdf-links.mjs`) — screen CSS is untouched either way (Sprint 8.1). The deploy artifact for a paper is `index.html` + a same-directory `paper.pdf`, generated automatically by `site/scripts/build-research-pdfs.mjs` for every `format: paper` entry (Sprint 8.2) — an author never attaches or uploads a PDF file themselves, and there is no frontmatter field for one.
 
-A paper's `<head>` also emits Highwire Press `citation_*` tags (`citation_title`, `citation_author`, `citation_publication_date`, `citation_pdf_url`, `citation_doi` when a DOI exists) alongside its JSON-LD, which stays the primary structured-data source and is unchanged by this — Google Scholar reads Highwire tags directly rather than parsing JSON-LD. `citation_pdf_url` is derived from the entry's own canonical HTML URL (`new URL('paper.pdf', canonicalURL)`), never hand-built, and always points at a same-directory `paper.pdf` (Sprint 8.3). Essays/memos emit none of this — Highwire is a papers-only vocabulary here.
+A paper's `<head>` also emits Highwire Press `citation_*` tags (`citation_title`, `citation_author`, `citation_publication_date`, `citation_pdf_url`, `citation_doi` when a DOI exists) alongside its JSON-LD, which stays the primary structured-data source and is unchanged by this — Google Scholar reads Highwire tags directly rather than parsing JSON-LD. Essays/memos emit none of this — Highwire is a papers-only vocabulary here.
+
+**One paper-PDF identity, not a field to author (Sprint 8.4).** `ResearchLayout.astro` derives a single `paperPdfUrl` (`new URL('paper.pdf', canonicalURL)`) and every consumer reads that same value: `citation_pdf_url`, the JSON-LD `MediaObject.contentUrl`, and the reader-facing Download PDF link. There is no `pdfUrl` frontmatter field (removed from `content.config.ts` this sprint) and no authored override — a paper's PDF is always at its own canonical HTML URL plus `paper.pdf`, never anywhere else.
 
 ## 6. Agent file map
 

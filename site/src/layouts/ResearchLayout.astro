@@ -34,7 +34,6 @@ const {
 	pubDate,
 	dateModified,
 	tags,
-	pdfUrl,
 	doi,
 	pillar,
 	id,
@@ -56,6 +55,19 @@ const categoryUrl = `/research/${category}/`;
 const canonicalURL = new URL(`/research/${category}/${id}/`, Astro.site).toString();
 const ogImagePath = `/open-graph/${category}/${id}.png`;
 const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
+
+// The one paper-PDF identity (Sprint 8.4) — derived, never authored. No
+// frontmatter field exists for this; every consumer (Highwire
+// citation_pdf_url, the JSON-LD MediaObject, and the reader-facing Download
+// PDF link) reads this same value, so there is exactly one URL a paper's
+// PDF could ever be at. Same subdirectory as the HTML by construction,
+// since canonicalURL always ends in a trailing slash. The PDF itself is
+// produced by a separate, later build step (Sprint 8.2's
+// build-research-pdfs.mjs, which runs after `astro build`) — this is a
+// claim about where that file will be, not a check that it already exists,
+// and must never become one (an fs.existsSync check here would run before
+// the PDF does).
+const paperPdfUrl = isPaper ? new URL('paper.pdf', canonicalURL).toString() : undefined;
 
 const breadcrumbItems = [
 	{ label: 'Home', href: '/' },
@@ -99,13 +111,14 @@ const jsonLd = {
 		url: new URL('/about', Astro.site),
 		sameAs: Object.values(SOCIAL_LINKS),
 	},
-	...(pdfUrl && {
-		encoding: {
-			'@type': 'MediaObject',
-			contentUrl: pdfUrl,
-			encodingFormat: 'application/pdf',
-		},
-	}),
+	...(isPaper &&
+		paperPdfUrl && {
+			encoding: {
+				'@type': 'MediaObject',
+				contentUrl: paperPdfUrl,
+				encodingFormat: 'application/pdf',
+			},
+		}),
 };
 
 const breadcrumbJsonLd = {
@@ -134,16 +147,8 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 // Highwire Press tags (Sprint 8.3), papers only — a second, separate
 // metadata vocabulary Google Scholar's own indexer reads directly rather
 // than parsing JSON-LD. Additive: JSON-LD above is unchanged and stays the
-// primary structured-data source for everything else.
-//
-// citation_pdf_url is derived, never authored — new URL('paper.pdf',
-// canonicalURL) is the same subdirectory by construction, since
-// canonicalURL always ends in a trailing slash. The PDF itself is produced
-// by a separate, later build step (Sprint 8.2's build-research-pdfs.mjs,
-// which runs after `astro build`) — this tag is a claim about where that
-// file will be, not a check that it already exists, and must never become
-// one (an fs.existsSync check here would run before the PDF does).
-const citationPdfUrl = isPaper ? new URL('paper.pdf', canonicalURL).toString() : undefined;
+// primary structured-data source for everything else. citation_pdf_url
+// reuses paperPdfUrl (see above) — never its own derivation.
 
 // YYYY/MM/DD, Scholar's slash form — read with UTC getters, not local-time
 // ones. pubDate comes from z.coerce.date() on a date-only frontmatter
@@ -156,7 +161,8 @@ const citationPublicationDate = isPaper
 
 // citation_doi is the bare identifier (Highwire convention) — strip the
 // resolver prefix for this tag only. The frontmatter field and the DOI
-// shown in JSON-LD / the masthead both keep the full https://doi.org/... URL.
+// shown in the masthead both keep the full https://doi.org/... URL. (JSON-LD
+// does not emit a DOI at all today — not touched by this sprint.)
 const normalizedDoi = doi?.replace(/^https?:\/\/doi\.org\//, '');
 ---
 
@@ -180,7 +186,7 @@ const normalizedDoi = doi?.replace(/^https?:\/\/doi\.org\//, '');
 						<meta name="citation_title" content={title} />
 						<meta name="citation_author" content={AUTHOR.name} />
 						<meta name="citation_publication_date" content={citationPublicationDate} />
-						<meta name="citation_pdf_url" content={citationPdfUrl} />
+						<meta name="citation_pdf_url" content={paperPdfUrl} />
 						{normalizedDoi && <meta name="citation_doi" content={normalizedDoi} />}
 					</>
 				)
@@ -253,9 +259,9 @@ const normalizedDoi = doi?.replace(/^https?:\/\/doi\.org\//, '');
 					)
 				}
 				{
-					pdfUrl && (
+					isPaper && paperPdfUrl && (
 						<p class="pdf-link">
-							<a href={pdfUrl}>Download PDF</a>
+							<a href={paperPdfUrl}>Download PDF</a>
 						</p>
 					)
 				}

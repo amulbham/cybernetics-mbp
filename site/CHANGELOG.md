@@ -2,6 +2,18 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-02 (even yet later) — Sprint 8.4: one canonical paper PDF identity
+
+`pdfUrl` retired. Removed from `content.config.ts`'s schema outright — it was never set on any live entry (grep-confirmed zero corpus usages before removing it), so this is a schema cleanup, not a content migration. No "keep it just in case" — the field simply had no reason to exist once every consumer could derive the same URL itself.
+
+`ResearchLayout.astro` now computes one `paperPdfUrl` (`new URL('paper.pdf', canonicalURL)`, papers only), moved up next to `canonicalURL`'s own derivation so it's available before the JSON-LD object is built. Every consumer reads that same value — Highwire's `citation_pdf_url` (renamed from `citationPdfUrl`, no behavior change), the JSON-LD `MediaObject.contentUrl` (now gated on `isPaper && paperPdfUrl`, not a truthy frontmatter field that no entry ever set), and the reader-facing `<p class="pdf-link"><a>Download PDF</a></p>` (same gate). One derived identity, three readers — not three independent things that happened to agree.
+
+Comment hygiene fixed while touching this code: 8.3's own comment claimed the DOI appears in "JSON-LD / masthead" — JSON-LD does not emit a DOI today, and this sprint doesn't add one just to make that comment true. Corrected to "frontmatter and masthead," the two places that are actually accurate.
+
+**Verified against the exact required table**, not just "the fields exist": Invariants/FAFSA/Three SOS each show Download 1, `citation_pdf_url` 1, `MediaObject` 1, and the *same* URL across all three — checked by extracting and diffing the actual URL strings, not assumed from matching field names. The frontier essay: all four columns zero. `.pdf-link` was already in `print-research.css`'s hide list since Sprint 8.1, but this is the first time it ever rendered real content (no entry had `pdfUrl` set before today) — re-ran the full PDF pipeline and confirmed directly that no "Download" text leaks into any paper's actual PDF output; no CSS change was needed, matching the spec's own conditional instruction.
+
+Diff touches `content.config.ts` (field removed) and `ResearchLayout.astro` (the identity + its three consumers) — zero touch to print CSS, the PDF builder, the absolutize script, or the citation linker.
+
 ## 2026-09-02 (yet later) — Sprint 8.3: Highwire `citation_*` metadata
 
 `ResearchLayout.astro` now emits Highwire Press tags for papers, in the same `<head>` as the existing JSON-LD — additive, not a replacement; JSON-LD is unchanged and stays the primary structured-data source for everything Highwire doesn't cover (abstract, keywords, language, journal title — all deliberately left alone this sprint). Essays/memos emit none of it.

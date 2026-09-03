@@ -37,7 +37,6 @@ const research = defineCollection({
 				// index, category pages, tag pages, related-research, homepage, RSS).
 				excerpt: z.string().max(200),
 				tags: z.array(z.string()).default([]),
-				pdfUrl: z.url().optional(),
 					// Rendered by ArticleMasthead.astro alongside the universal
 					// correspondence details when present — not every entry has one.
 					doi: z.url().optional(),
