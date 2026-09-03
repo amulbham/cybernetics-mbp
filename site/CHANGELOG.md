@@ -2,6 +2,22 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-02 (yet later) — Sprint 8.3: Highwire `citation_*` metadata
+
+`ResearchLayout.astro` now emits Highwire Press tags for papers, in the same `<head>` as the existing JSON-LD — additive, not a replacement; JSON-LD is unchanged and stays the primary structured-data source for everything Highwire doesn't cover (abstract, keywords, language, journal title — all deliberately left alone this sprint). Essays/memos emit none of it.
+
+- `citation_title` — the entry's `title`, verbatim.
+- `citation_author` — `AUTHOR.name` from `consts.ts` only, one tag (sole author, no affiliation in the tag).
+- `citation_publication_date` — `pubDate` as `YYYY/MM/DD` (Scholar's slash form), read with **UTC** getters, not local-time ones. `pubDate` comes from `z.coerce.date()` on a date-only frontmatter string, which JS parses as UTC midnight — local-time getters would have silently read back the *previous* calendar day in this machine's own PDT (or any timezone behind UTC). Verified directly against frontmatter, not assumed: all three papers' dates match their `pubDate` exactly (2026-08-24 → `2026/08/24`, 2026-08-04 → `2026/08/04`, 2026-08-31 → `2026/08/31`).
+- `citation_pdf_url` — `new URL('paper.pdf', canonicalURL).toString()`, never hand-built. `canonicalURL` always ends in a trailing slash, so this lands in the same subdirectory by construction — confirmed for all three papers. This is a claim about where Sprint 8.2's build step will put the PDF, not a check that it already exists there yet (`astro build` runs before `build-research-pdfs.mjs`, always) — no `fs.existsSync('paper.pdf')`, as the spec explicitly required.
+- `citation_doi` — only when frontmatter `doi` exists (Invariants only, today), the bare identifier with `https://doi.org/`/`http://doi.org/` stripped for this tag alone. The frontmatter field, the JSON-LD DOI, and the masthead's own DOI link all keep the full URL, unmodified.
+
+**QA counts, verified against the exact required table, not just "a tag exists":** Invariants — title 1, author 1, date 1, pdf 1, doi 1. FAFSA and Three SOS (no `doi` frontmatter) — title 1, author 1, date 1, pdf 1, doi 0. The frontier essay — all five counts 0. Checked via exact grep counts on the built HTML, catching duplicate emission specifically, not eyeballed.
+
+Diff is exactly one file, `ResearchLayout.astro` — zero diff on `print-research.css`, `build-research-pdfs.mjs`, `absolutize-pdf-links.mjs`, `rehype-citation-links.mjs`, and `global.css`. Re-ran the full PDF pipeline after this change to confirm nothing broke: 3 papers discovered, 3 PDFs generated, same file sizes as before within a few hundred bytes (expected — the head grew by a handful of meta tags, the body didn't change at all).
+
+One real slip caught and fixed while editing, not shipped: an edit to `ResearchLayout.astro`'s frontmatter script accidentally dropped the closing `---` fence; caught immediately by the next build, not left for a later session to find.
+
 ## 2026-09-02 (later) — Sprint 8.2: deterministic paper PDF builder
 
 The actual builder and the Path B deploy workflow. Reuses 8.1's `print-research.css` and `absolutize-pdf-links.mjs` as-is — the latter refactored to export `absolutizePdfLinks()` for direct reuse (its own CLI entry point still works standalone, guarded so it only runs when the file is executed directly).

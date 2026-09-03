@@ -82,6 +82,8 @@ The homepage's one editorial pin (above Recent Research) is `HOMEPAGE_SPOTLIGHT`
 
 A paper's scholarly PDF is the same built HTML plus a dedicated print stylesheet (`site/src/styles/print-research.css`) and a PDF-only anchor canonicalization step (`site/scripts/absolutize-pdf-links.mjs`) — screen CSS is untouched either way (Sprint 8.1). The deploy artifact for a paper is `index.html` + a same-directory `paper.pdf`, generated automatically by `site/scripts/build-research-pdfs.mjs` for every `format: paper` entry (Sprint 8.2) — an author never attaches or uploads a PDF file themselves, and there is no frontmatter field for one.
 
+A paper's `<head>` also emits Highwire Press `citation_*` tags (`citation_title`, `citation_author`, `citation_publication_date`, `citation_pdf_url`, `citation_doi` when a DOI exists) alongside its JSON-LD, which stays the primary structured-data source and is unchanged by this — Google Scholar reads Highwire tags directly rather than parsing JSON-LD. `citation_pdf_url` is derived from the entry's own canonical HTML URL (`new URL('paper.pdf', canonicalURL)`), never hand-built, and always points at a same-directory `paper.pdf` (Sprint 8.3). Essays/memos emit none of this — Highwire is a papers-only vocabulary here.
+
 ## 6. Agent file map
 
 | File | Owns |
