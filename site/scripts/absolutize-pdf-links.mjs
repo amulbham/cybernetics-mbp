@@ -24,6 +24,7 @@
 
 import { cpSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 // Source of truth for the production origin is astro.config.mjs's `site:`
 // field — kept as a literal here (not imported) since astro.config.mjs is
@@ -54,13 +55,15 @@ function walkHtmlFiles(dir, out = []) {
 	return out;
 }
 
-function main() {
-	const [sourceDir, destDir, origin = DEFAULT_ORIGIN] = process.argv.slice(2);
-	if (!sourceDir || !destDir) {
-		console.error('Usage: node scripts/absolutize-pdf-links.mjs <sourceDir> <destDir> [origin]');
-		process.exit(1);
-	}
-
+/**
+ * Copies sourceDir to destDir (whole tree, once) and rewrites every
+ * root-relative <a href="/..."> found in the copy to an absolute
+ * production URL. Exported so build-research-pdfs.mjs (Sprint 8.2) can
+ * call this exact logic directly for its one whole-tree pass, rather than
+ * reimplementing it or shelling out to this file as a subprocess per call.
+ * Returns { htmlFileCount, rewrittenCount } for the caller to log/verify.
+ */
+export function absolutizePdfLinks(sourceDir, destDir, origin = DEFAULT_ORIGIN) {
 	cpSync(sourceDir, destDir, { recursive: true });
 
 	const htmlFiles = walkHtmlFiles(destDir);
@@ -73,7 +76,22 @@ function main() {
 			rewritten++;
 		}
 	}
-	console.log(`absolutize-pdf-links: ${htmlFiles.length} HTML files copied, ${rewritten} rewritten (origin: ${origin})`);
+	return { htmlFileCount: htmlFiles.length, rewrittenCount: rewritten };
 }
 
-main();
+function main() {
+	const [sourceDir, destDir, origin = DEFAULT_ORIGIN] = process.argv.slice(2);
+	if (!sourceDir || !destDir) {
+		console.error('Usage: node scripts/absolutize-pdf-links.mjs <sourceDir> <destDir> [origin]');
+		process.exit(1);
+	}
+	const { htmlFileCount, rewrittenCount } = absolutizePdfLinks(sourceDir, destDir, origin);
+	console.log(`absolutize-pdf-links: ${htmlFileCount} HTML files copied, ${rewrittenCount} rewritten (origin: ${origin})`);
+}
+
+// Only run the CLI entry point when this file is executed directly (`node
+// absolutize-pdf-links.mjs ...`), not when build-research-pdfs.mjs imports
+// absolutizePdfLinks from it.
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+	main();
+}

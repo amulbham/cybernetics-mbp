@@ -1,0 +1,74 @@
+name: Deploy Pages (HTML + scholarly PDFs)
+
+# Path B, per Sprint 8.0's decision record (site/CHANGELOG.md): Cloudflare
+# Pages' own build image is undocumented for headless-Chrome support and
+# runs inside a gVisor sandbox, so PDF typesetting happens here in GitHub
+# Actions instead, producing a complete dist/ (HTML + paper.pdf beside each
+# paper's index.html) that gets handed to Cloudflare Pages as a finished
+# artifact via `wrangler pages deploy` — never as a build Cloudflare itself
+# runs. This workflow is the deploy path; it does not replace or duplicate
+# `npm run build` / `npm run build:pdfs`, both defined in site/package.json.
+#
+# Required before push-triggered runs will actually deploy anything (not
+# verified from this environment — no GitHub CLI / secrets access here):
+#   1. Add repository secrets CLOUDFLARE_API_TOKEN and
+#      CLOUDFLARE_ACCOUNT_ID (Settings -> Secrets and variables -> Actions).
+#   2. In the Cloudflare Pages project's dashboard: Build -> Branch control
+#      -> turn OFF automatic deployments for both the production branch and
+#      preview branches. Leaving Cloudflare's own Git integration on means
+#      every push also triggers a Pages-native build with NO PDFs, racing
+#      this workflow's PDF-complete build for the same URL.
+# Until both are done, use the "Run workflow" button (workflow_dispatch) to
+# test this pipeline by hand rather than assuming a push has deployed
+# anything.
+
+on:
+  push:
+    branches: [staging, main]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: site
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site (Astro + Pagefind)
+        run: npm run build
+
+      - name: Build scholarly PDFs
+        # No separate "install browser" step: @vivliostyle/cli uses
+        # puppeteer-core, not the full puppeteer package, so there's no
+        # npm-install-time Chromium download to run ahead of time. The
+        # pinned CLI (site/package.json's @vivliostyle/cli devDependency,
+        # exact version 11.2.0, proven in Sprint 8.0) downloads its own
+        # Chrome build to its cache on first invocation inside this step,
+        # the same lazy-download behavior confirmed locally.
+        run: npm run build:pdfs
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          npx wrangler pages deploy dist \
+            --project-name=cybernetics-mbp-site \
+            --branch="$BRANCH" \
+            --commit-hash="${{ github.sha }}" \
+            --commit-message="${{ github.event.head_commit.message || format('workflow_dispatch by {0}', github.actor) }}"
