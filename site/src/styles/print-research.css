@@ -1,0 +1,121 @@
+/* Sprint 8.1 — PDF / print presentation contract.
+   Loaded via Vivliostyle's --style flag against the built, unmodified
+   screen HTML. This file never ships to a browser — it exists purely for
+   the PDF typeset. Screen CSS (global.css, every component's scoped
+   <style>) is completely untouched by this sprint.
+
+   Token values below are the exact light-mode Signal palette from
+   global.css's :root block, repeated verbatim (not reinvented) and
+   forced with !important. That's necessary, not decorative: global.css's
+   dark-mode override lives behind
+   `@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) {...} }`,
+   a higher-specificity selector than a plain `:root {}` override — if the
+   typesetting browser ever reports a dark OS preference (nothing in this
+   pipeline sets `data-theme` via JS, since there's no browser chrome or
+   localStorage session), that rule would otherwise win on specificity
+   alone regardless of stylesheet load order. !important is the only way
+   to guarantee "light paper" without also copy-pasting the dark-mode
+   selector shape. */
+:root {
+	--bg: #f4f1ea !important;
+	--bg-raised: #fbfaf6 !important;
+	--bg-subtle: #ebe7de !important;
+	--border: #d5d0c6 !important;
+	--text-primary: #1c1d1f !important;
+	--text-secondary: #5c6168 !important;
+	--accent: #2e4a68 !important;
+	--accent-hover: #243c56 !important;
+	--accent-fg: #fbfaf6 !important;
+	--pillar-ai-systems: #2e4a68 !important;
+	--pillar-seo-architecture: #2d6a52 !important;
+	--pillar-systems-architecture: #4a5563 !important;
+	--pillar-policy-systems: #6b4e38 !important;
+	--pillar-cybernetics: #6b4a62 !important;
+	--alert-note: #2e4a68 !important;
+	--alert-tip: #2d6a52 !important;
+	--alert-important: #4a5563 !important;
+	--alert-warning: #7c5f26 !important;
+	--alert-caution: #9b3b32 !important;
+	color-scheme: light;
+}
+
+@page {
+	/* US Letter, not A4 — the author and this site are both US-based, and
+	   Google Scholar itself is indifferent to page size. Documented here
+	   rather than left as whatever Vivliostyle's own default happens to
+	   be, per the 8.1 spec's explicit "pick one, document it." */
+	size: letter;
+	margin: 1in;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text-primary);
+}
+
+/* ---- Hide: screen-only chrome, not article content ---- */
+header,
+footer,
+.breadcrumbs,
+.skip-link,
+.scroll-progress,
+.toc-rail,
+.toc-mobile,
+.tags,
+.pdf-link,
+.related-research {
+	display: none !important;
+}
+
+/* "min read" specifically, not the date itself — FormattedDate.astro
+   renders the date as a bare <time>, and the "· N min read" text is the
+   only <span> inside .date.meta, so this can't also catch the date. */
+.date.meta span {
+	display: none !important;
+}
+
+/* ---- Required per 8.0: the one confirmed pagination blocker ----
+   .article-body is `display: flex` on screen (prose column + TOC rail,
+   side by side) — CSS Paged Media polyfills generally can't fragment
+   content across pages *inside* a flex container, so the whole article
+   silently clipped to page 1 in the 8.0 spike until this was forced back
+   to block. Nothing else on this page needs the same treatment; the 8.0
+   ticket's own instruction was explicit that only the multi-page flex is
+   dangerous, not every flex row (the small title-block reorder below is
+   exactly the "not dangerous" kind: a single-page-scoped block, never
+   asked to fragment). */
+.article-body {
+	display: block !important;
+}
+.prose {
+	width: auto !important;
+	max-width: none !important;
+}
+
+/* ---- Title block: reorder so TITLE is the first bibliographic element ----
+   Screen DOM order is breadcrumbs -> .date.meta -> h1 -> subtitle ->
+   (masthead, tags, pdf-link). Breadcrumbs/tags/pdf-link are hidden above;
+   of what's left, the date needs to move from before the title to after
+   the masthead. This is the one flex the 8.1 spec explicitly allows —
+   scoped to the short, single-page title block only, reordering via
+   `order`, never asked to paginate. */
+.title {
+	display: flex !important;
+	flex-direction: column !important;
+}
+.title h1 {
+	order: 1;
+}
+.title .subtitle {
+	order: 2;
+}
+.title .masthead {
+	order: 3;
+}
+.title .date.meta {
+	order: 4;
+	text-align: center;
+}
+.title hr {
+	order: 5;
+}

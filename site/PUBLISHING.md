@@ -80,6 +80,8 @@ State: Signal locked 2026-08-26. Two fonts (Atkinson Hyperlegible body/headings,
 
 The homepage's one editorial pin (above Recent Research) is `HOMEPAGE_SPOTLIGHT` in `consts.ts` — change that one line to pin a different piece; there is no `featured:` frontmatter field, and a wrong slug fails the build rather than silently rendering nothing (Sprint 6.3).
 
+A paper's scholarly PDF is the same built HTML plus a dedicated print stylesheet (`site/src/styles/print-research.css`) and a PDF-only anchor canonicalization step (`site/scripts/absolutize-pdf-links.mjs`) — screen CSS is untouched either way (Sprint 8.1).
+
 ## 6. Agent file map
 
 | File | Owns |
