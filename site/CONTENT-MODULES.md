@@ -6,6 +6,8 @@ Standing policy (see `AGENTS.md`): a recurring content-section pattern gets a bu
 
 Visual chrome (tokens, component styling) lives in `site/design-system/`, not here. This file is about content *shapes* — what Markdown triggers what structure. If you're trying to figure out what color something is, that's the other folder. For what a research page *is* end-to-end (this file is one piece of that map), see `site/PUBLISHING.md`.
 
+A paper's `paper.pdf` is not a module here: it's a generated projection of the finished HTML (`site/PUBLISHING.md`'s "one research object, two projections" model), not a Markdown shape an author writes — there is no PDF section or trigger to document in this file.
+
 ## Contract template
 
 Every module below follows this shape:

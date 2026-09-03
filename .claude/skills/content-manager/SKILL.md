@@ -41,6 +41,18 @@ Sentence case by default (`financial aid`, `frontier models`), except a piece's 
 
 A paper's category is its `pillar`; an essay/memo's category is its pluralized `format` (`essays`/`memos`). The full path is always derived via `canonicalPath()`/`categorySegment()` in `site/src/lib/research-routing.ts` — this is the single source of truth for how an entry maps to a URL. Never hand-write a `/research/...` path or add a `canonicalURL` frontmatter field; that's exactly how a real drift bug happened once (documented in `AGENTS.md`).
 
+## Scholarly PDF (papers only, Sprint 8 — frozen 8.7)
+
+**Do not add a `pdfUrl` frontmatter field, and do not attach or upload a PDF file yourself.** A paper's PDF has exactly one identity, derived, never authored: `{canonicalURL}paper.pdf`. Adding a fourth paper needs zero PDF-specific frontmatter — write it exactly like the three that exist today, and the pipeline below handles the rest automatically.
+
+For every `format: paper` entry, three build steps run in order:
+
+1. `npm run build` → the HTML, including Highwire `citation_*` tags and the JSON-LD `MediaObject`.
+2. `npm run build:pdfs` → typesets that HTML into `paper.pdf`, same directory as `index.html`.
+3. `npm run validate:pdfs` → a fail-closed check that the HTML and the PDF actually agree (identity, `#ref-*` reachability, research-relation link URIs) — a mismatch fails the build rather than shipping quietly wrong.
+
+**Path B CI (`.github/workflows/deploy-pages.yml`) runs all three before deploying — when Path B is live. It is not live yet** (two ops steps outside this repo — GitHub secrets, a Cloudflare dashboard toggle — see `site/ROADMAP.md`). Until then, Cloudflare's own native build serves the site HTML-only, with no `paper.pdf`. This doesn't change how you author a piece — the frontmatter and body are identical either way — only when the PDF actually goes live. See `site/PUBLISHING.md` §5 for the full research-object/two-projections model.
+
 ## Homepage spotlight
 
 The homepage's one pinned/editorial slot (above Recent Research) is controlled by `HOMEPAGE_SPOTLIGHT` in `site/src/consts.ts` — a plain string, the pinned entry's collection id. To pin a different piece, change that one line. **Do not** add a `featured:` field to a piece's frontmatter — that would scatter the "which piece is pinned" fact across content files instead of leaving it in the one place meant to hold it. A typo'd slug fails `astro build` (`Spotlight.astro` throws via `getEntry`) rather than silently showing an empty section.

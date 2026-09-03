@@ -2,6 +2,26 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-02 (even yet later still, one more time) — Sprint 8.7: publishing contract freeze
+
+Docs only — zero runtime diff, confirmed by `git diff` touching only `.md` files. 8.7 reconciles what the docs claim against what 8.0–8.6 actually shipped, and stops there; no code, validators, print CSS, layouts, schema, or research Markdown were touched.
+
+```
+SCHOLAR-READY BUILD CONTRACT  done   HTML + PDF projections agree, CI-enforced
+LIVE PDF DEPLOYMENT           not yet   Path B go-live is ops, outside this repo
+SCHOLAR DISCOVERY             blocked   SITE_WIDE_NOINDEX / robots.txt, intentional
+```
+
+That's the state this sprint freezes — Sprint 8 is a finished **build contract**, not a live-deployment or discoverability claim, and every doc touched now says so explicitly rather than leaving it implied.
+
+- **`PUBLISHING.md`** — the PDF section rewritten around one model: `RESEARCH OBJECT → { HTML identity, PDF projection }`, one Markdown source, one derived `paper.pdf` URL, never a field to author. Added the `#ref-*` reachable-*set*-not-count nuance (a wrapped HTML link legitimately produces >1 PDF annotation at the same destination). Added the status diagram above, with an explicit "do not assume native Pages ever actually has the file" and "Scholar-ready and Scholar-discoverable are different, separately-gated states" — the exact claim this freeze exists to prevent a future agent from making by accident. Removed two now-false deferred lines: "a print stylesheet" (shipped 8.1) and "Google Scholar or PDF export of a piece" (shipped 8.2–8.6) — replaced with what's actually still deferred: Path B go-live, essay/memo PDFs, and further automation of the visual-pagination rows.
+- **Content-manager skill** (`.claude/skills/content-manager/SKILL.md`) — new "Scholarly PDF" section: papers get no PDF frontmatter, ever; the three-command pipeline (`build` → `build:pdfs` → `validate:pdfs`); Path B CI runs them only once it's live, which it isn't. Adding a fourth paper needs zero PDF-specific frontmatter — stated outright, not left to infer.
+- **`AGENTS.md`** — two gaps filled: a new note that `SITE_ORIGIN`/`DEFAULT_ORIGIN` is a hand-synced literal in three places (`astro.config.mjs`, `absolutize-pdf-links.mjs`, `discover-research.mjs`), not a single source of truth — a future domain change needs all three edited together, and nothing catches a mismatch automatically. Corpus count corrected: "2 papers, 1 essay" → the real 3 papers (Three SOS was missing entirely from this sentence since before it existed).
+- **`CONTENT-MODULES.md`** — one sentence added, no new section: a paper's PDF is a generated projection of the finished HTML, not a Markdown-shape module: nothing to trigger, nothing to document here. Pre-empts a future agent inventing a "PDF module" entry the next time this file gets extended.
+- **`ROADMAP.md`** — the sprawling 8.0–8.6 in-progress paragraph replaced with a short "complete, 8.0 through 8.7" line plus the two genuinely still-open ops bullets (Path B secrets/dashboard, framed explicitly as ops-not-code and *not* permission to implement), moved into "Blocking the actual public launch" alongside the noindex bullet since both are external-action-gated, not "in progress" work. Fixed a real stale fact, not just wording: the Related-research module note still said "2 papers (different pillars) and 1 essay... still empty everywhere" — false since Three SOS shipped (2026-08-31) into the same `cybernetics` pillar as Invariants; both pages now render a real related-research card for the other, confirmed directly against the built HTML (`<h3>Three Self-Organizing Systems</h3>` / `<h3>The Invariants of Self-Organizing Systems</h3>`), not assumed from the frontmatter alone.
+
+**Verify block, all confirmed**: no active doc claims `pdfUrl` is a real field, that PDF export or a print stylesheet are still deferred, that Sprint 8 is still in progress, that the corpus is 2 papers + 1 essay, that Path B is live, or that native Pages always has `paper.pdf` — grepped for each phrase across `PUBLISHING.md`/`AGENTS.md`/`ROADMAP.md`/`CONTENT-MODULES.md`/the content-manager skill after editing, all clean (only `CHANGELOG.md`'s own past entries still say these things, correctly — it's project history, never edited after the fact). `git diff` is docs and the skill file only.
+
 ## 2026-09-02 (even yet later still, again) — Sprint 8.6: Scholar/PDF identity validator
 
 The fail-closed gate 8.5's manual pass earned: `site/scripts/validate-research-pdfs.mjs` (`npm run validate:pdfs`), inserted into `.github/workflows/deploy-pages.yml` right after `npm run build:pdfs` and right before `wrangler pages deploy`. From here on, CI cannot deploy HTML that disagrees with its own PDF's identity or that dropped a `#ref-*`/research-relation annotation — a real build failure, not a thing a human has to notice on Google Scholar months later.
