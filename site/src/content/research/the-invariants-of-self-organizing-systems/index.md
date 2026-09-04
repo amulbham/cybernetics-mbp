@@ -287,9 +287,7 @@ This paper is the foundation it rests on.
 
 > **The conditions are not new. Their joint necessity across all classes of self-organizing systems is.**
 
-## About the Author
-
-Amul Bham is an independent AI systems architect based in Corona, CA. His work focuses on the structural foundations of cognition — deriving the conditions under which a reasoning system can produce knowledge rather than prediction. The Cognitive Physics framework and Mission Brief Protocol (MBP) were developed from first principles over 2025–2026, independently of and prior to engagement with the self-organizing systems literature. This paper is part of the Cognitive Physics Series establishing the theoretical foundation of that work.
+## Declarations
 
 **Author Contributions:** The author confirms sole responsibility for conceptualization, methodology, formal analysis, investigation, writing — original draft preparation, and writing — review and editing.
 

@@ -205,9 +205,7 @@ Two conditions deserve note across all three systems. Quantization maps most cle
 9. Perelson, A.S. & Weisbuch, G. (1997). Immunology for physicists. *Reviews of Modern Physics*, 69, 1219–1268. [doi.org/10.1103/RevModPhys.69.1219](https://doi.org/10.1103/RevModPhys.69.1219)
 10. Simon, H.A. (1962). The Architecture of Complexity. *Proceedings of the American Philosophical Society*, 106(6), 467–482. [jstor.org/stable/985254](https://www.jstor.org/stable/985254)
 
-## About the Author
-
-Amul Bham is an independent AI systems architect based in Corona, CA. His work focuses on the structural foundations of cognition — deriving the conditions under which a reasoning system can produce knowledge rather than prediction. The Cognitive Physics framework and Mission Brief Protocol (MBP) were developed from first principles over 2025–2026. This companion document applies the classification framework to three systems outside the cognitive domain, demonstrating the substrate independence of the seven invariants across biochemistry, market dynamics, and biological defense.
+## Declarations
 
 **Author Contributions:** The author confirms sole responsibility for conceptualization, methodology, formal analysis, investigation, writing — original draft preparation, and writing — review and editing.
 

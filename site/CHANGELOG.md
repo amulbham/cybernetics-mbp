@@ -2,6 +2,34 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-04 (yet later still) — Sprint 10.2: corpus author-identity migration
+
+Markdown-only. The hand-authored identity prose 10.1's `AuthorNote` made redundant is gone from all three papers that had it; the six disclosure statements Invariants and Three SOS actually carry (real, paper-specific, not something `AuthorNote` should ever generate) survive intact under a renamed heading.
+
+| Piece | Before | After |
+|---|---|---|
+| Invariants | `## About the Author` → bio paragraph → 6 disclosure statements | `## Declarations` → *(bio deleted)* → same 6 disclosure statements, unchanged |
+| FAFSA | `## About the Author` → bio → contact-links line | *(heading and both paragraphs deleted entirely — no `## Declarations` invented; there was nothing to preserve)* |
+| Three SOS | `## About the Author` → bio paragraph → 6 disclosure statements | `## Declarations` → *(bio deleted)* → same 6 disclosure statements, unchanged |
+| Frontier | — | zero source edits |
+
+**Resulting endings** (`AuthorNote` always renders after the whole authored body, regardless of what that body ends with):
+
+```
+Invariants   body → Declarations → References → AuthorNote
+FAFSA        body → References → Appendix → AuthorNote
+Three SOS    body → References → Declarations → AuthorNote
+Frontier     body → AuthorNote
+```
+
+**H2 counts**: Invariants 9→9 (rename, not a delete), FAFSA 14→13 (heading actually removed), Three SOS 8→8 (rename), Frontier 7→7 (untouched). All four still comfortably clear the unchanged ≥6 TOC threshold. Confirmed in the built HTML: `Declarations` now appears as a real, clickable TOC entry on Invariants/Three SOS (both rail and mobile variants); `About the Author` no longer appears anywhere in research Markdown (`grep -rn "^## About the Author" src/content/research/` — zero matches).
+
+**Verified in the actual PDFs, not just HTML** (rebuilt all 3/3 via `build:pdfs`): on Invariants and Three SOS, the authored `Declarations` heading and its six statements print exactly as before, immediately followed — at the true end of each document — by the generated `ABOUT THE AUTHOR` label, the universal bio, and ORCID; the old hand-authored bio sentence ("...independent AI systems architect based in Corona...") is completely absent from both PDFs' extracted text, confirmed via `pdftotext`. On FAFSA, the old bio/contact-links content is gone entirely (zero matches for its distinctive sentences), no `## Declarations` was invented, and the one remaining `linkedin.com/in/amul-bham` match in the whole document is the untouched masthead's own correspondence line on page 1 — not a leftover. `npm run validate:pdfs` still reports `papers: 3 / pdfs: 3 / ok`.
+
+**Note for 10.5**: `AuthorNote.astro`'s ORCID link currently hardcodes its own display text (`orcid.org/0009-0009-7660-4031`) rather than deriving it from `SOCIAL_LINKS.orcid`. Not touched this sprint (10.2 is Markdown-only, per its own "Do not" list) — logged here for 10.5 to actually fix.
+
+Diff is exactly three Markdown files (`the-invariants-of-self-organizing-systems/index.md`, `an-engineers-guide-to-structural-financial-aid-exploits/index.md`, `three-self-organizing-systems/index.md`) plus this entry and a short `ROADMAP.md` update — zero touch to `AuthorNote.astro`, `consts.ts`, `ResearchLayout.astro`, `print-research.css`, or any TOC/scroll-spy code. Still `staging`-only.
+
 ## 2026-09-04 (yet later) — Sprint 10.1: canonical AuthorNote
 
 The generated identity slot 10.0's audit set up for: `AUTHOR.bio` (`consts.ts`) and a new `AuthorNote.astro`, rendered by `ResearchLayout.astro` at the end of every research entry's content — `<slot /> → <AuthorNote /> → <RelatedResearch />` — for all three formats (paper, essay, memo). Frontier included, which gets a real AuthorNote for the first time (it never had a hand-authored bio at all).
