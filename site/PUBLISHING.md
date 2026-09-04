@@ -103,6 +103,8 @@ LIVE PDF DEPLOYMENT           not yet   Path B go-live is ops, outside this repo
 SCHOLAR DISCOVERY             blocked   SITE_WIDE_NOINDEX / robots.txt, intentional
 ```
 
+**Sprint 9 is the Path B cutover — 9.0 (2026-09-04) is pin-only.** It made `wrangler` (the CLI the deploy step calls) an exact `package-lock.json` fact, same as `@vivliostyle/cli`/`pdfjs-dist`; it did not touch secrets, the Cloudflare dashboard, or push triggers. LIVE PDF DEPLOYMENT is still ❌ after 9.0 — see `ROADMAP.md` for the remaining 9.1–9.4 ops steps and `CHANGELOG.md` for the pinned version.
+
 Every paper that goes through `build` → `build:pdfs` → `validate:pdfs` is a correct, self-consistent HTML+PDF pair — but that pipeline only actually runs on a real push once Path B (`.github/workflows/deploy-pages.yml`) is live, which it is not (two ops steps outside this environment — GitHub repo secrets, a Cloudflare dashboard toggle — see `ROADMAP.md`). Until then, Cloudflare's own native Git-integrated build keeps serving `amulbham.com` — HTML only, **no `paper.pdf`**, even though that HTML still advertises a `citation_pdf_url` (expected and harmless while the site stays noindexed, not a bug to chase — do not assume native Pages ever actually has the file). And independent of which build is live, `SITE_WIDE_NOINDEX`/`robots.txt` keep every page out of every crawler, Scholar included. "Scholar-ready" and "Scholar-discoverable" are two different, separately-gated states; only the first is done.
 
 ## 6. Agent file map

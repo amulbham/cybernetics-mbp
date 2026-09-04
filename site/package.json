@@ -10,6 +10,7 @@
     "build": "tsx scripts/validate-research-links.mjs && astro build && pagefind --site dist",
     "build:pdfs": "tsx scripts/build-research-pdfs.mjs",
     "validate:pdfs": "tsx scripts/validate-research-pdfs.mjs",
+    "deploy:pages": "wrangler pages deploy dist",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -29,6 +30,7 @@
     "pagefind": "^1.5.2",
     "pdfjs-dist": "6.3.289",
     "sirv": "3.0.1",
-    "tsx": "^4.23.13"
+    "tsx": "^4.23.13",
+    "wrangler": "4.129.0"
   }
 }

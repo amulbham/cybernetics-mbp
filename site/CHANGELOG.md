@@ -2,6 +2,16 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-04 — Sprint 9.0: Path B preflight (Wrangler pinned)
+
+Sprint 9 is the actual Path B cutover — secrets, dashboard toggles, a real production push. 9.0 is the one slice of it that's code: `wrangler` (the CLI `.github/workflows/deploy-pages.yml`'s deploy step calls) was unpinned, resolved fresh via `npx` on every run. Pinned exact `4.129.0` (the current stable release at time of pinning, confirmed via `npm view wrangler version`) as a real `site` devDependency, `package-lock.json` committed — the same discipline `@vivliostyle/cli@11.2.0` and `pdfjs-dist@6.3.289` already established.
+
+New `deploy:pages` script (`wrangler pages deploy dist`). The workflow's deploy step now calls `npm run deploy:pages -- <flags>` instead of bare `npx wrangler pages deploy dist <flags>` — `npm run` resolves the underlying command against the local `node_modules/.bin/wrangler` `npm ci` just installed, so a later `npm ci` on Actions cannot pick a different Wrangler than the lockfile says. Project name (`cybernetics-mbp-site`), `--branch`, `--commit-hash`, `--commit-message`, and both push triggers (`staging`/`main`) plus `workflow_dispatch` are all unchanged — 9.0 is a pin, not a cutover.
+
+**Verified directly, not assumed**: `rm -rf node_modules && npm ci` in `site/` then `npx wrangler --version` prints exactly `4.129.0` — confirming a clean install resolves the pinned version, not a network-fetched different one. Re-ran the full pipeline (`build` → `build:pdfs` → `validate:pdfs`) after adding the new devDependency to confirm nothing else broke: still 3/3 papers, still `papers: 3 / pdfs: 3 / ok`. `git grep wrangler` on the workflow file has no `@latest` and no bare `npx wrangler` left. `noindex`/`robots.txt`/research Markdown/validators/print CSS: zero touch.
+
+**What 9.0 explicitly did not do** (all deferred to 9.1–9.4, all ops steps outside this environment, none attempted here): create GitHub secrets, touch the Cloudflare dashboard, or claim Path B is live. Docs checklist for the user to confirm against the live Cloudflare dashboard before 9.3/9.4 (`ROADMAP.md`'s "Live PDF deployment" bullet) — if the live project name there isn't `cybernetics-mbp-site`, the instruction is to stop and report, not silently rename it in the workflow.
+
 ## 2026-09-02 (even yet later still, one more time) — Sprint 8.7: publishing contract freeze
 
 Docs only — zero runtime diff, confirmed by `git diff` touching only `.md` files. 8.7 reconciles what the docs claim against what 8.0–8.6 actually shipped, and stops there; no code, validators, print CSS, layouts, schema, or research Markdown were touched.

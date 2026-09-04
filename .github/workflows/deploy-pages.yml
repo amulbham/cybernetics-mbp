@@ -74,12 +74,21 @@ jobs:
         run: npm run validate:pdfs
 
       - name: Deploy to Cloudflare Pages
+        # Sprint 9.0 — calls the pinned `wrangler` (site/package.json's
+        # devDependency, exact version, package-lock.json committed) via the
+        # `deploy:pages` npm script, never bare `npx wrangler`. `npm ci`
+        # above already installed exactly that version into
+        # node_modules/.bin/wrangler; `npm run` resolves a script's command
+        # against that local bin first, so this cannot silently pick up a
+        # different release the way an unpinned `npx wrangler` could. The
+        # version itself is a package-lock.json fact — do not add an
+        # `@x.y.z` suffix here; bump the pin in package.json instead.
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           BRANCH="${{ github.ref_name }}"
-          npx wrangler pages deploy dist \
+          npm run deploy:pages -- \
             --project-name=cybernetics-mbp-site \
             --branch="$BRANCH" \
             --commit-hash="${{ github.sha }}" \
