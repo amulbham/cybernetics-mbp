@@ -575,19 +575,59 @@ pre.astro-code span {
 	white-space: nowrap;
 }
 
-/* Mobile Table of Contents disclosure widget (below 1100px) */
+/* Mobile Table of Contents disclosure widget (below 1100px). Sprint 10.3
+   made this the persistent orientation control: `position: sticky` means
+   it behaves like ordinary in-flow content until it reaches the viewport
+   top, then stays available for the rest of the read — the *same*
+   element throughout, never a second sticky clone. `top: 2px` sits it
+   directly under ScrollProgress.astro's own 2px fixed bar (the only other
+   fixed/sticky viewport chrome on the page); z-index 10 keeps it above
+   article prose but well under that bar's z-index: 100, so scrolling
+   never lets the TOC cover the progress indicator.
+
+   Visual treatment changed from a bordered/radius card on --bg-subtle to
+   a plain top/bottom rule on --bg — deliberately: position: sticky alone
+   can't distinguish "still in flow" from "now stuck" without JS (which
+   this sprint doesn't add, see ArticleShell.astro), so one consistent,
+   quiet treatment has to read correctly in both states. This is meant to
+   look like a small piece of publication navigation, not application
+   chrome (no floating card, no pill, no shadow). */
 .toc-mobile {
+	position: sticky;
+	top: 2px;
+	z-index: 10;
 	margin: 2em 0 2.5em;
 	padding: 0.85em 1.25em;
-	border: 1px solid var(--border);
-	border-radius: var(--radius-md);
-	background-color: var(--bg-subtle);
+	border-top: 1px solid var(--border);
+	border-bottom: 1px solid var(--border);
+	background-color: var(--bg);
 	font-size: var(--text-sm);
 }
 @media (min-width: 1100px) {
 	.toc-mobile {
 		display: none;
 	}
+}
+/* Bounded expansion (Sprint 10.3): a 13-section paper's opened list must
+   not consume an unbounded mobile viewport. Viewport-relative so it scales
+   with the device rather than a fixed guess; the list scrolls internally,
+   the body page itself never does. */
+.toc-mobile[open] ul {
+	max-height: 60vh;
+	overflow-y: auto;
+}
+
+/* The one number 10.4 also needs (Sprint 10.3): how much vertical space
+   the sticky mobile TOC plus the 2px progress bar actually occupy, so an
+   anchor-jumped heading never lands underneath either. Collapsed summary
+   height (measured: ~2.7em from its own padding + text line-height) + the
+   2px progress bar + a small breathing gap. Defined once, here, next to
+   the element it describes — 10.4 should read this same variable rather
+   than invent a second magic offset. Only applied below 1100px (see the
+   scroll-margin-top rule further down): at >=1100px the rail sits beside
+   the prose, not above it, so no anchor offset is needed there at all. */
+:root {
+	--toc-mobile-offset: calc(2px + 2.7em + 0.75em);
 }
 .toc-mobile summary {
 	cursor: pointer;
@@ -644,5 +684,18 @@ pre.astro-code span {
 	font-weight: 400;
 	color: var(--text-secondary);
 	margin-left: 0.5em;
+}
+/* Anchor offset (Sprint 10.3) — before this sprint there was no sticky
+   viewport chrome and therefore nothing to offset. The sticky mobile TOC
+   above is a real obstruction now, so it owns the fix: every TOC-
+   addressable heading gets enough scroll-margin-top to land fully clear
+   of the collapsed sticky bar when a reader taps a link to it. Scoped to
+   below 1100px only — at the desktop breakpoint the rail sits beside the
+   prose, not above it, so existing anchor behavior stays exactly as it
+   was; no desktop offset invented. */
+@media (max-width: 1099px) {
+	.prose h2[id] {
+		scroll-margin-top: var(--toc-mobile-offset);
+	}
 }
 

@@ -6,7 +6,15 @@
 // a script in a twice-rendered component runs twice; ArticleShell renders
 // exactly once per page. Gating by heading count keeps short papers (4 ##
 // headings each, measured) from getting a token TOC that adds nothing. The
-// financial-aid paper has 15.
+// financial-aid paper has 13 (Sprint 10.2 retitled its old "About the
+// Author" heading to "Declarations" rather than deleting it — see
+// CHANGELOG.md — which is why this number moved from the original 15).
+//
+// The mobile `<details class="toc-mobile">` rendered below became sticky
+// in Sprint 10.3 (`<1100px` only) — that CSS lives in global.css, not
+// here, same reason `.toc-rail`'s own CSS is inline below: this component
+// only owns markup/gating, not the sticky/scroll-margin mechanics, which
+// are documented next to `.toc-mobile` itself.
 interface Heading {
 	depth: number;
 	slug: string;
@@ -29,8 +37,8 @@ const showToc = sections.length >= MIN_SECTIONS;
 	showToc && (variant === 'mobile' || variant === 'both') && (
 		<details class="toc-mobile" data-toc-mobile>
 			<summary>
-				<span>Table of Contents</span>
-				<span class="toc-count">({sections.length} sections)</span>
+				<span>On this page</span>
+				<span class="toc-count">{sections.length} sections</span>
 			</summary>
 			<ul>
 				{sections.map((heading) => (
