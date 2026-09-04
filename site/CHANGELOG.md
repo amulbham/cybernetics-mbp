@@ -2,6 +2,34 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-04 (later) — Sprint 10.0: reading-shell audit (no UI, production code diff = 0)
+
+Observed the live corpus so 10.1–10.4 build against real placement, not an assumed one. Every field below is read from source Markdown and cross-checked against the built HTML (`dist/`) or a real `pdftotext` extraction of the live Invariants `paper.pdf` — nothing here is from memory.
+
+| Field | Inv | FAFSA | 3SOS | Frontier |
+|---|---|---|---|---|
+| format | paper | paper | paper | essay |
+| `## About the Author` present? | yes (L290) | yes (L493) | yes (L208) | **no** |
+| Bio placement vs. References / Appendix | *before* References (L290 → References ~L306) | *before* References *and* before Appendix A (L493 → References L499 → Appendix A L549) | *after* References — the true last section of the document (References end ~L206 → L208) | n/a |
+| Authored disclosures (Funding, IRB, etc.) | full journal-style 6-part block: Author Contributions, Funding, Institutional Review Board Statement, Informed Consent Statement, Data Availability Statement (includes the paper's own Zenodo DOI archive link), Conflicts of Interest | none — a 2-sentence blurb plus one contact-links line (email/LinkedIn/ORCID as plain Markdown links, not the masthead's own rendering) | identical full 6-part block to Inv (Author Contributions, Funding, IRB, Informed Consent, Data Availability, Conflicts) | n/a |
+| H2 count — source `## ` and built `[data-toc-link]` count, identical both ways | 9 | 14 | 8 | 7 |
+| TOC rendered? (≥6 H2, unchanged threshold) | yes | yes | yes | yes |
+| In-flow `<details>` vs. desktop rail | both present (`data-toc-mobile` + `data-toc-rail`, confirmed in built HTML) | both | both | both |
+
+**One correction to the ticket's own assumption, found here, not assumed away**: the ticket read "delete `## About the Author` from Invariants and Three SOS only — FAFSA/Frontier get the generated ending." Reality: **FAFSA has one too** (confirmed above) — only the Frontier essay genuinely has none today. Per the user's own confirmation, all three hand-authored blocks (Inv/FAFSA/3SOS) are being deleted for the programmatic replacement; Frontier gains AuthorNote with nothing to remove.
+
+**Placement is currently inconsistent across the three papers that have a bio at all** — before References (Inv), before References *and* before an Appendix (FAFSA), after References (3SOS). Sprint 10.1's `AuthorNote.astro`, rendered at the layout level (end of `ArticleShell`'s content, before `RelatedResearch`) rather than as body Markdown, fixes this as a side effect: every page's author identity lands in the same structural position regardless of what the piece's own body contains after it (References, an Appendix, or nothing) — not something 10.1 needs to solve per-piece, just a fact worth recording since it wasn't the ticket's stated reason.
+
+**The `## About the Author` heading itself currently counts toward each H2 total above** — post-deletion counts become 8 (Inv), 13 (FAFSA), 7 (3SOS), still comfortably clear of the 6-heading threshold; no piece is at risk of losing its TOC from this deletion. No heading anywhere in the corpus uses different wording (`## Author`, `## About Amul Bham`, etc.) that would collide with a future generated label — only the exact string `## About the Author`, in exactly the three places above.
+
+**`AUTHOR` in `consts.ts` today**: `name`, `affiliation`, `location`, `email` — no `bio` field yet (10.1 adds it as pure addition, no existing field to migrate).
+
+**How the TOC/scroll-spy actually works today** (`TableOfContents.astro` + `ArticleShell.astro`): `MIN_SECTIONS = 6` gates both variants identically. The mobile `<details class="toc-mobile">` (`<1100px`) only auto-collapses on link tap today — **no scroll-spy runs on it at all**. The desktop `.toc-rail` (`≥1100px`, sticky) is driven by one `IntersectionObserver` (`rootMargin: '0px 0px -70% 0px'`, `threshold: 0`) that toggles `.active` on `[data-toc-link]` rail anchors only. The script lives in `ArticleShell.astro`, not `TableOfContents.astro`, specifically because `ResearchLayout` renders that component twice (`variant="mobile"` + `"rail"`) and a script inside a twice-rendered component would run twice; re-initializes on `astro:page-load` for View Transitions. **No `scroll-margin-top` exists anywhere today.** `Header.astro` is *not* `position: sticky`/`fixed` — only the 2px `ScrollProgress` bar is — so 10.4's eventual scroll-margin math is really "new compact TOC bar height + 2px," not a full sticky-header offset.
+
+**What print/PDF already shows for identity**: `print-research.css` hides `.toc-rail`/`.toc-mobile`/`.tags`/`.pdf-link`/`.related-research`/header/footer/breadcrumbs outright, and reorders the title block (a single-page-scoped flex, not the dangerous multi-page kind) so the masthead prints in a fixed order. Confirmed directly via `pdftotext` on the real, currently-built Invariants PDF, page 1: name → "Independent Researcher, Corona, CA, USA" → the correspondence line (email/LinkedIn/ORCID/DOI) → "Paper · Licensed CC BY-NC 4.0" → date → the paper's own italicized series/companion line ("Paper A — Cognitive Physics Series · Companion: Paper B...") — that last line is paper-specific authored content, not masthead output, and stays untouched by anything in Sprint 10. **The current hand-authored "About the Author" block, full disclosure boilerplate included, does print today** — confirmed via `pdftotext` finding it verbatim deep in the same PDF, since nothing currently hides it. This is exactly why the locked Sprint 10 decision requires `AuthorNote` to ship in the PDF rather than being print-hidden: deleting the old block with no print-visible replacement would silently remove the author's presence from the printed artifact entirely.
+
+**10.1 may add `AuthorNote`; 10.3 may add the compact TOC; the ≥6 H2 threshold and the 1100px rail breakpoint both stay exactly as measured above.** No component files touched this sprint — `git diff` for 10.0 is this entry plus a short `ROADMAP.md` pointer.
+
 ## 2026-09-04 (yet later) — Sprint 9.5: Path B freeze — LIVE PDF DEPLOYMENT done
 
 ```
