@@ -2,6 +2,25 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-04 (yet later) — Sprint 9.5: Path B freeze — LIVE PDF DEPLOYMENT done
+
+```
+SCHOLAR-READY BUILD CONTRACT  done
+LIVE PDF DEPLOYMENT           done
+SCHOLAR DISCOVERY             blocked   indexing intentionally off
+```
+
+Sprint 9 (9.0–9.5) is closed: the actual Path B cutover, not just the build contract Sprint 8 shipped. Short arc, full detail in the entries below this one:
+
+- **9.0** pinned `wrangler` exact `4.129.0` as a real `site` devDependency, called via a new `deploy:pages` npm script instead of bare `npx wrangler` — a `package-lock.json` fact, same discipline as `@vivliostyle/cli`/`pdfjs-dist`.
+- **9.1** added `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` as GitHub repository secrets (dashboard, done by the site owner — not visible or doable from this environment).
+- **9.2** proved the pipeline end to end via `workflow_dispatch` on `staging`: build → build:pdfs → validate:pdfs → Wrangler, all green, confirmed directly against the public GitHub Actions API (this repo is public, so run status/steps are readable without a token — logs themselves still require auth and 403 without one).
+- **9.3** set Cloudflare's preview branch control to `None` (dashboard), then a real `staging` push to prove Actions — not Cloudflare's native Git build — now owns the staging preview. This surfaced a real, previously-latent bug: the deploy step's `--commit-message="${{ github.event.head_commit.message }}"` broke on a commit message containing an embedded `"..."` phrase, since GitHub splices `${{ }}` expressions into the `run:` script as raw text before bash parses it. Confirmed exactly from the failing job's own log (`Unknown arguments: from, GitHub... preview deploy, and that the` — a literal fragment of the commit body) and reproduced locally via `eval` before shipping the fix: pass the value through an intermediate `env: COMMIT_MESSAGE` var, reference it as `"$COMMIT_MESSAGE"`. Re-pushed; the retry run went green, and the staging alias was hard-checked three times (cache-busting) serving a real `200`/`application/pdf`/`%PDF-1.7` file.
+- **9.4** merged the quoting fix onto `main` first (so production's first real Path B run wouldn't hit the same bug), set production auto-build off (dashboard), then pushed `main` for real. The resulting Actions run went green through every step including deploy; confirmed directly against `amulbham.com` (not just the `pages.dev` alias) — all three papers' `paper.pdf` return `200`/`application/pdf`/real `%PDF-1.7` bytes, `citation_pdf_url` and the reader-facing Download link both resolve to that exact file, and `noindex, nofollow`/`robots.txt: Disallow: /` are both untouched.
+- **9.5** (this entry) is the freeze: `PUBLISHING.md`/`ROADMAP.md` now say LIVE PDF DEPLOYMENT is done, not "not yet"; `AGENTS.md` states deploy authority plainly (GitHub Actions end to end, Cloudflare's native build off for both branches, the quoting fix, the project/branch names) and carries the two-level rollback (immediate: Cloudflare Deployments → roll back production, verify `amulbham.com`; pipeline: only if Actions itself is sick, re-enable Cloudflare's native Git auto-build and accept HTML-only PDFs until fixed — never touch `robots.txt`/`SITE_WIDE_NOINDEX` as a compensating move for either level).
+
+Scholar discovery stays exactly as blocked as it was before this sprint — `SITE_WIDE_NOINDEX`/`robots.txt` untouched throughout 9.0–9.5, same as every sprint before it. Diff for 9.5 itself: docs only (`PUBLISHING.md`, `ROADMAP.md`, `AGENTS.md`, this entry) — zero touch to the workflow, Wrangler, print CSS, validators, or research Markdown.
+
 ## 2026-09-04 (later) — Sprint 9.3 fix: commit-message quoting broke the deploy step
 
 Found live, during the first real push-triggered test of Path B after secrets (9.1) and a successful `workflow_dispatch` (9.2): a real GitHub Actions bug, not a Cloudflare-side problem. `.github/workflows/deploy-pages.yml`'s deploy step built `--commit-message="${{ github.event.head_commit.message || ... }}"` directly inside a `run: |` block — but `${{ }}` expressions are spliced into the script as raw text *before* bash parses the line. A commit message containing an embedded `"..."` phrase closes that quoted string early; everything after becomes bogus extra shell tokens. Confirmed exactly via the failing job's own log: `wrangler`'s error was `Unknown arguments: from, GitHub... preview deploy, and that the` — a literal fragment of that push's commit body (which read, in part, `native "Building from GitHub..." preview deploy`). Every commit message on this repo before that one happened to be quote-free, so this was latent since Sprint 8.2 and never fired until 9.3's own test commit tripped it.

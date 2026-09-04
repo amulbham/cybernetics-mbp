@@ -5,20 +5,15 @@ Things flagged during past work but deliberately not done yet, plus open questio
 ## Blocking the actual public launch
 
 - **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state." This is also what blocks Scholar discovery specifically — see the Sprint 8 status line below; PDF build-readiness and search-engine discoverability are two independent gates, and this is the one that gates discovery.
-- **Scholarly PDF + Google Scholar compatibility (Sprint 8) — complete, 8.0 through 8.7 (2026-08-31–2026-09-02).** The build contract is done and CI-enforced end to end: `npm run build` → HTML with Highwire `citation_*` tags and a JSON-LD `MediaObject`; `npm run build:pdfs` → a typeset `paper.pdf` beside every paper's `index.html`; `npm run validate:pdfs` → a fail-closed identity/link-structure gate in `.github/workflows/deploy-pages.yml`. Full history: `CHANGELOG.md`. Contract: `PUBLISHING.md` §5's "research object → two projections" model. **This does not mean PDFs are live or that the site is Scholar-discoverable — two separate gates, both still closed:**
-  - **Live PDF deployment (ops, not a coding task) — Sprint 9 cutover, in progress.** `Sprint 9.0` (2026-09-04) pinned `wrangler` exact as a real `site` devDependency (`package-lock.json` committed) — see `CHANGELOG.md` for the version — so the deploy step's Cloudflare CLI is a lockfile fact, the same discipline `@vivliostyle/cli`/`pdfjs-dist` already established; the workflow calls it via the `deploy:pages` npm script, never bare `npx wrangler`. Path B (the Actions workflow above) still isn't running on real pushes — 9.1 (GitHub repo secrets) through 9.4 (both Cloudflare dashboard auto-build toggles off, then a real push) are the remaining ops steps, none done here (no GitHub/Cloudflare dashboard access from this environment). Checklist to confirm in the dashboard before 9.3/9.4 — **if the live project name isn't `cybernetics-mbp-site`, stop and report rather than silently renaming it in the workflow:**
+- **Scholarly PDF + Google Scholar compatibility — build contract complete (Sprint 8, 8.0–8.7) and now actually live on `amulbham.com` (Sprint 9, 9.0–9.5, 2026-09-04):**
 
-    ```
-    Pages project     cybernetics-mbp-site
-    Production branch main
-    Preview branch    staging
-    Auto production   still ON until 9.4
-    Auto preview      still ON until 9.3
-    GitHub secrets    not yet required for 9.0
-    ```
+  ```
+  SCHOLAR-READY BUILD CONTRACT  ✅
+  LIVE PDF DEPLOYMENT           ✅
+  SCHOLAR DISCOVERY             ❌  indexing intentionally blocked
+  ```
 
-    `workflow_dispatch` (9.2) tests the pipeline by hand, no push required, before either dashboard toggle changes. Until 9.4 lands, Cloudflare's own native Git-integrated build keeps serving every push — HTML only, no `paper.pdf` — though it does still advertise a `citation_pdf_url` for a PDF that build never produces (expected and harmless while the site stays noindexed, not a bug to chase). This bullet is a status record, not permission to go implement 9.1–9.4 — those are ops steps for the user, same as the two-step version of this that 8.7 already declined to touch.
-  - **Scholar discovery** — gated on the noindex bullet directly above, unrelated to how PDF-ready the build is.
+  `npm run build` → HTML with Highwire `citation_*` tags and a JSON-LD `MediaObject`; `npm run build:pdfs` → a typeset `paper.pdf` beside every paper's `index.html`; `npm run validate:pdfs` → a fail-closed identity/link-structure gate; the pinned `wrangler pages deploy` (Sprint 9.0, exact `4.129.0`) ships the result. Deploy authority is GitHub Actions end to end for both `staging` and `main` — Cloudflare's own native Git-integrated build is off for both branches (Cloudflare dashboard, done by the site owner in 9.3/9.4) and no longer ships either. Confirmed directly, not assumed: all three papers' `paper.pdf` return `200`/`application/pdf` from production, and each page's `citation_pdf_url`/Download href/JSON-LD `MediaObject` all resolve to that exact file. Full arc, the one real bug found along the way (a commit-message quoting break in the deploy workflow, fixed in an `env:` var), and the two-level rollback: `CHANGELOG.md` and `AGENTS.md`. **This still does not mean the site is Scholar-discoverable — a separate, still-closed gate, the same one the bullet above this one gates:** `SITE_WIDE_NOINDEX`/`robots.txt` still block every crawler, Scholar included, unrelated to how live the PDF pipeline now is.
 - `blog-placeholder-*.jpg` stock images are unused — no published entry currently has a hero image. They were only ever the starter template's leftover placeholders and can be deleted whenever someone notices them in `src/assets/`.
 
 ## Content-shaped (grow the corpus, these activate on their own)

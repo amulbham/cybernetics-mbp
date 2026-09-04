@@ -41,7 +41,7 @@ Sentence case by default (`financial aid`, `frontier models`), except a piece's 
 
 A paper's category is its `pillar`; an essay/memo's category is its pluralized `format` (`essays`/`memos`). The full path is always derived via `canonicalPath()`/`categorySegment()` in `site/src/lib/research-routing.ts` — this is the single source of truth for how an entry maps to a URL. Never hand-write a `/research/...` path or add a `canonicalURL` frontmatter field; that's exactly how a real drift bug happened once (documented in `AGENTS.md`).
 
-## Scholarly PDF (papers only, Sprint 8 — frozen 8.7)
+## Scholarly PDF (papers only, Sprint 8 build contract — frozen 8.7; Sprint 9 live deploy — frozen 9.5)
 
 **Do not add a `pdfUrl` frontmatter field, and do not attach or upload a PDF file yourself.** A paper's PDF has exactly one identity, derived, never authored: `{canonicalURL}paper.pdf`. Adding a fourth paper needs zero PDF-specific frontmatter — write it exactly like the three that exist today, and the pipeline below handles the rest automatically.
 
@@ -51,7 +51,7 @@ For every `format: paper` entry, three build steps run in order:
 2. `npm run build:pdfs` → typesets that HTML into `paper.pdf`, same directory as `index.html`.
 3. `npm run validate:pdfs` → a fail-closed check that the HTML and the PDF actually agree (identity, `#ref-*` reachability, research-relation link URIs) — a mismatch fails the build rather than shipping quietly wrong.
 
-**Path B CI (`.github/workflows/deploy-pages.yml`) runs all three before deploying — when Path B is live. It is not live yet** (two ops steps outside this repo — GitHub secrets, a Cloudflare dashboard toggle — see `site/ROADMAP.md`). Until then, Cloudflare's own native build serves the site HTML-only, with no `paper.pdf`. This doesn't change how you author a piece — the frontmatter and body are identical either way — only when the PDF actually goes live. See `site/PUBLISHING.md` §5 for the full research-object/two-projections model.
+**Path B CI (`.github/workflows/deploy-pages.yml`) runs all three before deploying, and — as of Sprint 9 — is what actually ships `amulbham.com`.** Deploy authority is GitHub Actions end to end for both `staging` and `main`; Cloudflare's own native Git-integrated build is off for both branches and no longer ships either. This doesn't change how you author a piece — the frontmatter and body are identical either way, and none of this pipeline needs anything from you beyond writing a normal `format: paper` entry. See `site/PUBLISHING.md` §5 for the full research-object/two-projections model, and `site/AGENTS.md`'s "Deploy workflow" section for the pipeline/rollback detail.
 
 ## Homepage spotlight
 
