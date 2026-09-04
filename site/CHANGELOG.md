@@ -2,6 +2,16 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-04 (later) — Sprint 9.3 fix: commit-message quoting broke the deploy step
+
+Found live, during the first real push-triggered test of Path B after secrets (9.1) and a successful `workflow_dispatch` (9.2): a real GitHub Actions bug, not a Cloudflare-side problem. `.github/workflows/deploy-pages.yml`'s deploy step built `--commit-message="${{ github.event.head_commit.message || ... }}"` directly inside a `run: |` block — but `${{ }}` expressions are spliced into the script as raw text *before* bash parses the line. A commit message containing an embedded `"..."` phrase closes that quoted string early; everything after becomes bogus extra shell tokens. Confirmed exactly via the failing job's own log: `wrangler`'s error was `Unknown arguments: from, GitHub... preview deploy, and that the` — a literal fragment of that push's commit body (which read, in part, `native "Building from GitHub..." preview deploy`). Every commit message on this repo before that one happened to be quote-free, so this was latent since Sprint 8.2 and never fired until 9.3's own test commit tripped it.
+
+**Fixed the standard way** (GitHub's own security-hardening guidance for any dynamic/untrusted `${{ }}` value used inside `run:`): pass it through an intermediate `env:` var (`COMMIT_MESSAGE`), reference it as a shell variable (`"$COMMIT_MESSAGE"`) instead of splicing the raw expression into the script text. Bash doesn't re-parse for quote characters inside an already-double-quoted variable expansion, so embedded quotes in the value are inert.
+
+**Verified locally before pushing**, not assumed: reproduced the exact failure with the real commit-message text via `eval` (the old direct-interpolation pattern split into 3 shell arguments, reproducing the identical `Unknown arguments: from, GitHub...` shape), then confirmed the `env:`-var pattern collapses back to exactly 1 argument with the embedded quotes preserved intact.
+
+Diff is one workflow file. No other Sprint 9.0 code, docs, secrets, or dashboard settings touched.
+
 ## 2026-09-04 — Sprint 9.0: Path B preflight (Wrangler pinned)
 
 Sprint 9 is the actual Path B cutover — secrets, dashboard toggles, a real production push. 9.0 is the one slice of it that's code: `wrangler` (the CLI `.github/workflows/deploy-pages.yml`'s deploy step calls) was unpinned, resolved fresh via `npx` on every run. Pinned exact `4.129.0` (the current stable release at time of pinning, confirmed via `npm view wrangler version`) as a real `site` devDependency, `package-lock.json` committed — the same discipline `@vivliostyle/cli@11.2.0` and `pdfjs-dist@6.3.289` already established.

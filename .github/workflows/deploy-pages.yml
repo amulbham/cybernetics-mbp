@@ -83,13 +83,34 @@ jobs:
         # different release the way an unpinned `npx wrangler` could. The
         # version itself is a package-lock.json fact — do not add an
         # `@x.y.z` suffix here; bump the pin in package.json instead.
+        # Sprint 9.3 fix — a real GitHub Actions bug, found live: a
+        # multi-line commit message containing an embedded `"..."` phrase
+        # (e.g. this exact sentence you're reading) broke the deploy step,
+        # because `${{ github.event.head_commit.message }}` gets spliced
+        # into this `run:` script as raw text *before* bash parses the
+        # line — the embedded quote characters closed the
+        # `--commit-message="..."` string early, and the rest of the
+        # message was parsed as bogus extra CLI arguments (confirmed
+        # directly: wrangler's error was "Unknown arguments: from,
+        # GitHub... preview deploy, and that the" — a literal fragment of
+        # the commit body). Every commit message before this one happened
+        # to be quote-free, so the bug was latent since Sprint 8.2 and
+        # never fired. Fixed the standard way GitHub's own
+        # security-hardening docs recommend for any dynamic/untrusted
+        # `${{ }}` value used inside `run:`: pass it through an
+        # intermediate `env:` var first, then reference it as a shell
+        # variable (`"$COMMIT_MESSAGE"`) — bash does not re-parse for quote
+        # characters inside an already-double-quoted variable expansion,
+        # so embedded quotes in the value are inert instead of breaking
+        # the command.
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message || format('workflow_dispatch by {0}', github.actor) }}
         run: |
           BRANCH="${{ github.ref_name }}"
           npm run deploy:pages -- \
             --project-name=cybernetics-mbp-site \
             --branch="$BRANCH" \
             --commit-hash="${{ github.sha }}" \
-            --commit-message="${{ github.event.head_commit.message || format('workflow_dispatch by {0}', github.actor) }}"
+            --commit-message="$COMMIT_MESSAGE"
