@@ -1,0 +1,60 @@
+---
+// Sprint 10.1 — the generated author-identity slot every research entry
+// gets at the end of its content, before RelatedResearch. Publication
+// chrome, not a research section: unlike References/Key Findings/etc.,
+// this isn't triggered by a Markdown shape and never appears in the
+// table of contents (the label below is a <p>, not an h2/h3 — TableOfContents
+// only ever reads the headings array Astro's markdown render produces,
+// which this component has no part in, but the tag choice stays
+// deliberately non-heading regardless, per the ticket's own instruction).
+//
+// This is the one universal identity slot — AUTHOR.bio in consts.ts,
+// same text on every entry, replacing the hand-typed "## About the
+// Author" blurbs that used to drift between papers (see CHANGELOG.md's
+// Sprint 10.0 audit). Paper-specific declarations (Funding/IRB/Data/
+// Conflicts) and series/companion lines are NOT this component's job —
+// those stay authored Markdown wherever a piece actually has them.
+//
+// Ships in the PDF (a locked Sprint 10 decision, not an oversight) —
+// print-research.css's whole-element hide list is for screen-only chrome
+// (nav, tags, the Download link, the TOC); AuthorNote is part of the
+// research object itself and must never be added there. Only the
+// purely-navigational "About" link is print-hidden, via its own narrow
+// .author-note-about rule — not the whole component.
+import { AUTHOR, SOCIAL_LINKS } from '../consts';
+---
+
+<section class="author-note" aria-labelledby="author-note-label">
+	<p id="author-note-label" class="meta">About the Author</p>
+	<p class="author-note-bio">{AUTHOR.bio}</p>
+	<p class="author-note-links meta">
+		<span class="author-note-about"><a href="/about">About</a>{' · '}</span>
+		<a href={SOCIAL_LINKS.orcid}>orcid.org/0009-0009-7660-4031</a>
+	</p>
+</section>
+
+<style>
+	.author-note {
+		margin-top: 3em;
+		padding-top: 2em;
+		border-top: 1px solid var(--border);
+	}
+	.author-note p {
+		margin: 0;
+	}
+	#author-note-label {
+		text-transform: uppercase;
+		margin-bottom: 0.75em;
+	}
+	.author-note-bio {
+		color: var(--text-primary);
+		margin-bottom: 0.75em;
+	}
+	.author-note-links a {
+		color: var(--text-secondary);
+	}
+	.author-note-links a:hover,
+	.author-note-links a:focus-visible {
+		color: var(--accent);
+	}
+</style>

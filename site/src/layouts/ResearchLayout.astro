@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import ArticleMasthead from '../components/ArticleMasthead.astro';
+import AuthorNote from '../components/AuthorNote.astro';
 import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
@@ -273,6 +274,7 @@ const normalizedDoi = doi?.replace(/^https?:\/\/doi\.org\//, '');
 				<TableOfContents headings={headings} variant="rail" />
 			</Fragment>
 			<slot />
+			<AuthorNote />
 			<RelatedResearch currentId={id} pillar={pillar} tags={tags} />
 		</ArticleShell>
 	</body>

@@ -67,6 +67,17 @@ footer,
 	display: none !important;
 }
 
+/* ---- AuthorNote (Sprint 10.1): NOT the same as the hide-list above ----
+   AuthorNote is part of the research object itself (a locked Sprint 10
+   decision — it ships in the PDF, print-quiet rather than hidden) and
+   must never join the block above. Only its purely-navigational "About"
+   link is dropped here — meaningless as a same-site nav affordance once
+   printed — leaving the label, bio, and ORCID (a stable identity
+   credential, not site chrome) all visible in print. */
+.author-note-about {
+	display: none !important;
+}
+
 /* "min read" specifically, not the date itself — FormattedDate.astro
    renders the date as a bare <time>, and the "· N min read" text is the
    only <span> inside .date.meta, so this can't also catch the date. */

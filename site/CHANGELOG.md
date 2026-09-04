@@ -2,6 +2,20 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-04 (yet later) — Sprint 10.1: canonical AuthorNote
+
+The generated identity slot 10.0's audit set up for: `AUTHOR.bio` (`consts.ts`) and a new `AuthorNote.astro`, rendered by `ResearchLayout.astro` at the end of every research entry's content — `<slot /> → <AuthorNote /> → <RelatedResearch />` — for all three formats (paper, essay, memo). Frontier included, which gets a real AuthorNote for the first time (it never had a hand-authored bio at all).
+
+**`AUTHOR.bio`** is 2 sentences, distilled from the shared thread across the three hand-authored blurbs (Invariants/Three SOS/FAFSA), not copied from any one of them — deliberately paper-agnostic: no piece-specific claims ("this paper is part of...", "this companion document applies..."), no declarations (Funding/IRB/Data/Conflicts stay authored Markdown wherever a piece actually has them, untouched by this component), no DOI, no contact instructions (the masthead already owns correspondence — this component never repeats email).
+
+**`AuthorNote.astro`**: `<section aria-labelledby="author-note-label">`, label is a `<p>` (never `h2`/`h3` — this component isn't part of the Markdown render Astro's heading-collection reads from, so it was never actually reachable by the TOC regardless of tag, but the ticket asked for the non-heading tag explicitly and this honors that literally rather than relying on the technicality). Bio paragraph, then a links line: "About" (→ `/about`) · ORCID — same visual language as `RelatedResearch`'s existing top-rule treatment (`border-top: 1px solid var(--border)`, `margin-top: 3em`), no card, no avatar, no new color or font.
+
+**Ships in the PDF, print-quiet rather than hidden** — a locked Sprint 10 decision, not an oversight: `print-research.css`'s whole-element hide list (header/footer/tags/`.pdf-link`/`.toc-rail`/`.toc-mobile`/`.related-research`) does **not** gain `.author-note`. Only the purely-navigational "About" link is dropped in print, via its own narrow `.author-note-about` rule, kept structurally separate from that hide list specifically so a future reader doesn't conflate the two. Confirmed directly via `pdftotext` on a freshly rebuilt Invariants PDF (`npm run build:pdfs`, all 3/3): the true last content of the PDF is now `ABOUT THE AUTHOR` / the generated bio text / `orcid.org/0009-0009-7660-4031` — no "About ·" prefix (correctly dropped), no Download/nav/TOC leak, and `npm run validate:pdfs` still reports `papers: 3 / pdfs: 3 / ok` (this component touches nothing the Sprint 8/9 identity checks look at).
+
+**Staging currently shows two author blocks on Invariants, FAFSA, and Three SOS — expected, not a bug.** The hand-authored `## About the Author` Markdown blocks are untouched this sprint (10.2's job); research Markdown has zero diff, confirmed via `git status` on `src/content/research/`. TOC counts are unchanged from 10.0's audit (9/14/8/7) — `AuthorNote` added zero new TOC entries, confirmed against the built HTML's `data-toc-link` counts.
+
+**Do not merge to `main` yet** — this is a `staging`-only state until 10.2 removes the duplication.
+
 ## 2026-09-04 (later) — Sprint 10.0: reading-shell audit (no UI, production code diff = 0)
 
 Observed the live corpus so 10.1–10.4 build against real placement, not an assumed one. Every field below is read from source Markdown and cross-checked against the built HTML (`dist/`) or a real `pdftotext` extraction of the live Invariants `paper.pdf` — nothing here is from memory.

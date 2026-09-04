@@ -27,6 +27,17 @@ export const AUTHOR = {
 	affiliation: 'Independent Researcher',
 	location: 'Corona, CA, USA',
 	email: 'amul.bham@gmail.com',
+	// Universal identity, rendered by AuthorNote.astro at the end of every
+	// research entry (Sprint 10.1) — distilled from the shared thread across
+	// the hand-authored "About the Author" blurbs on Invariants/Three SOS/
+	// FAFSA (see CHANGELOG.md's 10.0 audit), not copied from any single one.
+	// Deliberately paper-agnostic: no piece-specific claims ("this paper is
+	// part of...", "this companion document applies..."), no declarations
+	// (Funding/IRB/Data/Conflicts — those stay authored Markdown where a
+	// piece actually has them), no DOI, no contact instructions (the
+	// masthead above already owns correspondence) — just who the author is
+	// and what the throughline of the work actually is.
+	bio: 'Amul Bham is an independent AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy.',
 } as const;
 
 // Collection id (folder slug) pinned in Spotlight.astro on the homepage.
