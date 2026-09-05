@@ -2,6 +2,35 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-04 (yet later still) — Sprint 10.5: release-candidate QA — promoted to production
+
+The complete Sprint 10 reading shell (10.0–10.4) went through full-system QA against a real deployed build — not local `dist/` alone — and is now live on `amulbham.com`.
+
+**1. The one pre-authorized cleanup**: `AuthorNote.astro`'s visible ORCID text was a second, hand-typed source of truth alongside `SOCIAL_LINKS.orcid` (the href). Derived instead — strip only the protocol, the same treatment already used for DOI/email elsewhere. No new constant, `SOCIAL_LINKS` unchanged.
+
+**2. One real defect found by the QA matrix itself, not assumed away**: "URL hash updates normally" (tapping a mobile TOC link) was failing. Root cause, confirmed directly rather than guessed: the mobile link's click handler closed the `<details>` *synchronously*, in the same event that was also supposed to let the anchor's own hash navigation proceed — `<details>` hides its non-summary content the instant `open` is removed, and the click's default action (Astro's `ClientRouter` intercepts same-page anchor clicks generally, confirmed true of ordinary citation links and the desktop rail too — both of which *do* update the hash correctly) silently dropped the navigation once the target went hidden mid-event. Confirmed with a direct before/after measurement: `location.hash` stayed empty with the synchronous close, and updated correctly once the `removeAttribute('open')` call was deferred via `setTimeout(fn, 0)`. Smallest fix applied — `setCurrentSection()` itself has no such conflict (pure class/attribute toggling) and stayed synchronous; nothing else in the click handler changed.
+
+**Full QA matrix run, all findings recorded honestly** (several early "failures" during this pass turned out to be bugs in the QA scripts themselves, not the product — each was isolated and confirmed before being ruled out, not waved away):
+
+- **Corpus HTML** (all four live pages): exactly one `AuthorNote` each, same universal bio, `/about` link, ORCID href/label from the same source, zero hand-authored `## About the Author` anywhere. Exact ending order confirmed via real byte-offset checks against the built HTML, not assumed: Invariants `Declarations → References → AuthorNote → RelatedResearch`; FAFSA `References → Appendix → AuthorNote` (no `RelatedResearch` — correct, no pillar/tag overlap); Three SOS `References → Declarations → AuthorNote → RelatedResearch`; Frontier `authored ending → AuthorNote`.
+- **Responsive TOC matrix** (375/768/1024/1099/1100px, FAFSA as the stress case): page-top state, mid-scroll summary swap, bounded open/no-overflow, tap-to-jump (hash + heading clearance, now correctly ~16px), scroll-back-to-null, and the 1100px desktop boundary all confirmed clean on a real headless-Chrome pass.
+- **Lifecycle**: a real client-side navigation between two research pages (and a cold direct-URL load) leaves no stale current title, active slug, or section count from the previous page — confirmed directly, not assumed from the `astro:page-load` re-init pattern alone.
+- **Accessibility sanity**: native `<details>`/`<summary>` preserved, keyboard-openable (`Enter` on a focused summary opens it), Tab reaches a real TOC link with a visible focus outline, exactly one `aria-current="location"` per surface while inside a section, zero `aria-live` anywhere, `AuthorNote`'s `aria-labelledby` resolves to exactly one label element. No redesign — every one of these was already true going in; this pass just confirmed it under real interaction rather than by inspection.
+- **PDF/scholarly regression**: `build` → `build:pdfs` → `validate:pdfs`, `papers: 3 / pdfs: 3 / ok`. No TOC or current-section text in any PDF (one apparent match on FAFSA was a real authored sentence — "Movement 2 — Sections 2 through 6" — not a leak, confirmed by reading the actual matched line rather than trusting the grep count). `Declarations` preserved exactly once on Invariants/Three SOS. `AuthorNote` visually spot-checked on the real built Invariants PDF (page 31): quiet, no second masthead, "About" correctly absent from print, ORCID present as text.
+- **H2/content invariants**: unchanged — Invariants 9, FAFSA 13, Three SOS 8, Frontier 7. Zero research Markdown diff this sprint (confirmed via `git status`, not assumed from "I didn't touch it").
+
+**Staging release-candidate gate**: pushed, Actions green through deploy, then the *entire* matrix above was re-run a second time against the actual deployed `https://staging.cybernetics-mbp-site.pages.dev` URL (not local `dist/`) — including re-confirming the hash-navigation fix and the live staging PDFs — before any promotion decision was made.
+
+**Promoted to production**: `staging` fast-forwarded into `main`, pushed, production Actions run green through deploy. Verified directly against `amulbham.com` (cache-busted): `AuthorNote` present exactly once on all four research pages, the sticky mobile TOC and shared current-section state both confirmed live at 375px, the desktop rail confirmed live at 1100px, all three `paper.pdf` URLs return `200`, the generated `AuthorNote` bio/ORCID appear in the live production PDF, and `noindex, nofollow`/`robots.txt: Disallow: /` are both exactly unchanged.
+
+```
+SCHOLAR-READY BUILD CONTRACT  ✅
+LIVE PDF DEPLOYMENT           ✅
+SCHOLAR DISCOVERY             ❌  indexing intentionally blocked, untouched by Sprint 10
+```
+
+Diff for 10.5 itself: `AuthorNote.astro` (ORCID derivation) and `ArticleShell.astro` (the deferred-close fix) — no new features, no redesign, exactly the two things this QA pass actually found needed changing.
+
 ## 2026-09-04 (yet later still) — Sprint 10.4: shared TOC orientation state
 
 One current-section calculation, not two. `ArticleShell.astro`'s existing `IntersectionObserver` (still the only observer on the page — no second one added) now feeds a single `setCurrentSection(slug)` that projects one slug into every representation the page has: the desktop rail's `.active`/`aria-current="location"`, the mobile list's same pair, and the mobile sticky summary's count↔current-title swap. No second TOC, no scroll handler, no polling, no `MutationObserver`.
