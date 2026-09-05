@@ -136,7 +136,23 @@ const { title, subtitle, pubDate, updatedDate, minutesRead } = Astro.props;
 			if (mobileDetails && mobileLinks.length > 0) {
 				mobileLinks.forEach(function (link) {
 					link.addEventListener('click', function () {
-						mobileDetails.removeAttribute('open');
+						// Sprint 10.5 fix — closing <details> synchronously in the
+						// same click handler that's supposed to let the anchor's
+						// own hash navigation proceed silently dropped that
+						// navigation: <details> hides its non-summary content the
+						// instant `open` is removed, and the click's default
+						// action (Astro's ClientRouter intercepts same-page anchor
+						// clicks, same as it does for ordinary citation links)
+						// apparently checks the link's state after synchronous
+						// listeners run — a hidden/closing target loses the hash
+						// update, confirmed directly: location.hash stayed empty
+						// with a synchronous close, and updated correctly once
+						// deferred. setCurrentSection() has no such conflict
+						// (it only ever toggles classes/attributes) and stays
+						// synchronous.
+						setTimeout(function () {
+							mobileDetails.removeAttribute('open');
+						}, 0);
 						setCurrentSection(link.getAttribute('data-toc-mobile-link'));
 					});
 				});

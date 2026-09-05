@@ -22,6 +22,12 @@
 // purely-navigational "About" link is print-hidden, via its own narrow
 // .author-note-about rule — not the whole component.
 import { AUTHOR, SOCIAL_LINKS } from '../consts';
+
+// Sprint 10.5 — the visible ORCID text used to be a second, hand-typed
+// source of truth alongside SOCIAL_LINKS.orcid (the href). Derived here
+// instead: strip only the protocol, same as the DOI/email treatment
+// already used elsewhere in the masthead. No new constant.
+const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
 ---
 
 <section class="author-note" aria-labelledby="author-note-label">
@@ -29,7 +35,7 @@ import { AUTHOR, SOCIAL_LINKS } from '../consts';
 	<p class="author-note-bio">{AUTHOR.bio}</p>
 	<p class="author-note-links meta">
 		<span class="author-note-about"><a href="/about">About</a>{' · '}</span>
-		<a href={SOCIAL_LINKS.orcid}>orcid.org/0009-0009-7660-4031</a>
+		<a href={SOCIAL_LINKS.orcid}>{orcidLabel}</a>
 	</p>
 </section>
 
