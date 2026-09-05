@@ -617,17 +617,30 @@ pre.astro-code span {
 	overflow-y: auto;
 }
 
-/* The one number 10.4 also needs (Sprint 10.3): how much vertical space
-   the sticky mobile TOC plus the 2px progress bar actually occupy, so an
-   anchor-jumped heading never lands underneath either. Collapsed summary
-   height (measured: ~2.7em from its own padding + text line-height) + the
-   2px progress bar + a small breathing gap. Defined once, here, next to
-   the element it describes — 10.4 should read this same variable rather
-   than invent a second magic offset. Only applied below 1100px (see the
-   scroll-margin-top rule further down): at >=1100px the rail sits beside
-   the prose, not above it, so no anchor offset is needed there at all. */
+/* The one number 10.4 also needs (Sprint 10.3, unit fixed in 10.4): how
+   much vertical space the sticky mobile TOC plus the 2px progress bar
+   actually occupy, so an anchor-jumped heading never lands underneath
+   either. Defined once, here, next to the element it describes — 10.4
+   reads this same variable rather than inventing a second magic offset.
+   Only applied below 1100px (see the scroll-margin-top rule further
+   down): at >=1100px the rail sits beside the prose, not above it, so no
+   anchor offset is needed there at all.
+
+   Sprint 10.4 fix: this used to be `calc(2px + 2.7em + 0.75em)`. A custom
+   property is just a token sequence — it isn't resolved at declaration
+   time — so those `em`s were evaluated wherever the property actually got
+   *used*, which is `scroll-margin-top` on each `h2`, not on the small TOC
+   bar the numbers were meant to describe. An `h2`'s font-size is much
+   larger than the TOC's, so the real offset ballooned to ~83px more than
+   intended (measured directly in 10.3's own headless-Chrome pass: sticky
+   bar bottom ~54px, heading landing at 137px). `rem` is relative to the
+   root font-size regardless of which element consumes the variable, so it
+   can't inherit this bug the way `em` did. 3.5rem is the collapsed bar's
+   own measured height at default typography; 0.75rem is the intentional
+   breathing room on top of it — re-measured after this fix landing the
+   heading a small ~16px below the sticky bar's bottom edge, not ~83px. */
 :root {
-	--toc-mobile-offset: calc(2px + 2.7em + 0.75em);
+	--toc-mobile-offset: calc(2px + 3.5rem + 0.75rem);
 }
 .toc-mobile summary {
 	cursor: pointer;
@@ -642,6 +655,9 @@ pre.astro-code span {
 	align-items: center;
 	justify-content: space-between;
 	user-select: none;
+}
+.toc-summary-label {
+	flex-shrink: 0;
 }
 .toc-mobile summary::-webkit-details-marker {
 	display: none;
@@ -680,10 +696,37 @@ pre.astro-code span {
 .toc-mobile a:focus-visible {
 	color: var(--accent);
 }
+/* Mobile active-item (Sprint 10.4) — the same restrained vocabulary the
+   desktop rail already uses (accent color + bold), adapted to the list
+   item rather than the rail's own left-accent-bar treatment. No badge,
+   no filled background, no card. */
+.toc-mobile a.active {
+	color: var(--accent);
+	font-weight: 700;
+}
 .toc-count {
 	font-weight: 400;
 	color: var(--text-secondary);
 	margin-left: 0.5em;
+	flex-shrink: 0;
+}
+/* Sprint 10.4 — the current-section-title projection of the same summary
+   slot .toc-count occupies (only one of the two is ever visible; see
+   ArticleShell.astro's setCurrentSection()). Grows to fill the space
+   between the label and the disclosure marker, but never wraps or pushes
+   the marker off-screen — a long H2 ellipsizes instead. The full heading
+   text always stays in the DOM (`textContent`, never truncated in JS);
+   only the visual rendering is clipped. */
+.toc-current {
+	font-weight: 400;
+	color: var(--text-secondary);
+	margin-left: 0.5em;
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: right;
 }
 /* Anchor offset (Sprint 10.3) — before this sprint there was no sticky
    viewport chrome and therefore nothing to offset. The sticky mobile TOC

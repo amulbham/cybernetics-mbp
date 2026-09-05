@@ -107,57 +107,138 @@ const { title, subtitle, pubDate, updatedDate, minutesRead } = Astro.props;
 	// a View Transitions client-side navigation lands on a research page —
 	// the TOC rail and article body are both swapped, so any previous observer
 	// and its element references are stale.
+	//
+	// Sprint 10.4 — one shared "current section" calculation, not two
+	// independent ones. setCurrentSection() is the single place that
+	// projects one slug into every representation this page has (desktop
+	// rail .active/aria-current, mobile list .active/aria-current, the
+	// mobile summary's count<->current-title swap). There is still exactly
+	// one IntersectionObserver; its callback doesn't compute anything
+	// itself, it just re-runs the same viewport-sync calculation init
+	// already uses — so cold start, a direct #hash load, a View
+	// Transitions navigation, and normal scrolling can never disagree with
+	// each other about what "current" means.
 	(function () {
 		var observer;
+		// The activation band matches the observer's own rootMargin (the
+		// top 30% of the viewport is "current", i.e. -70% on the bottom) —
+		// defined once so the two numbers can't silently drift apart.
+		var ACTIVE_ZONE_FRACTION = 0.3;
+		var ROOT_MARGIN = '0px 0px -' + Math.round((1 - ACTIVE_ZONE_FRACTION) * 100) + '% 0px';
+
 		function initToc() {
-			// 1. Mobile TOC: automatically collapse <details> when a section link is tapped
+			// 1. Mobile TOC: automatically collapse <details> when a section
+			// link is tapped, and optimistically update the shared state to
+			// that slug immediately — the observer's next fire remains
+			// authoritative once the viewport actually settles.
 			var mobileDetails = document.querySelector('[data-toc-mobile]');
 			var mobileLinks = document.querySelectorAll('[data-toc-mobile-link]');
 			if (mobileDetails && mobileLinks.length > 0) {
 				mobileLinks.forEach(function (link) {
 					link.addEventListener('click', function () {
 						mobileDetails.removeAttribute('open');
+						setCurrentSection(link.getAttribute('data-toc-mobile-link'));
 					});
 				});
 			}
 
-			// 2. Desktop TOC rail scroll-spy
+			// 2. Build the one shared section model, keyed off the desktop
+			// rail's own links — the mobile list is keyed onto the same
+			// slugs via mobileLinksBySlug. AuthorNote has no entry here and
+			// never will: it isn't part of the TOC's own link sets, so it
+			// can't become "current section" state by construction.
 			if (observer) observer.disconnect();
-			var links = document.querySelectorAll('[data-toc-link]');
-			if (links.length === 0) return;
-			var headings = [];
-			links.forEach(function (link) {
-				var slug = link.getAttribute('data-toc-link');
-				var heading = slug && document.getElementById(slug);
-				if (heading) headings.push({ heading: heading, link: link });
-			});
-			if (headings.length === 0) return;
+			var railLinks = document.querySelectorAll('[data-toc-link]');
+			if (railLinks.length === 0) return; // no TOC on this page
 
-			function setActive(activeLink) {
-				links.forEach(function (l) {
-					l.classList.toggle('active', l === activeLink);
+			var mobileLinksBySlug = {};
+			mobileLinks.forEach(function (l) {
+				mobileLinksBySlug[l.getAttribute('data-toc-mobile-link')] = l;
+			});
+
+			var sections = [];
+			railLinks.forEach(function (railLink) {
+				var slug = railLink.getAttribute('data-toc-link');
+				var heading = slug && document.getElementById(slug);
+				if (!heading) return;
+				sections.push({
+					slug: slug,
+					heading: heading,
+					desktopLink: railLink,
+					mobileLink: mobileLinksBySlug[slug] || null,
+					label: heading.textContent,
 				});
+			});
+			if (sections.length === 0) return;
+
+			var countEl = document.querySelector('[data-toc-count]');
+			var currentEl = document.querySelector('[data-toc-current]');
+			var currentSlug = null;
+
+			// The one setter every projection reads from. slug === null
+			// means "above the first heading" — desktop has no active
+			// link, mobile shows the section count instead of a title.
+			function setCurrentSection(slug) {
+				if (slug === currentSlug) return;
+				currentSlug = slug;
+				var current = null;
+				sections.forEach(function (s) {
+					var isActive = s.slug === slug;
+					if (isActive) current = s;
+					if (s.desktopLink) {
+						s.desktopLink.classList.toggle('active', isActive);
+						if (isActive) s.desktopLink.setAttribute('aria-current', 'location');
+						else s.desktopLink.removeAttribute('aria-current');
+					}
+					if (s.mobileLink) {
+						s.mobileLink.classList.toggle('active', isActive);
+						if (isActive) s.mobileLink.setAttribute('aria-current', 'location');
+						else s.mobileLink.removeAttribute('aria-current');
+					}
+				});
+				if (countEl && currentEl) {
+					if (current) {
+						countEl.hidden = true;
+						currentEl.hidden = false;
+						currentEl.textContent = current.label;
+					} else {
+						countEl.hidden = false;
+						currentEl.hidden = true;
+						currentEl.textContent = '';
+					}
+				}
 			}
 
-			observer = new IntersectionObserver(
-				function (entries) {
-					var visible = entries.filter(function (e) {
-						return e.isIntersecting;
-					});
-					if (visible.length === 0) return;
-					var topmost = visible.reduce(function (a, b) {
-						return a.boundingClientRect.top < b.boundingClientRect.top ? a : b;
-					});
-					var match = headings.find(function (h) {
-						return h.heading === topmost.target;
-					});
-					if (match) setActive(match.link);
-				},
-				{ rootMargin: '0px 0px -70% 0px', threshold: 0 }
-			);
-			headings.forEach(function (h) {
-				observer.observe(h.heading);
+			// 3. The one viewport-sync calculation, used both on init and
+			// every time the observer fires: the last heading (in document
+			// order) that has reached the activation band, or null if the
+			// reader is still above the first one. Never run on a scroll
+			// handler — only here and inside the observer's own callback.
+			function syncCurrentSection() {
+				var zoneBottom = window.innerHeight * ACTIVE_ZONE_FRACTION;
+				var last = null;
+				sections.forEach(function (s) {
+					if (s.heading.getBoundingClientRect().top <= zoneBottom) last = s;
+				});
+				setCurrentSection(last ? last.slug : null);
+			}
+
+			// Desktop rail taps get the same optimistic update as mobile.
+			railLinks.forEach(function (railLink) {
+				railLink.addEventListener('click', function () {
+					setCurrentSection(railLink.getAttribute('data-toc-link'));
+				});
 			});
+
+			observer = new IntersectionObserver(syncCurrentSection, { rootMargin: ROOT_MARGIN, threshold: 0 });
+			sections.forEach(function (s) {
+				observer.observe(s.heading);
+			});
+
+			// Cold start / direct #hash load / View Transitions landing —
+			// resolve the real answer immediately rather than waiting for
+			// the observer's first natural fire.
+			syncCurrentSection();
 		}
 		document.addEventListener('astro:page-load', initToc);
 	})();

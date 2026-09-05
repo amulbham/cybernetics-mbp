@@ -6,15 +6,24 @@
 // a script in a twice-rendered component runs twice; ArticleShell renders
 // exactly once per page. Gating by heading count keeps short papers (4 ##
 // headings each, measured) from getting a token TOC that adds nothing. The
-// financial-aid paper has 13 (Sprint 10.2 retitled its old "About the
-// Author" heading to "Declarations" rather than deleting it — see
-// CHANGELOG.md — which is why this number moved from the original 15).
+// financial-aid paper has 13 (Sprint 10.2 deleted its old "About the
+// Author" heading entirely — see CHANGELOG.md — which is why this
+// number moved from the original 15). Invariants and Three SOS took
+// the opposite treatment that same sprint: their own "About the
+// Author" was *retitled* to "Declarations", not deleted, so their
+// H2 counts didn't change at all.
 //
 // The mobile `<details class="toc-mobile">` rendered below became sticky
 // in Sprint 10.3 (`<1100px` only) — that CSS lives in global.css, not
 // here, same reason `.toc-rail`'s own CSS is inline below: this component
 // only owns markup/gating, not the sticky/scroll-margin mechanics, which
 // are documented next to `.toc-mobile` itself.
+//
+// Sprint 10.4 — the mobile summary's `[data-toc-count]`/`[data-toc-current]`
+// spans are two mutually-exclusive projections of the one shared
+// current-section state ArticleShell.astro computes (`hidden` toggles
+// between them); this component only renders the markup both slots need,
+// it doesn't decide which one shows.
 interface Heading {
 	depth: number;
 	slug: string;
@@ -37,8 +46,9 @@ const showToc = sections.length >= MIN_SECTIONS;
 	showToc && (variant === 'mobile' || variant === 'both') && (
 		<details class="toc-mobile" data-toc-mobile>
 			<summary>
-				<span>On this page</span>
-				<span class="toc-count">{sections.length} sections</span>
+				<span class="toc-summary-label">On this page</span>
+				<span class="toc-count" data-toc-count>{sections.length} sections</span>
+				<span class="toc-current" data-toc-current hidden></span>
 			</summary>
 			<ul>
 				{sections.map((heading) => (
