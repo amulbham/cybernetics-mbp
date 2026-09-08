@@ -2,6 +2,27 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-08 — Sprint 10.6: reading-shell contract freeze
+
+Sprint 10 (10.0–10.6) is closed. Docs/skill only — zero runtime diff, confirmed by `git status` touching only `.md`/`SKILL.md` files. Runtime was already live on `amulbham.com` as of 10.5 (`262ea91` + `6b806ff`); 10.6 makes the docs say so and stops.
+
+```
+SCHOLAR-READY BUILD CONTRACT  ✅
+LIVE PDF DEPLOYMENT           ✅
+SCHOLAR DISCOVERY             ❌
+READING SHELL                 ✅  frozen
+```
+
+- **`PUBLISHING.md`** — a proper "reading shell" subsection added (this never existed before; §2's page map and §5 predated Sprint 10 entirely). States plainly: never author `## About the Author`; `AUTHOR.bio` → `AuthorNote` after the whole body, before `RelatedResearch`, on every format; paper-specific declarations stay authored under `## Declarations` where real, never invented where they aren't; `AuthorNote` is a non-heading, never TOC state; it prints, its "About" link doesn't, ORCID is derived not hand-typed; the TOC model (`MIN_SECTIONS = 6`, `1100px` rail, sticky mobile `<details>`, one shared `currentSection`, both surfaces print-hidden, the deferred-close hash fix).
+- **Content-manager skill** — found and fixed the one real stale instruction the freeze's own verify step was designed to catch: step 5 used to say a piece-specific bio is "real body content, write it as a normal `## About the Author` section." That's exactly backwards after Sprint 10. Corrected, and a new step 9 states the shell (TOC + `AuthorNote`) needs zero frontmatter or body section from the author.
+- **`AGENTS.md`** — the "Table of contents" bullet was still describing pre-Sprint-10 behavior (mobile as a plain auto-collapsing disclosure, no sticky, no shared state, no offset). Rewritten with the real mechanics plus the five reading-shell invariants the ticket asked for: exactly one `IntersectionObserver`, one shared current-section setter, `ACTIVE_ZONE_FRACTION` as the single source both the observer's `rootMargin` and the manual sync calculation derive from, `AuthorNote` structurally unable to become TOC state, and `--toc-mobile-offset` staying `rem`-based (never `em` — that unit bug, and why it mattered, is spelled out here since it's exactly the kind of thing a future edit could silently reintroduce).
+- **`CONTENT-MODULES.md`** — one sentence, no new section: `AuthorNote` and the sticky TOC are publication shell, not content-shape modules, same treatment as 8.7's PDF-projection sentence.
+- **`ROADMAP.md`** — the Sprint 10 "In progress" bullet deleted outright now that it has zero remaining dependency (matching this file's own stated policy: ship it, it lives in `CHANGELOG.md`, delete it from here — Sprint 8/9 still keep a bullet because indexing remains genuinely open; Sprint 10 doesn't). Fixed a real stale sub-clause: the content-detail-pass item used to say to compare Three SOS's and Invariants' near-identical bios for accidental duplication — moot now that both are the same one generated `AUTHOR.bio`, nothing left to compare. Added the two genuinely new leftover items named in this freeze: a `download="{title}.pdf"` attribute for the Download link, and the `actions/checkout`/`actions/setup-node` major-version bump GitHub's own Node-runtime deprecation will eventually require — both explicitly out of scope for Sprint 10 from its own kickoff, neither touched here either. Indexing-launch and the Goodhart/Pangram tag item were already their own bullets elsewhere in this file; not duplicated.
+
+**Verified**: grepped all active docs for "delete all About the Author blocks" without the Declarations exception, "AuthorNote print-hidden", "Path B not live", "Sprint 10 in progress", and an `em`-based `--toc-mobile-offset` — all clean (`CHANGELOG.md`'s own past entries are exempt, as project history). `git diff` is `.md`/`SKILL.md` files only.
+
+A future agent can now add Paper B from Markdown + the usual frontmatter, omit a bio heading, and trust the shell to attach `AuthorNote` and a TOC (if ≥6 `##`) without reading this chat. Crawlers stay blocked — nothing in Sprint 10 touched `SITE_WIDE_NOINDEX`/`robots.txt`.
+
 ## 2026-09-04 (yet later still) — Sprint 10.5: release-candidate QA — promoted to production
 
 The complete Sprint 10 reading shell (10.0–10.4) went through full-system QA against a real deployed build — not local `dist/` alone — and is now live on `amulbham.com`.

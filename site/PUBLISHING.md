@@ -24,7 +24,7 @@ A research page is:
 1. Frontmatter in `src/content/research/<slug>/index.md` (`format`, `title`, `pubDate`, `description`, `excerpt`, paper-only `pillar`, optional `subtitle` / `doi` / `tags` / hero pair). Authors never specify a PDF field — a paper's PDF is always `{canonicalURL}/paper.pdf`, derived (Sprint 8.4).
 2. Body Markdown.
 3. Build-time transforms (reading time, alerts, references, tables, figures, key findings, pull quotes, primitives, citation links).
-4. `ResearchLayout` → `ArticleShell`: masthead, TOC if ≥6 `##`, scroll progress, related research, JSON-LD, OG route.
+4. `ResearchLayout` → `ArticleShell`: masthead, TOC if ≥6 `##`, scroll progress, the whole authored body, `AuthorNote`, related research, JSON-LD, OG route — in that order.
 
 Formats: `paper` | `essay` | `memo`. One collection, one layout. URL via `categorySegment()`: papers at `/research/{pillar}/{slug}/`, others at `/research/essays|memos/{slug}/`.
 
@@ -106,6 +106,24 @@ SCHOLAR DISCOVERY             ❌  indexing intentionally blocked
 **Sprint 9 (9.0–9.5, 2026-09-04) was the Path B cutover, and it's done.** 9.0 pinned `wrangler` exact as a `package-lock.json` fact, same as `@vivliostyle/cli`/`pdfjs-dist`. 9.1–9.4 (GitHub repo secrets, a `workflow_dispatch` proof run, Cloudflare's preview auto-build set to `None` plus a real staging push, then production auto-build set off plus a real `main` push) are the ops half — done by the site owner, verified from this environment via the public GitHub Actions API and direct HTTP checks against both the staging alias and `amulbham.com`, not assumed. Deploy authority is now GitHub Actions end to end (`build` → `build:pdfs` → `validate:pdfs` → the pinned `wrangler pages deploy`) for both `staging` and `main`; Cloudflare's own native Git-integrated build no longer ships either branch. Full arc and the one real bug found along the way (a commit-message quoting break, fixed in an `env:` var): `CHANGELOG.md`. Pipeline truth and the two-level rollback: `AGENTS.md`.
 
 Every paper that goes through `build` → `build:pdfs` → `validate:pdfs` → deploy is now what actually serves `amulbham.com` — confirmed directly (not assumed) on all three live papers: each `paper.pdf` returns `200`/`application/pdf` from production, and each page's `citation_pdf_url`/Download href/JSON-LD `MediaObject` all resolve to that exact file. `SITE_WIDE_NOINDEX`/`robots.txt` are unrelated to any of this and remain exactly as they were — every page stays out of every crawler, Scholar included. "Scholar-ready" and "Scholar-discoverable" are still two different, separately-gated states; the build/deploy one is now done, the discovery one is not.
+
+### The reading shell (Sprint 10, frozen 10.6)
+
+```
+authored research body
+        ↓
+generated AuthorNote
+        ↓
+RelatedResearch
+```
+
+**Author identity is generated, never authored as a heading.** `AUTHOR.bio` (`consts.ts`) is the one universal identity — `AuthorNote.astro` renders it after the *entire* authored body (References, an Appendix, whatever a piece actually ends with) and before `RelatedResearch`, on every format (`paper`/`essay`/`memo` alike). **Do not write `## About the Author` in a piece's Markdown** — that heading used to exist by hand on three papers and drifted between them before Sprint 10 deleted all three and replaced them with this one generated slot. `AuthorNote`'s own label is a non-heading (a `<p>`, never `h2`/`h3`) specifically so it can never enter the TOC.
+
+**Paper-specific declarations stay authored Markdown — `AuthorNote` never generates them.** If a piece has real disclosures (Author Contributions, Funding, IRB, Informed Consent, Data Availability, Conflicts of Interest — Invariants and Three SOS both do), they live under an authored `## Declarations` heading, a real TOC-visible section. **Do not invent a `## Declarations` heading on a piece that has none** (FAFSA and the Frontier essay both correctly have no such heading — nothing to preserve, nothing to fabricate).
+
+**`AuthorNote` prints; its purely-navigational "About" link doesn't.** A locked Sprint 10 decision, not an oversight: the PDF is the same research object as the HTML, so the generated identity ships in it too — `print-research.css`'s whole-element hide list (header, nav, tags, the Download link, both TOCs) must never gain `.author-note`. Only the "About" link (meaningless once printed) is dropped, via its own narrow rule. The visible ORCID text is derived from `SOCIAL_LINKS.orcid` (protocol stripped) — never a second hand-typed constant.
+
+**TOC**: authored `##` headings only, `MIN_SECTIONS = 6` (unchanged since before Sprint 10), the desktop rail at `≥1100px` (unchanged breakpoint). Below that, the same native `<details>` — not a second widget — is persistently sticky, with one shared `currentSection` state feeding both the rail's active link and the mobile summary's current-title display. Both TOC surfaces are print-hidden, same as always. A tapped mobile link defers closing the `<details>` by one tick so the URL hash still updates (Sprint 10.5 — closing it synchronously raced the anchor's own navigation). Full mechanics: `AGENTS.md`'s reading-shell invariants — not repeated here.
 
 ## 6. Agent file map
 

@@ -8,6 +8,8 @@ Visual chrome (tokens, component styling) lives in `site/design-system/`, not he
 
 A paper's `paper.pdf` is not a module here: it's a generated projection of the finished HTML (`site/PUBLISHING.md`'s "one research object, two projections" model), not a Markdown shape an author writes — there is no PDF section or trigger to document in this file.
 
+The generated `AuthorNote` and the sticky TOC (Sprint 10) are publication shell the same way — neither is triggered by a Markdown shape, so neither gets a module section here; see `site/PUBLISHING.md`'s "reading shell" for what they are and `site/AGENTS.md` for how the TOC's shared state works.
+
 ## Contract template
 
 Every module below follows this shape:
