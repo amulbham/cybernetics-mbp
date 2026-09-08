@@ -71,6 +71,21 @@ const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
 // the PDF does).
 const paperPdfUrl = isPaper ? new URL('paper.pdf', canonicalURL).toString() : undefined;
 
+// Sprint 11.2 — moved up from its old spot near the Highwire block so
+// JSON-LD's `identifier` and Highwire's `citation_doi` can consume the
+// exact same normalized value, never two independent derivations of the
+// same fact. Bare identifier (Highwire convention, and now also
+// PropertyValue.value) — strips the resolver prefix. The frontmatter
+// field and the masthead's own DOI link both keep the full
+// https://doi.org/... URL; only this one derived value is ever bare.
+const normalizedDoi = doi?.replace(/^https?:\/\/doi\.org\//, '');
+
+// Sprint 11.1's one canonical Person identity, reused for both roles
+// below — author and publisher are the same real-world entity occupying
+// two roles (direct self-publication), not two independent Person shapes
+// (Sprint 11.2).
+const canonicalPerson = personIdentity(Astro.site);
+
 const breadcrumbItems = [
 	{ label: 'Home', href: '/' },
 	{ label: 'Research', href: '/research' },
@@ -111,7 +126,24 @@ const jsonLd = {
 	// not a hand-typed core. Article/WebPage/CollectionPage identity are all
 	// explicitly untouched this sprint (Sprint 11.0 found none of them earned
 	// additional graph structure) — only the author's Person core changed.
-	author: personIdentity(Astro.site),
+	author: canonicalPerson,
+	// Sprint 11.2 — direct self-publication: the same canonical Person
+	// occupies both roles. Applies to every format (paper/essay/memo) via
+	// this one shared layout, not gated on isPaper — publisher follows the
+	// real publication model, not this site's local content taxonomy.
+	publisher: canonicalPerson,
+	// Sprint 11.2 — a DOI identifies a research object independently of
+	// paper|essay|memo; gated on normalizedDoi presence alone, never on
+	// isPaper (a future DOI-bearing essay could get this without acquiring
+	// any paper-only feature). Today only Invariants has one. Absence is
+	// part of the contract: no doi → no identifier, never a null/empty one.
+	...(normalizedDoi && {
+		identifier: {
+			'@type': 'PropertyValue',
+			propertyID: 'DOI',
+			value: normalizedDoi,
+		},
+	}),
 	...(isPaper &&
 		paperPdfUrl && {
 			encoding: {
@@ -159,12 +191,6 @@ const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, '\
 const citationPublicationDate = isPaper
 	? `${pubDate.getUTCFullYear()}/${String(pubDate.getUTCMonth() + 1).padStart(2, '0')}/${String(pubDate.getUTCDate()).padStart(2, '0')}`
 	: undefined;
-
-// citation_doi is the bare identifier (Highwire convention) — strip the
-// resolver prefix for this tag only. The frontmatter field and the DOI
-// shown in the masthead both keep the full https://doi.org/... URL. (JSON-LD
-// does not emit a DOI at all today — not touched by this sprint.)
-const normalizedDoi = doi?.replace(/^https?:\/\/doi\.org\//, '');
 ---
 
 <html lang="en">

@@ -39,7 +39,28 @@ const research = defineCollection({
 				tags: z.array(z.string()).default([]),
 					// Rendered by ArticleMasthead.astro alongside the universal
 					// correspondence details when present — not every entry has one.
-					doi: z.url().optional(),
+					// Sprint 11.2: tightened beyond a generic URL once JSON-LD
+					// started asserting `propertyID: DOI` from this value — that's
+					// an explicit semantic claim the source must actually satisfy,
+					// not just be some URL. Requires the DOI resolver shape
+					// (https://doi.org/10.<registrant>/<suffix>), not the full DOI
+					// spec — this is a narrow shape check, not an attempt to
+					// validate every legal DOI syntax.
+					doi: z
+						.url()
+						.optional()
+						.refine(
+							(doi) => {
+								if (!doi) return true;
+								try {
+									const url = new URL(doi);
+									return url.protocol === 'https:' && url.hostname === 'doi.org' && /^\/10\.[^/]+\/.+$/.test(url.pathname);
+								} catch {
+									return false;
+								}
+							},
+							{ message: 'doi must be a DOI resolver URL, e.g. https://doi.org/10.5281/zenodo.20531589' },
+						),
 				// Optional 1020x510 (2:1) banner — see AGENTS.md for the full image
 				// spec. Alt text is required whenever an image is provided (enforced
 				// below), since a real hero isn't decorative.
