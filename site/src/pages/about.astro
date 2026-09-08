@@ -3,25 +3,25 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { personIdentity } from '../lib/structured-data';
 
 const pageTitle = `About — ${SITE_TITLE}`;
 const pageDescription =
 	'Systems researcher working at the intersection of AI infrastructure, technical SEO architecture, and policy rules engines.';
 
-const sameAsLinks = Object.values(SOCIAL_LINKS);
-const canonicalURL = new URL('/about/', Astro.site).toString();
-
+// Sprint 11.1 — mainEntity is the canonical Person core (src/lib/structured-data.ts)
+// plus this page's own contextual enrichment (jobTitle/knowsAbout), which
+// stays here deliberately: About remains the richest structured description
+// of the one canonical Person, and richer-here-than-elsewhere is legitimate
+// per-context detail, not identity drift (see CHANGELOG.md's Sprint 11.1 entry).
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'ProfilePage',
 	dateCreated: '2026-08-01T00:00:00Z',
 	dateModified: new Date().toISOString(),
 	mainEntity: {
-		'@type': 'Person',
-		name: 'Amul Bham',
+		...personIdentity(Astro.site),
 		jobTitle: 'Systems & AI Researcher',
-		url: canonicalURL,
-		sameAs: sameAsLinks,
 		knowsAbout: [
 			'AI Systems & Infrastructure',
 			'Information Architecture & Technical SEO',
