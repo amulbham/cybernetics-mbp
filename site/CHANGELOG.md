@@ -2,6 +2,178 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-08 — Sprint 11.0: current semantic audit (documentation only, zero production diff)
+
+The governing model for Sprint 11: the internal research graph (`research-relations.json`, pillar/format taxonomy, the PDF/AuthorNote identity chains) stays authoritative; JSON-LD is a deterministic, explicit, intentionally lossy *projection* of it, never authored to satisfy Schema.org and never inferred by parsing `reason` prose. 11.0 establishes the exact current contract before anything changes it. Every fact below is read directly from the live source (file:line references given) or verified live against Schema.org/Google's own current documentation — not from training memory or assumption.
+
+### 1. Current semantic graph
+
+Every research page (papers, essays; no `memo` entries exist yet to observe) emits two `<script type="application/ld+json">` blocks (`ResearchLayout.astro:79–146`) plus Highwire `<meta>` tags (papers only, `:184–194`), a canonical `<link>` from `astro-seo`'s default (`Astro.url`, no explicit `canonical` prop passed — `BaseHead.astro`), and OG/Twitter tags. The homepage (`index.astro`) and `/about` each carry their own independent `Person`/`WebSite`/`ProfilePage` blocks.
+
+**Article block** (papers vs. essays — no memo exists to confirm, but the code path is format-agnostic beyond the `isPaper` branches shown):
+
+| Property | Paper | Essay | Source |
+|---|---|---|---|
+| `@type` | `["ScholarlyArticle", "Article"]` | `"Article"` (bare string, not an array) | `isPaper ? [...] : 'Article'` |
+| `headline`/`description`/`image` | ✅ | ✅ | frontmatter `title`/`description`, derived OG image URL |
+| `datePublished`/`dateModified` | ✅ (`.toISOString()`) | ✅ | frontmatter `pubDate`/`dateModified` (falls back to `pubDate`) |
+| `url` | canonical HTML URL | same | derived: `new URL(..., Astro.site)` from category+id, never frontmatter |
+| `mainEntityOfPage` | `{ @type: WebPage, @id: <same canonical URL> }` | same | same derivation, reused |
+| `isPartOf` / `articleSection` | ✅ (pillar `CollectionPage`) | **absent** | pillar has no essay/memo equivalent |
+| `keywords` | tags, joined | tags, joined | frontmatter `tags` |
+| `inLanguage` | `en-US` (literal) | same | hardcoded |
+| `license` | ✅ | ✅ | `LICENSE.url` (`consts.ts`) |
+| `wordCount`/`timeRequired` | ✅ if present | ✅ if present | `remark-reading-time.mjs` output |
+| `author` | `Person { name, url: '/about', sameAs }`, **no `@id`** | same | `AUTHOR`/`SOCIAL_LINKS` (`consts.ts`) |
+| `encoding` (PDF `MediaObject`) | ✅ | **absent** | derived `paperPdfUrl` |
+| `identifier` (DOI or otherwise) | **absent, every paper, including the one with a DOI** | absent | — |
+| `@id` on the `Article` node itself | **none — the Article node is anonymous** | none | — |
+| `citation` | **absent** | absent | — |
+| `publisher` | **absent** | absent | — |
+
+**Highwire** (papers only, a second vocabulary entirely — `citation_title`/`citation_author`/`citation_publication_date`/`citation_pdf_url`/`citation_doi` when a `doi` exists): present on 1 of 3 papers (`citation_doi`, since only Invariants has `doi:` frontmatter — confirmed via `grep -l "^doi:" src/content/research/*/index.md`). Highwire and JSON-LD are already correctly independent emissions (Rule 7 already holds today, not something 11.x needs to establish) — confirmed no code path derives one from the other; both read `paperPdfUrl` as their one shared upstream fact, nothing else.
+
+**Breadcrumb**: a separate `BreadcrumbList` JSON-LD block, `Home / Research / {pillar-or-format-label} / {title}`, built from the same `breadcrumbItems` the visible `<Breadcrumbs>` component renders (`:73–77, 125–142`) — one authored list, two projections (visible nav + structured data), no separate breadcrumb data to drift.
+
+**Homepage / `/about`** (not research pages, but the same `Person` identity, checked because §5 needs it): `index.astro` emits a bare `Person { name: 'Amul Bham', url: '/about', sameAs }` plus a `WebSite` whose own embedded `author` is `{ @type: Person, name: 'Amul Bham' }` — **no `url`, no `sameAs` at all**, the thinnest of the three shapes. `about.astro` emits `ProfilePage.mainEntity → Person { name, jobTitle: 'Systems & AI Researcher', url: canonicalURL('/about/'), sameAs, knowsAbout: [4 items] }` — the richest shape, with two properties (`jobTitle`, `knowsAbout`) that appear nowhere else.
+
+**Google-specific vs. broader Schema.org** (verified live against Google Search Central's current Article structured-data guidance and Schema.org's own `ScholarlyArticle` page, both fetched today, not recalled): Google's own guidance states plainly **"there are no required properties"** for Article rich results, recommends only `author`/`dateModified`/`datePublished`/`headline`/`image`, and — confirmed by reading the actual page — **never mentions `ScholarlyArticle`, `mainEntityOfPage`, `identifier`, `publisher`, or `citation` at all**. Every property this project's scholarly ambitions actually care about (DOI/`identifier`, `publisher`, `isBasedOn`, `citation`) belongs to the *broader* Schema.org/linked-data surface, not Google's Article rich-result feature — and Google Scholar itself reads Highwire tags, not JSON-LD (established Sprint 8.3). So there are, precisely, **three separate consumer classes** for this project's structured data: Google's generic Article rich result (undemanding), Google Scholar (Highwire only, ignores JSON-LD), and the broader Schema.org/semantic-web ecosystem (everything scholarly-flavored this sprint is actually about). Conflating any two of these is a real risk this audit exists to prevent.
+
+### 2. Source-of-truth matrix
+
+| Semantic value | Authoritative source | Independently-editable duplicates found? |
+|---|---|---|
+| Article route / canonical URL | `categorySegment()`/`canonicalPath()` (`research-routing.ts`), reused everywhere | No — single source, by design (this was the Sprint 6 fix for a real historical drift bug) |
+| Canonical `<link>` tag | `astro-seo`'s own default (`Astro.url`) — **not** `canonicalURL` | **Yes, a real one, previously undocumented.** No `canonical` prop is ever passed to `<SEO>` (`BaseHead.astro`); the visible `<link rel="canonical">` and the JSON-LD `url`/`mainEntityOfPage.@id` currently agree only because Astro's static build always serves a page at its own canonical route. They are two independent derivations that happen to coincide, not one shared value — a future middleware rewrite or trailing-slash edge case could make them disagree with nothing to catch it today. |
+| Paper PDF URL | `paperPdfUrl` (`ResearchLayout.astro:71`) — one derivation, three readers (`citation_pdf_url`, `encoding.contentUrl`, Download href) | No — this is exactly Sprint 8.4's fix, still holding |
+| Author name/identity (research pages) | `AUTHOR`/`SOCIAL_LINKS` (`consts.ts`) | Partially — see below, the *shape* varies even though the *source constant* doesn't |
+| Author `Person` JSON-LD shape | Re-declared independently in **four** places | **Yes.** `ResearchLayout.astro` (`name`/`url`/`sameAs`, per-article, repeated identically on every entry), `index.astro`'s `Person` (identical shape, separately declared), `index.astro`'s `WebSite.author` (bare `name` only — no `url`/`sameAs`), and `about.astro`'s `Person` (adds `jobTitle`/`knowsAbout`, nowhere else). All four describe the same real-world entity; none carries an `@id`; nothing enforces they stay consistent beyond reading from the same `AUTHOR.name`/`SOCIAL_LINKS` string constants — the *object shape* around those constants is hand-duplicated four times. |
+| ORCID display text | `SOCIAL_LINKS.orcid`, stripped, in `AuthorNote.astro` (fixed Sprint 10.5) — but **still hardcoded independently in `ArticleMasthead.astro`** (`orcid.org/0009-0009-7660-4031`, literal string) | **Yes**, the same bug class 10.5 fixed in one place and not the other. Not a JSON-LD issue (JSON-LD's `sameAs` array already reads `SOCIAL_LINKS.orcid` correctly) — flagged for completeness, not a Sprint 11 semantic finding, since it's display text, not structured data. |
+| DOI | Frontmatter `doi` (one paper today) | No duplicate *source*, but see §5 — the value is projected into two places (masthead text, Highwire `citation_doi`) and **zero** JSON-LD places |
+| Accepted research relation | `research-relations.json` | No — single file, Zod-validated (`research-relations.ts`) |
+| `RelatedResearch` heuristic | Recomputed per-render from `pillar`/`tags` scoring (`RelatedResearch.astro:21–31`) | No — not persisted anywhere, purely derived, never authored |
+| Production origin | Hand-synced literal in **three** places (`astro.config.mjs`'s `site:`, `absolutize-pdf-links.mjs`'s `DEFAULT_ORIGIN`, `discover-research.mjs`'s `SITE_ORIGIN`) | Yes — already known and documented (`AGENTS.md`, Sprint 8.1/8.6), not a new finding, listed here only because it's the same *class* of risk as the Person-shape finding above |
+
+### 3. Consumer / dependency matrix
+
+Audited every script that reads today's semantic shapes (`ResearchLayout.astro`, `BaseHead.astro`, `validate-research-pdfs.mjs`, `build-research-pdfs.mjs`, `discover-research.mjs`, `rehype-research-links.mjs`, `scripts/validate-research-links.mjs`, `rehype-citation-links.mjs`).
+
+**The only code that actually parses JSON-LD back out and asserts on it is `validate-research-pdfs.mjs`** (`findArticleJsonLd`, `:83–88`, and its call site `:279–294`). It checks exactly three fields, by exact string equality, and nothing else:
+- `article.url === expectedHtmlUrl` — **exact equality required**, not a prefix/contains check.
+- `article.mainEntityOfPage['@id'] === expectedHtmlUrl` — same.
+- `article.encoding.contentUrl === expectedPdfUrl` — same.
+
+It finds the Article block via `t === 'Article' || (Array.isArray(t) && t.includes('Article'))` — **this is a real, load-bearing dependency on `'Article'` being explicitly present in the `@type` array.** Confirmed directly against Schema.org's own current documentation (fetched live, §5 below): Schema.org's type hierarchy makes `Article` implicit in `ScholarlyArticle` and does **not** require declaring both — so **this validator, not Schema.org, is the actual reason `['ScholarlyArticle', 'Article']` currently matters.** If a future sprint dropped the redundant `'Article'` entry (reasoning "Schema.org doesn't need it"), `findArticleJsonLd` would silently return `undefined` for every paper, and every downstream check in that function (`encoding.contentUrl`, `url`, `mainEntityOfPage.@id`) would report `'no Article/ScholarlyArticle JSON-LD block found'` instead of their real, specific messages — the validator would still fail closed (good), but with a much less useful error. **Any future `@type` change is therefore an atomic validator migration, not a free-standing content decision** — exactly the standing rule §S of this ticket asks for.
+
+It does **not** check: `isPartOf`, `articleSection`, `keywords`, `inLanguage`, `license`, `wordCount`, `timeRequired`, `author` (any of its sub-fields), `headline`, `description`, `image`, `datePublished`, `dateModified`, or the `BreadcrumbList` block at all. These are currently "emitted but unvalidated" — real today, but nothing in CI would notice if they silently broke. Worth naming plainly: **the validator's scope is identity/link-structure only** (matches its own header comment, `validate-research-pdfs.mjs:2–20`), never scholarly-metadata completeness — a DOI/publisher/`isBasedOn` addition in 11.2–11.4 would need **new** assertions, not modifications to existing ones.
+
+`rehype-research-links.mjs` and `scripts/validate-research-links.mjs` consume `research-relations.json` today for exactly one purpose: rendering the one accepted `inline` placement as an `<a data-relation="{id}">` in the HTML body, and failing the build if that placement can't be applied safely. **Neither reads or cares about the relation's `type` or `reason` field at all** — `type` and `reason` are pure editorial metadata today, never touched by any build code. This is a clean, confirmed starting point for §7/§J: there is currently *zero* code path from `reason` prose to any output, so the "never infer from prose" rule isn't closing an existing loophole — it's keeping one that has simply never been opened.
+
+`build-research-pdfs.mjs`/`discover-research.mjs` never read JSON-LD or `research-relations.json` at all — they discover papers straight from frontmatter and typeset whatever `astro build` already produced. Not a semantic consumer.
+
+### 4. Identity-model comparison
+
+**Article/WebPage** — today: `Article.url` = canonical URL, `mainEntityOfPage` = `{ @type: WebPage, @id: <same canonical URL> }`, **no synthetic `Article @id`** (Candidate B, in the ticket's own framing). Applying the decision test literally — *does a distinct Article `@id` materially solve an observed problem or serve a real semantic consumer?* — **no such problem exists in the current product.** Nothing today needs to target "the Article, not the page" as a distinct node: `research-relations.json` targets research entries by their collection `id` (a string slug), never by URL or `@id`; `RelatedResearch` and the PDF pipeline both key off the same collection `id`; and §3 confirms the one real external consumer (`validate-research-pdfs.mjs`) asserts on `article.url` directly, with no need to disambiguate it from a page node. **Recommendation: retain Candidate B.** A distinct `Article @id = <URL>#article` would be pure graph-diagram elegance today, not an earned distinction — exactly what Rule 6 forbids. This could change if a future edge genuinely needs to say "this specific rendering of the work," but nothing in the current product does.
+
+**Person (author)** — today: an anonymous `Person` literal, re-declared with a *different* property set in four independent places (§2). This is a real drift risk **already observed**, not hypothetical — `about.astro`'s `Person` already has two properties (`jobTitle`, `knowsAbout`) the other three don't. Applying the same earn-it test: would a stable `Person @id` (e.g. `/about/#person`) remove a *duplicated node*, not just duplicated *object literals*? Yes, concretely — a future `publisher: Person` (§5/§H) or a future IWL object attributed to the same author would otherwise be a **fifth** independent hand-typed `Person` shape. **This is the one identity distinction in this audit that plausibly clears the bar** — not because a richer graph is inherently better, but because the duplication is already real, already inconsistent, and a fifth consumer (`publisher`) is concretely proposed for 11.2. Recorded as a finding for 11.1 to weigh, not decided here — 11.0 does not implement it, and 11.1 itself is only "if earned."
+
+**Pillar / `CollectionPage`** — today: `isPartOf: { @type: CollectionPage, name, url }`, no `@id`, one property set, declared in exactly one place (`ResearchLayout.astro:97–101`). No duplication, no second consumer waiting to target a pillar node distinctly. **Recommendation: no change earned.** Unlike `Person`, there is no existing drift to fix and no concrete second consumer proposed anywhere in the Sprint 11 sequence.
+
+### 5. Scholarly metadata findings
+
+**DOI** — Candidate A (`identifier: "https://doi.org/..."`, a bare string) vs. Candidate B (`identifier: { @type: PropertyValue, propertyID: 'DOI', value: '10.xxxx/xxxx' }`). Verified live against Schema.org's own `identifier` documentation: **both are valid** — `identifier` accepts `PropertyValue`, `Text`, or `URL` — but `PropertyValue` is specifically Schema.org's own more-structured pattern for exactly this case (a typed external identifier system like DOI, ISBN, etc.), not a Google-specific convention. Candidate B also composes better with Highwire's own `citation_doi` (bare identifier, no scheme) — a `PropertyValue.value` of `10.5281/zenodo.20531589` is the same bare form Highwire already uses, whereas Candidate A's full URL would be a third distinct DOI *representation* alongside Highwire's bare form and the masthead's full-URL-as-link form. **Recommendation for 11.2: Candidate B** (`PropertyValue`), sourced from the same frontmatter `doi` field, stripped the same way `normalizedDoi` already strips it for Highwire (`ResearchLayout.astro:167`) — reusing that exact derivation, not a new one. Not implemented here.
+
+**Publisher** — real observed model: author = Amul Bham, publisher = Amul Bham (no institutional affiliation, no imprint), host = amulbham.com. Verified live: Schema.org's `publisher` property accepts `Organization` **or** `Person` — `publisher: Person` is not a misuse of the property, it's one of its two documented domains. **Recommendation: `publisher: Person` referencing the same author identity, once/if a stable `Person` identity exists** (§4) — omitting `publisher` entirely is also defensible (Google's own guidance treats it as unlisted/optional, confirmed live), but given the real product fact (self-published, no separate publishing entity), representing that honestly as `publisher: Person` is more truthful than silence, and clearly not "inventing a publishing organization" — the rule §H itself warns against. **Needs decision in 11.2, not decided here.**
+
+**`@type` multi-typing** — see §3's validator finding. Schema.org itself doesn't need `['ScholarlyArticle', 'Article']`; this project's own `validate-research-pdfs.mjs` currently does. **Recommendation: no change** — the array form is harmless, Schema.org-valid, and removing it would be a real regression against a real (if narrow) dependency, for zero semantic gain. Not modified in 11.0.
+
+### 6. Accepted-relation audit
+
+`research-relations.json` currently holds exactly one row:
+
+| id | source | target | type | status | inline |
+|---|---|---|---|---|---|
+| `three-sos--invariants` | `three-self-organizing-systems` | `the-invariants-of-self-organizing-systems` | `applies` | `accepted` | `near: "1-introduction"`, `anchor: "Paper A in the Cognitive Physics Series"` |
+
+Both `source` and `target` resolve to real, live collection entries (confirmed against `src/content/research/`). This is the only accepted row in the registry's five-type closed set (`depends_on`, `applies`, `extends`, `contrasts`, `converges_with` — `research-relations.ts:14`); the other four types have zero live examples to audit against.
+
+**Edge-level projection evaluation** (not a type-level rule, per Rule 3 — this table has exactly one row because there is exactly one accepted edge to evaluate, not because `applies` is being pre-mapped for future rows):
+
+| Edge | Internal type | Candidate standard predicate | Eligible? | Why |
+|---|---|---|---|---|
+| `three-sos--invariants` | `applies` | `isBasedOn` | **Plausible, not concluded** | Three SOS's own body text (the `reason` field, and the accepted `inline` anchor itself) states the companion piece applies Paper A's seven-invariant framework as its analytical basis — `isBasedOn`'s Schema.org definition ("source material or adaptation basis," verified live) matches that relationship's actual shape, not just its label. This is an eligibility *observation* for 11.3/11.4 to formally decide against an explicit registry, not a frozen mapping — per Rule 3, a future `applies` edge between two *different* pieces would need its own independent evaluation, not inherit this one's conclusion automatically. |
+
+### 7. Projection eligibility principles (locked, permanent)
+
+**The build must never read `reason` prose to select a Schema.org predicate.** Confirmed as a real, enforceable constraint by §3's own finding: today, `reason` is read by zero code paths — this is not a live vulnerability to patch, it's a boundary to keep permanently closed as 11.3 introduces the actual projection mechanism. The eventual pipeline (storage mechanism deferred to 11.3, not chosen here):
+
+```
+accepted internal edge → explicit editorial eligibility decision → explicit projection registry/allowlist → Schema.org predicate | silence
+```
+
+`reason` remains editorial evidence a human reads when making the eligibility decision — never an input the build parses.
+
+### 8. Provisional projection candidates (edge-level, not frozen)
+
+Only one candidate exists today because only one edge exists today (§6): `three-sos--invariants` → possibly `isBasedOn`. Schema.org properties investigated as the plausible predicate vocabulary for future edges, per the ticket's own list — `isBasedOn`, `citation`, `hasPart`, `isPartOf`, `mentions` — all verified live to exist with the expected general meaning (§5's fetch); **none is emitted, none is frozen as a mapping rule**, and `mentions` in particular has no current candidate edge to evaluate against (nothing in the live registry resembles a "mentions" relationship, as opposed to "applies the framework of").
+
+### 9. `RelatedResearch` semantic-firewall result — **PASS**
+
+Read `RelatedResearch.astro` in full: it emits **zero structured data of any kind** — no `<script type="application/ld+json">`, no microdata attributes, nothing. Its entire output is `<section><h2>Related Research</h2><ul>{cards}</ul></section>`, plain visible HTML (`:34–55`). It cannot currently generate or imply `isBasedOn`/`citation`/`mentions`/`hasPart` or any other research assertion, because it doesn't generate structured data of any kind to begin with — the firewall isn't a filter catching bad output, it's that there is no output in this vocabulary at all. Confirmed by direct reading, not inference. This invariant is trivially true today; it becomes meaningful the moment any future sprint gives `RelatedResearch` its own JSON-LD (e.g., a generic `WebPage`-level "see also" representation, which the ticket explicitly does not forbid) — at that point, this same firewall rule must be re-verified against whatever that new code actually emits, not assumed to still hold.
+
+### 10. Citation graph vs. relation graph — confirmed separate today
+
+Bibliographic citations (`rehype-citation-links.mjs`) are pure in-page navigation: `(Author, Year)`/`Name (Year)` text is matched against `## References` list entries and turned into `<a href="#ref-N">` — same-page fragment links, never JSON-LD, never touching `research-relations.json` in any way (confirmed: the two files share no imports, no data, nothing). The corpus-relation graph (`research-relations.json`) is a hand-curated, editorially-accepted set of cross-*document* relationships, entirely separate machinery.
+
+**They do overlap in one real, checkable place**: Three SOS's References list (confirmed via its own source Markdown, read in an earlier sprint) does **not** include Invariants as a numbered bibliography entry — the accepted relation (`three-sos--invariants`) has no corresponding `#ref-N` citation. So today, the one live relation edge and the citation graph don't actually collide at all; the question "if an edge also happens to be a formal citation, are they still logically separate assertions?" remains hypothetical for this corpus, not yet tested against a real case. Recorded as open, not resolved — the next paper that both cites and has an accepted relation to the same target will be the real test.
+
+Automatically emitting every bibliography entry as a schema.org `citation` would be pure noise relative to the accepted-relation model this sprint is building: FAFSA alone has 35 references (Sprint 6-era count) — indiscriminately promoting all of them to structured `citation` entries would drown the small number of genuinely curated, editorially-accepted relations in bulk bibliographic data with no comparable review. **Not recommended, and not part of the Sprint 11 sequence** — noted here only because §M asked the question directly.
+
+### 11. Product-truth rule (restated, permanent)
+
+**Structured data must derive from visible authored content or canonical product state — never authored solely to populate JSON-LD.** Concretely, in this codebase's own terms: `wordCount`/`timeRequired` derive from canonical build state (the reading-time remark plugin); PDF identity derives from canonical publication state (`paperPdfUrl`); a future `isBasedOn` value would derive from an already-accepted, already-visible-in-body relation (the `inline` anchor a reader can actually see) — never a relation that exists only in the registry with no visible trace. Nothing in the current JSON-LD violates this rule (every field traces to a real frontmatter value, a real derived route, or real build output) — recorded as a baseline confirmation, not a fix.
+
+### 12. Future hooks — documentation only, nothing implemented
+
+**Reader Context** (Sprint 12's territory): provisional, unimplemented mapping — `readerNote.why → backstory`, `readerNote.for → audience: { @type: Audience, audienceType: readerNote.for }`. Verified live: Schema.org's `backstory` and `Audience`/`audienceType` both exist as documented properties with roughly the expected shape. **Nothing named `readerNote`, `backstory`, or `Audience` exists anywhere in this codebase as of 11.0** (confirmed: `grep -rn "readerNote\|backstory\|Audience" src/` — no matches) — this section is pure forward documentation, Sprint 12 retains full authority over the real grammar.
+
+**IWL** (Sprint 13's territory): provisional conceptual model only — `Article hasPart IWL`, `IWL isPartOf Article`, both self-canonical. **No IWL route, frontmatter, JSON-LD, or `@id` exists anywhere in this codebase** (confirmed: no `iwl` references in `src/`). Documentation hook only, belongs in the 11.8 freeze once written, not implemented here.
+
+### 13. Deferred semantics — IWL internal proof graph
+
+Explicitly out of scope for all of Sprint 11: `claim DEPENDS_ON premise`, `claim VALIDATED_BY evidence`, `decision REJECTED_BECAUSE constraint`, `revision SUPERSEDES prior interpretation`, and related verification/reconstruction semantics. Sprint 11 operates at the **research-object level** (one paper, one relation edge, one PDF) — the proof-graph level is a different altitude entirely and, per the ticket, must be discovered from a real fixture ("the real Chisel fixture") that does not yet exist in this repository. Nothing to audit here yet; recorded as deferred, not attempted.
+
+### 14. Recommended implementation path
+
+Based on every finding above, **11.0 recommends minimizing 11.1**, not skipping it outright:
+
+```
+11.1  identity — narrow, not broad
+        Article/WebPage: no change earned (§4) — skip.
+        Pillar/CollectionPage: no change earned (§4) — skip.
+        Person: real, already-observed duplication across 4 independent
+                shapes (§2, §4) — the one candidate worth 11.1 actually
+                doing something about, especially since 11.2's publisher
+                decision would otherwise create a 5th hand-typed shape.
+        Recommendation: 11.1's scope, if it proceeds, is a single reusable
+        Person identity — nothing else.
+
+11.2  DOI (PropertyValue, §5) + publisher (Person, pending 11.1) decision
+
+11.3  the explicit deterministic projection registry (storage mechanism
+      TBD there, not here) + the permanent no-prose-inference boundary
+      (§7 — already holds today, 11.3 just has to not break it)
+
+11.4  one real projected edge: three-sos--invariants → isBasedOn (§6, §8),
+      the single eligibility case this audit actually found
+```
+
+Option 1 vs. Option 2 (the ticket's own framing): **this audit recommends a narrow Option 1** — retain simple identity everywhere except the one real, already-observed Person duplication, add justified scholarly metadata (DOI as `PropertyValue`, `publisher` as `Person`), add the one explicit semantic edge projection. Not Option 2's broader "introduce selected reusable graph identities" wholesale — only the one identity (`Person`) that clears the earn-it test on real, observed evidence, not speculative future benefit.
+
+### Verification
+
+`git diff` — docs only (this entry plus a `ROADMAP.md` pointer). Confirmed zero diff to `src/layouts/`, `src/components/`, `src/content/`, `src/data/research-relations.json`, `src/content.config.ts`, `scripts/`, print styles, workflow files, or indexing controls. `npm run build` run and confirmed green after this audit (no PDF rebuild required for a documentation-only slice, per the ticket's own verification scope). No new frontmatter, `@id`, Schema.org property, projection, empty future node, IWL route, Reader Context field, or indexing change — confirmed by the diff itself, not just by intent.
+
 ## 2026-09-08 — Sprint 10.6: reading-shell contract freeze
 
 Sprint 10 (10.0–10.6) is closed. Docs/skill only — zero runtime diff, confirmed by `git status` touching only `.md`/`SKILL.md` files. Runtime was already live on `amulbham.com` as of 10.5 (`262ea91` + `6b806ff`); 10.6 makes the docs say so and stops.
