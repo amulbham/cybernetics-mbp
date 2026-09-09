@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "tsx scripts/validate-research-links.mjs && astro build && pagefind --site dist",
+    "build": "tsx scripts/validate-research-relation-projections.mjs && tsx scripts/validate-research-links.mjs && astro build && pagefind --site dist",
     "build:pdfs": "tsx scripts/build-research-pdfs.mjs",
     "validate:pdfs": "tsx scripts/validate-research-pdfs.mjs",
     "deploy:pages": "wrangler pages deploy dist",
