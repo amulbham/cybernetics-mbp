@@ -39,10 +39,17 @@ export const SITE_ORIGIN = 'https://amulbham.com';
  * every entry this repo has that must NOT have a paper.pdf, Highwire tags,
  * a Download link, or a PDF MediaObject.
  *
- * Each record: { id, title, format, route }. `route` comes from the real
- * canonicalPath()/categorySegment() (research-routing.ts), never a
+ * Each record: { id, title, format, route, doi }. `route` comes from the
+ * real canonicalPath()/categorySegment() (research-routing.ts), never a
  * hand-built "/research/{pillar}/{slug}/" string, so it can't drift from
- * the actual route the same way canonicalURL frontmatter once did.
+ * the actual route the same way canonicalURL frontmatter once did. `doi`
+ * (Sprint 11.7, added for validate-research-semantics.mjs's DOI/Highwire
+ * parity check) is the raw authored frontmatter value — the full resolver
+ * URL, or `null` when absent — never pre-stripped here, so each consumer
+ * still normalizes it itself the same way ResearchLayout.astro does.
+ * Deliberately not extended with dates/tags/description/excerpt/author —
+ * no current validator invariant consumes them; extend again only when one
+ * genuinely does.
  */
 export function discoverResearch() {
 	const papers = [];
@@ -61,6 +68,7 @@ export function discoverResearch() {
 			title: frontmatter.title,
 			format: frontmatter.format,
 			route: canonicalPath(entry),
+			doi: frontmatter.doi ?? null,
 		};
 		if (frontmatter.format === 'paper') papers.push(record);
 		else nonPapers.push(record);

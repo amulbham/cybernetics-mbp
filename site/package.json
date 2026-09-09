@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "tsx scripts/validate-research-relation-projections.mjs && tsx scripts/validate-research-links.mjs && astro build && pagefind --site dist",
+    "build": "tsx scripts/validate-research-relation-projections.mjs && tsx scripts/validate-research-links.mjs && astro build && tsx scripts/validate-research-semantics.mjs && pagefind --site dist",
     "build:pdfs": "tsx scripts/build-research-pdfs.mjs",
     "validate:pdfs": "tsx scripts/validate-research-pdfs.mjs",
+    "validate:semantics": "tsx scripts/validate-research-semantics.mjs",
     "deploy:pages": "wrangler pages deploy dist",
     "preview": "astro preview",
     "astro": "astro"

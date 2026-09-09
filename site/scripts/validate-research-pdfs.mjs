@@ -30,6 +30,7 @@ import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { AUTHOR } from '../src/consts.ts';
 import { discoverNonPapers, discoverPapers, SITE_ORIGIN } from './discover-research.mjs';
+import { decodeEntities, extractCitationMeta, extractJsonLdBlocks, findArticleLikeJsonLd } from './lib/built-html.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url)); // site/
 const DIST = join(ROOT, 'dist');
@@ -47,44 +48,20 @@ function fail(scope, message) {
 // known class or attribute) — the same targeted-regex approach
 // absolutize-pdf-links.mjs already uses on this exact HTML, not a
 // general-purpose HTML query engine this project has no other use for.
+//
+// decodeEntities/extractCitationMeta/extractJsonLdBlocks/findArticleLikeJsonLd
+// moved to scripts/lib/built-html.mjs (Sprint 11.7) once
+// validate-research-semantics.mjs became a second real consumer — see that
+// file's own header comment. What's left here (extractPdfLinkHref,
+// extractRefNumbers, extractRelationLinks, and all PDF parsing below) stays
+// local: still exactly one consumer.
 // ---------------------------------------------------------------------------
 
-function decodeEntities(s) {
-	return s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-}
-
-/** { citation_title: 'x', citation_author: 'y', ... } -> counts, so duplicates are visible, not silently overwritten. */
-function extractCitationMeta(html) {
-	const re = /<meta name="(citation_[a-z_]+)" content="([^"]*)"/g;
-	const byName = new Map();
-	let m;
-	while ((m = re.exec(html))) {
-		const [, name, content] = m;
-		if (!byName.has(name)) byName.set(name, []);
-		byName.get(name).push(decodeEntities(content));
-	}
-	return byName;
-}
-
-function extractJsonLdBlocks(html) {
-	const re = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g;
-	const blocks = [];
-	let m;
-	while ((m = re.exec(html))) {
-		try {
-			blocks.push(JSON.parse(m[1]));
-		} catch {
-			blocks.push(null);
-		}
-	}
-	return blocks;
-}
-
-function findArticleJsonLd(blocks) {
-	return blocks.find((b) => {
-		const t = b?.['@type'];
-		return t === 'Article' || (Array.isArray(t) && t.includes('Article'));
-	});
+/** Every parsed JSON-LD block on the page, nulls (parse failures) dropped — this validator only ever looks for one well-formed Article-like block. */
+function parsedJsonLdBlocks(html) {
+	return extractJsonLdBlocks(html)
+		.filter((b) => b.parsed !== null)
+		.map((b) => b.parsed);
 }
 
 function extractPdfLinkHref(html) {
@@ -276,8 +253,7 @@ async function validatePaper(paper, frontmatter) {
 		fail(scope, `citation_pdf_url "${citationPdfUrl}" !== expected "${expectedPdfUrl}"`);
 	}
 
-	const jsonLdBlocks = extractJsonLdBlocks(html);
-	const article = findArticleJsonLd(jsonLdBlocks);
+	const article = findArticleLikeJsonLd(parsedJsonLdBlocks(html))[0];
 	if (!article) {
 		fail(scope, 'no Article/ScholarlyArticle JSON-LD block found');
 	} else {
@@ -357,7 +333,7 @@ function validateNonPaper(entry) {
 	if (extractPdfLinkHref(html) !== null || /Download PDF/.test(html)) {
 		fail(scope, 'a Download PDF link leaked into a non-paper entry');
 	}
-	const article = findArticleJsonLd(extractJsonLdBlocks(html));
+	const article = findArticleLikeJsonLd(parsedJsonLdBlocks(html))[0];
 	if (article?.encoding?.['@type'] === 'MediaObject') {
 		fail(scope, 'JSON-LD MediaObject present on a non-paper entry');
 	}

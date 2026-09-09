@@ -107,6 +107,33 @@ SCHOLAR DISCOVERY             ❌  indexing intentionally blocked
 
 Every paper that goes through `build` → `build:pdfs` → `validate:pdfs` → deploy is now what actually serves `amulbham.com` — confirmed directly (not assumed) on all three live papers: each `paper.pdf` returns `200`/`application/pdf` from production, and each page's `citation_pdf_url`/Download href/JSON-LD `MediaObject` all resolve to that exact file. `SITE_WIDE_NOINDEX`/`robots.txt` are unrelated to any of this and remain exactly as they were — every page stays out of every crawler, Scholar included. "Scholar-ready" and "Scholar-discoverable" are still two different, separately-gated states; the build/deploy one is now done, the discovery one is not.
 
+### The research object's semantic graph (Sprint 11, frozen 11.7)
+
+```
+CANONICAL PRODUCT STATE (research objects, routes, Person, DOI, publisher model, typed internal relations)
+        ↓ explicit editorial projection
+PUBLIC SCHEMA.ORG GRAPH (richer internally, thinner and lossy in public JSON-LD)
+        ↓ independent validation
+CI — fails closed on drift
+```
+
+Frozen v1 decisions:
+
+- One canonical Person identity (`personIdentity()`, `src/lib/structured-data.ts`) — `@id = https://amulbham.com/about/#person` everywhere it's projected: every research Article's `author`/`publisher`, the homepage's standalone `Person` and `WebSite.author`, and About's `ProfilePage.mainEntity` (which alone also carries `jobTitle`/`knowsAbout` — legitimate contextual enrichment, not identity drift).
+- Direct self-publication: `publisher` is the same canonical Person as `author`, not a fictional `Organization` — applies to every format.
+- DOI, when authored, is JSON-LD `identifier: { @type: PropertyValue, propertyID: 'DOI', value: <bare DOI> }`, the same normalized value Highwire's `citation_doi` reads. Absence is part of the contract: no authored DOI → no `identifier` at all, never `null`/`{}`/`""`.
+- `Article`/`WebPage` identity stays simple: `Article.url` plus a nested `mainEntityOfPage: { @type: WebPage, @id: <canonical URL> }` — no top-level `Article @id`, no `#article`, no standalone top-level `WebPage` graph node. A paper's pillar `CollectionPage` (`isPartOf`) stays a plain `name`/`url` reference, no `@id`.
+- Paper `@type` contract: `['ScholarlyArticle', 'Article']`; essay/memo: plain `'Article'`.
+- `research-relations.json` stays the canonical, richer internal intellectual graph. `research-relation-projections.json` (Sprint 11.3) is the separate, explicit, human-authored public projection policy — a foreign-key row naming one specific edge and one specific Schema.org property, never a type-level or `reason`-prose inference. `relation.type` never maps automatically to a Schema.org property; `relation.reason` is never parsed for meaning. `inline.status` governs only the in-body reader-facing HTML link — it is never consulted for semantic eligibility. These stay three independent axes: canonical existence, inline manifestation, semantic manifestation.
+- Relation serialization is array-first, even for a single member. Zero approved outgoing projections → the property is absent from the emitted object, never `[]`/`null`/`""`. Projection is source-only and directional — a target never gets a reciprocal/inverse property. Target identity is always the canonical research HTML URL, never a PDF, DOI resolver, or in-page anchor.
+- The citation graph (`## References` / `#ref-N`) and the research-relation graph are two separate, non-overlapping systems — no corpus citation JSON-LD (`citation`, `mentions`, `hasPart`) exists yet.
+- `RelatedResearch.astro` is heuristic navigation only (pillar/tag overlap). It emits zero structured data and is never consulted to determine or infer a semantic relation — a permanent "semantic firewall."
+- The public standard graph is intentionally thinner than the internal graph. Silence — an absent property — is valid, correct production output, not a gap waiting to be filled.
+
+**Validated continuously, not just asserted once.** `npm run validate:semantics` (`scripts/validate-research-semantics.mjs`, Sprint 11.7) runs after `astro build`, before Pagefind, against the actual built `dist/` HTML — not source. It independently re-derives expected canonical-URL/Person/publisher/DOI/Highwire state and expected relation-projection state (sharing schemas, `canonicalPath()`, and the canonical corpus manifest with the production serializer, but never its selection/grouping logic — an oracle that re-ran the thing under test wouldn't be a check), and fails the build closed on any drift. Three other validators protect three other boundaries and are deliberately not merged with this one: `validate-research-relation-projections.mjs` (source registry/policy integrity), `validate-research-links.mjs` (safe inline HTML placement), `validate-research-pdfs.mjs` (PDF artifact identity). Full contract/history: `CHANGELOG.md`'s Sprint 11.0–11.7 entries; standing implementation invariants: `AGENTS.md`.
+
+No Reader Context, no IWL (Important Web Links / proof-chain semantics), and no additional Schema.org relation properties beyond `isBasedOn` exist yet — none of the above implies or authorizes any of that; it's future architectural-sprint work.
+
 ### The reading shell (Sprint 10, frozen 10.6)
 
 ```
