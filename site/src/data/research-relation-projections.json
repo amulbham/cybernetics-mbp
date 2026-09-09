@@ -1,1 +1,6 @@
-[]
+[
+  {
+    "relationId": "three-sos--invariants",
+    "property": "isBasedOn"
+  }
+]

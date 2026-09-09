@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import { getEntry, type CollectionEntry } from 'astro:content';
 import ArticleMasthead from '../components/ArticleMasthead.astro';
 import AuthorNote from '../components/AuthorNote.astro';
 import Badge from '../components/Badge.astro';
@@ -9,7 +9,16 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RelatedResearch from '../components/RelatedResearch.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import { AUTHOR, LICENSE } from '../consts';
-import { categoryLabelFromSegment, categorySegment } from '../lib/research-routing';
+import relationsRaw from '../data/research-relations.json';
+import projectionsRaw from '../data/research-relation-projections.json';
+import { relationsSchema } from '../lib/research-relations';
+import {
+	outgoingProjectionsFor,
+	projectionsJsonLd,
+	projectionsSchema,
+	type ProjectionProperty,
+} from '../lib/research-relation-projections';
+import { canonicalPath, categoryLabelFromSegment, categorySegment } from '../lib/research-routing';
 import { personIdentity } from '../lib/structured-data';
 import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
@@ -86,6 +95,38 @@ const normalizedDoi = doi?.replace(/^https?:\/\/doi\.org\//, '');
 // (Sprint 11.2).
 const canonicalPerson = personIdentity(Astro.site);
 
+// Sprint 11.4 — the first real Schema.org projection of an approved
+// research relation. src/data/research-relations.json stays the
+// authoritative internal graph; src/data/research-relation-projections.json
+// is the separate, explicit editorial decision about which one canonical
+// edge gets to surface as which one standard property (see
+// research-relation-projections.ts for the full contract). This is a
+// defensive re-parse, not the primary gate — the same posture
+// rehype-research-links.mjs already takes with the relations registry:
+// Sprint 11.3's dedicated validator (npm run build's first step) already
+// guarantees both files parse, are internally consistent, and every
+// relationId/source/target resolves to a real entry before astro build
+// ever runs.
+const relations = relationsSchema.parse(relationsRaw);
+const projections = projectionsSchema.parse(projectionsRaw);
+const outgoingProjections = outgoingProjectionsFor(id, relations, projections);
+const resolvedProjections: Array<{ property: ProjectionProperty; targetUrl: string }> = [];
+for (const { property, targetId } of outgoingProjections) {
+	const targetEntry = await getEntry('research', targetId);
+	// Fail closed rather than silently omitting: the 11.3 validator already
+	// guarantees this resolves in a healthy build, so reaching this throw
+	// means the registries and the content collection have drifted apart
+	// since that check ran — a real bug, never an expected state.
+	if (!targetEntry) {
+		throw new Error(`ResearchLayout: relation projection target "${targetId}" has no matching research entry`);
+	}
+	resolvedProjections.push({ property, targetUrl: new URL(canonicalPath(targetEntry), Astro.site).toString() });
+}
+// A spreadable partial: {} when this entry has zero approved outgoing
+// projections, so `...relationProjections` below adds nothing at all —
+// never an empty-array/null placeholder key.
+const relationProjections = projectionsJsonLd(resolvedProjections);
+
 const breadcrumbItems = [
 	{ label: 'Home', href: '/' },
 	{ label: 'Research', href: '/research' },
@@ -152,6 +193,13 @@ const jsonLd = {
 				encodingFormat: 'application/pdf',
 			},
 		}),
+	// Sprint 11.4 — the projected form of this entry's approved outgoing
+	// research relation(s), if any. Source-only (this object is always the
+	// relation's `source`; a target never gets a reciprocal property here —
+	// see research-relation-projections.ts) and additive: every other
+	// Article property above is unaffected by whether this entry has zero
+	// or one approved outgoing edge.
+	...relationProjections,
 };
 
 const breadcrumbJsonLd = {
