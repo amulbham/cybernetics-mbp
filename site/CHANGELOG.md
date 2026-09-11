@@ -2,6 +2,131 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-11 — Sprint 12.0: Reader Context audit (documentation only, zero production diff)
+
+Audit-only, as scoped. Before it: Sprint 11 (11.0–11.7) promoted from `staging` to `main` — see "Sprint 11 production promotion" below. After it: the Reader Context audit itself, read against the four real live pieces (`the-invariants-of-self-organizing-systems`, `three-self-organizing-systems`, `an-engineers-guide-to-structural-financial-aid-exploits`, `how-frontier-model-training-became-a-public-utility`) — their actual frontmatter, abstracts, and introductions, not a hypothetical corpus. No `readerNote` frontmatter, no `FromTheAuthor` component, no `backstory`/`audience` emission, no CSS, no validator logic, no relation/IWL fields, no indexing change. `git diff` after this sprint touches only `CHANGELOG.md`/`ROADMAP.md`.
+
+### Sprint 11 production promotion
+
+Merged `staging` (`ad85aa0`, Sprint 11.0–11.7) into `main` — a clean fast-forward, no conflicts, 18 files. Local `main` build confirmed green (`validate-research-relation-projections`, `validate-research-links`, `astro build`, `validate-research-semantics` all passing) before pushing. GitHub Actions ran the full chain on `main` and deployed successfully. Verified directly against **production** (`amulbham.com`), not just the Actions run's own green checkmark: canonical Person (`author.@id === publisher.@id === https://amulbham.com/about/#person` on both Three SOS and Invariants) ✅, DOI/publisher (Invariants' `identifier.value` matches its DOI, both papers carry `publisher`) ✅, Three SOS → `isBasedOn` Invariants (exact canonical URL, present on Three SOS, absent on Invariants/FAFSA) ✅, semantic validator (ran and passed as part of the green Actions build) ✅, all three papers' `paper.pdf` return `200` ✅, `noindex`/`robots.txt` unchanged (`Disallow: /`, `noindex, nofollow` still on every page) ✅. Sprint 12 begins from the same semantic contract production now actually runs, per the ticket's own instruction.
+
+### Audit method
+
+Read each piece's real frontmatter (`title`/`subtitle`/`description`/`excerpt`) and its actual Abstract/Introduction prose directly from `src/content/research/*/index.md` — not summarized from memory, not inferred from the ticket's own sketch. Two of the four already carry an italicized series-membership line above their Abstract (Invariants: *"Paper A — Cognitive Physics Series · Companion: Paper B..."*; Three SOS: *"Standalone companion · Cognitive Physics Series · Companion to Paper A..."*) — this turned out to matter (see Q1/Q2 below). Candidate `why`/`for` text below is illustrative only, written to test the grammar against real prose, and appears nowhere outside this entry — no frontmatter, no component, per the ticket's explicit instruction.
+
+### Q1 — Does every current object earn Reader Context?
+
+**No, not equally — and that heterogeneity is itself the finding.** The four pieces split cleanly into two registers:
+
+- **Invariants and Three SOS** (formal, cross-disciplinary, analytically neutral voice) genuinely earn it. Their abstracts state *what the field lacks* and *what the paper does* — scholarly framing, third-person, no personal motivation anywhere in the authored text. The one place a "why" already half-exists is that easy-to-miss italicized companion line, which names a "Cognitive Physics Series" the reader is never actually told the *purpose* of. Reader Context is the first place that throughline could be stated plainly.
+- **FAFSA and the Frontier essay** (motivated, first-person-adjacent, occasion-driven voice) already do Reader Context's job in their own opening prose. FAFSA's abstract *itself* reads as impassioned motivation ("There is no law requiring this... an 18-year-old signs a non-dischargeable loan for an obligation no one was ever legally required to meet") — it is not a neutral academic summary, it is already the "why this matters" case being made. The Frontier essay's first four paragraphs are an explicit, dated occasion ("On July 27, 2026, Dario Amodei published...") narrating exactly why the piece exists, in the piece's own voice, before any Reader Context field could.
+
+Candidate text made this concrete rather than asserted:
+
+```
+Invariants why:  "I wrote this because the pieces of an answer to 'why do
+                 some systems self-organize' were already scattered across
+                 physics, biology, and information theory — discovered
+                 independently, never assembled, never tested as a joint
+                 claim. This paper is that assembly and that test."
+
+Three SOS why:   "Paper A's seven invariants are a claim about structure,
+                 not about any one system. I wrote this companion to find
+                 out whether that claim survives contact with three real
+                 systems that share no substrate — an abstract
+                 classification is only as strong as its worked examples."
+
+FAFSA why:       "I wrote this because the FAFSA formula is treated as
+                 neutral arithmetic when it is a policy choice with real,
+                 documented casualties — and no one had modeled it
+                 end-to-end as the rules engine it actually is."
+
+Frontier why:    "I wrote this because a sitting AI lab CEO publicly
+                 undercut his own policy position, and that contradiction
+                 pointed at something bigger than one bad regulatory ask."
+```
+
+The first two add real orientation the abstract doesn't carry. The last two are close paraphrases of prose already on the page — FAFSA's candidate restates its own abstract's opening premise; the Frontier candidate restates its own lede almost verbatim. Manufacturing distinct-sounding prose for those two would violate the ticket's own §3 instruction ("reject candidate text that merely restates what the paper says") — the honest audit result is that they don't currently need it, not that a cleverer sentence would fix it.
+
+### Q2 — Does `why` add something distinct from abstract/intro?
+
+Answered above, piece by piece — **only when the existing voice is analytically neutral rather than already-motivated.** This is not a paper-vs-essay split (Three SOS and Invariants are both papers; FAFSA is also a paper) — it's a register split that cuts across format. The determining factor is whether the abstract already narrates motivation in first-person-adjacent voice, not what `format` the entry has.
+
+### Q3 — Is `for` best represented as one string or something richer?
+
+**One string, for all four pieces, no exceptions found.** Real candidate text:
+
+```
+Invariants for:  "Researchers in complexity science, systems biology, or
+                 theoretical physics who study self-organization in any
+                 one domain and want the structural conditions that
+                 generalize across all of them."
+
+Three SOS for:   "Readers of Paper A checking whether the seven-invariant
+                 framework actually operationalizes, and researchers in
+                 myrmecology, finance, or immunology evaluating the
+                 classification against their own field's literature."
+
+FAFSA for:       "Middle-class families navigating financial aid, and
+                 policy researchers studying how rules-based institutions
+                 produce structural harm by optimizing measurable proxies
+                 instead of underlying goals."
+
+Frontier for:    "AI policy readers and engineers following the
+                 distillation-regulation debate who want the structural
+                 argument, not the news cycle."
+```
+
+FAFSA is the one piece with a real dual audience (affected families and policy researchers) — the test case for whether the corpus "genuinely breaks" the thinner model, per the ticket's own instruction. It doesn't: one well-written sentence naming both audiences reads naturally and loses nothing a `for: [array]` would have captured. No piece demonstrated a need for machine-distinguishable separate audience values. Recommendation: **one string**, matching the roadmap sketch — but earned here by testing the actual dual-audience case, not assumed because the sketch already said so.
+
+### Q4 — Should `readerNote` eventually be required or optional?
+
+**Optional**, following directly from Q1/Q2's finding. Forcing it onto FAFSA or the Frontier essay would either produce genuine duplication (the candidate text above already demonstrates this) or pressure future authoring toward padding a `why` field with restated prose just to satisfy a requiredness rule — the exact failure mode §3 warns against. This mirrors a pattern the project has already frozen once: `research-relations.json`'s `inline` block is optional per row, and an empty/thin registry is documented as "valid production, not an unfinished state" (`PUBLISHING.md` §1). Reader Context should inherit that same discipline — **presence, not universality, is what makes it meaningful.** Revisit only if a future, larger corpus demonstrates every real piece earns it (unlikely, given the register split found here is about voice, not accidents of the current four).
+
+### Q5 — Does it apply to every format?
+
+**No format exclusion found — the register split in Q1 cuts across format, not with it.** Three of the four objects are `paper`; one is `essay`; no `memo` exists yet, and none was fabricated to answer this, per the ticket's own instruction. What actually predicted whether a piece earned Reader Context was voice (analytically neutral vs. already-motivated), not `format`. Recommendation: Reader Context stays available to every format; whether a specific memo earns it should be decided the same piece-by-piece way once a real one exists — the same content-gated discipline already governing pillars and relation rows.
+
+### Q6 — Where should `FromTheAuthor` appear on screen?
+
+Not implemented in 12.0, but the shell (`ArticleShell.astro`/`ResearchLayout.astro`) makes one placement the clear candidate: after the `after-title` slot's existing masthead/tags/PDF-link block, immediately before the mobile TOC and the article body — the last thing a reader sees before the argument starts. This creates a deliberate, symmetric bracket with `AuthorNote` (which answers a different question, *after* the body): `FromTheAuthor` (why/for, before) and `AuthorNote` (who, after) frame the piece without either one owning the other's job. It must not become an `##` heading (picked up by the TOC transform, the exact bug `subtitle` already hit once — see `AGENTS.md`), a TOC entry, a research primitive, an alert, or a card — all explicitly ruled out per the ticket. Real placement decision deferred to implementation.
+
+### Q7 — Should Reader Context appear in PDFs?
+
+**Recommend HTML-visible, PDF-hidden** — the same treatment `print-research.css` already gives `AuthorNote`'s purely-navigational "About" link (drops from print; the identity content itself still prints) and both TOC surfaces (fully print-hidden). The reasoning is different in each case but converges on the same answer here: a PDF reader has already committed to reading a portable scholarly artifact and expects conventional structure (Highwire tags, Abstract, Introduction) — a "From the Author" preamble sitting before the formal Abstract on a printed/typeset page reads as unconventional scholarly presentation, exactly the risk §9 flags. The legitimate outcome the ticket itself names — HTML visible, JSON-LD projection present, PDF hidden — is the one this audit recommends adopting exactly, once/if semantic projection is ever built. Not implemented here; recorded as the leading candidate for 12.1+.
+
+### Q8 — Do `backstory`/`audience` remain truthful mappings?
+
+**`audience` — confirmed, genuinely truthful.** Live-checked against Schema.org's own docs (not assumed): `audience` is "an intended audience, i.e. a group for whom something was created," expecting an `Audience` object. This is a clean, direct match for `readerNote.for` — no semantic strain found.
+
+**`backstory` — real fit concern found, not a clean match.** Live-checked against Schema.org's own docs: the actual definition is *"For an Article, typically a NewsArticle, the backstory property provides a textual summary giving a brief explanation of why and how an article was created... In a journalistic setting this could include information about reporting process, methods, interviews, data sources, etc."* Two problems this surfaces that the roadmap sketch's provisional mapping didn't anticipate: (1) the property is documented as typically applying to `NewsArticle`, not research `Article`/`ScholarlyArticle` — a plausible but not a canonical fit; (2) its *how* half is explicitly journalistic-process-flavored (reporting methods, interviews, data sources), which is a materially different thing from "why I thought this work needed to exist," the intellectual-motivation content `readerNote.why` is meant to carry. `backstory` is still the closest existing standard property — nothing better was found — but it should be adopted as a **known imperfect fit**, not a confirmed-clean one, and that gap should be named explicitly in whatever 12.1+ ships it, not smoothed over. This is exactly the kind of finding §10 asked this audit to surface before treating either mapping as settled.
+
+### Q9 — What exact validator contract must change later?
+
+`validate-research-semantics.mjs` currently asserts `backstory`/`audience`/`citation`/`mentions`/`hasPart` are absent from every research Article (`FORBIDDEN_ARTICLE_PROPERTIES`, Sprint 11.7). A future Reader Context implementation needs an **atomic migration**, not a weakening: remove `backstory`/`audience` from the forbidden list and replace the blanket-absence check with source-derived parity, in the same posture as every other 11.7 assertion — the validator must independently re-derive expected `backstory`/`audience` from `readerNote` frontmatter (via `discoverResearch()`, extended with `readerNote` the same minimal way it gained `doi` in 11.7 — extend only when a real invariant needs it), **never** by importing whatever production serializer eventually emits the projection. Concretely: `source readerNote.why exists ↔ Article.backstory exactly matches`; `source readerNote.for exists ↔ Article.audience has the exact expected shape`; absence must continue to assert absence, not `null`/`{}`/`""`, following the exact array-first/absence-not-empty discipline Sprint 11.3/11.4 already established for `isBasedOn`. `citation`/`mentions`/`hasPart` stay forbidden and untouched — this migration is scoped to exactly the two properties Reader Context introduces, not a general loosening of the forbidden-property list.
+
+### Q10 — What is the smallest implementation sequence now justified?
+
+Not decided in 12.0 (implementation is 12.1+'s job), but the audit narrows the shape considerably: `readerNote: { why: string, for: string }`, both optional at the schema level, no array, no per-format gating, authored on a piece only when it demonstrably adds orientation the abstract/intro doesn't already carry (roughly two of the current four would earn it today — Invariants and Three SOS). Implementation should follow Sprint 11's own sequence discipline: schema/frontmatter first, `FromTheAuthor.astro` (screen-only, print-hidden) second, semantic projection with the atomic validator migration from Q9 third and only once the first two are proven — never all three at once, and never before the corpus has actually tested the field shape the way this audit just did for `why`/`for`/requiredness.
+
+### Component boundary confirmed, not just asserted
+
+`FromTheAuthor` owns exactly `readerNote.why`/`readerNote.for`. It does not own author biography, ORCID, contact, declarations, or relation/IWL status — those already have homes (`ArticleMasthead`, `AuthorNote`, `## Declarations`, the relation-projection layer). `AuthorNote` answers *who is accountable for this work*; `FromTheAuthor` answers *why does this particular work exist and who is it for* — genuinely different questions, confirmed by re-reading `AuthorNote`'s actual rendered content (`AUTHOR.bio`, universal and identical across every piece) against what a piece-specific `why`/`for` would say (necessarily different per piece, as the candidate text above demonstrates). Do not merge them.
+
+### Visual language — not designed in 12.0
+
+Per the ticket, no component, no CSS. The audit's only finding here is negative: research primitives' boxed `--bg-subtle` + left-rule treatment is the wrong visual register for this — primitives signal *argument topology* (a claim, evidence, a counterpoint), and Reader Context signals *orientation*, a different semantic role that a shared box treatment would blur. A small mono label + rule + normal prose, no icon, no new color token, is the direction the existing Signal system already points toward — not decided, just not contradicted by anything found here.
+
+### No content-body rewrite performed
+
+Per the ticket's §15, redundancy risk was *identified* (Q1/Q2, FAFSA and Frontier) and not *resolved* — no Introduction paragraph, Abstract sentence, or lede was touched on any of the four pieces. `git diff` confirms zero change to any file under `src/content/research/`.
+
+### What 12.1 no longer has to guess
+
+Field shape (`{why, for}`, both strings, both optional), requiredness (optional, earned per-piece), format scope (all formats, gated on voice not format), screen placement (after masthead block, before TOC/body — the `AuthorNote` bracket), PDF behavior (HTML-visible/PDF-hidden), and the semantic-mapping risk (`audience` clean, `backstory` a known imperfect fit worth naming explicitly) are all now grounded in the real corpus rather than the roadmap sketch. What 12.1 still has to decide: the actual validator migration mechanics (Q9), the component's exact markup/CSS, and the real `why`/`for` text for Invariants and Three SOS (the candidates above are illustrative, written to test the grammar, not proposed as final copy).
+
+Diff: `CHANGELOG.md` (this entry) and `ROADMAP.md` (Sprint 12 tracking) only. Confirmed via `git diff`: zero change to `content.config.ts`, any research Markdown, `ResearchLayout.astro`, `ArticleShell.astro`, any component, print CSS, any validator, any relation registry, or indexing controls. `npm run build` run clean on `staging` after this entry, confirming no accidental production diff — full PDF rebuild not run, per the ticket's own "not required for a docs-only audit" allowance.
+
 ## 2026-09-08 (final for the day) — Sprint 11.7: semantic graph validation + contract freeze
 
 The final planned Sprint 11 slice. No new Schema.org property, no new relation, no new projection row — everything 11.0–11.4 proved by hand (build inspection + one-off adversarial mutation, each done once and reverted) becomes a permanent, continuously enforced, fail-closed build assertion. 11.5/11.6 stay skipped; there is no separate 11.8 — the contract freeze originally envisioned there is folded into the end of this sprint.
