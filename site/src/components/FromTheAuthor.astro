@@ -1,0 +1,66 @@
+---
+// Sprint 12.1 — Reader Context's one human-facing surface. Its job is
+// exactly two things: render readerNote.why, render readerNote.for.
+// Nothing else — no author bio, ORCID, correspondence, DOI, publication
+// date, relations, IWL status, disclosures, funding, or AI-use statements.
+// Those already have separate homes (ArticleMasthead, AuthorNote,
+// authored `## Declarations`, the relation-projection layer).
+//
+// No optional-state handling here: ResearchLayout.astro only renders this
+// component at all when `readerNote` exists, and content.config.ts's
+// `.strict()` schema already guarantees a complete {why, for} whenever it
+// does — so both props are always real, non-empty strings, never undefined.
+//
+// AuthorNote answers "who is accountable for this work?" (universal,
+// identical on every entry). This answers "why does this particular work
+// exist, and who did I write it for?" (piece-specific, present only where
+// it was authored). Do not merge them.
+interface Props {
+	why: string;
+	for: string;
+}
+
+const { why, for: forWhom } = Astro.props;
+---
+
+<aside class="from-the-author" aria-labelledby="from-the-author-label">
+	<p id="from-the-author-label" class="meta from-the-author-label">From the Author</p>
+	<p class="from-the-author-why">{why}</p>
+	<p class="from-the-author-for">
+		<span class="meta from-the-author-for-label">For</span>{' '}
+		{forWhom}
+	</p>
+</aside>
+
+<style>
+	/* Journal marginalia, not a card — a border-top/border-bottom rule and
+	   normal prose, the same restrained vocabulary AuthorNote already uses,
+	   deliberately not a research primitive's boxed --bg-subtle treatment:
+	   that visual language signals argument topology (a claim, evidence, a
+	   counterpoint); this signals orientation, a different semantic role
+	   that a shared box would blur. No fill, no shadow, no radius, no
+	   accent stripe, no icon, no avatar. */
+	.from-the-author {
+		margin: 1.5em 0 2em;
+		padding: 1.5em 0;
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+	}
+	.from-the-author p {
+		margin: 0;
+	}
+	.from-the-author-label {
+		text-transform: uppercase;
+		margin-bottom: 0.75em;
+	}
+	.from-the-author-why {
+		color: var(--text-primary);
+		margin-bottom: 0.75em;
+	}
+	.from-the-author-for-label {
+		margin-right: 0.5em;
+	}
+	.from-the-author-for {
+		color: var(--text-secondary);
+	}
+</style>

@@ -4,6 +4,14 @@
 // owns its own <html><head> (JSON-LD branches by format there) and projects
 // format-specific pieces (breadcrumb, tags, hero image) into the named slots
 // below.
+//
+// `reader-context` (Sprint 12.1) is a dedicated publication-shell seam, not
+// a content module — it sits between the title block and the mobile TOC so
+// Reader Context never inherits the centered title-block alignment or
+// publication-metadata semantics the `after-title` slot (masthead/tags/PDF
+// link) carries. ResearchLayout only projects into it when a piece's
+// `readerNote` actually exists; empty means no Fragment, no wrapper, no
+// spacing artifact — never a placeholder.
 import FormattedDate from '../components/FormattedDate.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -45,6 +53,7 @@ const { title, subtitle, pubDate, updatedDate, minutesRead } = Astro.props;
 					<slot name="after-title" />
 					<hr />
 				</div>
+				<slot name="reader-context" />
 				<slot name="mobile-toc" />
 				<slot />
 			</div>

@@ -6,6 +6,7 @@ import AuthorNote from '../components/AuthorNote.astro';
 import Badge from '../components/Badge.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FromTheAuthor from '../components/FromTheAuthor.astro';
 import RelatedResearch from '../components/RelatedResearch.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import { AUTHOR, LICENSE } from '../consts';
@@ -53,6 +54,7 @@ const {
 	headings,
 	heroImage,
 	heroImageAlt,
+	readerNote,
 } = Astro.props;
 
 const isPaper = format === 'paper';
@@ -341,6 +343,18 @@ const citationPublicationDate = isPaper
 					)
 				}
 			</Fragment>
+			{
+				// Sprint 12.1 — rendered only when readerNote actually exists.
+				// No Fragment, no empty <aside>, no placeholder, no reserved
+				// spacing when it's absent: optional means genuine absence, the
+				// same discipline research-relations.json's `inline` block
+				// already established.
+				readerNote && (
+					<Fragment slot="reader-context">
+						<FromTheAuthor why={readerNote.why} for={readerNote.for} />
+					</Fragment>
+				)
+			}
 			<Fragment slot="mobile-toc">
 				<TableOfContents headings={headings} variant="mobile" />
 			</Fragment>

@@ -22,6 +22,18 @@ tags:
   - classification
   - cognitive physics
   - cybernetics
+readerNote:
+  why: >-
+    Paper A's seven invariants are a claim about structure, not about
+    any one system. I wrote this companion to see whether that claim
+    survives contact with three real systems that share no substrate —
+    because an abstract classification is only as strong as its worked
+    examples.
+  for: >-
+    Readers of Paper A testing whether the seven-invariant framework
+    works as an operational classification, and researchers in myrmecology,
+    finance, or immunology evaluating the classification against their
+    own field's literature.
 ---
 
 *Standalone companion · Cognitive Physics Series · Companion to Paper A — The Invariants of Self-Organizing Systems*

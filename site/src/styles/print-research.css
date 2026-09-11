@@ -63,7 +63,8 @@ footer,
 .toc-mobile,
 .tags,
 .pdf-link,
-.related-research {
+.related-research,
+.from-the-author {
 	display: none !important;
 }
 
@@ -77,6 +78,19 @@ footer,
 .author-note-about {
 	display: none !important;
 }
+
+/* ---- FromTheAuthor (Sprint 12.1): the opposite call, on purpose ----
+   FromTheAuthor is web-reader orientation — deciding whether to invest
+   time before the argument starts — and is intentionally omitted from the
+   scholarly PDF: a "From the Author" preamble sitting before the formal
+   Abstract would weaken conventional scholarly presentation and Scholar/
+   parser-friendly first-page structure, the exact risk Sprint 12.0's
+   audit flagged. AuthorNote is the opposite case — canonical author
+   identity, part of the research object itself — and stays visible in
+   print. Both are author-facing surfaces; they serve different
+   publication roles, so their print behavior is deliberately different,
+   not an oversight. It's included in the main hide-list above (not a
+   separate rule) since, unlike AuthorNote, no part of it survives to print. */
 
 /* "min read" specifically, not the date itself — FormattedDate.astro
    renders the date as a bare <time>, and the "· N min read" text is the

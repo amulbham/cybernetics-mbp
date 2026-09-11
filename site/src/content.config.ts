@@ -66,6 +66,24 @@ const research = defineCollection({
 				// below), since a real hero isn't decorative.
 				heroImage: z.optional(image()),
 				heroImageAlt: z.string().optional(),
+				// Sprint 12.1 — Reader Context: the author's own orientation for
+				// why this particular work exists and who it's for, rendered by
+				// FromTheAuthor.astro. Deliberately optional at the module level
+				// (Sprint 12.0's audit found this earned by roughly half the
+				// current corpus, not every piece — silence is valid, the same
+				// discipline research-relations.json already established) but
+				// `.strict()` and complete-or-absent inside: no real fixture ever
+				// demonstrated a useful why-only or for-only state, so a partial
+				// object fails rather than being allowed to exist. Never derive
+				// either string from description/abstract/tags/pillar/relations —
+				// both are authored editorial statements, not build-time synthesis.
+				readerNote: z
+					.object({
+						why: z.string().min(1),
+						for: z.string().min(1),
+					})
+					.strict()
+					.optional(),
 			})
 			.refine((data) => data.format !== 'paper' || !!data.pillar, {
 				message: 'pillar is required when format is "paper"',

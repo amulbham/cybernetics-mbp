@@ -32,6 +32,17 @@ tags:
   - attractor dynamics
   - Noether symmetry
   - cognitive physics
+readerNote:
+  why: >-
+    I wrote this because the pieces of an answer to why some systems
+    self-organize were already scattered across physics, biology, and
+    information theory — discovered independently, but never assembled
+    and tested as one joint claim. This paper is that assembly and that test.
+  for: >-
+    Researchers in complexity science, systems biology, theoretical
+    physics, and adjacent fields who study self-organization in one
+    domain and want to test which structural conditions generalize
+    across domains.
 ---
 
 *Paper A — Cognitive Physics Series · Companion: Paper B, Cognition as a Self-Organizing System*
