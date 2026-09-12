@@ -2,6 +2,8 @@
 
 Things flagged during past work but deliberately not done yet, plus open questions. Not date-ordered — roughly grouped by how soon they matter. Move an item to `CHANGELOG.md` (with a real date) once it ships; delete it from here.
 
+Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Operating protocol: `PLANNING.md`. This file stays the short current-work index — it does not duplicate ticket acceptance criteria or the full program plan.
+
 ## Blocking the actual public launch
 
 - **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state." This is also what blocks Scholar discovery specifically — see the Sprint 8 status line below; PDF build-readiness and search-engine discoverability are two independent gates, and this is the one that gates discovery.

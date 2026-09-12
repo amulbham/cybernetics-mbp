@@ -2,6 +2,10 @@
 
 Personal research hub for Amul Bham (amulbham.com) — Astro 7, static output, deployed on Cloudflare Pages. This file auto-loads every session. **At the start of new work, read `ROADMAP.md` for pending items and `CHANGELOG.md` for recent history** — both are real files in this repo, not auto-loaded, so they have to be opened deliberately. **For what a research page *is* — frontmatter, transforms, layout, grammar, presentation, all in one map — read `PUBLISHING.md`**, the publishing specification; this file (`AGENTS.md`) stays the pipeline/routing/deploy reference underneath it.
 
+## Planning and ticket execution
+
+For work governed by a file under `planning/tickets/`, read `PLANNING.md` before implementation. `PLANNING.md` defines the planning/execution procedure (roles, ticket/sprint lifecycle, risk classes, change control). The sealed ticket defines authorized scope for that one piece of work. Neither one outranks current product truth — that stays owned by this file, `PUBLISHING.md`, `CONTENT-MODULES.md`, `CHANGELOG.md`, `design-system/`, and the code/schemas/validators themselves.
+
 ## Development
 
 ```sh
