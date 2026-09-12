@@ -2,6 +2,26 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-12 — Sprint 12.1.1: mobile regression check + FromTheAuthor visual polish
+
+Pre-12.2 gate, not a new Reader Context feature slice: rule out a mobile viewport regression before touching CSS, then quiet `FromTheAuthor`'s visual treatment.
+
+**Method**: real headless Chrome via `puppeteer-core`, the exact tool/precedent Sprint 10 already established for viewport work (reusing the Chrome binary Vivliostyle downloads to its own cache — not a new dependency), navigating the live `amulbham.com` (production) and `staging.cybernetics-mbp-site.pages.dev` (staging) URLs directly at 375×812/390×844/430×932/768-tablet.
+
+**Control result, checked first**: FAFSA (carries `readerNote` on neither branch) produced **byte-identical bounding rects** between production and staging at all four viewports — `main`/`.article-body`/`.prose`/`[data-toc-mobile]`/`header` rects matched exactly, `document.documentElement.scrollWidth === window.innerWidth` on both branches at every width. No pre-existing staging drift to diagnose; safe to proceed to the Reader Context check.
+
+**Reader Context result**: on staging Invariants, `.from-the-author`'s bounding rect was fully contained within `.prose` (`left`/`right` inside the container's own edges, with margin) at all four viewports — confirmed by direct measurement, not assumption. `document.documentElement.scrollWidth` matched `innerWidth` exactly on Invariants too. A per-element overflow scan did flag ~19–20 elements per phone-width page whose own `getBoundingClientRect()` exceeds the viewport — all of them `<table>`/`<td>`/`<tr>` cells inside `.table-container` (`rehype-table-wrap.mjs`'s existing `overflow-x: auto` pattern, documented in `AGENTS.md`), present in identical counts on FAFSA and Invariants, on both branches — the established, intentional per-container scroll behavior the ticket's own §4 anticipated ignoring, not a new regression. No document-level horizontal scroll anywhere, control or Reader Context page, before or after the CSS change.
+
+**Visual polish, scoped entirely to `FromTheAuthor.astro`'s own `<style>` block** (`ArticleShell.astro` and the title `<hr>` untouched, per the ticket's own instruction that the title rule stays the universal publication-metadata → reading-flow seam): removed `border-top`/`border-bottom` and the `padding`/`margin` values that existed alongside them — the component is now distinguished by label, type hierarchy, and secondary ink alone, not framing. `.from-the-author-why`/`.from-the-author-for` moved from `var(--text-primary)`/mixed to `var(--text-secondary)` + `var(--text-base)` (16px) — deliberately not `--text-sm` (14px), since the article body itself reads at ~20px and `--text-base` already creates a clear secondary hierarchy without pushing real orientation prose into fine-print/metadata territory on a phone. Label hierarchy (`.meta`, uppercase, the `for` inline label) and the explicit `{' '}` whitespace fix from 12.1 both preserved exactly. No new token, no background, no accent stripe, no icon, no radius, no box-shadow — nothing from the ticket's own decoration list was added.
+
+**Re-measured after the CSS change**: identical matrix re-run against deployed staging (post-polish) confirmed zero viewport regression from the polish itself — `innerWidth`/`scrollWidth` unchanged at every width on FAFSA, Invariants, and a phone-width spot-check on Three SOS; `.from-the-author` still fully contained within `.prose` on both Reader Context pieces.
+
+**Regression, confirmed via `git diff` and a full rebuild**: exactly one file changed, `src/components/FromTheAuthor.astro` — `readerNote` schema, eligibility rule, TOC membership, PDF exclusion, `AuthorNote`, `ArticleMasthead`, both relation registries, JSON-LD, `validate-research-semantics.mjs`, Highwire, and indexing controls all zero-diff. Full `build` → `build:pdfs` → `validate:pdfs` chain green throughout, `validate-research-semantics` unchanged at "4 research object(s)... 0 issues," `papers: 3 / pdfs: 3 / ok`. `npx astro check` unchanged at 3 pre-existing errors (`TableOfContents.astro`, untouched).
+
+Diff: `src/components/FromTheAuthor.astro` only. Pushed to `staging`, not `main` — deployed staging re-verified at the same phone widths post-deploy.
+
+## 2026-09-11 (later) — Sprint 12.1: Reader Context source + From the Author surface
+
 ## 2026-09-11 (later) — Sprint 12.1: Reader Context source + From the Author surface
 
 Implements exactly the contract 12.0's audit earned — no more, no less. Source model + first real human-facing consumer, deliberately together: `readerNote` frontmatter and `FromTheAuthor.astro` ship in the same slice so the grammar is proven against a real reader benefit, not left as an unused schema field. No JSON-LD projection — `audience`/`backstory` stay absent, unchanged, and the semantic validator was not touched.

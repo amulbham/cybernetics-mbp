@@ -33,34 +33,42 @@ const { why, for: forWhom } = Astro.props;
 </aside>
 
 <style>
-	/* Journal marginalia, not a card — a border-top/border-bottom rule and
-	   normal prose, the same restrained vocabulary AuthorNote already uses,
-	   deliberately not a research primitive's boxed --bg-subtle treatment:
-	   that visual language signals argument topology (a claim, evidence, a
-	   counterpoint); this signals orientation, a different semantic role
-	   that a shared box would blur. No fill, no shadow, no radius, no
-	   accent stripe, no icon, no avatar. */
+	/* Sprint 12.1.1 — journal marginalia, not a card, and not framed either.
+	   No border-top/border-bottom (the title <hr> and, on mobile, the TOC's
+	   own rules already provide enough seam density without this adding a
+	   third), no fill, no shadow, no radius, no accent stripe, no icon, no
+	   avatar. The component is distinguished by label, type hierarchy, and
+	   secondary ink alone — deliberately not a research primitive's boxed
+	   --bg-subtle treatment, which signals argument topology (a claim,
+	   evidence, a counterpoint), a different semantic role than orientation. */
 	.from-the-author {
-		margin: 1.5em 0 2em;
-		padding: 1.5em 0;
-		border-top: 1px solid var(--border);
-		border-bottom: 1px solid var(--border);
+		margin: 0 0 var(--space-6);
+		padding: 0;
+		border: 0;
 	}
 	.from-the-author p {
 		margin: 0;
 	}
 	.from-the-author-label {
 		text-transform: uppercase;
-		margin-bottom: 0.75em;
+		margin-bottom: var(--space-3);
 	}
+	/* --text-base (16px), not --text-sm (14px): the article body itself
+	   reads at ~20px, so --text-base already creates a clear secondary
+	   hierarchy on its own — --text-sm would push real orientation prose
+	   into fine-print/metadata territory, which is wrong for a paragraph
+	   meant to be read, not skimmed. */
 	.from-the-author-why {
-		color: var(--text-primary);
-		margin-bottom: 0.75em;
+		color: var(--text-secondary);
+		font-size: var(--text-base);
+		line-height: 1.6;
+		margin-bottom: var(--space-3);
 	}
 	.from-the-author-for-label {
-		margin-right: 0.5em;
+		margin-right: var(--space-2);
 	}
 	.from-the-author-for {
 		color: var(--text-secondary);
+		font-size: var(--text-base);
 	}
 </style>
