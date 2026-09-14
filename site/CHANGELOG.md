@@ -2,6 +2,47 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-14 (later) — T12.3: full Reader Context contract QA
+
+Pure validation, zero committed runtime change. One deliberate end-to-end QA pass treating source model + human surface + machine projection + responsive shell + accessibility structure + PDF exclusion as a single contract, rather than trusting that each independently-verified T12.0–T12.2 slice still agrees with the others. Sealed (`531c527`) → validated → this closure commit, per the ticket's own two-commit choreography.
+
+**Source matrix reconfirmed** (`a8c2867` baseline): Invariants and Three SOS carry complete `{why, for}`; FAFSA and the Frontier essay carry none — zero partial objects, zero empty strings, zero extra fields, zero format-derived state.
+
+**Human projection**, direct comparison against source, built output and deployed staging: exactly one `.from-the-author` on Invariants/Three SOS, byte-matching `readerNote.why`/`readerNote.for` verbatim (HTML-entity encoding aside); genuinely absent — not hidden, not empty — on FAFSA/Frontier.
+
+**DOM/accessibility structure**: `aside.from-the-author` carries a valid `aria-labelledby`, the referenced label ID occurs exactly once on the page, the label is a `<p>` never a heading, no `h1`–`h6` or interactive element (`<a>`/`<button>`/`<details>`) exists inside the aside. A real accessibility-tree inspection (`page.accessibility.snapshot()`, not just DOM structure) confirms exactly **one** `complementary` landmark on the whole page — not merely "a" complementary landmark, ruling out a false match against the page's several unrelated research-primitive `<aside>` elements — named exactly `"FROM THE AUTHOR"`.
+
+**TOC/reading-shell separation**: "From the Author" never appears in mobile or desktop TOC link text on either fixture, at any viewport; TOC link/section counts (9 on Invariants, 8 on Three SOS) are unaffected by Reader Context's presence; the existing 1099px/1100px mobile↔desktop breakpoint behaves identically with Reader Context present (`display: block`/`none` flips correctly on both surfaces at the exact boundary).
+
+**Responsive containment**, real headless-Chrome measurement (`puppeteer-core`, the established method) across seven viewports (375–1280px): zero document-level horizontal overflow (`scrollWidth === innerWidth` exactly, not just within tolerance) on every one of 18 fixture/viewport combinations — Invariants and Three SOS at all seven widths, FAFSA and the Frontier essay spot-checked at phone/desktop — and `.from-the-author` stays fully contained within `.prose` at every measured point. Confirmed identically on deployed staging, not just local `dist/`.
+
+**Theme spot-check** (390px/1280px, light/dark, Invariants): distinct, correct `--text-secondary` values in each mode (no missing-token fallback collapsing light and dark to the same color), background stays transparent and border stays `0px` in both modes — the `T12.1.1` polish holds under both themes.
+
+**Semantic projection**, direct JSON-LD inspection plus the independent validator oracle, both required and both checked separately: on all four built *and* deployed-staging pages, `audience` is present as an exact two-key (`@type`, `audienceType`) plain object matching source `readerNote.for` character-for-character on Invariants/Three SOS, and genuinely `undefined` (not `[]`/`null`) on FAFSA/Frontier; `backstory` is `undefined` everywhere. `npm run validate:semantics` green throughout, count line correctly tracking live source-state changes during the adversarial tests below (2 → 1 → 2, then 2 → 3 → 2).
+
+**Validator independence re-confirmed by import inspection**: `validate-research-semantics.mjs`'s import list contains no reference to `ResearchLayout.astro` or any production audience-construction helper — only `discoverResearch()`, the built-HTML extraction utilities, `personIdentity()`, and the relation schemas. No new abstraction has appeared since `T12.2`.
+
+**PDF exclusion re-confirmed at the artifact level**, with the normalization the ticket specified (collapse whitespace runs, trim, apply identically to both the extracted PDF text and the source `readerNote.why` string before comparing): both Reader Context papers' typeset PDFs contain "Abstract" (proving extraction genuinely works) but neither "From the Author" nor the normalized `why` text. FAFSA's PDF (no Reader Context source) checked as an additional control.
+
+**Three end-to-end source-state adversarial tests, all against real frontmatter, all reverted, all three layers (human/machine/validator) checked together for each:**
+1. **True-absence transition** — removed Invariants' complete `readerNote` entirely, full rebuild: `FromTheAuthor` gone, `Article.audience` gone, `Article.backstory` still absent, validator green, projection count correctly dropped 2→1. This is the proof optionality is a real source-state transition, not fixture-specific branching in the code.
+2. **Existing-format positive control** — added a complete sentinel `readerNote` to the Frontier *essay* (an `essay`, not a `paper`), full rebuild: `FromTheAuthor` appeared with the exact sentinel text, `Article.audience` built correctly from the sentinel `for` value, the essay's own `@type: "Article"` contract stayed untouched, validator green, count correctly rose 2→3. Proves Reader Context is genuinely format-neutral — no paper gate exists in the code, only in what's currently authored. No memo fixture was fabricated.
+3. **Complete-or-absent failure** — made Invariants' `readerNote` incomplete (`why` present, `for` removed), ran the build: failed non-zero with `readerNote.for: Required`, naming the exact missing field, before any content-collection sync could complete.
+
+All three mutations reverted; `git diff -- src/content/research` empty afterward; full `build` → `build:pdfs` → `validate:pdfs` → `astro check` chain re-run clean, `astro check` landing on the exact same 3-error/0-warning/9-hint baseline recorded at preflight (all three errors pre-existing, in `TableOfContents.astro`, unrelated).
+
+**Sprint 8–11 regression, confirmed by direct observation, not validator success alone**: canonical `<link>` === `Article.url` === `mainEntityOfPage.@id` on all four objects; `author.@id === publisher.@id`, both the canonical `https://amulbham.com/about/#person`; Invariants' `identifier.value === citation_doi` exactly; Highwire tags present on all three papers, absent on the essay; Three SOS's `isBasedOn` → Invariants still present and source-directional, no reciprocal; all three papers' PDFs valid (`papers: 3 / pdfs: 3 / ok`); `SITE_WIDE_NOINDEX = true`, `robots.txt: Disallow: /`, `noindex, nofollow` on every page, all unchanged.
+
+**Documentation-drift scan**: searched `PUBLISHING.md`, `AGENTS.md`, `ROADMAP.md`, and `planning/sprints/sprint-12-reader-context.md` for stale Reader Context claims (`no Reader Context`, `audience forbidden`, `backstory/audience`, `human-only`, `Next: 12.2`, and others) — zero hits beyond the expected, correct `Next: 12.3` pointer this entry itself supersedes. `PUBLISHING.md` and `AGENTS.md` were already fully accurate from `T12.2`'s own closure and are left untouched — no edit for the sake of activity.
+
+**Zero defects found.** No corrective `T12.3.x` ticket was needed.
+
+Diff: `planning/tickets/T12.3-reader-context-contract-qa.md` (seal commit: ticket body; this commit: `Status: CLOSED` + completion report appended, contract untouched), `planning/sprints/sprint-12-reader-context.md`, `ROADMAP.md`, `CHANGELOG.md` (this entry). No runtime file changed in either commit — `git diff` against every product surface named in the ticket's exclusions confirms this directly, not merely by omission.
+
+Next: `T12.4` — production promotion (`staging` → `main`), production re-verification, and Sprint 12's closure freeze.
+
+## 2026-09-14 — T12.2: Reader Context audience projection + independent validator migration
+
 ## 2026-09-14 — T12.2: Reader Context audience projection + independent validator migration
 
 Planning System v1's first prospective product/semantic ticket, executed end to end under its own sealed contract (`planning/tickets/T12.2-reader-context-audience-projection.md`, sealed at `469cf2c`) and its explicit three-commit choreography: seal (`469cf2c`) → implementation (`68da45b`) → this closure/reconciliation commit.
