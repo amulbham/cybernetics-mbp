@@ -1,7 +1,7 @@
 # Sprint 12 — Reader Context
 
 Status: EXECUTING
-Risk ceiling: R3 (canonical publication semantics and, eventually, a JSON-LD projection decision are in scope for later tickets in this sprint; work to date has stayed R1)
+Risk ceiling: R3 (canonical publication semantics; T12.2 exercised this ceiling with the `audience` JSON-LD projection — T12.0/12.1/12.1.1 stayed R1)
 Branch: staging
 Depends on: Sprint 11 closure (canonical Person identity, DOI/publisher, relation-projection contract, semantic validator — all production-verified, see `CHANGELOG.md`'s Sprint 11.0–11.7 entries and the `main` promotion recorded in Sprint 12.0's own entry)
 Unlocks: Sprint 13 (IWL Foundation) only after this sprint's remaining tickets close — no dependency runs the other direction
@@ -22,14 +22,16 @@ A `readerNote` source model and its one human-facing surface (`FromTheAuthor.ast
 - `FromTheAuthor.astro` renders exactly `why`/`for` — no author bio, ORCID, correspondence, DOI, date, relations, IWL status, or disclosures; those keep their existing homes (`ArticleMasthead`, `AuthorNote`, authored `## Declarations`, the relation-projection layer).
 - Placement is a dedicated `ArticleShell.astro` slot (`reader-context`), between the title block and the mobile TOC — deliberately not the existing `after-title` slot, and the title `<hr>` stays untouched.
 - Reader Context is HTML-visible, PDF-hidden (`print-research.css`'s `.from-the-author` rule), verified by actually parsing both typeset PDFs with `pdfjs-dist`, not just trusting the CSS selector.
-- Zero JSON-LD projection exists yet: `Article.audience`/`Article.backstory` are absent from every built page, and `validate-research-semantics.mjs` is unmodified — confirmed by direct inspection after every ticket in this sprint so far.
-- Schema.org's own docs (live-checked, Sprint 12.0) confirm `audience` is a clean, truthful fit for `readerNote.for`; `backstory` is a named imperfect fit for `readerNote.why` (its real definition centers `NewsArticle`/journalistic reporting process, not a research paper's intellectual motivation) — asymmetric projection (`audience` ships, `backstory` doesn't) is an explicitly valid outcome, not a defect to reconcile later.
+- `Article.audience` is now live (T12.2): `readerNote.for → { @type: 'Audience', audienceType: <verbatim> }`, present exactly on Invariants/Three SOS, absent on FAFSA/Frontier — verified locally, in CI, and on deployed staging. `Article.backstory` remains permanently absent everywhere — `readerNote.why` stays human-visible-only, per T12.2's frozen decision that `backstory`'s real definition doesn't truthfully fit. `validate-research-semantics.mjs` independently derives and enforces both, never by importing `ResearchLayout.astro`'s own construction.
+- Schema.org's own docs were live-checked twice now (Sprint 12.0, then re-confirmed at T12.2 execution) — `audience` a clean, truthful fit; `backstory` a named imperfect fit, confirmed to remain unearned both times. Asymmetric projection (`audience` shipped, `backstory` didn't) is the actual, verified outcome, not just a permitted one.
 - A real mobile-viewport regression check (headless Chrome, Sprint 12.1.1) confirmed `.from-the-author` stays fully contained within `.prose` at 375/390/430/768px on every piece that has it, with zero document-level horizontal-scroll regression versus production.
 
 ## Hypotheses to test
 
-- Whether `readerNote.for → Article.audience` still earns its projection once actually implemented and re-verified against the real fixtures, not just judged clean in the abstract (T12.2).
-- Whether `readerNote.why → Article.backstory` should ship at all, or remain human-visible-only permanently (T12.2 — begin from silence).
+Both resolved by T12.2:
+
+- `readerNote.for → Article.audience` **did** earn its projection once implemented and re-verified against the real fixtures — shipped, live on staging.
+- `readerNote.why → Article.backstory` **remains human-visible-only permanently** — began from silence, stayed there; not a temporary state pending a future revisit.
 
 ## Hard constraints
 
@@ -52,7 +54,7 @@ A `readerNote` source model and its one human-facing surface (`FromTheAuthor.ast
 | `T12.0` | AUDIT | Corpus/behavior audit — earn the Reader Context grammar from the real four pieces before any schema exists | Sprint 11 closure | Documentation only, zero production diff — CLOSED |
 | `T12.1` | IMPLEMENTATION | `readerNote` source model + `FromTheAuthor.astro` human surface, on exactly the two pieces that earned it | T12.0 | Full build/PDF/semantic-validator regression green, deployed-staging verified — CLOSED |
 | `T12.1.1` | POLISH | Mobile regression check (real headless-Chrome measurement, production vs. staging) + `FromTheAuthor` visual polish | T12.1 | Zero viewport regression proven before *and* after the CSS change, deployed-staging re-verified — CLOSED (retroactively sealed under this planning system; see `planning/tickets/T12.1.1-mobile-regression-reader-context-polish.md`) |
-| `T12.2` | IMPLEMENTATION | Semantic projection (`audience`, and independently, `backstory`) + atomic validator migration — the semantic decision itself is already frozen in T12.2's own sealed contract, not made during execution | T12.1.1 | First prospective product/semantic ticket executed under Planning System v1 |
+| `T12.2` | IMPLEMENTATION | Semantic projection (`audience`, and independently, `backstory`) + atomic validator migration — the semantic decision itself is already frozen in T12.2's own sealed contract, not made during execution | T12.1.1 | Local/CI/deployed-staging all verified, three-commit choreography (seal/implementation/closure) followed — CLOSED, first prospective product/semantic ticket executed under Planning System v1 |
 | `T12.3` | VALIDATION | Full Reader Context contract QA — adversarial, responsive, accessibility, corpus | T12.2 | Full chain green, staging gate passed |
 | `T12.4` | RELEASE | Production promotion + closure freeze | T12.3 | Canonical docs current, production independently verified |
 
@@ -91,6 +93,6 @@ What remains deliberately open past this sprint: IWL/provenance semantics (Sprin
 
 ## Canonical documentation targets
 
-- `CHANGELOG.md` — one entry per closed ticket (already current through T12.1.1).
+- `CHANGELOG.md` — one entry per closed ticket (current through T12.2).
 - `ROADMAP.md` — the "Reader Context" in-progress bullet, updated as tickets close.
-- `PUBLISHING.md`/`AGENTS.md` — updated only once T12.2's projection decision (or its rejection) is frozen; not before.
+- `PUBLISHING.md`/`AGENTS.md` — now current through T12.2's projection decision (frozen and shipped, not rejected).

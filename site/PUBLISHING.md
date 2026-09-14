@@ -21,7 +21,7 @@ Philosophy:
 
 A research page is:
 
-1. Frontmatter in `src/content/research/<slug>/index.md` (`format`, `title`, `pubDate`, `description`, `excerpt`, paper-only `pillar`, optional `subtitle` / `doi` / `tags` / hero pair). Authors never specify a PDF field — a paper's PDF is always `{canonicalURL}/paper.pdf`, derived (Sprint 8.4).
+1. Frontmatter in `src/content/research/<slug>/index.md` (`format`, `title`, `pubDate`, `description`, `excerpt`, paper-only `pillar`, optional `subtitle` / `doi` / `tags` / hero pair / `readerNote`). Authors never specify a PDF field — a paper's PDF is always `{canonicalURL}/paper.pdf`, derived (Sprint 8.4).
 2. Body Markdown.
 3. Build-time transforms (reading time, alerts, references, tables, figures, key findings, pull quotes, primitives, citation links).
 4. `ResearchLayout` → `ArticleShell`: masthead, TOC if ≥6 `##`, scroll progress, the whole authored body, `AuthorNote`, related research, JSON-LD, OG route — in that order.
@@ -107,7 +107,7 @@ SCHOLAR DISCOVERY             ❌  indexing intentionally blocked
 
 Every paper that goes through `build` → `build:pdfs` → `validate:pdfs` → deploy is now what actually serves `amulbham.com` — confirmed directly (not assumed) on all three live papers: each `paper.pdf` returns `200`/`application/pdf` from production, and each page's `citation_pdf_url`/Download href/JSON-LD `MediaObject` all resolve to that exact file. `SITE_WIDE_NOINDEX`/`robots.txt` are unrelated to any of this and remain exactly as they were — every page stays out of every crawler, Scholar included. "Scholar-ready" and "Scholar-discoverable" are still two different, separately-gated states; the build/deploy one is now done, the discovery one is not.
 
-### The research object's semantic graph (Sprint 11, frozen 11.7)
+### The research object's semantic graph (Sprint 11, frozen 11.7; extended T12.2)
 
 ```
 CANONICAL PRODUCT STATE (research objects, routes, Person, DOI, publisher model, typed internal relations)
@@ -129,10 +129,11 @@ Frozen v1 decisions:
 - The citation graph (`## References` / `#ref-N`) and the research-relation graph are two separate, non-overlapping systems — no corpus citation JSON-LD (`citation`, `mentions`, `hasPart`) exists yet.
 - `RelatedResearch.astro` is heuristic navigation only (pillar/tag overlap). It emits zero structured data and is never consulted to determine or infer a semantic relation — a permanent "semantic firewall."
 - The public standard graph is intentionally thinner than the internal graph. Silence — an absent property — is valid, correct production output, not a gap waiting to be filled.
+- **Reader Context (Sprint 12.1, semantic projection T12.2) is a human/machine split, not a single decision.** `readerNote.why` and `readerNote.for` are authored together (`content.config.ts`'s `.strict()`, complete-or-absent object), and both render on-screen via `FromTheAuthor.astro` — but only `readerNote.for` gets a machine projection. `readerNote.for → Article.audience` (`{ @type: 'Audience', audienceType: <verbatim> }`) is a direct, truthful fit under Schema.org's own definitions. `readerNote.why → Article.backstory` deliberately never ships: `backstory`'s real definition centers `NewsArticle`/journalistic reporting process (interviews, data sources), not a research paper's intellectual motivation — an imperfect fit stays silent rather than shipping an approximate public claim, the same "semantic silence over approximation" principle this whole graph already runs on. Absence follows source `readerNote` presence alone, never `format`/pillar/voice/inference — two of the current four research objects carry it (Invariants, Three SOS), two intentionally don't (FAFSA, the Frontier essay).
 
 **Validated continuously, not just asserted once.** `npm run validate:semantics` (`scripts/validate-research-semantics.mjs`, Sprint 11.7) runs after `astro build`, before Pagefind, against the actual built `dist/` HTML — not source. It independently re-derives expected canonical-URL/Person/publisher/DOI/Highwire state and expected relation-projection state (sharing schemas, `canonicalPath()`, and the canonical corpus manifest with the production serializer, but never its selection/grouping logic — an oracle that re-ran the thing under test wouldn't be a check), and fails the build closed on any drift. Three other validators protect three other boundaries and are deliberately not merged with this one: `validate-research-relation-projections.mjs` (source registry/policy integrity), `validate-research-links.mjs` (safe inline HTML placement), `validate-research-pdfs.mjs` (PDF artifact identity). Full contract/history: `CHANGELOG.md`'s Sprint 11.0–11.7 entries; standing implementation invariants: `AGENTS.md`.
 
-No Reader Context, no IWL (Important Web Links / proof-chain semantics), and no additional Schema.org relation properties beyond `isBasedOn` exist yet — none of the above implies or authorizes any of that; it's future architectural-sprint work.
+No IWL (Intellectual Work Ledger — public, curated intellectual provenance; see `planning/programs/research-object-arc-13-17.md`), and no additional Schema.org relation properties beyond `isBasedOn`/`audience` exist yet — none of the above implies or authorizes any of that; it's future architectural-sprint work. Reader Context itself is no longer future work (Sprint 12.1/T12.2, above) — this line is retained only for the properties/systems still genuinely unbuilt.
 
 ### The reading shell (Sprint 10, frozen 10.6)
 

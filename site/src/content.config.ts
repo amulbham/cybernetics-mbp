@@ -77,6 +77,16 @@ const research = defineCollection({
 				// object fails rather than being allowed to exist. Never derive
 				// either string from description/abstract/tags/pillar/relations —
 				// both are authored editorial statements, not build-time synthesis.
+				//
+				// T12.2 — `for` alone gets a machine projection: Article.audience
+				// (ResearchLayout.astro), verbatim, no normalization. `why` stays
+				// human-visible only — Schema.org's `backstory` is a real but
+				// imperfect fit (its definition centers NewsArticle/journalistic
+				// reporting process, not a research paper's intellectual
+				// motivation), so it stays unprojected rather than shipping an
+				// approximate public claim. This schema itself is unchanged by
+				// that decision — the asymmetry lives entirely in the layout and
+				// the semantic validator, not here.
 				readerNote: z
 					.object({
 						why: z.string().min(1),
