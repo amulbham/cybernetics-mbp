@@ -1,10 +1,12 @@
 # Sprint 12 — Reader Context
 
-Status: EXECUTING
-Risk ceiling: R3 (canonical publication semantics; T12.2 exercised this ceiling with the `audience` JSON-LD projection — T12.0/12.1/12.1.1 stayed R1)
-Branch: staging
+Status: CLOSED
+Risk ceiling: R3 (canonical publication semantics; T12.2 exercised this ceiling with the `audience` JSON-LD projection and T12.4 exercised it again with production promotion — T12.0/12.1/12.1.1/12.3 stayed R1–R2)
+Branch: staging (production-promoted at T12.4 — `main @ b64e381`)
 Depends on: Sprint 11 closure (canonical Person identity, DOI/publisher, relation-projection contract, semantic validator — all production-verified, see `CHANGELOG.md`'s Sprint 11.0–11.7 entries and the `main` promotion recorded in Sprint 12.0's own entry)
-Unlocks: Sprint 13 (IWL Foundation) only after this sprint's remaining tickets close — no dependency runs the other direction
+Unlocks: Sprint 13 (IWL Foundation) — unlocked. Next earned operation: `T13.0`, the architecture/reality audit. No Sprint 13 implementation tickets are pre-created.
+
+**Ticket disposition**: `T12.0` CLOSED · `T12.1` CLOSED · `T12.1.1` CLOSED · `T12.2` CLOSED · `T12.3` CLOSED · `T12.4` CLOSED. Production verified; closure freeze complete.
 
 ## Core question
 
@@ -56,7 +58,7 @@ Both resolved by T12.2:
 | `T12.1.1` | POLISH | Mobile regression check (real headless-Chrome measurement, production vs. staging) + `FromTheAuthor` visual polish | T12.1 | Zero viewport regression proven before *and* after the CSS change, deployed-staging re-verified — CLOSED (retroactively sealed under this planning system; see `planning/tickets/T12.1.1-mobile-regression-reader-context-polish.md`) |
 | `T12.2` | IMPLEMENTATION | Semantic projection (`audience`, and independently, `backstory`) + atomic validator migration — the semantic decision itself is already frozen in T12.2's own sealed contract, not made during execution | T12.1.1 | Local/CI/deployed-staging all verified, three-commit choreography (seal/implementation/closure) followed — CLOSED, first prospective product/semantic ticket executed under Planning System v1 |
 | `T12.3` | VALIDATION | Full Reader Context contract QA — adversarial, responsive, accessibility, corpus | T12.2 | Local, seal-CI, deployed-staging, and closure-CI all green — CLOSED, zero defects found, zero committed runtime change |
-| `T12.4` | RELEASE | Production promotion + closure freeze | T12.3 | Canonical docs current, production independently verified |
+| `T12.4` | RELEASE | Production promotion + closure freeze | T12.3 | `main @ b64e381`, production independently verified (human/semantic matrix, reading-shell smoke, PDFs, canonical/Person/DOI/`isBasedOn` regression, indexing unchanged) — CLOSED |
 
 ## Sprint-level acceptance criteria
 
@@ -77,22 +79,20 @@ Both resolved by T12.2:
 - Any point where projecting `readerNote.why`/`readerNote.for` would require stretching a Schema.org property's real meaning to fit — stop and prefer silence (T12.2's own governing rule).
 - Any point where a future ticket would need to infer Reader Context eligibility algorithmically — return to Amul; this sprint's contract forbids it outright.
 
-## Exit state
-
-What must be true when Sprint 12 closes:
+## Exit state — achieved
 
 ```text
-readerNote source model frozen
-FromTheAuthor surface frozen
-semantic projection decision made and validated
-full contract QA passed
-production promotion verified
+readerNote source model frozen           ✅
+FromTheAuthor surface frozen             ✅
+semantic projection decision validated   ✅
+full contract QA passed, zero defects    ✅
+production promotion verified            ✅ (main @ b64e381)
 ```
 
 What remains deliberately open past this sprint: IWL/provenance semantics (Sprint 13+), any further Reader Context field beyond `why`/`for`, and IWL-adjacent relation properties.
 
 ## Canonical documentation targets
 
-- `CHANGELOG.md` — one entry per closed ticket (current through T12.3).
+- `CHANGELOG.md` — one entry per closed ticket (current through T12.4 — Sprint 12's final entry).
 - `ROADMAP.md` — the "Reader Context" in-progress bullet, updated as tickets close.
 - `PUBLISHING.md`/`AGENTS.md` — now current through T12.2's projection decision (frozen and shipped, not rejected).

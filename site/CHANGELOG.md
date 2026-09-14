@@ -2,6 +2,38 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-14 (later still) — T12.4: production promotion + Sprint 12 closure freeze
+
+Sprint 12 (Reader Context) promoted to production and closed. Release choreography: seal (`7a64963`) → pre-release reconciliation (`b64e381`) → Promotion 1 staging→main (`b64e381` fast-forwarded onto `main`) → production verification → this closure commit → Promotion 2 (closure docs to `main`).
+
+**Pre-release reconciliation** (bounded, incorporated before seal per the ticket's own proportionality framing — see below): repaired the duplicate `T12.2` CHANGELOG heading named in the ticket, plus two more of the exact same pattern found by the ticket's own instructed narrow scan around the Sprint 12 entries (duplicate `Sprint 12.1` and `Sprint 12.0` headings) — each case heading-only, body appeared once, nothing else touched, confirmed via `git diff` showing exactly six deleted lines (three heading/blank-line pairs) and nothing else.
+
+**Planning System v1 calibrated toward proportional governance** — `PLANNING.md` gained: (§7) a Proportionality and scope economy subsection distinguishing what may be incorporated before a ticket is sealed (directly adjacent low-risk work, so long as it doesn't hide a materially different decision/architecture/source-of-truth/privacy/risk change) from what may be absorbed after sealing (only work within already-authorized surfaces, introducing no new decision or materially different risk, validatable by the existing acceptance criteria) — evidence depth still follows §5's existing risk classes, not a second ladder; (§11) an explicit statement that a `DEFECT` classification does not automatically imply a new ticket; (§13) a second maxim alongside the existing one: *"Apply the minimum governance necessary for the actual risk. More process is justified only when it materially improves safety, authority, traceability, or evidence."* No template, risk-class, ticket-state, or work-type redesign — this is calibration of how existing governance is applied, not Planning System v2.
+
+**Pre-promotion verification**: `main` confirmed unchanged at the expected baseline (`ad85aa0`) immediately before merge. Full `build` → `build:pdfs` → `validate:pdfs` green on the reconciled release candidate; `npx astro check` unchanged at 3 errors / 0 warnings / 9 hints (62 files) — identical to the `T12.3` baseline. `git diff` confirmed the reconciliation touched only `CHANGELOG.md`/`PLANNING.md` — zero Reader Context runtime files.
+
+**Promoted `staging` → `main`**: clean fast-forward (`ad85aa0` → `b64e381`, 25 files), local build on `main` green before push, GitHub Actions production deploy succeeded.
+
+**Production verified directly, not assumed from workflow success** — a focused smoke test, not a repeat of `T12.3`'s full seven-viewport adversarial matrix, since that ticket already established the contract:
+- **Human Reader Context**: `FromTheAuthor` present on Invariants/Three SOS, genuinely absent on FAFSA/Frontier; visible `why`/`for` text on Invariants confirmed byte-identical to authored source.
+- **Semantic Reader Context**: `audience` present as the exact two-key (`@type`, `audienceType`) object on Invariants/Three SOS, matching source verbatim; absent on FAFSA/Frontier; `backstory` absent everywhere.
+- **Reading-shell smoke test**: Invariants at 390px and 1280px — zero document overflow, `.from-the-author` fully contained within `.prose`, mobile/desktop TOC breakpoint behavior both correct.
+- **PDF production**: all three paper routes return `200`; Invariants' production PDF artifact directly parsed (`pdfjs-dist`) and confirmed to contain "Abstract" but not "From the Author."
+- **Regression smoke**: canonical `<link>` === `Article.url` === `mainEntityOfPage.@id`, `author.@id === publisher.@id`, Invariants' DOI `identifier`, Three SOS's `isBasedOn` → Invariants — all confirmed unchanged on production.
+- **Indexing**: `robots.txt: Disallow: /`, `noindex, nofollow` on every page — unchanged, not enabled.
+
+No production defect found. No rollback needed.
+
+**Closure freeze** (this commit, after production verification succeeded — never before): Sprint 12's contract (`planning/sprints/sprint-12-reader-context.md`) marked `CLOSED`, all six tickets (`T12.0`, `T12.1`, `T12.1.1`, `T12.2`, `T12.3`, `T12.4`) recorded closed; `ROADMAP.md`'s Sprint 12 "In progress" entry replaced with a completion pointer, Sprint 13/`T13.0` recorded as the next earned operation (no Sprint 13 implementation tickets pre-created); this `CHANGELOG.md` entry. A final documentation-drift scan (`ROADMAP.md`, `PLANNING.md`, `planning/sprints/sprint-12-reader-context.md`, `PUBLISHING.md`, `AGENTS.md`, relevant code comments) for stale claims (`Next: 12.3`/`12.4`, `Sprint 12 in progress`, `staging-only Reader Context`, `no Reader Context`, `audience forbidden`, `publisher not decided`, `production pending`) found zero hits beyond the two expected, correct-at-the-time entries this closure itself supersedes — no manufactured edits.
+
+**Diff through this commit**: `planning/tickets/T12.4-production-promotion-sprint-12-closure.md` (seal: ticket body; this commit: `Status: CLOSED` + completion report), `planning/sprints/sprint-12-reader-context.md`, `ROADMAP.md`, `CHANGELOG.md` (this entry). No runtime file changed in the closure commit — all product/validator behavior shipped in the pre-release-reconciliation and promotion steps above, both already production-verified.
+
+**Remaining**: promote this closure documentation to `main` (Promotion 2) and confirm the final docs-only production workflow goes green — no further product verification required, since no runtime diff exists since the already-verified Promotion 1 release.
+
+Sprint 12 is closed. Next: Sprint 13, `T13.0` — IWL Foundation architecture/reality audit.
+
+## 2026-09-14 — T12.3: full Reader Context contract QA
+
 ## 2026-09-14 (later) — T12.3: full Reader Context contract QA
 
 Pure validation, zero committed runtime change. One deliberate end-to-end QA pass treating source model + human surface + machine projection + responsive shell + accessibility structure + PDF exclusion as a single contract, rather than trusting that each independently-verified T12.0–T12.2 slice still agrees with the others. Sealed (`531c527`) → validated → this closure commit, per the ticket's own two-commit choreography.
