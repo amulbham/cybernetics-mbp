@@ -39,17 +39,23 @@ export const SITE_ORIGIN = 'https://amulbham.com';
  * every entry this repo has that must NOT have a paper.pdf, Highwire tags,
  * a Download link, or a PDF MediaObject.
  *
- * Each record: { id, title, format, route, doi }. `route` comes from the
- * real canonicalPath()/categorySegment() (research-routing.ts), never a
- * hand-built "/research/{pillar}/{slug}/" string, so it can't drift from
- * the actual route the same way canonicalURL frontmatter once did. `doi`
- * (Sprint 11.7, added for validate-research-semantics.mjs's DOI/Highwire
- * parity check) is the raw authored frontmatter value — the full resolver
- * URL, or `null` when absent — never pre-stripped here, so each consumer
- * still normalizes it itself the same way ResearchLayout.astro does.
- * Deliberately not extended with dates/tags/description/excerpt/author —
- * no current validator invariant consumes them; extend again only when one
- * genuinely does.
+ * Each record: { id, title, format, route, doi, readerNote }. `route` comes
+ * from the real canonicalPath()/categorySegment() (research-routing.ts),
+ * never a hand-built "/research/{pillar}/{slug}/" string, so it can't drift
+ * from the actual route the same way canonicalURL frontmatter once did.
+ * `doi` (Sprint 11.7, added for validate-research-semantics.mjs's DOI/
+ * Highwire parity check) is the raw authored frontmatter value — the full
+ * resolver URL, or `null` when absent — never pre-stripped here, so each
+ * consumer still normalizes it itself the same way ResearchLayout.astro
+ * does. `readerNote` (T12.2, added for validate-research-semantics.mjs's
+ * audience-projection parity check) is likewise the raw authored
+ * `{ why, for }` object, or `null` when absent — read straight from
+ * frontmatter, not re-parsed through content.config.ts's Zod schema (that
+ * schema is what actually enforces complete-or-absent; this manifest just
+ * exposes whatever's on disk for a validator to compare against). Neither
+ * string is normalized here. Deliberately not extended with dates/tags/
+ * description/excerpt/author — no current validator invariant consumes
+ * them; extend again only when one genuinely does.
  */
 export function discoverResearch() {
 	const papers = [];
@@ -69,6 +75,7 @@ export function discoverResearch() {
 			format: frontmatter.format,
 			route: canonicalPath(entry),
 			doi: frontmatter.doi ?? null,
+			readerNote: frontmatter.readerNote ?? null,
 		};
 		if (frontmatter.format === 'paper') papers.push(record);
 		else nonPapers.push(record);

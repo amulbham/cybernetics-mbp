@@ -202,6 +202,23 @@ const jsonLd = {
 	// Article property above is unaffected by whether this entry has zero
 	// or one approved outgoing edge.
 	...relationProjections,
+	// T12.2 — readerNote.for's one machine projection: a direct, truthful
+	// fit for Schema.org's audience/Audience/audienceType (re-confirmed
+	// live against schema.org during this ticket, not assumed). Emitted
+	// verbatim, never summarized/classified/normalized — the authored
+	// string is the value. readerNote.why deliberately gets no projection
+	// here: Article.backstory's real definition centers NewsArticle-style
+	// reporting process (interviews, data sources), not a research paper's
+	// intellectual motivation — an imperfect-fit property stays silent
+	// rather than shipping an approximate public claim (Sprint 11's own
+	// standing principle). Absence when readerNote is absent is the
+	// contract, not a fallback to omit — never null/[]/{}.
+	...(readerNote && {
+		audience: {
+			'@type': 'Audience',
+			audienceType: readerNote.for,
+		},
+	}),
 };
 
 const breadcrumbJsonLd = {

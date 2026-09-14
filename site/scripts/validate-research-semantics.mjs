@@ -49,12 +49,20 @@ function fail(scope, message) {
 	failures.push(`${scope}: ${message}`);
 }
 
-// Article properties this sprint asserts must never appear on a research
-// Article — no corpus citation graph, no IWL/Reader Context semantics exist
-// in Sprint 11. `isPartOf` is deliberately NOT here: it's the legitimate
-// paper-pillar CollectionPage link (checked on its own terms below), not a
-// forbidden relation property.
-const FORBIDDEN_ARTICLE_PROPERTIES = ['citation', 'mentions', 'hasPart', 'backstory', 'audience'];
+// Article properties that must never appear on a research Article, full
+// stop — no corpus citation graph, no IWL semantics exist yet, and
+// `backstory` stays permanently unearned for `readerNote.why` (Sprint 11.7 +
+// T12.2: its real Schema.org definition centers NewsArticle-style reporting
+// process, not a research paper's intellectual motivation — semantic
+// silence beats an approximate public claim). `isPartOf` is deliberately
+// NOT here: it's the legitimate paper-pillar CollectionPage link (checked
+// on its own terms below), not a forbidden relation property. `audience` is
+// ALSO deliberately not here as of T12.2 — it's no longer a blanket
+// prohibition, it's a source-conditional requirement, checked by its own
+// dedicated assertion below (present-and-exact when `readerNote` exists,
+// absent when it doesn't) — a stronger check than blanket forbiddance, not
+// a weaker one.
+const FORBIDDEN_ARTICLE_PROPERTIES = ['citation', 'mentions', 'hasPart', 'backstory'];
 
 function stripDoiPrefix(doi) {
 	return doi ? doi.replace(/^https?:\/\/doi\.org\//, '') : undefined;
@@ -259,7 +267,7 @@ function validateResearchObject(record) {
 	// Forbidden semantic leakage (§36)
 	for (const prop of FORBIDDEN_ARTICLE_PROPERTIES) {
 		if (Object.prototype.hasOwnProperty.call(article, prop)) {
-			fail(scope, `Article carries forbidden property "${prop}" — no corpus citation/IWL graph exists in Sprint 11`);
+			fail(scope, `Article carries forbidden property "${prop}" — no corpus citation graph or IWL semantics exist yet, and "backstory" stays permanently unearned for readerNote.why regardless of how plausible its value looks`);
 		}
 	}
 
@@ -287,6 +295,33 @@ function validateResearchObject(record) {
 			continue;
 		}
 		assertSetEqual(scope, `Article.${property}`, actualValue, [...expectedSet]);
+	}
+
+	// Reader Context audience projection (T12.2) — an independent oracle:
+	// expected state is derived from record.readerNote (the raw authored
+	// frontmatter value, sourced via discoverResearch()), never from
+	// ResearchLayout.astro's own audience-object construction — the same
+	// posture the relation-projection oracle above already established
+	// (Sprint 11.7's "shared truth, not shared decision logic" rule). Two
+	// states only, never a third: a complete readerNote requires exactly
+	// one { "@type": "Audience", "audienceType": <verbatim> } object (no
+	// extra keys, no geographicArea, no array); no readerNote requires
+	// complete absence — never null/[]/{}. `readerNote.why` gets no
+	// equivalent check here on purpose: it has no projection to verify.
+	if (record.readerNote) {
+		const audience = article.audience;
+		const audienceKeys = audience && typeof audience === 'object' && !Array.isArray(audience) ? Object.keys(audience) : null;
+		const expectedAudience = { '@type': 'Audience', audienceType: record.readerNote.for };
+		const ok =
+			audienceKeys !== null &&
+			audienceKeys.length === 2 &&
+			audience['@type'] === 'Audience' &&
+			audience.audienceType === record.readerNote.for; // exact parsed-string equality with record.readerNote.for — no trimming/normalizing on either side
+		if (!ok) {
+			fail(scope, `Article.audience ${JSON.stringify(audience)} !== expected exactly ${JSON.stringify(expectedAudience)}`);
+		}
+	} else if (article.audience !== undefined) {
+		fail(scope, `Article.audience present (${JSON.stringify(article.audience)}) but source has no readerNote — absence required`);
 	}
 }
 
@@ -359,9 +394,11 @@ function main() {
 	for (const byProperty of expectedProjections.values()) {
 		for (const set of byProperty.values()) projectedCount += set.size;
 	}
+	const audienceCount = allRecords.filter((r) => r.readerNote).length;
 	console.log(
 		`validate-research-semantics: ${allRecords.length} research object(s), ${allRecords.length} Article-like object(s), ` +
-			`canonical identity parity ok, Person/publisher parity ok, DOI/Highwire parity ok, ${projectedCount} projected semantic relation(s), 0 issues.`,
+			`canonical identity parity ok, Person/publisher parity ok, DOI/Highwire parity ok, ${projectedCount} projected semantic relation(s), ` +
+			`${audienceCount} Reader Context audience projection(s) checked, 0 issues.`,
 	);
 }
 
