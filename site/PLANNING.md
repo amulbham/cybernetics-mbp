@@ -83,6 +83,12 @@ Once closed, a ticket is an immutable historical record of authorization, execut
 
 Never rewrite a historical changelog entry to make an old statement appear current. Add a later correction. Present-tense operating instructions, however, must be updated when they become false.
 
+### Clerical repair rule
+
+Closed tickets are immutable in substantive meaning, authorization, implementation evidence, deviations, and outcome. A closed ticket may receive a clerical repair only through a separately sealed corrective ticket when necessary to fix a broken citation, invalid internal reference, typo, or similarly non-substantive defect. The corrective ticket and Git history must preserve traceability.
+
+This does not create permission to reinterpret old authorization, rewrite results, add missing evidence after the fact, change a past deviation, change an outcome, or make historical wording appear current — the Promotion and History rules above still govern all of that.
+
 ---
 
 ## 4. Planning hierarchy
