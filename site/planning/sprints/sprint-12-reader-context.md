@@ -52,7 +52,7 @@ A `readerNote` source model and its one human-facing surface (`FromTheAuthor.ast
 | `T12.0` | AUDIT | Corpus/behavior audit — earn the Reader Context grammar from the real four pieces before any schema exists | Sprint 11 closure | Documentation only, zero production diff — CLOSED |
 | `T12.1` | IMPLEMENTATION | `readerNote` source model + `FromTheAuthor.astro` human surface, on exactly the two pieces that earned it | T12.0 | Full build/PDF/semantic-validator regression green, deployed-staging verified — CLOSED |
 | `T12.1.1` | POLISH | Mobile regression check (real headless-Chrome measurement, production vs. staging) + `FromTheAuthor` visual polish | T12.1 | Zero viewport regression proven before *and* after the CSS change, deployed-staging re-verified — CLOSED (retroactively sealed under this planning system; see `planning/tickets/T12.1.1-mobile-regression-reader-context-polish.md`) |
-| `T12.2` | DECISION + IMPLEMENTATION | Semantic projection decision (`audience`, and independently, `backstory`) + atomic validator migration | T12.1.1 | First prospective product/semantic ticket executed under Planning System v1 |
+| `T12.2` | IMPLEMENTATION | Semantic projection (`audience`, and independently, `backstory`) + atomic validator migration — the semantic decision itself is already frozen in T12.2's own sealed contract, not made during execution | T12.1.1 | First prospective product/semantic ticket executed under Planning System v1 |
 | `T12.3` | VALIDATION | Full Reader Context contract QA — adversarial, responsive, accessibility, corpus | T12.2 | Full chain green, staging gate passed |
 | `T12.4` | RELEASE | Production promotion + closure freeze | T12.3 | Canonical docs current, production independently verified |
 
