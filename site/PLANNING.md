@@ -226,6 +226,37 @@ The completion report must name the assumption, evidence, correction, and result
 
 Record them as findings. Do not fix them inside the current ticket unless they block its acceptance criteria. "While here" is not scope.
 
+### Proportionality and scope economy
+
+Planning rigor must be proportional to the risk and independence of the work.
+
+The purpose of tickets, gates, and corrective records is to preserve correctness, authority, and traceability — not to maximize procedural granularity.
+
+Use the smallest governance unit that safely contains the work.
+
+**Before seal**: directly adjacent low-risk work may be incorporated into a not-yet-sealed ticket when doing so preserves a clear, unified contract. Such incorporation must not hide a materially different product decision, architecture change, source-of-truth change, privacy boundary, or risk class inside an otherwise unrelated ticket.
+
+**After seal**, a finding may be absorbed into the sealed ticket only when it:
+
+- falls within the ticket's already-authorized surfaces;
+- introduces no new product, semantic, architectural, editorial, privacy, or source-of-truth decision;
+- introduces no materially different risk;
+- can be validated by the ticket's existing acceptance criteria without changing the contract.
+
+Otherwise: defer it, or create a separate ticket. Do not rewrite the sealed contract to make newly discovered work appear pre-authorized.
+
+Examples of work that may reasonably remain inside an appropriate existing gate: removing a duplicate Markdown heading during an already-authorized documentation closure; correcting a clerical typo in an active document already being reconciled; making a narrow implementation-detail correction already required by an existing acceptance criterion.
+
+Create a separate ticket when the finding introduces an independent unit of risk, authority, decision, or verification — for example: a runtime or product defect outside authorized implementation; a new semantic or editorial decision; a route, identity, schema, privacy, indexing, or source-of-truth change; a substantive correction to the historical record of a closed ticket; work that can fail independently and should not contaminate the current ticket's evidence; work belonging to another sprint's core question.
+
+Do not create a ticket solely because a defect exists or because the planning hierarchy has somewhere to put one. Likewise, do not absorb work merely to avoid creating a ticket. The governing test is:
+
+> Does separating this work materially improve safety, authority, traceability, or evidence?
+
+If not, prefer the simpler path.
+
+Evidence depth follows the risk classes in §5 — apply only the minimum evidence required by the actual risk. Reference established validators and procedures when they already provide the required proof; do not reproduce higher-risk validation merely because an earlier ticket used it.
+
 ---
 
 ## 8. Sprint contract
@@ -281,6 +312,8 @@ After Claude Code returns a report, ChatGPT classifies each result:
 
 The review ends with one decision: `ACCEPT`, `ACCEPT WITH FOLLOW-UP`, `RETURN FOR CORRECTION`, or `BLOCKED`.
 
+A `DEFECT` classification does not automatically imply a new ticket. The reviewer first applies the proportionality rule in §7 and determines whether the defect can be safely absorbed by an already-authorized adjacent gate. A new ticket is required when separation materially improves safety, authority, traceability, or evidence, or when the existing sealed contract does not authorize the work.
+
 ---
 
 ## 12. Documentation-drift gate
@@ -305,3 +338,5 @@ The gate updates current instructions but never rewrites historical changelog ev
 ## 13. Planning maxim
 
 > The roadmap preserves direction. The program preserves dependency logic. The sprint earns a capability. The ticket constrains execution. The validators prove behavior. The closure freeze moves surviving truth into its canonical home.
+
+> Apply the minimum governance necessary for the actual risk. More process is justified only when it materially improves safety, authority, traceability, or evidence.

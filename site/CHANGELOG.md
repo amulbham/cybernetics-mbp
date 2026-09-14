@@ -43,8 +43,6 @@ Next: `T12.4` — production promotion (`staging` → `main`), production re-ver
 
 ## 2026-09-14 — T12.2: Reader Context audience projection + independent validator migration
 
-## 2026-09-14 — T12.2: Reader Context audience projection + independent validator migration
-
 Planning System v1's first prospective product/semantic ticket, executed end to end under its own sealed contract (`planning/tickets/T12.2-reader-context-audience-projection.md`, sealed at `469cf2c`) and its explicit three-commit choreography: seal (`469cf2c`) → implementation (`68da45b`) → this closure/reconciliation commit.
 
 **Shipped**: `readerNote.for → Article.audience`, exactly `{ "@type": "Audience", "audienceType": "<readerNote.for verbatim>" }`, on every research object that carries `readerNote` — today Invariants and Three SOS. `readerNote.why → Article.backstory` deliberately stays unshipped, permanently, not provisionally: `backstory`'s real Schema.org definition centers `NewsArticle`/journalistic reporting process (interviews, data sources, methods), not a research paper's intellectual motivation — an imperfect fit stays silent rather than shipping an approximate public claim, following the same "semantic silence over approximation" principle Sprint 11.7 already established for the relation-projection layer. Asymmetric projection (`audience` ships, `backstory` doesn't) is the actual verified outcome, not merely a permitted one.
@@ -91,8 +89,6 @@ Diff: `src/components/FromTheAuthor.astro` only. Pushed to `staging`, not `main`
 
 ## 2026-09-11 (later) — Sprint 12.1: Reader Context source + From the Author surface
 
-## 2026-09-11 (later) — Sprint 12.1: Reader Context source + From the Author surface
-
 Implements exactly the contract 12.0's audit earned — no more, no less. Source model + first real human-facing consumer, deliberately together: `readerNote` frontmatter and `FromTheAuthor.astro` ship in the same slice so the grammar is proven against a real reader benefit, not left as an unused schema field. No JSON-LD projection — `audience`/`backstory` stay absent, unchanged, and the semantic validator was not touched.
 
 **Source contract**, `content.config.ts`: `readerNote` is optional at the module level (Sprint 12.0's audit found roughly half the corpus earns it, not every piece), but `.strict()` and complete-or-absent inside — `why`/`for` are both `z.string().min(1)`, and a partial object (either key alone, or an extra key) fails the build. No real fixture ever demonstrated a useful why-only or for-only state, so the object doesn't earn that complexity. Neither string is ever derived from `description`/abstract/tags/pillar/relations — both are authored editorial statements, confirmed by the schema alone having no such derivation path.
@@ -123,8 +119,6 @@ Implements exactly the contract 12.0's audit earned — no more, no less. Source
 **Deliberately not done, per the ticket**: no `Article.audience`/`Article.backstory` emission (asymmetric semantic projection stays explicitly valid — `audience` shipping is not a commitment that `backstory` must); no semantic validator changes; no format gate; no automatic why/for generation; no visible "Why"/"For" label pair (the `why` paragraph reads as the author's own note, unlabeled — only `for` gets the small inline label, per the ticket's own rhythm).
 
 Diff: `content.config.ts`, `src/components/FromTheAuthor.astro` (new), `src/layouts/ArticleShell.astro`, `src/layouts/ResearchLayout.astro`, `src/content/research/the-invariants-of-self-organizing-systems/index.md`, `src/content/research/three-self-organizing-systems/index.md`, `src/styles/print-research.css`. Pending push to `staging` (not `main`) and deployed-HTML verification.
-
-## 2026-09-11 — Sprint 12.0: Reader Context audit (documentation only, zero production diff)
 
 ## 2026-09-11 — Sprint 12.0: Reader Context audit (documentation only, zero production diff)
 
