@@ -3,7 +3,7 @@
 Status: AUDITING
 Risk ceiling: R3 (canonical routing, publication identity, search/index behavior, and public/private boundaries may be affected — no ticket has exercised this ceiling yet; `T13.0` runs at R0)
 Branch: staging
-Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ b64e381`)
+Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ ce93ade`)
 Unlocks: the outer Article/IWL contract decision (`T13.1`) and, downstream, Sprint 14's decomposition/corroboration work against the already-authored Chisel IWL
 
 **Ticket disposition**: `T13.0` CLOSED (audit complete, see its own completion report) · `T13.1`–`T13.4` PROVISIONAL, not sealed. `T13.1` must be written from `T13.0`'s real audit findings (its Required Output D decision queue), not pre-sealed alongside it.
@@ -14,7 +14,7 @@ What is the minimum architecture required for an Intellectual Work Ledger (IWL) 
 
 ## Outcome
 
-A minimal, truthful outer container: an IWL can be associated with exactly one parent Article, can exist in one of three states (no source; source exists but is not publication-authorized; source exists and is publication-authorized), has a canonical route and identity of its own, renders through a deliberately plain shell with earned human navigation, stays outside internal search/index scope until the audit says otherwise, and produces no public machine semantics beyond what is truthfully earned — all while the IWL's internal body (the four surfaces observed in the real fixture: Development Ledger, Decision Record, Authorial Accountability, Dependency/Proof Chain) remains opaque authored content, not schema.
+A minimal, truthful outer container: an IWL can be associated with exactly one parent Article, can exist in one of three states (no source; source exists but is not publication-authorized; source exists and is publication-authorized), has a canonical route and identity of its own, renders through a deliberately plain shell with earned human navigation, and produces no public machine semantics beyond what is truthfully earned — all while the IWL's internal body (the four surfaces observed in the real fixture: Development Ledger, Decision Record, Authorial Accountability, Dependency/Proof Chain) remains opaque authored content, not schema. Internal-search (Pagefind) behavior is explicitly decided by `T13.1` from `T13.0`'s audit evidence, not pre-decided by this contract.
 
 ```text
 Article (canonical, primary scholarly object)
