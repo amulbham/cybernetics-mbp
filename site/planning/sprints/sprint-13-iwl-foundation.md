@@ -1,12 +1,12 @@
 # Sprint 13 — IWL Foundation
 
-Status: AUDITING
+Status: EXECUTING
 Risk ceiling: R3 (canonical routing, publication identity, search/index behavior, and public/private boundaries may be affected — no ticket has exercised this ceiling yet; `T13.0` runs at R0)
 Branch: staging
 Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ ce93ade`)
 Unlocks: the outer Article/IWL contract decision (`T13.1`) and, downstream, Sprint 14's decomposition/corroboration work against the already-authored Chisel IWL
 
-**Ticket disposition**: `T13.0` CLOSED (audit complete) · `T13.1` CLOSED (outer Article/IWL contract frozen, all 8 decisions accepted as recommended — see its Final Decision Record) · `T13.2`–`T13.4` PROVISIONAL, not sealed. Next: draft and seal `T13.2` (implementation of the minimum IWL envelope) from `T13.1`'s frozen contract.
+**Ticket disposition**: `T13.0` CLOSED · `T13.1` CLOSED (outer Article/IWL contract frozen, all 8 decisions accepted as recommended — see its Final Decision Record) · `T13.2` READY (sealed, implementation authorized) · `T13.3`–`T13.4` PROVISIONAL, not sealed.
 
 ## Frozen outer contract (T13.1)
 
