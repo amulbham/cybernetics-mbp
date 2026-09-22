@@ -1,4 +1,4 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
@@ -105,4 +105,37 @@ const research = defineCollection({
 			}),
 });
 
-export const collections = { research };
+// T13.2 — the Intellectual Work Ledger's outer envelope, frozen by T13.1's
+// Final Decision Record. A distinct collection (not a sibling file inside
+// `research`), deliberately narrow: this is the *container* an IWL exists
+// in, never its internal grammar (Development Ledger, Decision Record,
+// Authorial Accountability, Dependency/Proof Chain, or any node/edge/
+// epistemic-status vocabulary) — those stay opaque authored body content,
+// deferred to Sprint 15+. See planning/tickets/T13.1-iwl-outer-contract-
+// decision.md and T13.2-iwl-outer-envelope-implementation.md.
+const iwl = defineCollection({
+	loader: glob({ base: './src/content/iwl', pattern: '**/*.{md,mdx}' }),
+	schema: () =>
+		z
+			.object({
+				// Required typed reference — Astro's own content-reference
+				// validation pass fails the build if this doesn't resolve to a
+				// real `research` entry (fail-closed, not just a shape check).
+				// The IWL owns this association; `research` frontmatter never
+				// gains a reciprocal field (T13.1 D1/D8).
+				parent: reference('research'),
+				title: z.string().trim().min(1),
+				// No default, no inference from file presence/branch/date — an
+				// explicit authored signal is the only source of truth for the
+				// three-state presence/publication model (T13.1 D2).
+				publicationState: z.enum(['unpublished', 'published']),
+				pubDate: z.coerce.date().optional(),
+			})
+			.strict()
+			.refine((data) => data.publicationState !== 'published' || !!data.pubDate, {
+				message: 'pubDate is required when publicationState is "published"',
+				path: ['pubDate'],
+			}),
+});
+
+export const collections = { research, iwl };

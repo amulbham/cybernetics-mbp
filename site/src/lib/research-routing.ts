@@ -17,6 +17,18 @@ export function canonicalPath(entry: CollectionEntry<'research'>): string {
 	return `/research/${categorySegment(entry)}/${entry.id}/`;
 }
 
+/**
+ * T13.1's frozen route contract: an IWL's canonical route derives from its
+ * resolved parent Article's own canonicalPath() — never authored, and not
+ * independently stable (if the parent's category or slug changes, this
+ * route moves with it, which is the subordinate-identity contract, not
+ * drift). Extends this routing authority rather than duplicating it, same
+ * discipline this file's own header comment establishes for canonicalPath.
+ */
+export function iwlPath(parent: CollectionEntry<'research'>): string {
+	return `${canonicalPath(parent)}iwl/`;
+}
+
 const FORMAT_PLURAL_LABELS: Record<string, string> = { essays: 'Essays', memos: 'Memos' };
 
 /** Human-readable label for a category *segment* (not an entry) — "Policy Systems" for a pillar slug, "Essays"/"Memos" for those. */

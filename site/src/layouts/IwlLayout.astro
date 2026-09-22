@@ -1,0 +1,96 @@
+---
+// T13.2 — the deliberately plain outer IWL layout. Reuses genuinely
+// generic publication infrastructure (BaseHead, ArticleShell's shell
+// mechanics — title block, TOC slots, prose container, Header/Footer —
+// Breadcrumbs, TableOfContents, and the site's global Markdown/rehype
+// pipeline) but never ResearchLayout.astro itself: that layout owns
+// substantial Article-specific identity/semantics (Article/ScholarlyArticle
+// JSON-LD, DOI/Highwire, Reader Context, AuthorNote, RelatedResearch,
+// relation projections, paper-PDF encoding) that must never leak onto an
+// IWL page (T13.1 D7/D9, T13.2 §5).
+//
+// No JSON-LD is emitted here at all — semantic silence is the frozen
+// decision (T13.1 D7), not an oversight. astro-seo (inside BaseHead)
+// derives the canonical URL from Astro.url itself, the same way every
+// other page on this site already gets it — no explicit canonical link
+// needed here as long as this page only ever renders at its one real
+// derived route.
+import BaseHead from '../components/BaseHead.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { LICENSE } from '../consts';
+import ArticleShell from './ArticleShell.astro';
+
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+interface Props {
+	title: string;
+	pubDate: Date;
+	parentTitle: string;
+	parentUrl: string;
+	parentCategoryLabel: string;
+	parentCategoryUrl: string;
+	headings: Heading[];
+	minutesRead?: number;
+}
+
+const { title, pubDate, parentTitle, parentUrl, parentCategoryLabel, parentCategoryUrl, headings, minutesRead } =
+	Astro.props;
+
+// Ordinary, truthful, minimal description — never a field authored on the
+// IWL source merely to satisfy rendering plumbing (T13.2 §5's own
+// instruction).
+const description = `Intellectual Work Ledger for "${parentTitle}".`;
+
+const breadcrumbItems = [
+	{ label: 'Home', href: '/' },
+	{ label: 'Research', href: '/research' },
+	{ label: parentCategoryLabel, href: parentCategoryUrl },
+	{ label: parentTitle, href: parentUrl },
+];
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body>
+		<ArticleShell title={title} pubDate={pubDate} minutesRead={minutesRead}>
+			<Fragment slot="before-title">
+				<Breadcrumbs items={breadcrumbItems} />
+			</Fragment>
+			<Fragment slot="after-title">
+				<p class="iwl-companion meta">
+					<span class="iwl-companion-label">Companion to</span>{' '}
+					<a href={parentUrl}>{parentTitle}</a>
+				</p>
+				<p class="iwl-license meta">
+					Licensed <a href={LICENSE.url}>{LICENSE.label}</a>
+				</p>
+			</Fragment>
+			<Fragment slot="mobile-toc">
+				<TableOfContents headings={headings} variant="mobile" />
+			</Fragment>
+			<Fragment slot="toc">
+				<TableOfContents headings={headings} variant="rail" />
+			</Fragment>
+			<slot />
+		</ArticleShell>
+	</body>
+</html>
+
+<style>
+	.iwl-companion,
+	.iwl-license {
+		text-align: center;
+		margin: 0 0 0.3em;
+	}
+	.iwl-companion-label {
+		color: var(--text-secondary);
+	}
+</style>

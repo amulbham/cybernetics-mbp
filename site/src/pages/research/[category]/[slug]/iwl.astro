@@ -1,0 +1,61 @@
+---
+// T13.2 — the subordinate IWL route: /research/{category}/{slug}/iwl/.
+// Coexists with the sibling ../[slug].astro (the parent Article's own
+// route) as a distinct file — Astro's router treats a dynamic-segment
+// folder and a dynamic-segment file of the same name as independent
+// routes, so there's no collision between /research/{category}/{slug}/
+// and /research/{category}/{slug}/iwl/.
+//
+// getStaticPaths reads getIwlRegistry()'s `published` subset only — the
+// same validated registry ResearchLayout.astro's Article->IWL navigation
+// consumes, so route existence and navigation-link existence can never
+// disagree (T13.2 §2 "one registry, not parallel truth"). The registry's
+// own validation (parent resolution, one-IWL-per-parent cardinality)
+// always runs across the *complete* collection first, regardless of this
+// route filtering to `published` — so a malformed or duplicate
+// unpublished entry can't hide from validation.
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import IwlLayout from '../../../../layouts/IwlLayout.astro';
+import { getIwlRegistry } from '../../../../lib/iwl';
+import { canonicalPath, categoryLabelFromSegment, categorySegment } from '../../../../lib/research-routing';
+
+export async function getStaticPaths() {
+	const { published } = await getIwlRegistry();
+	return published.map(({ entry, parent }) => ({
+		params: { category: categorySegment(parent), slug: parent.id },
+		props: { entry, parent },
+	}));
+}
+
+type Props = { entry: CollectionEntry<'iwl'>; parent: CollectionEntry<'research'> };
+
+const { entry, parent } = Astro.props;
+
+// Schema's own .refine() already guarantees this for
+// publicationState: 'published' — defensive fail-closed only, matching
+// this project's standing discipline (ResearchLayout.astro's own
+// relation-projection resolution takes the identical posture).
+if (!entry.data.pubDate) {
+	throw new Error(`IWL route: published entry "${entry.id}" has no pubDate.`);
+}
+
+const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+
+const category = categorySegment(parent);
+const categoryLabel = categoryLabelFromSegment(category);
+const parentUrl = canonicalPath(parent);
+---
+
+<IwlLayout
+	title={entry.data.title}
+	pubDate={entry.data.pubDate}
+	parentTitle={parent.data.title}
+	parentUrl={parentUrl}
+	parentCategoryLabel={categoryLabel}
+	parentCategoryUrl={`/research/${category}/`}
+	headings={headings}
+	minutesRead={remarkPluginFrontmatter.minutesRead}
+>
+	<Content />
+</IwlLayout>

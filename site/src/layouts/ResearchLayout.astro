@@ -19,7 +19,8 @@ import {
 	projectionsSchema,
 	type ProjectionProperty,
 } from '../lib/research-relation-projections';
-import { canonicalPath, categoryLabelFromSegment, categorySegment } from '../lib/research-routing';
+import { getPublishedIwlForParent } from '../lib/iwl';
+import { canonicalPath, categoryLabelFromSegment, categorySegment, iwlPath } from '../lib/research-routing';
 import { personIdentity } from '../lib/structured-data';
 import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
@@ -128,6 +129,17 @@ for (const { property, targetId } of outgoingProjections) {
 // projections, so `...relationProjections` below adds nothing at all —
 // never an empty-array/null placeholder key.
 const relationProjections = projectionsJsonLd(resolvedProjections);
+
+// T13.2 — Article -> IWL navigation. `undefined` covers both ABSENT and
+// SOURCE-EXISTS-UNPUBLISHED identically (T13.1's frozen contract: a
+// visitor can't and shouldn't be able to tell those two states apart).
+// This entry never authors a reciprocal `iwlId`/`iwlUrl`/`hasIwl` field
+// (T13.1 D8) — the link is derived at build time from the IWL side's own
+// validated registry alone, the same one the IWL route itself consumes,
+// so route existence and this link can never disagree. Deliberately kept
+// out of jsonLd below: T13.1 D7 freezes semantic silence for Article<->IWL
+// — this is human navigation only, never a public Schema.org relation.
+const publishedIwl = await getPublishedIwlForParent(id);
 
 const breadcrumbItems = [
 	{ label: 'Home', href: '/' },
@@ -305,6 +317,9 @@ const citationPublicationDate = isPaper
 			.pdf-link {
 				margin-bottom: 1em;
 			}
+			.iwl-link {
+				margin-bottom: 1em;
+			}
 			.hero-image {
 				width: 100%;
 			}
@@ -356,6 +371,17 @@ const citationPublicationDate = isPaper
 					isPaper && paperPdfUrl && (
 						<p class="pdf-link">
 							<a href={paperPdfUrl}>Download PDF</a>
+						</p>
+					)
+				}
+				{
+					// T13.2 — no link, no wrapper, no placeholder, no reserved
+					// spacing for ABSENT or SOURCE-EXISTS-UNPUBLISHED: the same
+					// genuine-absence discipline readerNote/RelatedResearch already
+					// established.
+					publishedIwl && (
+						<p class="iwl-link">
+							<a href={iwlPath(publishedIwl.parent)}>Intellectual Work Ledger</a>
 						</p>
 					)
 				}
