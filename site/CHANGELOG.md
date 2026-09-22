@@ -2,6 +2,30 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-22 (later) — T13.1: freeze the outer Article/IWL contract
+
+`T13.1` closed. DECISION mode, R3 — zero runtime change, documentation only. Seal (`00b9c76`) → product-authority checkpoint (no runtime edits) → this closure commit, per the ticket's own two-commit choreography.
+
+**Pre-seal reconciliation** (the two corrections the ticket itself authorized, nothing else): `planning/sprints/sprint-13-iwl-foundation.md`'s "Depends on" baseline corrected from the stale `main @ b64e381` to the real closed state `main @ ce93ade`; its Outcome section's pre-audit Pagefind assumption ("stays outside internal search/index scope until the audit says otherwise") neutralized to defer explicitly to this ticket's own decision, matching `T13.0`'s real finding that no such default exists in this codebase.
+
+**Seal (Commit A)**: converted `T13.0`'s evidence into a sealed decision basis — 8 decision domains (source ownership, minimal envelope/publication state, route/identity, Pagefind, human navigation, licensing, public semantics, Article-side integration), each with surviving options and a recommended outcome. No final decision recorded at seal time.
+
+**Product-authority checkpoint**: all 8 recommendations reviewed and accepted exactly as specified, with no modifications and no rejections — including licensing (`D6`), which required and received explicit approval rather than a silent default.
+
+**Final Decision Record** (full rationale in `planning/tickets/T13.1-iwl-outer-contract-decision.md`):
+- **D1 Source ownership** — separate `iwl` collection, `IWL.parent` a required typed reference to exactly one `research` entry.
+- **D2 Minimal envelope** — `{ parent, title, publicationState: 'unpublished' | 'published', pubDate? (required iff published), opaque body }`; no `dateModified`; wide exclusion list (format/pillar/doi/tags/version/author/license/inner-grammar fields, etc.) confirmed.
+- **D3 Route/identity** — `/research/{category}/{slug}/iwl/`, derived from the parent's own `canonicalPath()`, never authored; subordinate and parent-governed, not independently stable.
+- **D4 Pagefind** — published IWL indexed normally; no new opt-out mechanism built in Sprint 13.
+- **D5 Human navigation** — Article→IWL link in the existing `after-title` region, conditional, no placeholder; IWL→Article via an explicit "Companion to: `<title>`" link.
+- **D6 Licensing** — published IWL inherits the sitewide `LICENSE` constant (CC BY-NC 4.0); no per-object license field. The Chisel fixtures' own "CC BY 4.0" text is recorded as real drift requiring reconciliation before either is ever published.
+- **D7 Public semantics** — deliberate silence; no Article↔IWL JSON-LD relation this sprint, matching the `backstory` precedent.
+- **D8 Article integration** — Article stays free of authored IWL metadata; the link is derived at build time from the IWL side alone.
+
+**Validation**: `git diff --check`/`git status` clean before and after; `npm run build` green. No `main` promotion — DECISION mode, R3 architectural consequence but zero runtime behavior changed.
+
+Sprint 13 stays `AUDITING`. Next: draft and seal `T13.2` — implementation of the minimum IWL envelope from this frozen contract.
+
 ## 2026-09-22 — T13.0: IWL outer-architecture reality audit
 
 Sprint 13 (IWL Foundation) activated and its first ticket, `T13.0`, closed. AUDIT mode, R0 — zero runtime change, documentation only. Seal (`52e5eaa`) → audit phase (no commits) → this closure commit, per the ticket's own two-commit choreography.

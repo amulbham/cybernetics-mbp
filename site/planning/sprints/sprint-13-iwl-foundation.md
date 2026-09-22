@@ -6,7 +6,34 @@ Branch: staging
 Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ ce93ade`)
 Unlocks: the outer Article/IWL contract decision (`T13.1`) and, downstream, Sprint 14's decomposition/corroboration work against the already-authored Chisel IWL
 
-**Ticket disposition**: `T13.0` CLOSED (audit complete, see its own completion report) · `T13.1`–`T13.4` PROVISIONAL, not sealed. `T13.1` must be written from `T13.0`'s real audit findings (its Required Output D decision queue), not pre-sealed alongside it.
+**Ticket disposition**: `T13.0` CLOSED (audit complete) · `T13.1` CLOSED (outer Article/IWL contract frozen, all 8 decisions accepted as recommended — see its Final Decision Record) · `T13.2`–`T13.4` PROVISIONAL, not sealed. Next: draft and seal `T13.2` (implementation of the minimum IWL envelope) from `T13.1`'s frozen contract.
+
+## Frozen outer contract (T13.1)
+
+```text
+research collection
+└── Article — primary scholarly identity
+
+iwl collection
+└── IWL
+    ├── parent: reference('research'), required, exactly one
+    ├── title: string, required
+    ├── publicationState: 'unpublished' | 'published', no default/inference
+    ├── pubDate: required iff published
+    └── opaque authored body
+
+route:      /research/{category}/{slug}/iwl/  (derived from parent's canonicalPath, not authored)
+search:     published IWL indexed normally by existing Pagefind — no new opt-out
+navigation: Article→IWL in the existing after-title region (conditional, no placeholder);
+            IWL→Article via an explicit "Companion to: <title>" link
+licensing:  inherits sitewide LICENSE (CC BY-NC 4.0) — no per-object license field;
+            Chisel fixtures' own "CC BY 4.0" text must be reconciled before publication
+semantics:  deliberate silence — no Article↔IWL JSON-LD relation this sprint
+Article:    stays free of authored IWL metadata; link is derived at build time, not authored
+PDF:        none — IWL never enters the scholarly PDF pipeline
+```
+
+Full rationale for each decision: `planning/tickets/T13.1-iwl-outer-contract-decision.md`'s Final Decision Record. Inner grammar (the four surfaces, edge/node vocabulary, epistemic status, chronology) remains explicitly open — inherited by Sprint 15+, not this sprint.
 
 ## Core question
 
@@ -105,7 +132,7 @@ Sprint 13 must not:
 | Ticket | Mode | Risk | Purpose | Depends on | Gate |
 |---|---|---|---|---|---|
 | `T13.0` | AUDIT | R0 | Reality audit — production architecture + Chisel Article/IWL fixtures; produce evidence matrix, state matrix, ≤3 candidate outer architectures, `T13.1` decision queue, explicitly-open inner-grammar list | Sprint 12 closure | Zero runtime diff; audit-only — CLOSED, see completion report for full evidence |
-| `T13.1` | DECISION | R1 | Freeze the outer Article/IWL contract from `T13.0`'s real findings | T13.0 | Amul approves unresolved product decisions — PROVISIONAL, not yet written |
+| `T13.1` | DECISION | R3 | Freeze the outer Article/IWL contract from `T13.0`'s real findings | T13.0 | Amul approves unresolved product decisions — CLOSED, all 8 decisions accepted as recommended |
 | `T13.2` | IMPLEMENTATION | R3 | Minimal envelope: presence/publication state, route, plain shell, navigation | T13.1 | Build/validator regression green, deployed-staging verified — PROVISIONAL |
 | `T13.3` | VALIDATION | R2/R3 | Adversarial QA — fixture rendering, true absence, unpublished-source state, full regression | T13.2 | Local/CI/staging all green, zero defects — PROVISIONAL |
 | `T13.4` | RELEASE | R3 | Production promotion + Sprint 13 closure freeze | T13.3 | Production independently verified, Sprint 14 unlocked — PROVISIONAL |
