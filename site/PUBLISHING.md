@@ -28,7 +28,22 @@ A research page is:
 
 Formats: `paper` | `essay` | `memo`. One collection, one layout. URL via `categorySegment()`: papers at `/research/{pillar}/{slug}/`, others at `/research/essays|memos/{slug}/`.
 
-Do not invent a second collection.
+Do not invent a second collection for a fourth format — `iwl` (below) is not that: a different object class entirely, deliberately kept out of `research`.
+
+## 2a. What an IWL page is
+
+An Intellectual Work Ledger is a subordinate companion object, not a fourth research format. Frozen by T13.1, implemented by T13.2 (`planning/tickets/T13.1-iwl-outer-contract-decision.md`, `T13.2-iwl-outer-envelope-implementation.md`):
+
+1. Its own collection, `src/content/iwl/<slug>.md` — `parent` (typed `reference('research')`, required, exactly one, fails the build on a dangling reference), `title`, `publicationState: 'unpublished' | 'published'` (required, no default, never inferred), `pubDate` (required iff published). `.strict()` — no other field.
+2. One IWL source per Article, across all publication states — enforced by `src/lib/iwl.ts`'s registry, the single function both the IWL route and Article-side navigation consume.
+3. Three real states: no source (ABSENT); source exists, `publicationState: unpublished` (exists privately, no public route, no link); source exists, `publicationState: published` (real page). A visitor can't and shouldn't be able to tell ABSENT and unpublished apart.
+4. Route derives from the parent, never authored: `/research/{category}/{slug}/iwl/` (`iwlPath()` in `research-routing.ts`).
+5. Renders through `IwlLayout.astro` — deliberately plain, reuses generic shell mechanics, never `ResearchLayout.astro`. Zero JSON-LD (deliberate semantic silence, matching `backstory`). No PDF (structurally out of `build-research-pdfs.mjs`'s scope). Normal Pagefind indexing, no opt-out.
+6. Bidirectional human navigation only: Article→IWL in the existing `after-title` masthead area; IWL→Article via an explicit "Companion to" line. Neither side authors a reciprocal ID/URL field.
+7. Licensing: the sitewide `LICENSE` constant, same as every research entry — no per-IWL license field, so a source draft's own license text must be reconciled away during conversion.
+8. The authored body (however many internal "surfaces" a real IWL uses — Development Ledger, Decision Record, etc.) is opaque Markdown content, not schema. Node/edge/epistemic-status vocabulary is explicitly deferred to Sprint 15+.
+
+Full field-level detail and the file map: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object."
 
 ## 3. Authoring
 
