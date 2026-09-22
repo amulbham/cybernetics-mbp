@@ -1,6 +1,6 @@
 # Sealed ticket template
 
-Canonical for the exact ticket shape — `PLANNING.md` §9 describes the quality bar; this file owns the one copyable body. Copy the skeleton below into `planning/tickets/TXX.Y-slug.md` and fill it in.
+Canonical for the exact ticket shape — `PLANNING.md` §9 describes the quality bar, §13 the delta-only/length-cap discipline this template enforces; this file owns the one copyable body. Copy the skeleton below into `planning/tickets/TXX.Y-slug.md` and fill it in.
 
 A sealed ticket must let Claude Code answer all of these without guessing:
 
@@ -16,6 +16,22 @@ May I commit, push, merge, or deploy?
 What exactly must I report back?
 ```
 
+## Delta-only discipline
+
+Every field below records only the authorized delta. Reference inherited truth once — `Inherits: <path> @ <commit>` (a prior ticket, `PLANNING.md`, `PUBLISHING.md`, `AGENTS.md`, or the sprint contract) — instead of recopying it. Copy an inherited invariant into the body only when this ticket changes, constrains, or directly tests it.
+
+## Length cap
+
+Applies to the sealed contract body only — frontmatter/header block and the later-appended completion report are excluded, and decorative formatting cannot be used to move substantive text outside the count.
+
+| Risk | Maximum |
+|---|---:|
+| `R0` / `R1` | 150 lines |
+| `R2` | 250 lines |
+| `R3` | 400 lines |
+
+Exceeding the cap requires one explicit exception sentence naming the concrete risk that can't be bounded within it — not a reconciliation exercise. Cut duplication (recopied inherited truth) first.
+
 ---
 
 ```markdown
@@ -27,6 +43,7 @@ Risk: R0 | R1 | R2 | R3
 Branch: staging
 Depends on: ticket IDs / commits / verified contracts
 Unlocks: next ticket or decision
+Inherits: <path> @ <commit> — only what this ticket doesn't itself change/constrain/test
 
 ## Goal
 One bounded outcome.
@@ -35,10 +52,10 @@ One bounded outcome.
 The evidence or dependency that makes this work earned.
 
 ## Starting state
-Verified facts only. Name the relevant files, routes, fixtures, and current behavior.
+Verified facts only, and only the ones this ticket's scope actually touches. Name the relevant files, routes, fixtures, and current behavior — don't restate what `Inherits:` already covers.
 
 ## Decisions already frozen
-Product and architecture choices this ticket must not reopen.
+Product and architecture choices this ticket must not reopen — referenced by source, not restated in full.
 
 ## Questions this ticket may answer
 Unknowns that implementation evidence is allowed to resolve.
@@ -61,6 +78,8 @@ Unknowns that implementation evidence is allowed to resolve.
 ## Validation matrix
 | Layer | Command/check | Expected result |
 
+Cite an established verification bundle/command where one already exists and is trusted, plus only the ticket-specific delta — don't recopy a bundle's component commands.
+
 ## Adversarial tests
 - Mutation or negative case.
 - Expected fail-closed result.
@@ -75,13 +94,14 @@ Unknowns that implementation evidence is allowed to resolve.
 
 ## Git and deployment boundary
 - Commit/push/merge/deploy authority.
+- Commit choreography by risk/mode — `PLANNING.md` §13; state only the ticket-specific deviation, if any.
 - Required staging or production verification.
 
 ## Stop conditions
 - Conditions requiring product review.
 
 ## Required completion report
-Use the standard completion-report template (`planning/templates/completion-report.md`).
+Use the standard completion-report template (`planning/templates/completion-report.md`), including its own length cap.
 
 ## Done when
 One closure statement combining behavior, evidence, documentation, and branch state.

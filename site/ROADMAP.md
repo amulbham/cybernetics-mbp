@@ -2,7 +2,7 @@
 
 Things flagged during past work but deliberately not done yet, plus open questions. Not date-ordered — roughly grouped by how soon they matter. Move an item to `CHANGELOG.md` (with a real date) once it ships; delete it from here.
 
-Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Operating protocol: `PLANNING.md`. This file stays the short current-work index — it does not duplicate ticket acceptance criteria or the full program plan.
+Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Operating protocol: `PLANNING.md` (§13 adds a 2026-09-22 process-efficiency calibration — delta-only contracts, length caps, risk-based commit choreography — prospective only, does not touch any sealed or closed ticket). This file stays the short current-work index — it does not duplicate ticket acceptance criteria or the full program plan.
 
 **Sprint 12 (Reader Context) is complete and production-verified** (`T12.0`–`T12.4`, all `CLOSED`) — `readerNote`, `FromTheAuthor`, and the `readerNote.for → Article.audience` projection are all live on `amulbham.com` (`main @ b64e381`), independently re-verified there: human matrix, semantic matrix, reading-shell smoke test, all three paper PDFs, canonical identity/Person/DOI/`isBasedOn` regression, and indexing state (still deliberately deindexed) all confirmed unchanged. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-12-reader-context.md`.
 

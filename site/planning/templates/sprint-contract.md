@@ -2,6 +2,8 @@
 
 Canonical for the exact sprint-contract shape — `PLANNING.md` §8 describes what each field must accomplish; this file owns the one copyable body. Copy the skeleton below into `planning/sprints/sprint-XX-name.md` and fill it in.
 
+Not length-capped (only sealed ticket contracts and completion reports are — `PLANNING.md` §13), but still delta-only where a field would otherwise restate `PLANNING.md`/`PUBLISHING.md`/`AGENTS.md` or a prior sprint's own frozen record. Reference (`Inherits: <path> @ <commit>`) instead of recopying.
+
 ---
 
 ```markdown

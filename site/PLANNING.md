@@ -2,8 +2,8 @@
 
 **Project:** `amulbham/cybernetics-mbp`
 **Scope:** Planning and executing website-development sprints with ChatGPT as planner/reviewer, Amul as product authority, and Claude Code as implementation agent.
-**Version:** 1.0
-**Calibrated against:** Sprints 7–12 and the planned Sprint 13–17 research-object arc.
+**Version:** 1.1
+**Calibrated against:** Sprints 7–12, the planned Sprint 13–17 research-object arc, and T13.2's process-efficiency calibration (§13, adopted 2026-09-22).
 
 ---
 
@@ -285,6 +285,8 @@ What exactly must I report back?
 
 A ticket must state: Status, Mode, Risk, Branch, Depends on, Unlocks, Goal, Why now, Starting state, Decisions already frozen, Questions this ticket may answer, Scope, Explicit exclusions, Implementation contract, Acceptance criteria, Validation matrix, Adversarial tests, Regression boundaries, Documentation updates, Git and deployment boundary, Stop conditions, Required completion report, and Done when.
 
+Every field above is delta-only and length-capped by risk class — §13 governs both; the exact caps live in the template itself. Inherited truth is referenced (`Inherits: <path> @ <commit>`), never recopied.
+
 The exact copyable structure is canonical in `planning/templates/ticket-contract.md`.
 
 ---
@@ -335,7 +337,68 @@ The gate updates current instructions but never rewrites historical changelog ev
 
 ---
 
-## 13. Planning maxim
+## 13. Process efficiency (2026-09-22 calibration)
+
+Adopted prospectively once `T13.2` closed at `cdb1b10`. Does not rewrite sealed or closed tickets, and does not replace §§1–12 — it tightens how they are applied, in the same spirit as §7's proportionality rule.
+
+### Delta-only contracts
+
+A sealed ticket inherits frozen truth by repository path and commit; it records only the authorized delta.
+
+> An inherited invariant must not be recopied merely because it is important; copy it only when the current ticket changes, constrains, or directly tests it.
+
+Reference inherited truth once — `Inherits: <path> @ <commit>` — instead of restating `PLANNING.md`, `PUBLISHING.md`, `AGENTS.md`, the sprint narrative, or an earlier decision ticket.
+
+### Length caps
+
+Ticket contracts and completion reports are capped by risk (frontmatter/header and the completion report itself excluded from the contract count). Exact limits and the one-sentence exception clause: `planning/templates/ticket-contract.md` and `planning/templates/completion-report.md`. Exceeding a cap never triggers a reconciliation exercise — cut duplication first.
+
+### One-review rule (pre-seal draft review)
+
+Distinct from §11's post-completion Planner review. Before a ticket seals, planner feedback on the *draft* uses three classes:
+
+| Class | Meaning |
+|---|---|
+| `BLOCKER` | Contract cannot safely seal |
+| `REQUIRED` | Must be corrected before seal |
+| `OPTIONAL` | Does not delay seal; defer or omit |
+
+Only `BLOCKER`/`REQUIRED` trigger another draft. Once corrected, no further prose-polish cycle unless the correction introduced a new contradiction.
+
+### Commit choreography follows risk
+
+Seal-before-execution (§9) is unchanged. What's proportional is how many commits follow it:
+
+```text
+R0 audit                         → normally one completion commit
+R1 polish/documentation          → normally one implementation/closure commit
+R2/R3, cross-agent execution     → seal commit → implementation commit
+                                    (+ closure commit only when post-commit
+                                     evidence or canonical-doc promotion
+                                     creates new durable truth worth recording)
+```
+
+Never commit solely to flip `READY`→`CLOSED`, and never embed a commit's own hash in itself (`git log -1 --format=%H -- <path>` remains the resolution, per existing convention).
+
+### Evidence economy
+
+Do not reproduce evidence an authoritative validator or CI job already generated — reference the command, assertion, commit, or workflow result instead. Repeat a check only when it proves a distinct layer (local / staging / production). Once a named verification bundle (e.g. a `package.json` script composing several checks) exists and is trusted, cite it plus only the ticket-specific delta — never recopy its component commands. Bundle scripts themselves are implemented separately, never inside a docs-only calibration commit.
+
+### Closure economy
+
+Close when acceptance criteria pass, required evidence exists, and surviving truth is in its canonical home. Do not extend execution to polish prose, collect redundant evidence, repair unrelated documentation, restate already-frozen architecture, or open a ticket solely because a defect exists (§7 already governs the last one; restated here because it's the most common closure-scope violation).
+
+### No pre-created downstream tickets
+
+Provisional work stays a short list in the active sprint contract. Do not draft `T{n+1}` until `T{n}` has produced the evidence that determines its actual shape — numbering symmetry is not authorization (extends §4's existing renumbering rule to drafting, not just renumbering).
+
+### One primary development intent at a time
+
+Do not run two primary lines of work as concurrent primary intents (e.g., a new sprint's planning alongside an unclosed one, or a new primary publication alongside unclosed architecture work). Finish or explicitly re-scope the current one first.
+
+---
+
+## 14. Planning maxim
 
 > The roadmap preserves direction. The program preserves dependency logic. The sprint earns a capability. The ticket constrains execution. The validators prove behavior. The closure freeze moves surviving truth into its canonical home.
 

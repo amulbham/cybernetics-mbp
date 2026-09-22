@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-22 (later still, after T13.2) — Process efficiency calibration adopted
+
+`PLANNING.md` §13 added (version 1.0 → 1.1), docs-only, no runtime change, no sealed/closed ticket touched: delta-only ticket contracts (`Inherits: <path> @ <commit>`, never recopy an inherited invariant); length caps on sealed ticket contracts (150/250/400 lines by R0-R1/R2/R3) and completion reports (25/50/100 lines); a pre-seal draft-review classification (`BLOCKER`/`REQUIRED`/`OPTIONAL`, distinct from §11's existing post-completion review); risk-based commit choreography (R0/R1 collapse to one post-seal commit by default, R2/R3 keep seal→implementation with an optional closure commit only when it records new durable truth); evidence economy (reference an established validator/CI result instead of reproducing it); and an explicit rule against pre-creating downstream tickets before the evidence that shapes them exists. `planning/templates/{ticket-contract,completion-report,sprint-contract}.md` updated to match. Prospective only — applies starting with `T13.3`.
+
 ## 2026-09-22 (later still) — T13.2: implement the IWL outer envelope + first real IWL published
 
 `T13.2` closed. IMPLEMENTATION mode, R3. Seal (`8dbcfd7`) → B1 architecture-only implementation (`4e87f4c`) → B2 approved real-fixture integration (`07d7f95`) → this closure commit, per the ticket's own explicit two-part-implementation choreography.

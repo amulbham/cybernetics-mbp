@@ -1,6 +1,16 @@
 # Completion-report template
 
-Canonical for the exact completion-report shape — `PLANNING.md` §10 describes what it must cover; this file owns the one copyable body. Append it to the bottom of the sealed ticket file it reports on (`planning/tickets/TXX.Y-slug.md`) once the ticket closes — a ticket's contract and its reconciliation live in the same file (see `PLANNING.md` §3: `planning/tickets/` owns "sealed executor contracts and completion reconciliation").
+Canonical for the exact completion-report shape — `PLANNING.md` §10 describes what it must cover, §13 the length-cap discipline this template enforces. Append it to the bottom of the sealed ticket file it reports on (`planning/tickets/TXX.Y-slug.md`) once the ticket closes — a ticket's contract and its reconciliation live in the same file (see `PLANNING.md` §3: `planning/tickets/` owns "sealed executor contracts and completion reconciliation").
+
+## Length cap
+
+| Risk | Maximum |
+|---|---:|
+| `R0` / `R1` | 25 lines |
+| `R2` | 50 lines |
+| `R3` | 100 lines |
+
+Record outcomes, deviations, verification, and the next gate. Raw logs and full command output stay in CI or the terminal — cite the command and its result, don't paste the transcript.
 
 ---
 
