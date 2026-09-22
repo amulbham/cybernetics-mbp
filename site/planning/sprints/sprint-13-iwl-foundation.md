@@ -6,7 +6,7 @@ Branch: staging
 Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ ce93ade`)
 Unlocks: the outer Article/IWL contract decision (`T13.1`) and, downstream, Sprint 14's decomposition/corroboration work against the already-authored Chisel IWL
 
-**Ticket disposition**: `T13.0` CLOSED · `T13.1` CLOSED · `T13.2` CLOSED (outer envelope implemented on staging, one real Article/IWL pair live) · `T13.3` CLOSED (adversarial/responsive/accessibility/regression validation — zero blocking defects, 3 unrelated pre-existing findings recorded, not fixed; see its completion report) · `T13.4` PROVISIONAL, not sealed. `T13.3`'s evidence earns it: Sprint 13's own exit state requires production promotion, matching `T12.4`'s precedent. Next: draft and seal `T13.4` (RELEASE — production promotion + Sprint 13 closure freeze).
+**Ticket disposition**: `T13.0` CLOSED · `T13.1` CLOSED · `T13.2` CLOSED · `T13.3` CLOSED (adversarial/responsive/accessibility/regression validation — zero blocking defects, 3 unrelated pre-existing findings recorded, not fixed; see its completion report) · `T13.4` READY (sealed — pre-seal dispositions resolved: breadcrumb AC2 gap explicitly accepted by Amul as a known sitewide non-IWL issue, Pagefind claim re-verified with real deployed-staging search-UI evidence). Next: execute `T13.4` — production promotion + Sprint 13 closure freeze.
 
 ## Frozen outer contract (T13.1)
 
