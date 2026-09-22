@@ -16,7 +16,7 @@ Sprints 13–16 define the knowledge system. Sprint 17 only tests whether a CMS 
 
 ```text
 13 → CONTAINER
-14 → OBSERVATION
+14 → DECOMPOSITION / CORROBORATION
 15 → GRAMMAR
 16 → GENERALIZATION
 17 → INTERFACE PRESERVATION
@@ -33,74 +33,66 @@ No later sprint may reach backward and dictate the model of an earlier one. In p
 
 ## Sprint 13 — IWL Foundation
 
-**Core question:** What is the minimum architecture required for an Intellectual Work Ledger to exist beside an Article without pretending its internal grammar is already known?
+**Status:** AUDITING (superseded this section 2026-09-22; only `T13.0` is authorized — see `planning/sprints/sprint-13-iwl-foundation.md` and `planning/tickets/T13.0-iwl-outer-architecture-audit.md` for the live, authoritative contract)
+
+**Core question:** What is the minimum architecture required for an Intellectual Work Ledger (IWL) to exist beside a published Article without pretending its internal grammar is already known?
 
 **Risk ceiling:** R3, because canonical routing, publication identity, search/index behavior, and public/private boundaries may be affected.
 
+**Governing opaque-body rule:** Sprint 13 may render the real Chisel IWL body as authored document content, but freezes only the outer envelope (parent Article association, title/minimal publication metadata, visibility/publication state, authored body). The four surfaces the current IWL fixture happens to contain — Development Ledger, Decision Record, Authorial Accountability, Dependency/Proof Chain — are evidence informing the audit, not schema fields merely because the fixture contains them.
+
+**Presence and publication are separate states.** The architecture must reason about at least three states — no IWL source; source exists but is not publication-authorized; source exists and is publication-authorized — never collapsed into one boolean. Merely existing in source is not equivalent to being public.
+
+**Evidence fixtures**: Fixture A is the current production architecture (`main @ ce93ade`, owning current routing, Article identity, Reader Context, PDFs, Pagefind, relations, semantic validation, deployment, and indexing). Fixtures B and C are real `.docx` files — `ChiselFallacy_v6.docx` (Article) and `ChiselFallacy_IWL_v2.docx` (IWL) — real, architecturally representative, near-final, but their editorial near-final status never implies production authorization by itself.
+
+**Ticket sequence** (supersedes the prior `T13.0`–`T13.6` table directionally; do not preserve old numbering for symmetry):
+
+| Ticket | Mode | Risk | Purpose | Authorization |
+|---|---|---:|---|---|
+| `T13.0` | AUDIT | R0 | Reality audit using production architecture + Chisel Article/IWL fixtures | AUTHORIZED |
+| `T13.1` | DECISION | R1 | Freeze outer Article/IWL contract | PROVISIONAL — written from `T13.0`'s findings, not pre-sealed |
+| `T13.2` | IMPLEMENTATION | R3 | Implement minimal envelope, presence/publication state, route, plain shell, navigation | PROVISIONAL |
+| `T13.3` | VALIDATION | R2/R3 | Adversarial QA of fixture + true absence + unpublished-source state + regressions | PROVISIONAL |
+| `T13.4` | RELEASE | R3 | Production promotion + Sprint 13 closure freeze | PROVISIONAL |
+
 **Inherited truths**
 
-- The Article is the finished intellectual result and remains the primary scholarly object.
-- The IWL is public, curated intellectual provenance — not a changelog, chain-of-thought transcript, raw lab notebook, or second article.
-- Optional presence must produce genuine absence: no empty navigation or placeholder shell.
-- Internal product truth outranks available Schema.org vocabulary.
-- The site remains intentionally deindexed unless Amul explicitly changes that separately.
+- The Article remains the primary scholarly object; the IWL may have a canonical page of its own while remaining subordinate to exactly one valid parent Article and incapable of public existence without it.
+- IWL presence is optional; true absence produces no placeholder route or navigation.
+- Source existence and publication authorization are distinct states.
+- The IWL is public curated intellectual provenance, not raw process dumping — chats, hidden model reasoning, chain-of-thought, credentials, or private notes are never presumed publishable.
+- Public machine semantics may remain thinner than internal product truth; semantic silence is valid.
+- No IWL PDF has yet been earned. Existing indexing policy remains untouched. No inner IWL grammar is authorized in Sprint 13. Keystatic remains downstream of Sprints 13–16.
 
-**Ticket sequence**
+**Hard constraints** — Sprint 13 must not: define node types or edge vocabulary; formalize epistemic statuses; make the four IWL surfaces schema objects; auto-generate provenance; publish raw model interactions or private development material; make IWL presence universal; duplicate Article canonical route truth; make an IWL a peer primary scholarly object; add an IWL PDF for symmetry; let Schema.org dictate internal architecture; alter external indexing policy; weaken existing schemas/validators; simplify the future model for Keystatic.
 
-| Ticket | Mode | Purpose | Gate |
-|---|---|---|---|
-| `T13.0` | AUDIT | Inspect Chisel and at least one published project; answer identity, route, privacy, search, PDF, navigation, and source-model questions | Audit produces an evidence matrix; zero runtime diff |
-| `T13.1` | DECISION | Freeze the outer Article/IWL contract and public-provenance boundary | Amul approves unresolved product decisions |
-| `T13.2` | IMPLEMENTATION | Establish the minimal co-located source/detection contract for one fixture | Presence/absence works without authored route duplication |
-| `T13.3` | IMPLEMENTATION | Build the deliberately plain IWL route, shell, parent identity, and bidirectional human navigation | No empty links; Article remains canonical primary object |
-| `T13.4` | DECISION or IMPLEMENTATION | Evaluate `hasPart`/`isPartOf` and ship only the truthful, earned projection, if any | Semantic validator migrates atomically with emitted semantics |
-| `T13.5` | VALIDATION | Adversarial, route, responsive, accessibility, search/index, PDF, and corpus QA; freeze the outer contract | Full chain and staging gate pass |
-| `T13.6` | RELEASE | Promote and verify production if 13.5 passes | Canonical docs current; production independently verified |
-
-**Key ordering correction:** the source/detection contract precedes the shell that consumes it. This prevents an empty route shell from implicitly dictating how IWL existence is authored.
-
-**Explicit exclusions**
-
-- No frozen node or edge vocabulary.
-- No auto-generation.
-- No graph UI, timeline system, or large component family.
-- No IWL PDF unless the audit produces a concrete need.
-- No hidden reasoning, credentials, private notes, or raw model output.
-
-**Exit state**
-
-```text
-Article/IWL pairing exists
-canonical subordinate route exists
-human navigation exists only when earned
-one fixture can render through a plain shell
-public provenance boundary is explicit
-internal ledger grammar remains deliberately open
-```
+**Exit state** — full Sprint 13 lifecycle: `T13.0` (where can the IWL live?) → `T13.1` (freeze the outer contract) → `T13.2` (make one real IWL exist safely, body treated as opaque authored content) → `T13.3` (prove public/unpublished/absent states, protect existing research architecture) → `T13.4` (production + closure freeze, Sprint 14 unlocked).
 
 ---
 
-## Sprint 14 — Chisel IWL Fixture
+## Sprint 14 — IWL Decomposition & Corroboration
 
-**Core question:** What public provenance objects and relationships actually occurred during one real research process?
+**Status:** hand-off question only; no tickets sealed. Redirected 2026-09-22 from the original "build the first public Chisel IWL" framing — that IWL (`ChiselFallacy_IWL_v2.docx`) already exists as a real authored artifact by the time Sprint 13 runs, so Sprint 14 does not pretend to create it after the fact.
+
+**Core question:** What semantic structure can actually be observed when the authored Chisel IWL is compared with the development evidence it claims to represent?
 
 **Risk ceiling:** R3, because raw research history may contain private, sensitive, misleading, or chain-of-thought-like material.
 
-**Ticket sequence**
+**The evidence relation:**
 
-| Ticket | Mode | Purpose | Gate |
-|---|---|---|---|
-| `T14.0` | AUDIT | Gather Chisel artifacts and create a private inventory with provenance and sensitivity labels | No artifact becomes public |
-| `T14.1` | AUDIT | Build a private chronological reconstruction | Chronology distinguishes observed sequence from inferred causality |
-| `T14.2` | AUDIT | Identify candidate object classes and state transitions from recurring evidence | Categories remain candidates, not schema |
-| `T14.3` | AUDIT | Identify observed relationship types, directionality, and ambiguous cases | No standardized edge vocabulary yet |
-| `T14.4` | DECISION | Perform editorial selection, privacy/redaction review, and public-provenance boundary check | Every public item is intentionally authorized |
-| `T14.5` | IMPLEMENTATION | Hand-construct the first public Chisel IWL in prose-first form | No automatic generation or schema-driven theater |
-| `T14.6` | VALIDATION | Adversarial reader review and fixture freeze | Reader can distinguish evidence, interpretation, uncertainty, rejection, and survival |
+```text
+DEVELOPMENT EVIDENCE ──────┐
+                           ├── corroboration + decomposition
+AUTHORED IWL v2 ───────────┘
+                           ↓
+                   OBSERVED STRUCTURE
+                           ↓
+                   CANDIDATE GRAMMAR
+```
 
-**Public provenance filter**
+Raw chats or model reasoning may be inspected privately only when explicitly authorized and necessary for this corroboration; they are never presumed publication material. Sprint 14 compares private development evidence against the already-authored public IWL — it does not publish the private corpus by default.
 
-Every candidate record must be classified before publication:
+**Public provenance filter** (still applicable to whatever new material this comparison surfaces):
 
 ```text
 PUBLIC → necessary and safe to expose
@@ -110,6 +102,8 @@ PRIVATE → never enter the public IWL
 ```
 
 Raw chain-of-thought and hidden model reasoning are always `PRIVATE`; the ledger may publish concise conclusions, decisions, evidence references, or verification outcomes derived from authorized artifacts.
+
+The prior `T14.0`–`T14.6` ticket sequence (gather artifacts → private chronology → candidate object/relationship classes → editorial selection → hand-construct the first public IWL → adversarial freeze) is superseded by this redirection — it assumed the IWL didn't yet exist. A real ticket sequence for Sprint 14 is not sealed here; it will be derived once Sprint 13 closes and real `T13.0`–`T13.4` evidence exists, following the same audit-first discipline.
 
 **Exit state**
 
