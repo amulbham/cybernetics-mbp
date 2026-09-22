@@ -6,7 +6,7 @@ Branch: staging
 Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ ce93ade`)
 Unlocks: the outer Article/IWL contract decision (`T13.1`) and, downstream, Sprint 14's decomposition/corroboration work against the already-authored Chisel IWL
 
-**Ticket disposition**: `T13.0` CLOSED · `T13.1` CLOSED (outer Article/IWL contract frozen, all 8 decisions accepted as recommended — see its Final Decision Record) · `T13.2` CLOSED (outer envelope implemented on staging, one real Article/IWL pair live — "The Chisel Fallacy: What Pangram Actually Measures," the first `ai-systems` paper) · `T13.3` READY (sealed, validation authorized) · `T13.4` PROVISIONAL, not sealed — drafted only if `T13.3`'s evidence earns it.
+**Ticket disposition**: `T13.0` CLOSED · `T13.1` CLOSED · `T13.2` CLOSED (outer envelope implemented on staging, one real Article/IWL pair live) · `T13.3` CLOSED (adversarial/responsive/accessibility/regression validation — zero blocking defects, 3 unrelated pre-existing findings recorded, not fixed; see its completion report) · `T13.4` PROVISIONAL, not sealed. `T13.3`'s evidence earns it: Sprint 13's own exit state requires production promotion, matching `T12.4`'s precedent. Next: draft and seal `T13.4` (RELEASE — production promotion + Sprint 13 closure freeze).
 
 ## Frozen outer contract (T13.1)
 
@@ -134,7 +134,7 @@ Sprint 13 must not:
 | `T13.0` | AUDIT | R0 | Reality audit — production architecture + Chisel Article/IWL fixtures; produce evidence matrix, state matrix, ≤3 candidate outer architectures, `T13.1` decision queue, explicitly-open inner-grammar list | Sprint 12 closure | Zero runtime diff; audit-only — CLOSED, see completion report for full evidence |
 | `T13.1` | DECISION | R3 | Freeze the outer Article/IWL contract from `T13.0`'s real findings | T13.0 | Amul approves unresolved product decisions — CLOSED, all 8 decisions accepted as recommended |
 | `T13.2` | IMPLEMENTATION | R3 | Minimal envelope: presence/publication state, route, plain shell, navigation | T13.1 | Build/validator regression green, deployed-staging verified — CLOSED, one real Article/IWL pair live |
-| `T13.3` | VALIDATION | R3 | Adversarial QA — fixture rendering, true absence, unpublished-source state, full regression | T13.2 | Local/CI/staging all green, zero defects — READY, sealed |
+| `T13.3` | VALIDATION | R3 | Adversarial QA — fixture rendering, true absence, unpublished-source state, full regression | T13.2 | Local/CI/staging all green, zero defects — CLOSED |
 | `T13.4` | RELEASE | R3 | Production promotion + Sprint 13 closure freeze | T13.3 | Production independently verified, Sprint 14 unlocked — PROVISIONAL |
 
 ## Sprint-level acceptance criteria
