@@ -6,7 +6,7 @@ Branch: staging
 Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ b64e381`)
 Unlocks: the outer Article/IWL contract decision (`T13.1`) and, downstream, Sprint 14's decomposition/corroboration work against the already-authored Chisel IWL
 
-**Ticket disposition**: `T13.0` READY (sealed, not yet executed) · `T13.1`–`T13.4` PROVISIONAL, not sealed. Only `T13.0` is authorized as of this contract. `T13.1` must be written from `T13.0`'s real audit findings, not pre-sealed alongside it.
+**Ticket disposition**: `T13.0` CLOSED (audit complete, see its own completion report) · `T13.1`–`T13.4` PROVISIONAL, not sealed. `T13.1` must be written from `T13.0`'s real audit findings (its Required Output D decision queue), not pre-sealed alongside it.
 
 ## Core question
 
@@ -63,14 +63,14 @@ SOURCE-EXISTS-PUBLISHED   — IWL source exists and is authorized for public dis
 
 ## Hypotheses to test
 
-Not yet decisions — `T13.0`'s job is to produce evidence for `T13.1` to decide against, not to assume any of these:
+Resolved by `T13.0`'s real audit (see its completion report for full evidence — not re-decided here, since `T13.1` still owns the actual freeze):
 
-- **H1** — the IWL can be a genuine content-collection sibling to `research`, reusing the same routing/discovery machinery rather than inventing a parallel system.
-- **H2** — presence/publication state can be expressed through the same co-located source/frontmatter convention the `research` collection already uses, without a new out-of-band flag file.
-- **H3** — the IWL route can be a subordinate path under its parent Article's own canonical URL, rather than a sibling top-level route.
-- **H4** — the plain IWL shell can reuse substantial parts of `ArticleShell.astro`/`ResearchLayout.astro` rather than requiring a parallel layout family.
-- **H5** — Pagefind should exclude IWL content from Sprint 13 onward until a deliberate decision says otherwise, matching the "internal search scope" default of the existing corpus.
-- **H6** — no public JSON-LD relation between Article and IWL is earned in Sprint 13; that projection, if any, is deferred the same way `audience`/`backstory` were separated and decided one at a time in Sprint 12.
+- **H1** — confirmed as viable, not yet chosen: two candidate outer architectures survive the real-fixture pressure test, and both keep the IWL a `research`-adjacent structure (either a sibling file in the same collection, or a small satellite collection with a typed parent reference) rather than an unrelated parallel system. `T13.1` decision queue item 1.
+- **H2** — partially contradicted: no existing frontmatter field expresses a third state today (every optional field in the schema is binary present/absent), so a *new* dedicated field is required — confirmed feasible, but not "already available." `T13.1` decision queue item 2.
+- **H3** — confirmed as the lower-risk direction: nesting under the parent Article's own resolved path extends `canonicalPath()`/`categorySegment()` rather than duplicating routing truth. Still needs an explicit freeze. `T13.1` decision queue item 3.
+- **H4** — confirmed: both fixtures are ordinary Markdown-shaped prose the existing rehype/remark pipeline already parses (tables, parenthetical citations); the plain shell can reuse `ArticleShell.astro`/`ResearchLayout.astro`'s render path with a reduced prop set.
+- **H5** — contradicted as a default: Pagefind has no per-page opt-out mechanism anywhere in this codebase today (confirmed by repo-wide search and the build's own console output — "Indexing all `<body>` elements on the site"). Excluding IWL content requires *adding* new code, not relying on an existing scope. `T13.1` decision queue item 4.
+- **H6** — confirmed: no "default-on" public-semantic path exists anywhere in this codebase (the `isBasedOn`/`audience` precedents both required a standalone, deliberate ticket). No Article↔IWL JSON-LD relation is earned by `T13.0`; `T13.1` decision queue item 7 asks whether Sprint 13 ships in deliberate silence, matching the `backstory` precedent.
 
 ## Hard constraints
 
@@ -104,7 +104,7 @@ Sprint 13 must not:
 
 | Ticket | Mode | Risk | Purpose | Depends on | Gate |
 |---|---|---|---|---|---|
-| `T13.0` | AUDIT | R0 | Reality audit — production architecture + Chisel Article/IWL fixtures; produce evidence matrix, state matrix, ≤3 candidate outer architectures, `T13.1` decision queue, explicitly-open inner-grammar list | Sprint 12 closure | Zero runtime diff; audit-only — AUTHORIZED, currently executing |
+| `T13.0` | AUDIT | R0 | Reality audit — production architecture + Chisel Article/IWL fixtures; produce evidence matrix, state matrix, ≤3 candidate outer architectures, `T13.1` decision queue, explicitly-open inner-grammar list | Sprint 12 closure | Zero runtime diff; audit-only — CLOSED, see completion report for full evidence |
 | `T13.1` | DECISION | R1 | Freeze the outer Article/IWL contract from `T13.0`'s real findings | T13.0 | Amul approves unresolved product decisions — PROVISIONAL, not yet written |
 | `T13.2` | IMPLEMENTATION | R3 | Minimal envelope: presence/publication state, route, plain shell, navigation | T13.1 | Build/validator regression green, deployed-staging verified — PROVISIONAL |
 | `T13.3` | VALIDATION | R2/R3 | Adversarial QA — fixture rendering, true absence, unpublished-source state, full regression | T13.2 | Local/CI/staging all green, zero defects — PROVISIONAL |
