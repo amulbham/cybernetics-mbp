@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** `T14.1` sealed, not yet executed. `T14.0` is closed. Sprint 14 stays open. `T14.2` is not authorized. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-sprint repo state is `fbe9389`. The Sprint 14 contract is authoritative for this sprint.
+**Next authorization gate:** none. `T14.0` and `T14.1` are closed. Sprint 14 stays open. `T14.2` is not authorized. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-sprint repo state is `fbe9389`. The Sprint 14 contract is authoritative for this sprint.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
@@ -72,7 +72,7 @@ No later sprint may reach backward and dictate the model of an earlier one. In p
 
 ## Sprint 14 — IWL Decomposition & Corroboration
 
-**Status:** ACTIVE. Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. `T14.0` is closed. `T14.1` is sealed. `T14.2` stays unwritten. Redirected 2026-09-22 from "build the first public Chisel IWL": that IWL already existed, and Sprint 13 published it.
+**Status:** ACTIVE. Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. `T14.0` and `T14.1` are closed. `T14.2` stays unwritten. Redirected 2026-09-22 from "build the first public Chisel IWL": that IWL already existed, and Sprint 13 published it.
 
 **Core question:** What semantic structure can actually be observed when the authored Chisel IWL is compared with the development evidence it claims to represent?
 
@@ -103,7 +103,7 @@ PRIVATE → never enter the public IWL
 
 Raw chain-of-thought and hidden model reasoning are always `PRIVATE`; the ledger may publish concise conclusions, decisions, evidence references, or verification outcomes derived from authorized artifacts.
 
-The prior `T14.0`–`T14.6` sequence (gather artifacts → private chronology → candidate classes → hand-construct the first public IWL) is superseded. It assumed the IWL did not exist. `T14.0` is closed and `T14.1` is the sealed next ticket. Numbering symmetry does not authorize `T14.2`.
+The prior `T14.0`–`T14.6` sequence (gather artifacts → private chronology → candidate classes → hand-construct the first public IWL) is superseded. It assumed the IWL did not exist. `T14.0` and `T14.1` are closed. Numbering symmetry does not authorize `T14.2`.
 
 **Exit state** (reconciled 2026-09-23; the previous exit asked this sprint to construct the public IWL and enumerate node/state/edge types)
 
