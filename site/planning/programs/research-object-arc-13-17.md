@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** T13.0 — IWL architecture audit
+**Next authorization gate:** T14.0 — Chisel evidence inventory and corroboration audit. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The closed repo state is `fbe9389`. The Sprint 14 contract is authoritative for this sprint.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
@@ -33,7 +33,7 @@ No later sprint may reach backward and dictate the model of an earlier one. In p
 
 ## Sprint 13 — IWL Foundation
 
-**Status:** AUDITING (superseded this section 2026-09-22; only `T13.0` is authorized — see `planning/sprints/sprint-13-iwl-foundation.md` and `planning/tickets/T13.0-iwl-outer-architecture-audit.md` for the live, authoritative contract)
+**Status:** CLOSED. Present-tense authority is `planning/sprints/sprint-13-iwl-foundation.md`. Production behavior was verified at `ca67561`. Closure documentation is in the closed repo state `fbe9389`. The sequence below is retained as program direction, not as open authorization.
 
 **Core question:** What is the minimum architecture required for an Intellectual Work Ledger (IWL) to exist beside a published Article without pretending its internal grammar is already known?
 
@@ -49,11 +49,11 @@ No later sprint may reach backward and dictate the model of an earlier one. In p
 
 | Ticket | Mode | Risk | Purpose | Authorization |
 |---|---|---:|---|---|
-| `T13.0` | AUDIT | R0 | Reality audit using production architecture + Chisel Article/IWL fixtures | AUTHORIZED |
-| `T13.1` | DECISION | R1 | Freeze outer Article/IWL contract | PROVISIONAL — written from `T13.0`'s findings, not pre-sealed |
-| `T13.2` | IMPLEMENTATION | R3 | Implement minimal envelope, presence/publication state, route, plain shell, navigation | PROVISIONAL |
-| `T13.3` | VALIDATION | R2/R3 | Adversarial QA of fixture + true absence + unpublished-source state + regressions | PROVISIONAL |
-| `T13.4` | RELEASE | R3 | Production promotion + Sprint 13 closure freeze | PROVISIONAL |
+| `T13.0` | AUDIT | R0 | Reality audit using production architecture + Chisel Article/IWL fixtures | CLOSED |
+| `T13.1` | DECISION | R1 | Freeze outer Article/IWL contract | CLOSED |
+| `T13.2` | IMPLEMENTATION | R3 | Implement minimal envelope, presence/publication state, route, plain shell, navigation | CLOSED |
+| `T13.3` | VALIDATION | R2/R3 | Adversarial QA of fixture + true absence + unpublished-source state + regressions | CLOSED |
+| `T13.4` | RELEASE | R3 | Production promotion + Sprint 13 closure freeze | CLOSED |
 
 **Inherited truths**
 
@@ -72,7 +72,7 @@ No later sprint may reach backward and dictate the model of an earlier one. In p
 
 ## Sprint 14 — IWL Decomposition & Corroboration
 
-**Status:** hand-off question only; no tickets sealed. Redirected 2026-09-22 from the original "build the first public Chisel IWL" framing — that IWL (`ChiselFallacy_IWL_v2.docx`) already exists as a real authored artifact by the time Sprint 13 runs, so Sprint 14 does not pretend to create it after the fact.
+**Status:** ACTIVE. Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. Only `T14.0` is sealed. Later tickets stay unwritten until `T14.0` shows what they are. Redirected 2026-09-22 from "build the first public Chisel IWL": that IWL already existed, and Sprint 13 published it.
 
 **Core question:** What semantic structure can actually be observed when the authored Chisel IWL is compared with the development evidence it claims to represent?
 
@@ -103,16 +103,18 @@ PRIVATE → never enter the public IWL
 
 Raw chain-of-thought and hidden model reasoning are always `PRIVATE`; the ledger may publish concise conclusions, decisions, evidence references, or verification outcomes derived from authorized artifacts.
 
-The prior `T14.0`–`T14.6` ticket sequence (gather artifacts → private chronology → candidate object/relationship classes → editorial selection → hand-construct the first public IWL → adversarial freeze) is superseded by this redirection — it assumed the IWL didn't yet exist. A real ticket sequence for Sprint 14 is not sealed here; it will be derived once Sprint 13 closes and real `T13.0`–`T13.4` evidence exists, following the same audit-first discipline.
+The prior `T14.0`–`T14.6` sequence (gather artifacts → private chronology → candidate classes → hand-construct the first public IWL) is superseded. It assumed the IWL did not exist. `T14.0` is the only sealed ticket. Numbering symmetry does not authorize `T14.1`.
 
-**Exit state**
+**Exit state** (reconciled 2026-09-23; the previous exit asked this sprint to construct the public IWL and enumerate node/state/edge types)
 
 ```text
-one manually constructed public IWL exists
-private chronology remains separate
-candidate node/state/edge types are enumerated
-awkward and unclassifiable cases are preserved as evidence
-fixture is ready for decomposition, not yet forced into a schema
+meaningful Chisel IWL records are mapped against authorized development evidence
+gaps, contradictions, and unexamined rows stay explicit
+the four layers are assessed as editorial views for this fixture only
+retrospective rationale stays distinct from observable draft changes
+private evidence stays out of the public repository
+no inner grammar, validator, or public machine semantics is frozen
+Sprint 15 receives observations and unresolved questions, not an ontology
 ```
 
 ---
