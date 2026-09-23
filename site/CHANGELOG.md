@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-23 — T14.2: Sprint 14 closure and Sprint 15 handoff
+
+Sprint 14 (IWL Decomposition and Corroboration) closed. Documentation only. No public IWL or Article edit, no schema, no runtime change. Production behavior remains the Sprint 13 verification at `ca67561`.
+
+`T14.0` compared the published Chisel IWL with the authorized drafts and left paper v1, paper v2, paper v4, and the position 3 reviews as gaps. `T14.1` mapped published occurrences separately from provisional shared episodes. The v5 version-table claim that Agency Gradient was "seeded" stays an authored claim: the opened paper v5 does not contain the name. `T14.2` confirmed the five sprint exit conditions from those records, corrected the stale "T14.1 is the sealed next operation" line, and fast-forwarded the docs-only lineage onto `main`.
+
+Two editorial mismatches were recorded and not fixed: the Layer 1 intro says three Discovery Context notes while four are published, and the 4C intro's verb list does not match the twelve cells. Sprint 15 is eligible and unplanned.
+
 ## 2026-09-22 (later still, after T13.3) — T13.4: production promotion + Sprint 13 closure
 
 Sprint 13 (IWL Foundation) promoted to production and closed. Seal (`ca67561`) → Promotion 1 (`ce93ade..ca67561` fast-forward to `main`) → production verification → this closure commit → Promotion 2.

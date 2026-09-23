@@ -1,6 +1,6 @@
 # Sprint 14 — IWL Decomposition & Corroboration
 
-Status: EXECUTING
+Status: CLOSED
 Risk ceiling: R3 (private development evidence and public-claim correction risk)
 Branch: `staging`
 Depends on: Sprint 13 CLOSED. Production behavior verified at `ca67561`. Closed repo state `fbe9389`.
@@ -49,8 +49,9 @@ A traceable comparison of the authored IWL with authorized primary development e
 |---|---|---|---|---|
 | `T14.0` | AUDIT | Inventory authorized evidence, map IWL records, deeply check a varied subset, record view overlap and pressure cases | Sprint 13 CLOSED | CLOSED. Four private outputs plus the completion report. No runtime diff |
 | `T14.1` | AUDIT | Map published occurrences separately from provisional shared episodes, using the published IWL and T14.0's outputs only | T14.0 CLOSED | CLOSED. Three private outputs plus this ticket's report. No new sources. No runtime diff |
+| `T14.2` | RELEASE | Confirm the five exit conditions, close the records, fast-forward the docs to `main` | T14.0 and T14.1 CLOSED at `b55f69c` | CLOSED. Documentation only. Sprint 15 not drafted |
 
-`T14.0` reported its coverage. Amul then directed that missing paper versions stay gaps and are not a prerequisite. `T14.1` is the sealed next operation. `T14.2` is not authorized by numbering.
+`T14.0` reported its coverage. Amul then directed that missing paper versions stay gaps. `T14.1` mapped the published fixture. `T14.2` closed the sprint. Numbering does not authorize a Sprint 15 ticket.
 
 ## Sprint-level acceptance criteria
 
@@ -68,13 +69,20 @@ A traceable comparison of the authored IWL with authorized primary development e
 
 Stop and return to Amul if source access would exceed the designated set, raw chats become necessary, a required source or boundary is ambiguous, sensitive material would enter Git, the live IWL needs a public correction, or audit labels are being turned into schema.
 
-## Exit state
+## Exit state — achieved
 
-- The Chisel comparison exists, with honest gaps.
-- Private chronology stays outside the repository.
-- Awkward and unclassifiable cases are preserved.
-- Sprint 15 receives observations and unresolved questions, not an ontology.
-- The public IWL remains unchanged by this sprint.
+- The Chisel comparison exists, with honest gaps. `T14.0` inventory, matrix, decomposition, and pressure log; `T14.1` occurrence and episode maps.
+- Private chronology stays outside the repository. Outputs A–G are outside Git. `fbe9389..b55f69c` is `planning/` and `ROADMAP.md` only.
+- Awkward and unclassifiable cases are preserved. Domain-count, Karpathy, artifact-v4 versus paper v4, and the edited VMA note stay unresolved. Paper v1, paper v2, paper v4, and the reviews stay gaps.
+- Sprint 15 receives observations and unresolved questions, not an ontology. `G-sprint15-pressure-note.md` asks them. No schema was committed.
+- The public IWL remains unchanged. No commit since `fbe9389` touches it or the Article.
+
+## Deferred editorial findings
+
+Recorded, not fixed, and not a public correction:
+
+- The published Layer 1 intro says three Discovery Context notes. Four are on the page. Layer 2's matching count matches its three notes.
+- The 4C intro lists relationship names that are not the twelve cells. The cell `COLLAPSES_TO →` was not normalized to the intro's `COLLAPSES`.
 
 ## Canonical documentation targets
 
@@ -82,5 +90,5 @@ Stop and return to Amul if source access would exceed the designated set, raw ch
 - `planning/programs/research-object-arc-13-17.md` holds the reconciled present-tense gate and Sprint 14 exit.
 - `ROADMAP.md` holds the current-work pointer.
 - Private analysis lives only in the location verified for `T14.0`.
-- `CHANGELOG.md` waits for sprint closure. This activation does not widen the diff to include it.
+- `CHANGELOG.md` received the Sprint 14 closure entry at T14.2.
 - The closed Sprint 13 contract stays a historical record.
