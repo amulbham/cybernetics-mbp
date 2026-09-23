@@ -1,12 +1,12 @@
 # Sprint 13 — IWL Foundation
 
-Status: EXECUTING
-Risk ceiling: R3 (canonical routing, publication identity, search/index behavior, and public/private boundaries may be affected — no ticket has exercised this ceiling yet; `T13.0` runs at R0)
-Branch: staging
+Status: CLOSED
+Risk ceiling: R3 (canonical routing, publication identity, search/index behavior, and public/private boundaries were affected — exercised at `T13.4`'s production promotion, R0–R3 across the sprint)
+Branch: staging (production-promoted at `T13.4` — `main @ ca67561`)
 Depends on: Sprint 12 closure (Reader Context — `readerNote`, `FromTheAuthor`, `audience` projection, all production-verified at `main @ ce93ade`)
-Unlocks: the outer Article/IWL contract decision (`T13.1`) and, downstream, Sprint 14's decomposition/corroboration work against the already-authored Chisel IWL
+Unlocks: Sprint 14 (decomposition/corroboration against the already-authored Chisel IWL) — unlocked, not yet planned
 
-**Ticket disposition**: `T13.0` CLOSED · `T13.1` CLOSED · `T13.2` CLOSED · `T13.3` CLOSED (adversarial/responsive/accessibility/regression validation — zero blocking defects, 3 unrelated pre-existing findings recorded, not fixed; see its completion report) · `T13.4` READY (sealed — pre-seal dispositions resolved: breadcrumb AC2 gap explicitly accepted by Amul as a known sitewide non-IWL issue, Pagefind claim re-verified with real deployed-staging search-UI evidence). Next: execute `T13.4` — production promotion + Sprint 13 closure freeze.
+**Ticket disposition**: `T13.0` CLOSED · `T13.1` CLOSED · `T13.2` CLOSED · `T13.3` CLOSED (zero blocking defects; 3 unrelated pre-existing findings recorded, not fixed) · `T13.4` CLOSED (production promotion + closure freeze; both pre-seal dispositions — breadcrumb AC2 explicitly accepted by Amul, Pagefind re-verified with real deployed evidence on staging and production — resolved before seal). Sprint 13 closed at `main @ ca67561`.
 
 ## Frozen outer contract (T13.1)
 
@@ -135,7 +135,7 @@ Sprint 13 must not:
 | `T13.1` | DECISION | R3 | Freeze the outer Article/IWL contract from `T13.0`'s real findings | T13.0 | Amul approves unresolved product decisions — CLOSED, all 8 decisions accepted as recommended |
 | `T13.2` | IMPLEMENTATION | R3 | Minimal envelope: presence/publication state, route, plain shell, navigation | T13.1 | Build/validator regression green, deployed-staging verified — CLOSED, one real Article/IWL pair live |
 | `T13.3` | VALIDATION | R3 | Adversarial QA — fixture rendering, true absence, unpublished-source state, full regression | T13.2 | Local/CI/staging all green, zero defects — CLOSED |
-| `T13.4` | RELEASE | R3 | Production promotion + Sprint 13 closure freeze | T13.3 | Production independently verified, Sprint 14 unlocked — PROVISIONAL |
+| `T13.4` | RELEASE | R3 | Production promotion + Sprint 13 closure freeze | T13.3 | Production independently verified, Sprint 14 unlocked — CLOSED |
 
 ## Sprint-level acceptance criteria
 
@@ -157,10 +157,19 @@ Sprint 13 must not:
 - If projecting any Article↔IWL relationship into public JSON-LD would require stretching a Schema.org property's real meaning — stop and prefer silence, per the standing Sprint 12 precedent.
 - If `T13.1`'s decision would require freezing any inner-grammar element ahead of Sprint 15 — stop; that decision does not belong to this sprint.
 
-## Exit state
+## Exit state — achieved
 
-- What must be true when Sprint 13 closes: outer Article/IWL contract frozen and shipped to production; one real IWL (the Chisel fixture, publication-authorization state to be decided at `T13.1`) can exist through the envelope without runtime error; true absence remains genuinely empty on every other piece; internal grammar remains fully open.
-- What remains deliberately open past this sprint: node/edge vocabulary, epistemic ontology, chronology/supersession model, graph model, any Article↔IWL public JSON-LD relation, IWL PDF, Keystatic authoring layer.
+```text
+outer Article/IWL contract frozen           ✅ (T13.1 Final Decision Record)
+outer envelope implemented                  ✅ (T13.2)
+one real IWL exists through the envelope    ✅ (Chisel Fallacy + its IWL, published)
+true absence stays genuinely empty          ✅ (T13.3, all 4 pre-existing entries)
+adversarial/regression validation passed    ✅ (T13.3, zero blocking defects)
+production promotion verified               ✅ (T13.4, main @ ca67561)
+internal grammar remains fully open         ✅ (deferred to Sprint 15+)
+```
+
+What remains deliberately open past this sprint: node/edge vocabulary, epistemic ontology, chronology/supersession model, graph model, any Article↔IWL public JSON-LD relation, IWL PDF, Keystatic authoring layer. Also recorded but not fixed (`T13.3`/`T13.4` findings, all pre-existing and sitewide, not IWL-specific): `Header.astro`'s brand `<h2>` precedes the page `<h1>`; `FormattedDate.astro` lacks an explicit UTC `timeZone` option; `rehype-citation-links.mjs` doesn't link a mixed personal+organizational two-author citation; `Breadcrumbs.astro` renders a styled `<p>`, not a semantic `<nav aria-label>` (explicitly accepted by Amul for this release).
 
 ## Canonical documentation targets
 

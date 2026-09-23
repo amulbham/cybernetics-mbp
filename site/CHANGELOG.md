@@ -2,6 +2,22 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-22 (later still, after T13.3) — T13.4: production promotion + Sprint 13 closure
+
+Sprint 13 (IWL Foundation) promoted to production and closed. Seal (`ca67561`) → Promotion 1 (`ce93ade..ca67561` fast-forward to `main`) → production verification → this closure commit → Promotion 2.
+
+**Pre-seal dispositions resolved before this ticket could seal**: (1) T13.3's AC2 literally required `<nav aria-label>` for breadcrumbs; the real shared `Breadcrumbs.astro` renders `<p class="breadcrumbs meta">` — sitewide, pre-existing, not IWL-specific. Presented to Amul as an explicit accept-or-block choice; **decision: accepted** as a known release gap, no correction routed. (2) T13.3's Pagefind claim rested on local-build inference; re-verified with real, direct, deployed-staging evidence instead — a headless-Chrome session drove the actual `/search` page against `staging.cybernetics-mbp-site.pages.dev`, queried text unique to the IWL body, and got 8 real results including the IWL page and 3 of its own section anchors.
+
+**Promotion 1**: clean fast-forward, `ce93ade` → `ca67561` (confirmed ancestor relationship, no stray commits in the range — exactly the Sprint 13 sequence). Production deploy green.
+
+**Production verified directly, not assumed from workflow success**: Article and IWL routes both `200`; Article's `paper.pdf` `200`, IWL's `paper.pdf` `404`; both pages `noindex, nofollow`; zero `application/ld+json` on the IWL page; Article→IWL and IWL→Article navigation both resolve correctly; both pages show the sitewide CC BY-NC 4.0 license; both URLs present in the sitemap; a real end-to-end production search (same method as the pre-seal disposition, re-run against `amulbham.com`) returns the IWL page and its real section anchors; the Invariants sentinel (canonical/DOI/`audience`/PDF) and Three SOS's `isBasedOn` projection both confirmed byte-identical to their known values.
+
+No production defect found. No rollback needed.
+
+**Closure freeze** (this commit, after production verification succeeded): Sprint 13's contract (`planning/sprints/sprint-13-iwl-foundation.md`) marked `CLOSED`, all five tickets (`T13.0`–`T13.4`) recorded closed; `ROADMAP.md`'s Sprint 13 entry replaced with a completion pointer + Sprint 14 pointer (unlocked, not yet planned).
+
+Sprint 13 is closed. Next: Sprint 14 planning, whenever it's picked up.
+
 ## 2026-09-22 (later still, after the calibration) — T13.3: IWL outer-contract validation
 
 `T13.3` closed. VALIDATION mode, R3 — the first ticket drafted under the new delta-only calibration (102-line sealed contract, well under the 400-line R3 cap; 49-line completion report, under the 100-line cap). Seal (`60d2e58`) → this one closure commit, per the calibration's own R2/R3-with-no-runtime-diff pattern (no separate implementation commit — nothing required a fix).
