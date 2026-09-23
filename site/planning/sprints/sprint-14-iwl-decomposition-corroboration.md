@@ -48,8 +48,9 @@ A traceable comparison of the authored IWL with authorized primary development e
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
 | `T14.0` | AUDIT | Inventory authorized evidence, map IWL records, deeply check a varied subset, record view overlap and pressure cases | Sprint 13 CLOSED | CLOSED. Four private outputs plus the completion report. No runtime diff |
+| `T14.1` | AUDIT | Map published occurrences separately from provisional shared episodes, using the published IWL and T14.0's outputs only | T14.0 CLOSED | READY. Three new private outputs. No new sources. No runtime diff |
 
-Later work is provisional. `T14.0`'s coverage decides whether the next operation is deeper corroboration, decomposition across views, or a bounded correction.
+`T14.0` reported its coverage. Amul then directed that missing paper versions stay gaps and are not a prerequisite. `T14.1` is the sealed next operation. `T14.2` is not authorized by numbering.
 
 ## Sprint-level acceptance criteria
 
