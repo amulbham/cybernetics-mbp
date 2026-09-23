@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** T14.0 — Chisel evidence inventory and corroboration audit. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The closed repo state is `fbe9389`. The Sprint 14 contract is authoritative for this sprint.
+**Next authorization gate:** none sealed. `T14.0` is closed. Sprint 14 stays open until its completion report's next question is shaped into a ticket. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-sprint repo state is `fbe9389`. The Sprint 14 contract is authoritative for this sprint.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
@@ -72,7 +72,7 @@ No later sprint may reach backward and dictate the model of an earlier one. In p
 
 ## Sprint 14 — IWL Decomposition & Corroboration
 
-**Status:** ACTIVE. Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. Only `T14.0` is sealed. Later tickets stay unwritten until `T14.0` shows what they are. Redirected 2026-09-22 from "build the first public Chisel IWL": that IWL already existed, and Sprint 13 published it.
+**Status:** ACTIVE. Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. `T14.0` is closed. Later tickets stay unwritten until its result shapes one. Redirected 2026-09-22 from "build the first public Chisel IWL": that IWL already existed, and Sprint 13 published it.
 
 **Core question:** What semantic structure can actually be observed when the authored Chisel IWL is compared with the development evidence it claims to represent?
 

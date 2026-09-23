@@ -1,6 +1,6 @@
 # Sprint 14 — IWL Decomposition & Corroboration
 
-Status: CONTRACT FROZEN
+Status: EXECUTING
 Risk ceiling: R3 (private development evidence and public-claim correction risk)
 Branch: `staging`
 Depends on: Sprint 13 CLOSED. Production behavior verified at `ca67561`. Closed repo state `fbe9389`.
@@ -47,7 +47,7 @@ A traceable comparison of the authored IWL with authorized primary development e
 
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| `T14.0` | AUDIT | Inventory authorized evidence, map IWL records, deeply check a varied subset, record view overlap and pressure cases | Sprint 13 CLOSED | Four private outputs plus a non-reconstructive repo summary. No runtime diff |
+| `T14.0` | AUDIT | Inventory authorized evidence, map IWL records, deeply check a varied subset, record view overlap and pressure cases | Sprint 13 CLOSED | CLOSED. Four private outputs plus the completion report. No runtime diff |
 
 Later work is provisional. `T14.0`'s coverage decides whether the next operation is deeper corroboration, decomposition across views, or a bounded correction.
 
