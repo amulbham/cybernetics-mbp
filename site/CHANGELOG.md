@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-25 — T15.1: OPAQUE V1 accepted, Sprint 15 closed
+
+Sprint 15 (Minimum IWL Formalization) closed on OPAQUE V1. Amul accepted T15.0's recommendation for the currently accepted Research Object MVP. Documentation only. No public IWL or Article edit, no schema, no runtime change. Production behavior remains the Sprint 13 verification at `ca67561`.
+
+The typed outer IWL envelope stays authoritative. The inner body stays prose-first authored Markdown. No inner machine schema was earned. Inner formalization reopens only when a later accepted operation cannot be performed, or becomes unsafe or meaning-losing, after that outer contract and an appropriate editorial convention have been tried. `PUBLISHING.md` §2a and the matching `AGENTS.md` sentence no longer defer that vocabulary to Sprint 15+.
+
+Sprint 16 is optional and not authorized. The historical Sprint 17 Keystatic label stays, deferred post-MVP and unscheduled. The two Chisel editorial mismatches (Layer 1's note count, and the 4C intro versus its cells) stay recorded for a later content pass.
+
 ## 2026-09-23 — T14.2: Sprint 14 closure and Sprint 15 handoff
 
 Sprint 14 (IWL Decomposition and Corroboration) closed. Documentation only. No public IWL or Article edit, no schema, no runtime change. Production behavior remains the Sprint 13 verification at `ca67561`.

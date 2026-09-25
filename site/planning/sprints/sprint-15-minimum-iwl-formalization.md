@@ -1,6 +1,6 @@
 # Sprint 15 — Minimum IWL Formalization
 
-Status: EXECUTING
+Status: CLOSED
 Risk ceiling: R2; stop and replan if R3 routing, identity, publication, or privacy work is required
 Branch: `staging`
 Depends on: Sprint 14 CLOSED at `main @ 6784e4d` (closure `1aa0d7a`; green deploy recorded at `6784e4d`)
@@ -43,8 +43,9 @@ No new historical evidence hunt, raw chats, v7, second IWL, public IWL rewrite, 
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
 | `T15.0` | AUDIT | Test each material Sprint 14 pressure question for machine-enforcement necessity | Sprint 14 CLOSED | CLOSED. Private matrix H. Recommendation: OPAQUE V1. No schema |
+| `T15.1` | RELEASE | Accept OPAQUE V1, close the sprint, fast-forward the docs to `main` | T15.0 CLOSED; Amul accepted OPAQUE V1 | CLOSED. Documentation only |
 
-Only T15.0 is authorized. Its result determines the next smallest decision or closure operation. A larger model is a stop for Amul; numbering does not authorize subsequent tickets.
+Amul accepted OPAQUE V1. `T15.1` closed the sprint. Numbering does not authorize Sprint 16.
 
 ## Sprint-level acceptance criteria
 
@@ -61,12 +62,15 @@ T15.0 checks matrix coverage, counterexamples, provenance limits, private/output
 
 Stop if a candidate depends on unavailable historical evidence, needs new private access, asserts an authored retrospective as independently verified, requires route/identity/public-semantic changes, or cannot identify an accepted operation beyond future convenience.
 
-## Exit state
+## Exit state — achieved: OPAQUE V1
 
-- **OPAQUE V1:** no further inner structure is required by currently accepted MVP operations; the outer contract and authored body remain, with any earned editorial conventions and a documented revisit trigger.
-- **MINIMAL STRUCTURED V1:** only accepted, demonstrated inner facts are machine-enforced; Chisel loses no authored meaning; validation fails closed on those facts.
+The typed outer envelope remains authoritative. The inner IWL remains prose-first authored Markdown. No inner machine schema was earned for the current MVP. Evidence: T15.0's public completion report and private matrix H, which was not reopened.
 
-Either result is IWL v1 for MVP, not a claim about every future publication. A genuinely different second history may later test it; Sprint 16 is optional before launch. Graph/UI, richer provenance, and CMS ownership remain open.
+Revisit trigger: reopen inner formalization only when a later accepted operation demonstrably cannot be performed, or becomes unsafe or meaning-losing, after the existing outer contract and an appropriate editorial convention have been tried.
+
+Two editorial findings stay deferred for a later content pass, not fixed here: the Layer 1 intro says three Discovery Context notes while four are published, and the 4C introductory vocabulary does not match the authored relation cells.
+
+MINIMAL STRUCTURED V1 was the other legal exit. It was not selected.
 
 ## Canonical documentation targets
 

@@ -6,7 +6,53 @@ Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Oper
 
 **Sprint 12 (Reader Context) is complete and production-verified** (`T12.0`–`T12.4`, all `CLOSED`) — `readerNote`, `FromTheAuthor`, and the `readerNote.for → Article.audience` projection are all live on `amulbham.com` (`main @ b64e381`), independently re-verified there: human matrix, semantic matrix, reading-shell smoke test, all three paper PDFs, canonical identity/Person/DOI/`isBasedOn` regression, and indexing state (still deliberately deindexed) all confirmed unchanged. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-12-reader-context.md`.
 
-**Sprint 13 (IWL Foundation) is complete and production-verified** (`T13.0`–`T13.4`, all `CLOSED`) — the outer Article/IWL envelope (`iwl` collection, validated registry, derived route, plain `IwlLayout`, bidirectional navigation, zero JSON-LD/PDF) is live on `amulbham.com` (`main @ ca67561`), independently re-verified there: both routes `200`, IWL PDF `404`, sitemap inclusion, `noindex, nofollow`, a real end-to-end production search confirming the IWL's own content is indexed, and byte-identical regression on the existing corpus (DOI/`audience`/`isBasedOn`). One real, product-authority-approved pair is live: **"The Chisel Fallacy: What Pangram Actually Measures"** (the first `ai-systems`-pillar paper) and its companion IWL. Field-level reference: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object" and `PUBLISHING.md` §2a. Three pre-existing, sitewide, non-IWL findings were recorded but not fixed (see `planning/tickets/T13.3-iwl-outer-contract-validation.md`); a fourth (breadcrumbs not a semantic `<nav>`) was explicitly accepted by Amul as a known release gap. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-13-iwl-foundation.md`. **Sprint 14** (IWL decomposition and corroboration) is closed (`T14.0`–`T14.2`). Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. **Sprint 15** (minimum IWL formalization) is in progress. `T15.0` is closed and recommends OPAQUE V1. No `T15.1` is drafted. Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. Program direction: `planning/programs/research-object-arc-13-17.md`.
+**Sprint 13 (IWL Foundation) is complete and production-verified** (`T13.0`–`T13.4`, all `CLOSED`) — the outer Article/IWL envelope (`iwl` collection, validated registry, derived route, plain `IwlLayout`, bidirectional navigation, zero JSON-LD/PDF) is live on `amulbham.com` (`main @ ca67561`), independently re-verified there: both routes `200`, IWL PDF `404`, sitemap inclusion, `noindex, nofollow`, a real end-to-end production search confirming the IWL's own content is indexed, and byte-identical regression on the existing corpus (DOI/`audience`/`isBasedOn`). One real, product-authority-approved pair is live: **"The Chisel Fallacy: What Pangram Actually Measures"** (the first `ai-systems`-pillar paper) and its companion IWL. Field-level reference: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object" and `PUBLISHING.md` §2a. Three pre-existing, sitewide, non-IWL findings were recorded but not fixed (see `planning/tickets/T13.3-iwl-outer-contract-validation.md`); a fourth (breadcrumbs not a semantic `<nav>`) was explicitly accepted by Amul as a known release gap. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-13-iwl-foundation.md`. **Sprint 14** (IWL decomposition and corroboration) is closed (`T14.0`–`T14.2`). Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. **Sprint 15** (minimum IWL formalization) is closed on OPAQUE V1 (`T15.0`–`T15.1`). Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. No next sprint is authorized. Program direction: `planning/programs/research-object-arc-13-17.md`.
+
+## Research Object MVP
+
+Directional only. Not authorized for execution. Future sprint numbering is undecided. This block does not say the current corpus is Production Ready.
+
+```text
+Production Ready =
+no known publication defects after the required
+CONTENT + READER + SCHOLARLY checks,
+applied according to each work’s publication format
+
+Corpus target =
+five genuinely Production Ready long-form works from the honest corpus
+(+ additional work only when genuinely ready)
+
+IWL =
+optional capability
+OPAQUE V1
+one strong live companion is sufficient for MVP
+second IWL only if a genuine second history earns it
+
+Optional:
+16 — second-IWL generalization
+     before launch only if a genuinely different second intellectual
+     history exists and product authority chooses the test
+
+Pre-launch direction:
+A — scholarly publication pipeline
+    PDF URL / academic rendering / validators / reusable table mechanics
+
+B — Production Ready corpus + front door
+    apply the reusable system to each launch work
+    CONTENT / READER / SCHOLARLY checks
+    editorial refinement
+    Home / About / corpus presentation
+
+C — route-aware discovery
+    open only intended crawl surfaces
+    verify Scholar-facing routes and metadata
+
+Post-launch:
+Keystatic
+graph UI
+citation JSON-LD
+richer IWL visualization
+```
 
 ## Blocking the actual public launch
 
@@ -35,7 +81,7 @@ Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Oper
 
 ## Polish, not urgent
 
-- **Chisel IWL editorial mismatches, deferred at T14.2.** The Layer 1 intro says three Discovery Context notes; four are published. The 4C intro's verb list does not match the twelve cells (`COLLAPSES` in the list, `COLLAPSES_TO` in the cell, plus cell verbs the list does not name). Recorded, not corrected. Not a schema task and not a standing correction ticket.
+- **Chisel IWL editorial mismatches, carried for the later content / Production Ready pass.** The Layer 1 intro says three Discovery Context notes; four are published. The 4C introductory vocabulary does not match the authored relation cells (`COLLAPSES` in the list, `COLLAPSES_TO` in the cell, plus cell verbs the list does not name). Recorded, not corrected. Not inner schema.
 
 - **Content-detail pass** (next editorial sprint, flagged while writing `PUBLISHING.md` 2026-08-26): the Invariants paper's §4 pull-quote and Counterpoint currently sit stacked right next to each other; the frontier essay's "Frontier is the floor" Counterpoint and Key idea read as a cluster rather than two separated turning points. Neither is wrong, both are worth a second look once there's time for a pure editorial pass rather than a placement sprint. While at it: check across all three earlier published pieces for any restated sentence that now exists twice at full length instead of as a genuine restatement. (The sub-item this once carried — comparing Three SOS's and Invariants' near-identical "About the Author" bios for an unintentional duplicate — is resolved by construction: Sprint 10 deleted both hand-authored bios in favor of one generated `AUTHOR.bio`, so there's nothing left to compare.)
 - **6.1b — quiet header-utility polish.** Flagged as a real judgment call during Sprint 6.1's own implementation (the search-control's active-state "border cue" interpretation, and the brand-text hide-vs-nowrap decision at mobile) but never scheduled as its own sprint. Revisit only if either reads wrong in practice, not proactively.

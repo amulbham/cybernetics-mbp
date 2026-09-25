@@ -41,7 +41,7 @@ An Intellectual Work Ledger is a subordinate companion object, not a fourth rese
 5. Renders through `IwlLayout.astro` — deliberately plain, reuses generic shell mechanics, never `ResearchLayout.astro`. Zero JSON-LD (deliberate semantic silence, matching `backstory`). No PDF (structurally out of `build-research-pdfs.mjs`'s scope). Normal Pagefind indexing, no opt-out.
 6. Bidirectional human navigation only: Article→IWL in the existing `after-title` masthead area; IWL→Article via an explicit "Companion to" line. Neither side authors a reciprocal ID/URL field.
 7. Licensing: the sitewide `LICENSE` constant, same as every research entry — no per-IWL license field, so a source draft's own license text must be reconciled away during conversion.
-8. The authored body (however many internal "surfaces" a real IWL uses — Development Ledger, Decision Record, etc.) is opaque Markdown content, not schema. Node/edge/epistemic-status vocabulary is explicitly deferred to Sprint 15+.
+8. The authored body (however many internal surfaces a real IWL uses — Development Ledger, Decision Record, and the rest) is prose-first authored Markdown, not schema. OPAQUE V1, accepted at T15.1: no inner machine schema was earned for the current Research Object MVP. Reopen inner formalization only when a later accepted operation demonstrably cannot be performed, or becomes unsafe or meaning-losing, after this outer contract and an appropriate editorial convention have been tried.
 
 Full field-level detail and the file map: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object."
 

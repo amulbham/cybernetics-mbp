@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** none sealed. `T15.0` is closed and recommends OPAQUE V1. Sprint 15 stays open until that recommendation is accepted or replaced. No `T15.1`. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 15 contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
+**Next authorization gate:** none. Sprint 15 is closed on OPAQUE V1 (`planning/sprints/sprint-15-minimum-iwl-formalization.md`). No next sprint is authorized. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
@@ -12,14 +12,14 @@ This file preserves the long-range dependency arc. It may propose likely ticket 
 
 ## Program invariant
 
-Sprints 13–16 define the knowledge system. Sprint 17 only tests whether a CMS deserves permission to edit it.
+The original arc below is historical. Current position: Sprints 13–15 are closed. Sprint 15 closed as OPAQUE V1, not as an inner grammar. Sprint 16 is optional and not authorized. The Sprint 17 Keystatic label is deferred post-MVP and unscheduled. It is not renumbered.
 
 ```text
-13 → CONTAINER
-14 → DECOMPOSITION / CORROBORATION
-15 → GRAMMAR
-16 → GENERALIZATION
-17 → INTERFACE PRESERVATION
+13 → CONTAINER                         closed
+14 → DECOMPOSITION / CORROBORATION   closed
+15 → OPAQUE V1                       closed; not an inner schema
+16 → second-IWL generalization       optional, not authorized
+17 → Keystatic                      deferred post-MVP, unscheduled
 ```
 
 No later sprint may reach backward and dictate the model of an earlier one. In particular:
@@ -72,7 +72,7 @@ No later sprint may reach backward and dictate the model of an earlier one. In p
 
 ## Sprint 14 — IWL Decomposition & Corroboration
 
-**Status:** CLOSED at T14.2. Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. `T14.0`, `T14.1`, and `T14.2` are closed. Sprint 15 is eligible and unplanned. Redirected 2026-09-22 from "build the first public Chisel IWL": that IWL already existed, and Sprint 13 published it.
+**Status:** CLOSED at T14.2. Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. `T14.0`, `T14.1`, and `T14.2` are closed. Sprint 15 later closed on OPAQUE V1. Redirected 2026-09-22 from "build the first public Chisel IWL": that IWL already existed, and Sprint 13 published it.
 
 **Core question:** What semantic structure can actually be observed when the authored Chisel IWL is compared with the development evidence it claims to represent?
 
@@ -121,126 +121,26 @@ Sprint 15 receives observations and unresolved questions, not an ontology
 
 ## Sprint 15 — Minimum IWL Formalization
 
-**Status:** EXECUTING. `T15.0` is closed. Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. No further ticket is sealed.
+**Status:** CLOSED on OPAQUE V1 at T15.1. Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`.
 
 The previous `T15.0`–`T15.7` sequence (decompose every unit, then define node types, edge vocabulary, statuses, a strict schema, a Chisel migration, structured views, and a v1 freeze) is superseded. It required an inner grammar before any necessity test. Numbering does not restore it.
 
-**Core question:** What, if anything, inside an IWL needs formal machine-enforced structure beyond the outer envelope already shipped?
-
-**Risk ceiling:** R2, unless a later ticket must change routing, identity, publication, or privacy. That rise is a stop, not an assumed path.
-
-**Exit state:** OPAQUE V1 or MINIMAL STRUCTURED V1, decided from `T15.0`'s evidence. Neither exit is "a schema exists." A larger model is a product decision.
+**Exit achieved:** the typed outer envelope stays authoritative. The inner body stays prose-first authored Markdown. No inner machine schema was earned for the current MVP. Reopen inner formalization only when a later accepted operation demonstrably cannot be performed, or becomes unsafe or meaning-losing, after the outer contract and an appropriate editorial convention have been tried.
 
 ---
 
 ## Sprint 16 — Corpus Generalization
 
-**Status:** NOT AUTHORIZED. Optional before launch, and only if a later decision says a second history should test whatever Sprint 15 actually froze. The ticket table below assumed a Chisel-derived schema and a mandatory second IWL. That assumption is superseded. The table is retained as old direction, not a queue.
+**Status:** OPTIONAL / NOT AUTHORIZED. It runs before launch only if a genuinely different second intellectual history exists and product authority chooses to use it as a generalization test. One live OPAQUE V1 companion is sufficient for the MVP.
 
-**Core question:** Does the Chisel-derived grammar survive heterogeneous research it was not designed around?
-
-**Risk ceiling:** R2.
-
-**Ticket sequence**
-
-| Ticket | Mode | Purpose | Gate |
-|---|---|---|---|
-| `T16.0` | AUDIT | Select structurally diverse rollout fixtures and define why each tests a different pressure | Selection is not convenience-based |
-| `T16.1` | IMPLEMENTATION | Build the second IWL without immediately changing v1 | Every mismatch enters a pressure log first |
-| `T16.2` | AUDIT | Classify pressures as fixture error, missing field/type/edge, bad abstraction, or presentation issue | Schema and UI concerns remain separate |
-| `T16.3` | IMPLEMENTATION | Build one or more additional selective fixtures where they add distinct evidence | No universal IWL requirement |
-| `T16.4` | VALIDATION | Test cross-object semantic consistency, links, states, and rendering | Same label means the same thing everywhere |
-| `T16.5` | AUDIT | Conduct reader-usefulness tests against concrete provenance questions | Avoid provenance theater |
-| `T16.6` | AUDIT | Test machine usefulness through stable IDs, typed nodes/edges, state, and parent identity | No oversized public ontology required |
-| `T16.7` | DECISION | Revise to v1.1 only where repeated or severe evidence warrants it; otherwise freeze v1 | All changes linked to fixture evidence |
-
-**Schema-change discipline**
-
-The first awkward case is recorded before the grammar changes. Immediate change is justified only when the current schema makes a false assertion, loses material meaning, or permits unsafe invalid state. Otherwise, seek recurrence across heterogeneous fixtures before expanding the grammar.
-
-**Eligibility principle**
-
-> An IWL exists when meaningful intellectual construction history is available and its publication adds inspectability.
-
-It is never required merely for structural symmetry.
-
-**Exit state**
-
-```text
-multiple heterogeneous IWLs exist
-pressure log is resolved or explicitly deferred
-eligibility rule is evidence-backed
-v1 or v1.1 is frozen
-human and machine usefulness have been tested separately
-```
+Earlier direction, collapsed so it is not a queue: an eight-ticket sequence, `T16.0`–`T16.7`, assumed a Chisel-derived schema, a second IWL, further fixtures, and a possible v1.1. That assumption is superseded by OPAQUE V1. The old eligibility sentence still holds as direction: an IWL exists when meaningful intellectual construction history is available and its publication adds inspectability. It is never required merely for structural symmetry.
 
 ---
 
 ## Sprint 17 — Keystatic Compatibility Spike
 
-Directional and unscheduled. Its IWL preservation row assumed a node/edge/state grammar. Sprint 15 has not earned that grammar. No Sprint 18 or 19 contract exists in this file; later publication, corpus, and discovery work stays unscheduled.
+**Status:** DEFERRED POST-MVP / UNSCHEDULED. The Keystatic label stays Sprint 17 and is not renumbered. It is not the next pre-launch step.
 
-**Core question:** Can Keystatic act as an interface over the research system without becoming its source of truth?
-
-**Mode:** SPIKE
-**Risk ceiling:** R3, because a CMS can silently rewrite authored source or pressure canonical models.
-
-**Ticket sequence**
-
-| Ticket | Mode | Purpose | Gate |
-|---|---|---|---|
-| `T17.0` | AUDIT | Freeze a field-by-field and artifact-by-artifact preservation matrix | Every tested truth has an owner and oracle |
-| `T17.1` | SPIKE | Configure Keystatic on an isolated branch/fixture set; test paper, essay, and memo authoring | No production-content migration |
-| `T17.2` | SPIKE | Test Reader Context complete-or-absent behavior | Blank/partial states cannot masquerade as absence or validity |
-| `T17.3` | SPIKE | Test canonical relation and projection registries | Dangling or normalized-away relationships fail |
-| `T17.4` | SPIKE | Test IWL nodes, edges, status, order, and provenance | Giant unusable forms are evidence against broad CMS ownership |
-| `T17.5` | VALIDATION | Run byte/semantic Markdown round trips on representative structures | No silent destructive rewrite |
-| `T17.6` | VALIDATION | Run build, relation/link/semantic/PDF validators, routing checks, and Git ownership checks | Existing pipeline remains authoritative |
-| `T17.7` | DECISION | Classify each domain as CMS-managed, file-native, or unsupported | Mixed authoring is explicitly allowed |
-| `T17.8` | DECISION | Record PASS, PARTIAL, or FAIL and define whether Sprint 18 is authorized | Failure is a valid successful spike result |
-
-**Preservation matrix minimum**
-
-| Domain | Required test |
-|---|---|
-| Strict content schema | Invalid and extra fields still fail closed |
-| Reader Context | Absence remains true absence; presence requires `why` and `for` |
-| Authored Markdown | Save without destructive normalization |
-| Citations and anchors | Transforms and inline destinations survive round trip |
-| Research primitives | Syntax and rendered semantics remain intact |
-| Canonical routing | No hand-authored or CMS-owned competing route truth |
-| Relations | IDs, types, direction, optional inline state, anchors, and `near` survive |
-| Semantic projections | Separate registry and editorial authorization remain separate |
-| IWL | Node/edge/state/provenance grammar remains lossless and usable |
-| PDFs | The existing build and validation pipeline remains green |
-| Git ownership | Ordinary files remain the durable source of truth |
-
-**Decision outcomes**
-
-```text
-PASS
-Keystatic can manage the architecture broadly.
-Sprint 18 may proceed.
-
-PARTIAL
-Keystatic may manage bounded article/frontmatter domains.
-Specialized relation and/or IWL systems remain file-native.
-Sprint 18 requires an explicit bounded ownership contract.
-
-FAIL
-Keystatic pressures or damages the architecture.
-File-native authoring remains the system.
-No Sprint 18.
-```
-
-**Automatic failure conditions**
-
-- Weakening schemas or validators.
-- Duplicating canonical data.
-- Moving truth into CMS-only state.
-- Changing canonical routes to satisfy the CMS.
-- Flattening typed relationships or provenance semantics.
-- Accepting lossy Markdown rewrites.
-- Requiring migration before compatibility is proved.
+Historical direction, collapsed so it is not a queue: `T17.0`–`T17.8` asked whether Keystatic could sit over the research system without becoming source of truth. Failure was a valid result. The old preservation matrix included an IWL row that assumed a node/edge/state grammar. OPAQUE V1 did not earn that grammar. No Sprint 18 or 19 contract is created.
 
 ---
