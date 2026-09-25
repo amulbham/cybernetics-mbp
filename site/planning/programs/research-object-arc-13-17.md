@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** none. Sprint 15 is closed on OPAQUE V1 (`planning/sprints/sprint-15-minimum-iwl-formalization.md`). No next sprint is authorized. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
+**Next authorization gate:** `T18.0` sealed. Sprint 15 is closed on OPAQUE V1 (`planning/sprints/sprint-15-minimum-iwl-formalization.md`). Sprint 18 contract: `planning/sprints/sprint-18-scholarly-publication-pipeline.md`. Only `T18.0` is authorized. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
@@ -140,6 +140,10 @@ Earlier direction, collapsed so it is not a queue: an eight-ticket sequence, `T1
 ## Sprint 17 — Keystatic Compatibility Spike
 
 **Status:** DEFERRED POST-MVP / UNSCHEDULED. The Keystatic label stays Sprint 17 and is not renumbered. It is not the next pre-launch step.
+
+## Historical handoff — Sprint 18
+
+Sprint 18, activated with T18.0, is the scholarly publication pipeline: `planning/sprints/sprint-18-scholarly-publication-pipeline.md`. It is not a successor to this Keystatic spike, and it does not reuse the old "Sprint 18 may proceed" wording. Production Ready corpus/front-door work and route-aware discovery stay directional and unnumbered.
 
 Historical direction, collapsed so it is not a queue: `T17.0`–`T17.8` asked whether Keystatic could sit over the research system without becoming source of truth. Failure was a valid result. The old preservation matrix included an IWL row that assumed a node/edge/state grammar. OPAQUE V1 did not earn that grammar. No Sprint 18 or 19 contract is created.
 
