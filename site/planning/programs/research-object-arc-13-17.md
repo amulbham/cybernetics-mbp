@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** none. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 15 is eligible and unplanned. No Sprint 15 ticket exists. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
+**Next authorization gate:** `T15.0` sealed. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 15 contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. Only `T15.0` is authorized. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
@@ -119,49 +119,23 @@ Sprint 15 receives observations and unresolved questions, not an ontology
 
 ---
 
-## Sprint 15 — IWL Schema v1
+## Sprint 15 — Minimum IWL Formalization
 
-**Core question:** What minimum grammar does the Chisel fixture justify?
+**Status:** ACTIVE. Only `T15.0` is sealed. Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`.
 
-**Risk ceiling:** R2, rising to R3 if the schema changes public routes or machine identity.
+The previous `T15.0`–`T15.7` sequence (decompose every unit, then define node types, edge vocabulary, statuses, a strict schema, a Chisel migration, structured views, and a v1 freeze) is superseded. It required an inner grammar before any necessity test. Numbering does not restore it.
 
-**Ticket sequence**
+**Core question:** What, if anything, inside an IWL needs formal machine-enforced structure beyond the outer envelope already shipped?
 
-| Ticket | Mode | Purpose | Gate |
-|---|---|---|---|
-| `T15.0` | AUDIT | Decompose every meaningful public Chisel unit and record classification ambiguity | Full fixture accounted for |
-| `T15.1` | DECISION | Define minimum node types and distinguish type from lifecycle state | No redundant type/state encoding |
-| `T15.2` | DECISION | Define edge vocabulary, semantics, directionality, symmetry, cardinality, and cycle rules | Each edge has explicit meaning and failure cases |
-| `T15.3` | DECISION | Define status/order/supersession behavior and provenance classes | Chronology does not imply causality |
-| `T15.4` | IMPLEMENTATION | Implement strict source schema and fail-closed validation | Unique IDs, referential integrity, enums, and edge-specific constraints enforced |
-| `T15.5` | IMPLEMENTATION | Migrate Chisel into the formal representation | Zero fixture meaning lost to fit the schema |
-| `T15.6` | IMPLEMENTATION | Build prose-first rendering with only earned structured views | No mandatory giant graph or dashboard |
-| `T15.7` | VALIDATION | Adversarial mutations, artifact QA, and v1 contract freeze | Chisel validates and renderer consumes the same contract |
+**Risk ceiling:** R2, unless a later ticket must change routing, identity, publication, or privacy. That rise is a stop, not an assumed path.
 
-**Required modeling distinctions**
-
-- Object identity versus object state.
-- Chronological order versus causal dependency.
-- Source-backed evidence versus author interpretation.
-- Hypothesis versus verified claim.
-- Contradiction versus uncertainty.
-- Supersession versus deletion.
-- Directed, symmetric, and cyclically permissible relationships.
-
-**Exit state**
-
-```text
-IWL schema v1 exists
-Chisel validates without distortion
-typed relationships have explicit semantics
-validator fails closed
-renderer consumes the contract
-public and private provenance remain separated
-```
+**Exit state:** OPAQUE V1 or MINIMAL STRUCTURED V1, decided from `T15.0`'s evidence. Neither exit is "a schema exists." A larger model is a product decision.
 
 ---
 
 ## Sprint 16 — Corpus Generalization
+
+**Status:** NOT AUTHORIZED. Optional before launch, and only if a later decision says a second history should test whatever Sprint 15 actually froze. The ticket table below assumed a Chisel-derived schema and a mandatory second IWL. That assumption is superseded. The table is retained as old direction, not a queue.
 
 **Core question:** Does the Chisel-derived grammar survive heterogeneous research it was not designed around?
 
@@ -203,6 +177,8 @@ human and machine usefulness have been tested separately
 ---
 
 ## Sprint 17 — Keystatic Compatibility Spike
+
+Directional and unscheduled. Its IWL preservation row assumed a node/edge/state grammar. Sprint 15 has not earned that grammar. No Sprint 18 or 19 contract exists in this file; later publication, corpus, and discovery work stays unscheduled.
 
 **Core question:** Can Keystatic act as an interface over the research system without becoming its source of truth?
 
