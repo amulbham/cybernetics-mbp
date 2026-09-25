@@ -3,7 +3,7 @@
 //
 // Run after `astro build` (see package.json's "build:pdfs"). For every
 // `format: paper` entry, typesets the already-built HTML with
-// print-research.css (Sprint 8.1) and writes paper.pdf next to that
+// print-research.css (Sprint 8.1) and writes {entry.id}.pdf next to that
 // entry's index.html in the real dist/. Does not reimplement the print
 // stylesheet or the anchor-canonicalization step — both are imported/used
 // as-is.
@@ -15,7 +15,7 @@
 //     absolutizePdfLinks ONCE on that tree
 //     one loopback static server at the transient root
 //     for each paper: vivliostyle build <served URL> --style print-research.css
-//                      -> real dist/research/{pillar}/{slug}/paper.pdf
+//                      -> real dist/research/{category}/{id}/{id}.pdf
 //     always: stop server, delete transient tree (try/finally)
 //
 // Any paper failure aborts the entire run (non-zero exit) — this script
@@ -27,13 +27,14 @@
 
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
-import { existsSync, mkdtempSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import sirv from 'sirv';
 import { absolutizePdfLinks } from './absolutize-pdf-links.mjs';
 import { discoverPapers } from './discover-research.mjs';
+import { LEGACY_PAPER_PDF_FILENAME, legacyPaperPdfRedirect, paperPdfFilename } from '../src/lib/research-routing.ts';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url)); // site/
 const REAL_DIST = join(ROOT, 'dist');
@@ -127,7 +128,9 @@ async function main() {
 					`build-research-pdfs: no built index.html for paper "${paper.id}" at expected route "${paper.route}" — did astro build run first, and does this id resolve correctly via canonicalPath()?`,
 				);
 			}
-			const outputPdf = join(REAL_DIST, paper.route, 'paper.pdf');
+			const outputPdf = join(REAL_DIST, paper.route, paperPdfFilename(paper.id));
+			const legacyPdf = join(REAL_DIST, paper.route, LEGACY_PAPER_PDF_FILENAME);
+			if (existsSync(legacyPdf)) rmSync(legacyPdf);
 			const servedUrl = `http://127.0.0.1:${SERVER_PORT}${paper.route}`;
 			console.log(`build-research-pdfs: typesetting "${paper.id}" -> ${outputPdf}`);
 			try {
@@ -140,6 +143,12 @@ async function main() {
 			}
 			generated++;
 		}
+
+		const redirectLines = papers
+			.map((paper) => legacyPaperPdfRedirect(paper.route, paper.id))
+			.sort();
+		writeFileSync(join(REAL_DIST, '_redirects'), `${redirectLines.join('\n')}\n`);
+		console.log(`build-research-pdfs: wrote dist/_redirects (${redirectLines.length} legacy 301 rule(s))`);
 	} finally {
 		if (server) await stopServer(server);
 		rmSync(transientDist, { recursive: true, force: true });

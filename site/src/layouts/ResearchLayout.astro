@@ -20,7 +20,7 @@ import {
 	type ProjectionProperty,
 } from '../lib/research-relation-projections';
 import { getPublishedIwlForParent } from '../lib/iwl';
-import { canonicalPath, categoryLabelFromSegment, categorySegment, iwlPath } from '../lib/research-routing';
+import { canonicalPath, categoryLabelFromSegment, categorySegment, iwlPath, paperPdfFilename } from '../lib/research-routing';
 import { personIdentity } from '../lib/structured-data';
 import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
@@ -70,18 +70,16 @@ const canonicalURL = new URL(`/research/${category}/${id}/`, Astro.site).toStrin
 const ogImagePath = `/open-graph/${category}/${id}.png`;
 const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
 
-// The one paper-PDF identity (Sprint 8.4) — derived, never authored. No
-// frontmatter field exists for this; every consumer (Highwire
+// The one paper-PDF identity (Sprint 8.4, filename T18.1) — derived, never
+// authored. No frontmatter field exists for this; every consumer (Highwire
 // citation_pdf_url, the JSON-LD MediaObject, and the reader-facing Download
-// PDF link) reads this same value, so there is exactly one URL a paper's
-// PDF could ever be at. Same subdirectory as the HTML by construction,
-// since canonicalURL always ends in a trailing slash. The PDF itself is
-// produced by a separate, later build step (Sprint 8.2's
-// build-research-pdfs.mjs, which runs after `astro build`) — this is a
-// claim about where that file will be, not a check that it already exists,
-// and must never become one (an fs.existsSync check here would run before
-// the PDF does).
-const paperPdfUrl = isPaper ? new URL('paper.pdf', canonicalURL).toString() : undefined;
+// PDF link) reads this same value. The filename is paperPdfFilename(id),
+// the entry id, not a title slug. Same subdirectory as the HTML by
+// construction, since canonicalURL always ends in a trailing slash. Legacy
+// paper.pdf is not a second file; build-research-pdfs.mjs writes a 301.
+// The PDF itself is produced by a later build step — this is a claim about
+// where that file will be, not a check that it already exists.
+const paperPdfUrl = isPaper ? new URL(paperPdfFilename(id), canonicalURL).toString() : undefined;
 
 // Sprint 11.2 — moved up from its old spot near the Highwire block so
 // JSON-LD's `identifier` and Highwire's `citation_doi` can consume the

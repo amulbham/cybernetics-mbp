@@ -23,12 +23,13 @@
 // is a validator, not a builder; a maintainer fixing a broken deploy wants
 // the whole list in one run, not one failure per re-run.
 
-import { existsSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { AUTHOR } from '../src/consts.ts';
+import { LEGACY_PAPER_PDF_FILENAME, legacyPaperPdfRedirect, paperPdfFilename } from '../src/lib/research-routing.ts';
 import { discoverNonPapers, discoverPapers, SITE_ORIGIN } from './discover-research.mjs';
 import { decodeEntities, extractCitationMeta, extractJsonLdBlocks, findArticleLikeJsonLd } from './lib/built-html.mjs';
 
@@ -183,31 +184,36 @@ async function validatePaper(paper, frontmatter) {
 
 	const pageDir = join(DIST, paper.route);
 	const htmlPath = join(pageDir, 'index.html');
-	const pdfPath = join(pageDir, 'paper.pdf');
+	const pdfName = paperPdfFilename(paper.id);
+	const pdfPath = join(pageDir, pdfName);
+	const legacyPath = join(pageDir, LEGACY_PAPER_PDF_FILENAME);
 	const expectedHtmlUrl = `${SITE_ORIGIN}${paper.route}`;
-	const expectedPdfUrl = `${expectedHtmlUrl}paper.pdf`;
+	const expectedPdfUrl = `${expectedHtmlUrl}${pdfName}`;
 
 	if (!existsSync(htmlPath)) {
 		fail(scope, `index.html missing at ${htmlPath}`);
 		return;
 	}
 	if (!existsSync(pdfPath)) {
-		fail(scope, `paper.pdf missing at ${pdfPath} (expected same directory as index.html)`);
+		fail(scope, `${pdfName} missing at ${pdfPath} (expected same directory as index.html)`);
 		return;
+	}
+	if (existsSync(legacyPath)) {
+		fail(scope, `physical ${LEGACY_PAPER_PDF_FILENAME} exists at ${legacyPath} — legacy URL is a redirect, not a second file`);
 	}
 
 	const pdfSize = statSync(pdfPath).size;
 	if (!(pdfSize > 0 && pdfSize < MAX_PDF_BYTES)) {
-		fail(scope, `paper.pdf size ${pdfSize} bytes — must be > 0 and < ${MAX_PDF_BYTES} bytes`);
+		fail(scope, `${pdfName} size ${pdfSize} bytes — must be > 0 and < ${MAX_PDF_BYTES} bytes`);
 	}
 
 	const parsed = await parsePdf(pdfPath);
 	if (!parsed.ok) {
-		fail(scope, `paper.pdf does not parse: ${parsed.error}`);
+		fail(scope, `${pdfName} does not parse: ${parsed.error}`);
 		return; // no PDF-side checks possible without a parse
 	}
 	if (!(parsed.pageCount >= 1)) {
-		fail(scope, `paper.pdf parsed but has ${parsed.pageCount} pages`);
+		fail(scope, `${pdfName} parsed but has ${parsed.pageCount} pages`);
 	}
 
 	const html = readFileSync(htmlPath, 'utf8');
@@ -315,14 +321,15 @@ function validateNonPaper(entry) {
 	const scope = entry.id;
 	const pageDir = join(DIST, entry.route);
 	const htmlPath = join(pageDir, 'index.html');
-	const pdfPath = join(pageDir, 'paper.pdf');
+	const legacyPath = join(pageDir, LEGACY_PAPER_PDF_FILENAME);
+	const slugPdfPath = join(pageDir, paperPdfFilename(entry.id));
 
 	if (!existsSync(htmlPath)) {
 		fail(scope, `index.html missing at ${htmlPath}`);
 		return;
 	}
-	if (existsSync(pdfPath)) {
-		fail(scope, `paper.pdf exists at ${pdfPath} — ${entry.format} entries must never get one`);
+	if (existsSync(legacyPath) || existsSync(slugPdfPath)) {
+		fail(scope, `a PDF exists beside ${entry.route} — ${entry.format} entries must never get one`);
 	}
 
 	const html = readFileSync(htmlPath, 'utf8');
@@ -336,6 +343,52 @@ function validateNonPaper(entry) {
 	const article = findArticleLikeJsonLd(parsedJsonLdBlocks(html))[0];
 	if (article?.encoding?.['@type'] === 'MediaObject') {
 		fail(scope, 'JSON-LD MediaObject present on a non-paper entry');
+	}
+}
+
+function filesNamed(dir, name, acc = []) {
+	if (!existsSync(dir)) return acc;
+	for (const ent of readdirSync(dir, { withFileTypes: true })) {
+		const path = join(dir, ent.name);
+		if (ent.isDirectory()) filesNamed(path, name, acc);
+		else if (ent.name === name) acc.push(path);
+	}
+	return acc;
+}
+
+function validateRedirects(papers) {
+	const redirectsPath = join(DIST, '_redirects');
+	if (!existsSync(redirectsPath)) {
+		fail('redirects', 'dist/_redirects is missing — build:pdfs must write it before validate:pdfs');
+		return;
+	}
+	const actual = readFileSync(redirectsPath, 'utf8').split(/\r?\n/).filter((line) => line.length > 0).sort();
+	const expected = papers.map((paper) => legacyPaperPdfRedirect(paper.route, paper.id)).sort();
+	if (actual.length !== expected.length || actual.some((line, i) => line !== expected[i])) {
+		fail('redirects', `dist/_redirects does not match the discovered paper corpus.\n    expected:\n      ${expected.join('\n      ')}\n    actual:\n      ${actual.join('\n      ')}`);
+	}
+}
+
+function filesEnding(dir, suffix, acc = []) {
+	if (!existsSync(dir)) return acc;
+	for (const ent of readdirSync(dir, { withFileTypes: true })) {
+		const path = join(dir, ent.name);
+		if (ent.isDirectory()) filesEnding(path, suffix, acc);
+		else if (ent.name.endsWith(suffix)) acc.push(path);
+	}
+	return acc;
+}
+
+function validateNoStrayPaperPdfs() {
+	const stray = filesNamed(join(DIST, 'research'), LEGACY_PAPER_PDF_FILENAME);
+	for (const path of stray) {
+		fail('legacy-file', `physical ${LEGACY_PAPER_PDF_FILENAME} still present at ${path}`);
+	}
+	const sep = join('a', 'b').slice(1, -1);
+	for (const path of filesEnding(join(DIST, 'research'), '.pdf')) {
+		if (path.split(sep).includes('iwl')) {
+			fail('iwl', `PDF present on an IWL route: ${path}`);
+		}
 	}
 }
 
@@ -354,11 +407,14 @@ async function main() {
 
 	let pdfsFound = 0;
 	for (const paper of papers) {
-		const pdfPath = join(DIST, paper.route, 'paper.pdf');
+		const pdfPath = join(DIST, paper.route, paperPdfFilename(paper.id));
 		if (existsSync(pdfPath)) pdfsFound++;
 		const { frontmatter } = readFrontmatterFor(paper.id);
 		await validatePaper(paper, frontmatter);
 	}
+
+	validateRedirects(papers);
+	validateNoStrayPaperPdfs();
 
 	for (const entry of nonPapers) {
 		validateNonPaper(entry);

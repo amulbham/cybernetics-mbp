@@ -43,6 +43,7 @@ No public Article/IWL content rewrite, IWL PDF or inner schema, speculative vali
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
 | `T18.0` | AUDIT / R2 | Inspect PDF identity, all published paper artifacts, live tables, and bounded known housekeeping | Sprint 15 CLOSED; Sprint 18 activation | CLOSED. Evidence report written. Recommendation is not authorization |
+| `T18.1` | IMPLEMENTATION / R3 | Canonical `{entry.id}.pdf` plus a 301 from `paper.pdf`. No second file. No HTML URL change | T18.0 CLOSED; Amul's legacy-link decision | Staging must show 200 and unfollowed 301 before close |
 
 Further operations depend on T18.0's evidence and a separate product/planning review. A PDF URL ticket, print/validator ticket, table-mechanics ticket, or bounded polish ticket may be merged, omitted, or reordered.
 

@@ -18,6 +18,23 @@ export function canonicalPath(entry: CollectionEntry<'research'>): string {
 }
 
 /**
+ * Physical filename of a paper's one PDF. The slug is the research entry
+ * id — the same identity canonicalPath() already uses — not a slug derived
+ * from the display title. T18.1.
+ */
+export function paperPdfFilename(id: string): string {
+	return `${id}.pdf`;
+}
+
+/** Legacy path segment. Not a second file. T18.1 serves it as a 301. */
+export const LEGACY_PAPER_PDF_FILENAME = 'paper.pdf';
+
+/** One explicit Cloudflare Pages redirect line: `{route}paper.pdf` → `{route}{id}.pdf` 301. `route` is canonicalPath() and includes the trailing slash. */
+export function legacyPaperPdfRedirect(route: string, id: string): string {
+	return `${route}${LEGACY_PAPER_PDF_FILENAME} ${route}${paperPdfFilename(id)} 301`;
+}
+
+/**
  * T13.1's frozen route contract: an IWL's canonical route derives from its
  * resolved parent Article's own canonicalPath() — never authored, and not
  * independently stable (if the parent's category or slug changes, this

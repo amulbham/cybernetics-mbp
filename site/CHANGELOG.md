@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-25 — T18.1: canonical paper PDF filename
+
+Each paper's one physical PDF is now `{entry.id}.pdf` beside its article HTML. The slug is the existing research entry id from `canonicalPath()`, not a title slug. Highwire `citation_pdf_url`, JSON-LD `MediaObject.contentUrl`, and the Download link read that one URL. `/paper.pdf` in the same directory is a generated 301 in `dist/_redirects`, one explicit rule per paper, and is not a second file. The Article HTML URL is unchanged. Essays and IWLs still have no PDF. Visual PDF defects and table behavior recorded in T18.0 are not addressed.
+
 ## 2026-09-25 — T15.1: OPAQUE V1 accepted, Sprint 15 closed
 
 Sprint 15 (Minimum IWL Formalization) closed on OPAQUE V1. Amul accepted T15.0's recommendation for the currently accepted Research Object MVP. Documentation only. No public IWL or Article edit, no schema, no runtime change. Production behavior remains the Sprint 13 verification at `ca67561`.
