@@ -1,6 +1,6 @@
 # Sprint 18 — Scholarly Publication Pipeline
 
-Status: CONTRACT FROZEN
+Status: EXECUTING
 Risk ceiling: R3 (a later earned ticket may change public PDF identity); risk is assigned per ticket
 Branch: `staging`
 Depends on: Sprint 15 CLOSED on OPAQUE V1, `main @ 8e60f6b`
@@ -42,7 +42,7 @@ No public Article/IWL content rewrite, IWL PDF or inner schema, speculative vali
 
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| `T18.0` | AUDIT / R2 | Inspect PDF identity, all published paper artifacts, live tables, and bounded known housekeeping | Sprint 15 CLOSED; Sprint 18 activation | Only authorized operation; its recommendation does not authorize T18.1 |
+| `T18.0` | AUDIT / R2 | Inspect PDF identity, all published paper artifacts, live tables, and bounded known housekeeping | Sprint 15 CLOSED; Sprint 18 activation | CLOSED. Evidence report written. Recommendation is not authorization |
 
 Further operations depend on T18.0's evidence and a separate product/planning review. A PDF URL ticket, print/validator ticket, table-mechanics ticket, or bounded polish ticket may be merged, omitted, or reordered.
 

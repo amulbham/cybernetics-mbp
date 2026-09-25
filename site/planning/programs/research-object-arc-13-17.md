@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** `T18.0` sealed. Sprint 15 is closed on OPAQUE V1 (`planning/sprints/sprint-15-minimum-iwl-formalization.md`). Sprint 18 contract: `planning/sprints/sprint-18-scholarly-publication-pipeline.md`. Only `T18.0` is authorized. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
+**Next authorization gate:** none sealed. `T18.0` is closed. Its recommendation is not authorization. Sprint 15 is closed on OPAQUE V1 (`planning/sprints/sprint-15-minimum-iwl-formalization.md`). Sprint 18 contract: `planning/sprints/sprint-18-scholarly-publication-pipeline.md`. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
