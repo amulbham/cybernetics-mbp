@@ -1,6 +1,6 @@
 # Sprint 15 — Minimum IWL Formalization
 
-Status: CONTRACT FROZEN
+Status: EXECUTING
 Risk ceiling: R2; stop and replan if R3 routing, identity, publication, or privacy work is required
 Branch: `staging`
 Depends on: Sprint 14 CLOSED at `main @ 6784e4d` (closure `1aa0d7a`; green deploy recorded at `6784e4d`)
@@ -42,7 +42,7 @@ No new historical evidence hunt, raw chats, v7, second IWL, public IWL rewrite, 
 
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| `T15.0` | AUDIT | Test each material Sprint 14 pressure question for machine-enforcement necessity | Sprint 14 CLOSED | One private necessity matrix and a bounded A/B/BLOCKED recommendation |
+| `T15.0` | AUDIT | Test each material Sprint 14 pressure question for machine-enforcement necessity | Sprint 14 CLOSED | CLOSED. Private matrix H. Recommendation: OPAQUE V1. No schema |
 
 Only T15.0 is authorized. Its result determines the next smallest decision or closure operation. A larger model is a stop for Amul; numbering does not authorize subsequent tickets.
 

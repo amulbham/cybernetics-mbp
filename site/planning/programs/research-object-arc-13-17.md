@@ -2,7 +2,7 @@
 
 **Status:** PROVISIONAL
 **Depends on:** Sprint 12 closure
-**Next authorization gate:** `T15.0` sealed. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 15 contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. Only `T15.0` is authorized. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
+**Next authorization gate:** none sealed. `T15.0` is closed and recommends OPAQUE V1. Sprint 15 stays open until that recommendation is accepted or replaced. No `T15.1`. Sprint 14 is closed (`planning/sprints/sprint-14-iwl-decomposition-corroboration.md`). Sprint 15 contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. Sprint 13 is closed (`planning/sprints/sprint-13-iwl-foundation.md`). Production behavior was verified at `ca67561`. The pre-Sprint-14 repo state is `fbe9389`.
 **Authority:** Directional program plan, not an implementation contract
 **Program owner:** Amul Bham
 
@@ -121,7 +121,7 @@ Sprint 15 receives observations and unresolved questions, not an ontology
 
 ## Sprint 15 — Minimum IWL Formalization
 
-**Status:** ACTIVE. Only `T15.0` is sealed. Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`.
+**Status:** EXECUTING. `T15.0` is closed. Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. No further ticket is sealed.
 
 The previous `T15.0`–`T15.7` sequence (decompose every unit, then define node types, edge vocabulary, statuses, a strict schema, a Chisel migration, structured views, and a v1 freeze) is superseded. It required an inner grammar before any necessity test. Numbering does not restore it.
 
