@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-29 — Sprint 18 PDF-identity release: `staging` → `main`
+
+Release operation, no ticket. T18.0, T18.1, and T18.1.1 (`f07f67c..0c25022`, seven linear commits, no merges, docs and the T18.1 runtime files only) promoted by fast-forward, `8e60f6b` → `0c25022`. Staging run 36613925404 on the same SHA was green before promotion. Production run 36619566848 succeeded through `Validate Scholar/PDF identity` and deploy.
+
+Production verified directly on `amulbham.com`, cache-busted: before, all four `paper.pdf` were 200 and the slug PDFs 404. After, all four `{entry.id}.pdf` return 200 `application/pdf` (`%PDF-1.7`, no `Content-Disposition`); each `paper.pdf` returns an unfollowed 301 to its slug PDF, so no physical legacy file is served; `citation_pdf_url`, JSON-LD `contentUrl`, and the Download href are one URL per paper; Article canonicals are unchanged; the essay and the Chisel IWL have no PDF, Highwire, or `MediaObject`; `robots.txt` is `Disallow: /` and pages send `noindex, nofollow`.
+
+No runtime, content, styling, or indexing change in the release. Visual and table work stays open in Sprint 18.
+
 ## 2026-09-25 — T18.1: canonical paper PDF filename
 
 Each paper's one physical PDF is now `{entry.id}.pdf` beside its article HTML. The slug is the existing research entry id from `canonicalPath()`, not a title slug. Highwire `citation_pdf_url`, JSON-LD `MediaObject.contentUrl`, and the Download link read that one URL. `/paper.pdf` in the same directory is a generated 301 in `dist/_redirects`, one explicit rule per paper, and is not a second file. The Article HTML URL is unchanged. Essays and IWLs still have no PDF. Visual PDF defects and table behavior recorded in T18.0 are not addressed.
