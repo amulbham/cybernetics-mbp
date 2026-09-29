@@ -45,6 +45,7 @@ No public Article/IWL content rewrite, IWL PDF or inner schema, speculative vali
 | `T18.0` | AUDIT / R2 | Inspect PDF identity, all published paper artifacts, live tables, and bounded known housekeeping | Sprint 15 CLOSED; Sprint 18 activation | CLOSED. Evidence report written. Recommendation is not authorization |
 | `T18.1` | IMPLEMENTATION / R3 | Canonical `{entry.id}.pdf` plus a 301 from `paper.pdf`. No second file. No HTML URL change | T18.0 CLOSED; Amul's legacy-link decision | CLOSED on staging; promoted to `main` at `0c25022`, production verified |
 | `T18.1.1` | DOCS / R0 | Reconcile `AGENTS.md` and `ROADMAP.md` present-tense PDF and status statements with T18.1 before promotion | T18.1 CLOSED at `091ef55` | CLOSED. On `staging` and `main` at `0c25022`. Docs only; no runtime change |
+| `T18.2` | IMPLEMENTATION / R2 | Fix masthead ORCID break and Chisel IWL-link lead-in in the PDF; targeted first/last-page QA; ORCID validator experiment; record a long-form reading baseline | Sprint 18 PDF-identity release at `4d0a0f4` | SEALED. No table, screen-design, or discovery change |
 
 Further operations depend on T18.0's evidence and a separate product/planning review. A PDF URL ticket, print/validator ticket, table-mechanics ticket, or bounded polish ticket may be merged, omitted, or reordered.
 
