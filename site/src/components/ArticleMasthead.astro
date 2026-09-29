@@ -14,6 +14,10 @@ interface Props {
 }
 
 const { format, doi } = Astro.props;
+
+// Same derivation AuthorNote.astro uses: the visible ORCID text must never
+// be a second, hand-typed copy of SOCIAL_LINKS.orcid (the href).
+const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
 ---
 
 <div class="masthead meta">
@@ -24,7 +28,7 @@ const { format, doi } = Astro.props;
 		{' · '}
 		<a href={SOCIAL_LINKS.linkedin}>linkedin.com/in/amul-bham</a>
 		{' · '}
-		<a href={SOCIAL_LINKS.orcid}>orcid.org/0009-0009-7660-4031</a>
+		<a class="orcid" href={SOCIAL_LINKS.orcid}>{orcidLabel}</a>
 		{
 			doi && (
 				<>

@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-29 — T18.2: print artifact quality and long-form reading baseline
+
+Two scholarly-PDF presentation defects from T18.0 fixed. The masthead ORCID no longer breaks after its last hyphen on page 1 (`.masthead .orcid { white-space: nowrap }` in `print-research.css`; the masthead label is now derived from `SOCIAL_LINKS.orcid`, as `AuthorNote` already was). The Article→IWL link is omitted from PDF output (`.iwl-link` joins the print hide list), so Chisel's PDF opens with its title. Screen output is unchanged: the only HTML difference is a `class="orcid"` on the masthead link. Screen Article↔IWL navigation is intact.
+
+`validate:pdfs` gained one earned check: on page 1 only, the masthead correspondence block must contain the `SOCIAL_LINKS.orcid` string whole on one visual line. It failed all four saved pre-fix PDFs (each showing the split line) even though their last-page AuthorNote ORCID was intact, and passed all four fixed PDFs. It checks identifier continuity only, not visual quality. Targeted first/last-page QA was done for all four papers; table fragmentation and full pagination were not reviewed.
+
+A measurement-only desktop/mobile reading baseline of one paper is in `planning/audits/T18.2-long-form-reading-baseline.md`. No screen typography, layout, table, PDF-identity, or indexing change.
+
 ## 2026-09-29 — Sprint 18 PDF-identity release: `staging` → `main`
 
 Release operation, no ticket. T18.0, T18.1, and T18.1.1 (`f07f67c..0c25022`, seven linear commits, no merges, docs and the T18.1 runtime files only) promoted by fast-forward, `8e60f6b` → `0c25022`. Staging run 36613925404 on the same SHA was green before promotion. Production run 36619566848 succeeded through `Validate Scholar/PDF identity` and deploy.

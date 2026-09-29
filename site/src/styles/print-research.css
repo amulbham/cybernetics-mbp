@@ -63,6 +63,7 @@ footer,
 .toc-mobile,
 .tags,
 .pdf-link,
+.iwl-link,
 .related-research,
 .from-the-author {
 	display: none !important;
@@ -136,6 +137,16 @@ footer,
 }
 .title .masthead {
 	order: 3;
+}
+/* T18.2: the masthead ORCID (orcid.org/0009-0009-7660-4031) has hyphen
+   break opportunities and otherwise wraps after its last hyphen, splitting
+   the identifier across two lines. Keep it whole; the separators around it
+   are still ordinary break points. Scoped to print by living in this file.
+   .iwl-link joins the hide list above for the same reason .pdf-link is
+   there: it is screen navigation, and unordered flex children of .title
+   would otherwise sort ahead of the order:1 title. */
+.masthead .orcid {
+	white-space: nowrap;
 }
 .title .date.meta {
 	order: 4;

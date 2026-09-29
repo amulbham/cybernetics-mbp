@@ -28,7 +28,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
-import { AUTHOR } from '../src/consts.ts';
+import { AUTHOR, SOCIAL_LINKS } from '../src/consts.ts';
 import { LEGACY_PAPER_PDF_FILENAME, legacyPaperPdfRedirect, paperPdfFilename } from '../src/lib/research-routing.ts';
 import { discoverNonPapers, discoverPapers, SITE_ORIGIN } from './discover-research.mjs';
 import { decodeEntities, extractCitationMeta, extractJsonLdBlocks, findArticleLikeJsonLd } from './lib/built-html.mjs';
@@ -152,6 +152,57 @@ async function parsePdf(path) {
 		doc.cleanup();
 	}
 	return { ok: true, pageCount: doc.numPages, refNumbers, linkUris };
+}
+
+// ---------------------------------------------------------------------------
+// T18.2 — first-page masthead ORCID continuity.
+//
+// The masthead's ORCID line once wrapped after its last hyphen
+// ("orcid.org/0009-0009-" / "7660-4031") on page 1 of every paper PDF,
+// while the AuthorNote's ORCID (last page) stayed intact — so an
+// anywhere-in-the-document search cannot see it. This reads ONLY page 1,
+// rebuilds its visual lines (text items grouped by baseline, ordered left to
+// right, concatenated exactly as extracted — no whitespace collapsing, so a
+// broken identifier cannot be normalized back into a passing one), takes the
+// masthead correspondence block (from the AUTHOR.email line up to the
+// "Licensed" line), and requires the ORCID derived from SOCIAL_LINKS.orcid to
+// sit whole inside a single line of that block. It checks identifier
+// continuity only; it says nothing about how the page looks.
+// ---------------------------------------------------------------------------
+
+const LINE_Y_TOLERANCE = 2; // points; items on one baseline share the same y
+
+async function firstPageLines(path) {
+	const data = new Uint8Array(readFileSync(path));
+	const doc = await getDocument({ data, isEvalSupported: false, verbosity: 0 }).promise;
+	try {
+		const page = await doc.getPage(1);
+		const { items } = await page.getTextContent();
+		const rows = [];
+		for (const item of items) {
+			if (!item.str) continue;
+			const y = item.transform[5];
+			const x = item.transform[4];
+			let row = rows.find((r) => Math.abs(r.y - y) <= LINE_Y_TOLERANCE);
+			if (!row) rows.push((row = { y, parts: [] }));
+			row.parts.push({ x, str: item.str });
+		}
+		rows.sort((a, b) => b.y - a.y); // top of page first
+		return rows.map((r) => r.parts.sort((a, b) => a.x - b.x).map((p) => p.str).join(''));
+	} finally {
+		doc.cleanup();
+	}
+}
+
+function checkMastheadOrcid(lines) {
+	const expected = SOCIAL_LINKS.orcid.replace(/^https?:[/][/]/, '');
+	const start = lines.findIndex((line) => line.includes(AUTHOR.email));
+	if (start === -1) return `masthead correspondence line (containing "${AUTHOR.email}") not found on page 1`;
+	const end = lines.findIndex((line, i) => i > start && line.includes('Licensed'));
+	if (end === -1) return 'masthead "Licensed" line not found on page 1 after the correspondence line';
+	const block = lines.slice(start, end);
+	if (block.some((line) => line.includes(expected))) return null;
+	return `page-1 masthead does not contain "${expected}" on a single line (block: ${JSON.stringify(block)})`;
 }
 
 // ---------------------------------------------------------------------------
@@ -293,6 +344,14 @@ async function validatePaper(paper, frontmatter) {
 		if (extraInPdf.length > 0) {
 			fail(scope, `PDF has ref-* destinations with no matching HTML citation: ref-${extraInPdf.sort((a, b) => a - b).join(', ref-')}`);
 		}
+	}
+
+	// T18.2: masthead ORCID must not be split across lines on page 1.
+	try {
+		const orcidProblem = checkMastheadOrcid(await firstPageLines(pdfPath));
+		if (orcidProblem) fail(scope, orcidProblem);
+	} catch (err) {
+		fail(scope, `${pdfName} page 1 text could not be read for the masthead ORCID check: ${err.message}`);
 	}
 
 	// Research-relation links: every a[data-relation] href, resolved to an
