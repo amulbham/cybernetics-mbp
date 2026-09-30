@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-30 — T18.4: PDF table information-loss correction
+
+Fixed the repeated PDF defect T18.3 established, where four paper tables (FAFSA §1.11 and §6, FAFSA §4.1 header, Chisel "The Other Workflow") were clipped at the print column edge and their text was lost from the PDF. One general print-only rule in `print-research.css` lets table headers wrap on paper (`thead th { white-space: normal !important }`); on screen the nowrap header row scrolls inside its wrapper, which cannot happen on paper. The defect was reproduced first under controlled conditions, and all 19 paper tables were then checked: complete in the PDF text layer and on rendered pages, no overlap, page counts unchanged (55 / 38 / 31 / 22), with expected reflow recorded. Screen output is unchanged (42 of 43 built pages byte-identical; `/about` differs only by its build-time `dateModified`). Evidence: `planning/audits/T18.4-pdf-table-evidence.md`. No permanent completeness validator was added.
+
 ## 2026-09-30 — T18.3: rendered table behavior audit
 
 Audit only; no runtime, content, or styling change. All 33 live tables (FAFSA 12, Chisel 3, Invariants 2, Three SOS 2, Chisel IWL 14) were observed on the deployed staging build of `6bdd880` (Actions run `36760948409`) at 1440px and 390px, and every page the 19 paper tables occupy in the staging PDFs was inspected. Record: `planning/audits/T18.3-rendered-table-behavior-audit.md`.

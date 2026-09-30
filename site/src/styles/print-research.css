@@ -155,3 +155,14 @@ footer,
 .title hr {
 	order: 5;
 }
+
+/* T18.4: table headers may wrap on paper. On screen `thead th` is
+   `white-space: nowrap` (global.css), so a wide header row scrolls inside
+   `.table-container`; on paper that wrapper cannot scroll, so any column
+   pushed past the print column edge was clipped and its text was lost from
+   the PDF (T18.3: F01, F08, C01, F06). Letting headers wrap restores
+   complete tables. General rule, not per-table. `!important` is needed to
+   win over the page stylesheet (see the top of this file). */
+thead th {
+	white-space: normal !important;
+}
