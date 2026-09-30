@@ -2,6 +2,12 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-09-30 — T18.3: rendered table behavior audit
+
+Audit only; no runtime, content, or styling change. All 33 live tables (FAFSA 12, Chisel 3, Invariants 2, Three SOS 2, Chisel IWL 14) were observed on the deployed staging build of `6bdd880` (Actions run `36760948409`) at 1440px and 390px, and every page the 19 paper tables occupy in the staging PDFs was inspected. Record: `planning/audits/T18.3-rendered-table-behavior-audit.md`.
+
+The repeated PDF table-clipping defect earns a bounded implementation experiment (the print-only remedy is an untested hypothesis): four paper tables (FAFSA §1.11 and §6, FAFSA §4.1 header, Chisel "The Other Workflow") are clipped at the print column edge and their text is absent from the PDF. Screen horizontal scrolling, focusable wrappers, and PDF page breaks showed no demonstrated failure; row labels scrolling out of view on mobile requires author intent. Keyboard scrolling of an overflowing wrapper is unverified. Nothing was implemented and no follow-on ticket was drafted. Evidence-limit corrections were applied to `planning/audits/T18.2-long-form-reading-baseline.md` (JavaScript-disabled usability is UNVERIFIED, deferred to Reader PR), and `ROADMAP.md` was updated to current verified truth.
+
 ## 2026-09-29 — T18.2: print artifact quality and long-form reading baseline
 
 Two scholarly-PDF presentation defects from T18.0 fixed. The masthead ORCID no longer breaks after its last hyphen on page 1 (`.masthead .orcid { white-space: nowrap }` in `print-research.css`; the masthead label is now derived from `SOCIAL_LINKS.orcid`, as `AuthorNote` already was). The Article→IWL link is omitted from PDF output (`.iwl-link` joins the print hide list), so Chisel's PDF opens with its title. Screen output is unchanged: the only HTML difference is a `class="orcid"` on the masthead link. Screen Article↔IWL navigation is intact.
