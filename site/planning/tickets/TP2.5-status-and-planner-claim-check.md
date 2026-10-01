@@ -1,6 +1,6 @@
 # TP2.5 — Status and Planner claim-check: cheap, mechanical session recovery
 
-Status: READY
+Status: VERIFIED LOCAL
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -99,3 +99,16 @@ Standard template (`planning/templates/completion-report.md`).
 
 ## Done when
 `npm run project:status` and `--check` behave as specified, every adversarial case fails closed, the local template and README carry the claim-check step, staging Actions is green, and nothing outside the Authorized paths changed.
+
+## Completion report (Executor, branch claude/execute-TP2.5 from seal a44fcd4)
+- Result: COMPLETE. Diff vs seal: site/scripts/project-status.mjs (new), site/package.json (+1 `project:status` script line), site/CHANGELOG.md (+3), this ticket. All within Authorized paths; no dependency or lockfile change.
+- Status run (dirty worktree): staging 3c5d7b0 and main 4d0a0f4 match `git rev-parse`; counts and DIRTY state reported; non-closed list is sprint-18 and TP2.5 only, no CLOSED ticket. Clean-tree re-run after the commit: see Validation line in the push report.
+- Fixture `AI-Orchestrator\scratch\fixtures\planner-handoff-live.md` (SHA-256 A4236BB1E0DEE5D5, 4801 B, copied from the shared-folder fixture as instructed): `--check` exits 0, 6/6 OK.
+- Adversarial, all exit 1 with MISMATCH or a one-line reason, no command run on injected text: `--all`, leading hyphen, ambiguous ref (branch+tag `dupe`, removed after), wrong SHA, wrong status, false ancestor, `;` and space in a ref (no file `X` created), unparseable line, empty block, no block, missing file.
+- Stale fetch (FETCH_HEAD mtime set back 30 min): warning shown, exit 0. Exercised in two linked worktrees (exec-TP2.5, plan-TP2.5). A true main checkout was not exercised; `git rev-parse --git-path FETCH_HEAD` is what resolves it, and I did not touch the user's main checkout.
+- Fix during testing: `ls-tree` needed `--full-tree` because the script runs from `site/`; status claims then passed.
+- Local files, SHA-256 prefix: README.md B624A1672758E0D5 (was CBACE0EE18A6197E), planner-handoff.md B9BB165E3A40471B (was 67EC448008DDACF7, 1249 B). Backups and hashes: scratch\pre-TP2.5\. README 4a gained the check step (exit 1 = stop, prose stays manual) and the shared-folder deviation; template gained an empty `claims` block and one recovery sentence.
+- Stale-language search: no README line still describes 4a without the claim-check step.
+- Not run: `npm run build` (no node_modules; no site output touched, staging Actions is the authority). Validation-matrix Drill (fresh Planner session) was not run; the stale-status MISMATCH it expects is covered by the wrong-status adversarial case.
+- Untouched: review.ps1, summarize.ps1, ~/.codex/config.toml, credentials, PLANNING.md, ROADMAP.md, .claude/. Pushed branch only; staging and main not pushed.
+- Remaining gate: Planner review, staging fast-forward on Amul's authorization, green Actions, closure.

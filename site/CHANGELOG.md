@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-01 — TP2.5: status and Planner claim-check
+
+Governance only; no product, runtime, content, or indexing change. New read-only `npm run project:status` reports branch, HEAD, `origin/staging` and `origin/main` SHAs with ahead/behind counts, working-tree state, fetch age and every sprint or ticket whose `Status:` is not CLOSED. `npm run project:status -- --check <handoff>` mechanically verifies the `ref`, `ancestor` and `status` claims in a Planner handoff's `claims` block against the repository and exits 1 on any mismatch. It never writes, fetches or uses the network. The local orchestrator folder (`README.md`, `planner-handoff.md`) gained the matching recovery step and claims block outside the repo; they are not detailed here.
+
 ## 2026-10-01 — TP2.4: role-session continuity
 
 Governance only; no product, runtime, content, or indexing change. `PLANNING.md` §2 gained a vendor-neutral `Session continuity` subsection: Planner and Executor roles may span physical sessions, the active role writes a bounded handoff and stops before compaction becomes necessary, a replacement session recovers authority from repository state, and conversation summaries and automatic compaction are not project authority. Rotation thresholds, handoff templates and recovery procedures were added to the local orchestrator folder (`README.md`, `planner-handoff.md`, `executor-handoff.md`) outside the repo; they are not detailed here.

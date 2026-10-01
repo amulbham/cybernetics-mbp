@@ -13,6 +13,7 @@
     "validate:semantics": "tsx scripts/validate-research-semantics.mjs",
     "deploy:pages": "wrangler pages deploy dist",
     "preview": "astro preview",
+    "project:status": "node scripts/project-status.mjs",
     "astro": "astro"
   },
   "dependencies": {
