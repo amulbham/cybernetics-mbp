@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-01 — TP2.1: Claude context loading
+
+Governance only; no product, runtime, content, or indexing change. `site/CLAUDE.md` was a symlink to `AGENTS.md`, so every Claude session that touched `site/` ingested all 57 KB of it. It is now a real dispatcher file (site map, hard-gate pointers, commands), and four path-scoped rules in `.claude/rules/` (planning, content, design, deployment) tell Claude which owner docs and headings to read before editing matching paths. `AGENTS.md` is unchanged and remains the vendor-neutral deep reference.
+
 ## 2026-10-01 — TP2.2: review depth and resource policy
 
 Governance only; no product, runtime, content, or indexing change. `PLANNING.md` §13's review-depth table now reads R1 one outside reviewer, R2 one outside reviewer with `file:line` evidence, R3 two outside reviewers (R3 closure also needs staging verification, per §5), replacing the model-family wording. A new "Resource proportionality" subsection sets effort and reviewer count in proportion to risk, escalating reviewer breadth rather than model size, and keeps tool and model bindings outside the protocol.
