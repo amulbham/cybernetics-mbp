@@ -1,6 +1,6 @@
 # TP2.4 — Role-session continuity: proactive rotation without automatic compaction
 
-Status: DRAFT (rev 1, for pre-seal review)
+Status: DRAFT (rev 2, after pre-seal review)
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -62,23 +62,24 @@ This Planner thread has already been through one automatic compaction. Its conti
    - Do not: reinterpret scope, modify the ticket contract, add unauthorized paths, reset or discard prior work without evidence, push `staging` or `main`.
 4. **`AI-Orchestrator\README.md`: a "Session rotation" section** containing:
    - Rotation policy: below 50% context, normal operation. At 50–60%, finish the current bounded step and don't begin another major phase. At 60%, write the role handoff, stop, and start a fresh role session. Rotate earlier at clean natural boundaries.
-   - The per-role measurement source found under Questions, and the fallback trigger.
+   - The per-role measurement source found under Questions. A warning-based fallback trigger is allowed only if a test shows it leaves room to write a handoff. Otherwise the fallback is rotation at natural boundaries.
+   - After an automatic compaction has already happened: the session treats its own recollection as non-authoritative, writes the handoff only from repo-verified state, and rotates.
    - **a. Fresh Planner recovery:**
      1. read the handoff;
      2. `git fetch`;
      3. verify the refs independently;
-     4. read only the named canonical sources;
+     4. do the repository-mandated boot reads (root `CLAUDE.md`: `ROADMAP.md`, the active sprint contract, the active ticket) and the handoff's named sources, and nothing else;
      5. report staging SHA, main SHA, primary intent, active ticket and state, next action, and discrepancies;
-     6. continue only after a clean recovery.
+     6. continue only after a clean recovery. Any failed check or unresolved discrepancy means stop and report to Product Authority.
    - **b. Fresh Executor recovery:**
      1. read the handoff;
      2. verify the ticket and seal commit;
      3. `git merge-base --is-ancestor <seal> HEAD`;
      4. verify branch, worktree and working-tree state;
      5. read the sealed ticket;
-     6. inspect the diff and check each handoff claim against it;
+     6. check each handoff claim against its own evidence: committed and working changes (`git diff <seal>`, `git status`), untracked file contents, local artifacts by hash, and verification results by re-running or by the cited output;
      7. report seal verified, branch/worktree verified, HEAD, changed files, remaining scope, next action, and discrepancies;
-     8. continue only within the sealed authorization.
+     8. continue only within the sealed authorization. A failed seal, identity or worktree check, or an unresolved progress mismatch, means stop and report to the Planner. Staying inside Authorized paths doesn't resolve it.
    - **Pre-handoff classification:**
      - Planner: durable project truth goes to its canonical repo owner; authorization or evidence goes to the ticket or closure record; only transient continuation state goes in the handoff.
      - Executor: durable implementation truth must already exist in the worktree, diff or execution evidence. The handoff never substitutes for source state.
@@ -101,10 +102,11 @@ All other `PLANNING.md` sections, the templates under `site/planning/templates/`
 | Layer | Check | Expected |
 |---|---|---|
 | Diff | Commands above | Within bounds |
-| Planner drill | Fill `planner-handoff.md` for the real current state. A fresh session given only "recover as Planner from `AI-Orchestrator\planner-handoff.md`" follows 4a | The report matches `git rev-parse origin/staging origin/main` and the ticket `Status:` lines. Handoff ≤ 2,000 tokens (characters ÷ 4) |
-| Executor drill | In `scratch\drill-TP2.4\`, a throwaway worktree at the seal with one trivial uncommitted edit, fill `executor-handoff.md`. A fresh session follows 4b | The report shows seal verified, the correct HEAD, the changed file and the next action. The drill worktree is then removed |
-| Discrepancy | Repeat the executor drill with the handoff falsely listing a second changed file | The fresh session reports the discrepancy and doesn't act on the false claim |
-| Measurement | Try `/context` in a Remote Control session, and record whether a Projects thread session can read its own context | Each result recorded in the README |
+| Planner drill | Fill a copy of `planner-handoff.md` in `scratch\drill-TP2.4\` for the real current state. A fresh session given only "recover as Planner from `AI-Orchestrator\planner-handoff.md`" follows 4a | The report matches `git rev-parse origin/staging origin/main` and the ticket `Status:` lines. Handoff ≤ 2,000 tokens (characters ÷ 4) |
+| Executor drill | In `scratch\drill-TP2.4\`, a throwaway worktree at the seal with one trivial uncommitted edit, fill a copy of `executor-handoff.md` there. A fresh session follows 4b | The report shows seal verified, the correct HEAD, the changed file and the next action. The drill worktree is then removed |
+| Discrepancy | Repeat the executor drill with the handoff falsely listing a second changed file | The fresh session reports the discrepancy and stops |
+| Templates intact | After the drills, hash both live handoff files against their delivered blank versions | Hashes match, and no drill state is in the live files |
+| Measurement | Try `/context` in a Remote Control session, and record whether a Projects thread session can read its own context. If a warning trigger is chosen, record whether it left room for a handoff | Each result recorded in the README |
 | Build | `npm run build` | Passes, or the known sandbox failure. Staging Actions is the authority |
 
 ## Adversarial tests
@@ -120,7 +122,13 @@ R1: seal commit. The Executor is a fresh session on Amul's machine, started from
 The rule can't stay vendor-neutral within 8 lines; a drill needs a credential or an excluded path; a fresh session's recovery can't be run separately from the session that wrote the handoff.
 
 ## Pre-seal review
-_[To be filled after review.]_ R1: one outside reviewer, Codex, through `review.ps1 -Tier R1`.
+Reviewer: Codex (R1, new TP2.3 wrapper; summary assembled mechanically) · Reviewed: rev 1 @ `34ea222` · REVISE (1 BLOCKER, 5 REQUIRED). All incorporated:
+- BLOCKER, re-scope pending: put to Amul at approval.
+- REQUIRED, recovery could skip mandated boot reads: Planner recovery now always does the root `CLAUDE.md` boot reads.
+- REQUIRED, a diff can't verify local files, untracked content or results: each claim is now checked against its own evidence type.
+- REQUIRED, recovery didn't stop on mismatch: both procedures now stop and report.
+- REQUIRED, the warning trigger's timing was unproven, and nothing covered an already-compacted session: the trigger now needs a timing test, natural boundaries are the default, and post-compaction behavior is defined.
+- REQUIRED, drills could leave state in the shipped files: drills use copies, plus a template-intact hash check.
 
 ## Required completion report
 Standard template, appended here (≤ 25 lines). Include both drill reports, the discrepancy result, handoff token estimates and local file hashes.
