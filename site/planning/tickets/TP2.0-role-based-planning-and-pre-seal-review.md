@@ -1,6 +1,6 @@
 # TP2.0 — Role-based planning and pre-seal review protocol
 
-Status: READY
+Status: CLOSED
 Mode: DECISION
 Risk: R0
 Branch: staging
@@ -101,3 +101,62 @@ Standard template, plus a §2 before/after showing each mapping row applied.
 
 ## Done when
 The protocol names roles rather than vendors, the pre-seal review template and ticket fields exist, the diff is a subset of Authorized paths, and staging carries the completion commit.
+
+# TP2.0 Completion Report
+
+Result: COMPLETE
+Branch: `claude/execute-TP2.0` (from seal `d3f59cf`)
+Commit: the single completion commit at that branch's head
+Deployment: none; staging fast-forward pending Planner acceptance
+
+## Outcome
+`PLANNING.md` names roles, not vendors. Pre-seal review has a canonical prompt, a risk-based depth table, and a recorded-outcome section.
+
+## Files changed
+| File | Change | Why |
+|---|---|---|
+| `CLAUDE.md` | new, 10 lines | bootstrap pointers only |
+| `site/PLANNING.md` | header, §2, §4, §7, §9, §11, §13 | roles; review table |
+| `site/planning/templates/ticket-contract.md` | role wording; `Authorized paths:`; `## Pre-seal review` | Scope 5 |
+| `site/planning/templates/pre-seal-review.md` | new | Scope 4 |
+| `site/CHANGELOG.md` | one dated entry | Scope 7 |
+
+## §2 role mapping, before → after
+| Before | After |
+|---|---|
+| Amul — product authority | Product Authority (Amul), unchanged |
+| ChatGPT: contracts; facts/decisions/hypotheses/questions | Planner |
+| ChatGPT: reviews report; drift; confident report is not proof | Planner, plus runs §11 classification and decision |
+| (new, §13) | Reviewer: pressure-tests draft; BLOCKER/REQUIRED/OPTIONAL; no direction or authorization |
+| Claude Code — implementation agent | Executor, duties unchanged |
+| Repository and deployed artifacts | unchanged |
+
+Added: "Tool bindings for each role live in the orchestrator's configuration, not in this protocol." Other vendor references (header, §4, §7, §9, §11, template lead sentence) renamed to roles.
+
+## Acceptance criteria
+All met: `CLAUDE.md` ≤ 30 lines with every Scope 1 pointer and no rules; §2 matches the table; vendor grep returns no matches; template lists ten criteria, three classes, `file:line`, non-authorizing NEW FINDINGS, VERDICT line; `Authorized paths:` and no-deferral rule defined; §13 four-row table and lowering rule present; diff within Authorized paths.
+
+## Validation performed
+| Check | Result |
+|---|---|
+| `git diff --name-only d3f59cf` | subset of Authorized paths |
+| `git diff --check` | clean |
+| `npm run build` | validators pass; astro build blocked by font fetch in sandbox; staging Actions build is the check |
+
+## Adversarial tests
+Role names substituted into §7, §9, §11 and re-read: no meaning change. Tickets diff shows only this ticket.
+
+## Deviations from ticket
+None. Stop conditions not triggered.
+
+## Newly discovered findings
+None.
+
+## Regression confirmation
+`PLANNING.md` rules outside Scope 2, 3, 6 and `ticket-contract.md` existing fields and caps unchanged.
+
+## Documentation reconciliation
+`CHANGELOG.md` entry added; existing entries untouched.
+
+## Remaining gate
+Planner review, then fast-forward `origin/staging`. No `main`, no deploy beyond the staging build.

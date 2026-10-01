@@ -2,7 +2,7 @@
 
 Canonical for the exact ticket shape — `PLANNING.md` §9 describes the quality bar, §13 the delta-only/length-cap discipline this template enforces; this file owns the one copyable body. Copy the skeleton below into `planning/tickets/TXX.Y-slug.md` and fill it in.
 
-A sealed ticket must let Claude Code answer all of these without guessing:
+A sealed ticket must let the Executor answer all of these without guessing:
 
 ```text
 What problem am I solving?
@@ -44,6 +44,7 @@ Branch: staging
 Depends on: ticket IDs / commits / verified contracts
 Unlocks: next ticket or decision
 Inherits: <path> @ <commit> — only what this ticket doesn't itself change/constrain/test
+Authorized paths: repo-relative paths or gitignore-style globs; the final diff must be a subset
 
 ## Goal
 One bounded outcome.
@@ -99,6 +100,15 @@ Cite an established verification bundle/command where one already exists and is 
 
 ## Stop conditions
 - Conditions requiring product review.
+
+## Pre-seal review
+Maximum 15 lines, inside the length cap. Record per `PLANNING.md` §13:
+- Reviewers, and the commit reviewed.
+- Consensus findings and single-reviewer findings.
+- Each `BLOCKER`/`REQUIRED`: *incorporated* or *rejected with repository evidence*. Neither may be deferred.
+- Material changes made since the reviewed commit.
+- The planner's reason wherever reviewer severities differ.
+- A longer review goes to `planning/audits/` and is referenced here.
 
 ## Required completion report
 Use the standard completion-report template (`planning/templates/completion-report.md`), including its own length cap.

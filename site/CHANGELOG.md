@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-01 — TP2.0: role-based planning and pre-seal review protocol
+
+Governance only; no product, runtime, content, or indexing change. `PLANNING.md` now names roles (Product Authority, Planner, Reviewer, Executor) instead of vendors; tool bindings live in the orchestrator's configuration. §13 gained a pre-seal review-depth table by risk (R0 self-check, R1 one reviewer, R2 one reviewer from a different model family, R3 two) and points to a new canonical reviewer prompt, `planning/templates/pre-seal-review.md`. `ticket-contract.md` gained an `Authorized paths:` header line (final diff must be a subset) and a `## Pre-seal review` section that forbids deferring `BLOCKER`/`REQUIRED` findings. A root `CLAUDE.md` bootstrap (pointers only) was added.
+
 ## 2026-09-30 — T18.4: PDF table information-loss correction
 
 Fixed the repeated PDF defect T18.3 established, where four paper tables (FAFSA §1.11 and §6, FAFSA §4.1 header, Chisel "The Other Workflow") were clipped at the print column edge and their text was lost from the PDF. One general print-only rule in `print-research.css` lets table headers wrap on paper (`thead th { white-space: normal !important }`); on screen the nowrap header row scrolls inside its wrapper, which cannot happen on paper. The defect was reproduced first under controlled conditions, and all 19 paper tables were then checked: complete in the PDF text layer and on rendered pages, no overlap, page counts unchanged (55 / 38 / 31 / 22), with expected reflow recorded. Screen output is unchanged (42 of 43 built pages byte-identical; `/about` differs only by its build-time `dateModified`). Evidence: `planning/audits/T18.4-pdf-table-evidence.md`. No permanent completeness validator was added.

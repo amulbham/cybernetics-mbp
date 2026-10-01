@@ -1,7 +1,7 @@
 # Planning Protocol
 
 **Project:** `amulbham/cybernetics-mbp`
-**Scope:** Planning and executing website-development sprints with ChatGPT as planner/reviewer, Amul as product authority, and Claude Code as implementation agent.
+**Scope:** Planning and executing website-development sprints with a Planner and a Reviewer, Amul as Product Authority, and an Executor. Which tool fills each role is orchestrator configuration, not protocol.
 **Version:** 1.1
 **Calibrated against:** Sprints 7–12, the planned Sprint 13–17 research-object arc, and T13.2's process-efficiency calibration (§13, adopted 2026-09-22).
 
@@ -21,28 +21,36 @@ The planning layer therefore preserves intent before execution while keeping cur
 
 ## 2. Roles and authority
 
-### Amul — product authority
+### Product Authority (Amul)
 
 - Sets direction, priorities, editorial meaning, and acceptable product tradeoffs.
 - Approves sprint contracts and material changes in scope.
 - Decides whether a staging result is acceptable for production.
 - Retains sole authority over indexing changes, public/private boundaries, and major publication semantics.
 
-### ChatGPT — planner and reviewer
+### Planner
 
 - Converts direction into sequenced sprint contracts and sealed implementation tickets.
 - Separates verified repository facts, proposed decisions, hypotheses, and unresolved questions.
-- Reviews Claude Code's completion report against the ticket and repository evidence.
+- Reviews the Executor's completion report against the ticket and repository evidence, and runs the §11 classification and decision.
 - Identifies drift, contradictions, unjustified expansion, and newly earned work.
 - Does not treat a confident implementation report as proof of completion.
 
-### Claude Code — implementation agent
+### Reviewer
+
+- Pressure-tests a draft ticket before seal (§13).
+- Classifies each finding `BLOCKER`, `REQUIRED`, or `OPTIONAL`.
+- Does not rewrite product direction or authorize work.
+
+### Executor
 
 - Reads the repository's current instructions and source before changing anything.
 - Executes one sealed ticket at a time.
 - May correct a ticket assumption when direct repository evidence disproves it, but must report the correction explicitly.
 - Stops for a product decision when evidence changes the meaning, public contract, privacy boundary, route model, or sprint scope.
 - Returns a structured completion report with commands, results, deviations, and unresolved findings.
+
+Tool bindings for each role live in the orchestrator's configuration, not in this protocol.
 
 ### Repository and deployed artifacts — verification authority
 
@@ -110,7 +118,7 @@ one bounded audit, implementation, validation, or release operation
     ↓
 
 COMPLETION REPORT
-what Claude Code actually changed and proved
+what the Executor actually changed and proved
 
     ↓
 
@@ -204,7 +212,7 @@ The two freezes serve different purposes:
 
 ## 7. Change-control rules
 
-### Claude Code may proceed without interruption when
+### The Executor may proceed without interruption when
 
 - A ticket assumption is factually wrong and repository evidence supports a narrower correction.
 - An incidental defect must be corrected to meet the ticket's acceptance criteria and remains within the named affected surface.
@@ -212,7 +220,7 @@ The two freezes serve different purposes:
 
 The completion report must name the assumption, evidence, correction, and resulting scope. (This is the same discipline the **Promotion rule** and **History rule** in §3 already establish for closed tickets — a correction belongs in a new record, never a silent rewrite of the old one.)
 
-### Claude Code must stop when
+### The Executor must stop when
 
 - The correction changes editorial meaning or public semantics.
 - A new canonical route, identity, data owner, or source of truth is required.
@@ -269,7 +277,7 @@ The exact copyable structure is canonical in `planning/templates/sprint-contract
 
 ## 9. Sealed ticket
 
-A sealed ticket must let Claude Code answer all of these without guessing:
+A sealed ticket must let the Executor answer all of these without guessing:
 
 ```text
 What problem am I solving?
@@ -301,7 +309,7 @@ The exact copyable structure is canonical in `planning/templates/completion-repo
 
 ## 11. Planner review
 
-After Claude Code returns a report, ChatGPT classifies each result:
+After the Executor returns a report, the Planner classifies each result:
 
 | Classification | Meaning | Action |
 |---|---|---|
@@ -364,6 +372,17 @@ Distinct from §11's post-completion Planner review. Before a ticket seals, plan
 | `OPTIONAL` | Does not delay seal; defer or omit |
 
 Only `BLOCKER`/`REQUIRED` trigger another draft. Once corrected, no further prose-polish cycle unless the correction introduced a new contradiction.
+
+The reviewer prompt is canonical in `planning/templates/pre-seal-review.md`. The outcome is recorded in the ticket's `## Pre-seal review` section (`planning/templates/ticket-contract.md`); `BLOCKER`/`REQUIRED` findings are incorporated or rejected with repository evidence, never deferred. Pre-seal review depth is proportional to risk:
+
+| Risk | Pre-seal review |
+|---|---|
+| R0 | Planner self-check |
+| R1 | One reviewer |
+| R2 | One reviewer from a different model family than the planner |
+| R3 | Two reviewers from different model families |
+
+The planner may raise a tier. Only Product Authority may lower one, and the lowering is recorded in the ticket. §5 evidence requirements are unchanged and separate.
 
 ### Commit choreography follows risk
 
