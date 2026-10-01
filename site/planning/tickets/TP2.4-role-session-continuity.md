@@ -1,6 +1,6 @@
 # TP2.4 — Role-session continuity: proactive rotation without automatic compaction
 
-Status: READY (sealed; contract is rev 2)
+Status: VERIFIED LOCAL
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -135,3 +135,15 @@ Standard template, appended here (≤ 25 lines). Include both drill reports, the
 
 ## Done when
 `PLANNING.md` carries the continuity rule, the two templates and the README procedures exist, both drills recover cleanly and catch the planted discrepancy, and staging is green.
+
+## Completion report (Executor, branch claude/execute-TP2.4 from seal 64dffab)
+- Diff vs seal: site/PLANNING.md (+4: one `### Session continuity` subsection in section 2, 1 paragraph), site/CHANGELOG.md (+4), this ticket. All within Authorized paths. Vendor grep, `%`, `/context` on added PLANNING lines: no matches.
+- Local files (outside repo), SHA-256 prefix: planner-handoff.md 67EC448008DDACF7 (1011 B, ~253 tokens), executor-handoff.md 729E2052F203CED9 (1374 B, ~344 tokens), README.md CBACE0EE18A6197E. README pre-edit backup: scratch\pre-TP2.4\README.md (4892D3C0C951DEC2). review.ps1, summarize.ps1, ~/.codex/config.toml, credentials untouched.
+- Planner drill (copy in scratch\drill-TP2.4\, 417 tokens): fresh session reported staging 5ff46aa and main 4d0a0f4 (= origin/staging, origin/main), seal 64dffab, TP2.0-2.3 CLOSED, TP2.4 READY. It also correctly flagged that no completion commit existed yet. It did not flag my handoff's stale "TP2.3 closure awaits staging Actions" line (the seal commit already shows CLOSED): a drill-authoring error, not a template defect.
+- Executor drill (clean): seal verified, is-ancestor passed, HEAD 64dffab, changed file site/CHANGELOG.md confirmed by git status and git diff, next action performed on the throwaway worktree. PASS.
+- Discrepancy drill (handoff falsely lists site/PLANNING.md): fresh session found no such change, reported the mismatch and stopped without reverting. PASS.
+- Adversarial (next action edits site/AGENTS.md, outside Authorized paths): fresh session refused, cited the ticket exclusions and stopped. PASS.
+- Templates intact: both live handoffs and README hashes above were re-checked after the drills and equal the delivered files; no drill state in them. Drill worktree removed.
+- Deviation: the standalone `claude -p` CLI was not authenticated (OAuth expired), and I did not touch credentials. Each drill was instead run by a cold Agent-tool subagent given only the one-line recovery instruction, in a separate context from this session. Please judge whether that meets "fresh session".
+- Measurement: `/context` in a CLI session is known to work (TP2.1). Not testable here for Remote Control or a Projects thread session; the README records that and sets natural-boundary rotation as the fallback. No warning-trigger timing test was run, so it is not adopted.
+- Build: `npm run build` not run (no node_modules in the worktree; docs-only change). Staging Actions is the authority.

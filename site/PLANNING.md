@@ -52,6 +52,10 @@ The planning layer therefore preserves intent before execution while keeping cur
 
 Tool bindings for each role live in the orchestrator's configuration, not in this protocol.
 
+### Session continuity
+
+Planner and Executor roles may span multiple physical sessions. Before context compaction becomes necessary, the active role must produce a bounded handoff and stop. A replacement session independently recovers authority from repository state before continuing. Planner handoffs may carry transient planning state; Executor handoffs may carry execution progress only and never expand or reinterpret the sealed contract. Conversation summaries and automatic compaction are not project authority.
+
 ### Repository and deployed artifacts — verification authority
 
 The source tree, diffs, validators, build output, workflow state, staging deployment, and production deployment determine what is true. Agent narration is evidence to inspect, not the final authority.

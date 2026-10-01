@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-01 — TP2.4: role-session continuity
+
+Governance only; no product, runtime, content, or indexing change. `PLANNING.md` §2 gained a vendor-neutral `Session continuity` subsection: Planner and Executor roles may span physical sessions, the active role writes a bounded handoff and stops before compaction becomes necessary, a replacement session recovers authority from repository state, and conversation summaries and automatic compaction are not project authority. Rotation thresholds, handoff templates and recovery procedures were added to the local orchestrator folder (`README.md`, `planner-handoff.md`, `executor-handoff.md`) outside the repo; they are not detailed here.
+
 ## 2026-10-01 — TP2.3: structured reviewer findings
 
 Governance only; no product, runtime, content, or indexing change. The reviewer prompt in planning/templates/pre-seal-review.md now requires one-line records (FINDING | class | section | path:line | problem | fix, NEW | path:line | issue, and a final VERDICT: line) in place of free-form finding blocks, so reviews can be summarized mechanically. The ten criteria, class definitions and the rule that NEW findings never authorize work are unchanged. Local review-runner scripts were also updated outside the repo; they are not detailed here.
