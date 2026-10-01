@@ -1,6 +1,6 @@
 # TP2.2 — Review depth and resource policy
 
-Status: VERIFIED LOCAL
+Status: CLOSED
 Mode: IMPLEMENTATION
 Risk: R0
 Branch: staging
@@ -113,3 +113,6 @@ Standard template, appended here (≤ 25 lines), with evidence cited by referenc
 - Adversarial test: temporarily inserted "Codex" in the subsection; grep caught it (line 391); reverted.
 - Build: `npm run build` fails in this sandbox with `tsx: not found` (no node_modules installed); not a content failure. Staging Actions is the authority.
 - No stop condition triggered. Nothing pushed to staging or main.
+
+## Closure
+Planner review passed against seal `b0144e8` (diff ⊆ Authorized paths, §13 only, no added vendor matches). Fast-forwarded to `staging @ 4d3561e`; Actions run #87 green. Recorded in the TP2.1 seal commit.

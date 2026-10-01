@@ -1,12 +1,12 @@
 # TP2.1 — Claude context loading: real site/CLAUDE.md and path-scoped rules
 
-Status: DRAFT (rev 2, after pre-seal review)
+Status: READY (sealed; contract is rev 2)
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
-Depends on: TP2.0 CLOSED (`staging @ cc37023`)
+Depends on: TP2.0 CLOSED; TP2.2 CLOSED (`staging @ 4d3561e`)
 Unlocks: nothing drafted
-Inherits: `PLANNING.md` §3 and §13 @ `cc37023`; root `CLAUDE.md` @ `cc37023`; Claude Code memory docs (https://code.claude.com/docs/en/memory, read 2026-10-01)
+Inherits: `PLANNING.md` §3 and §13 @ `4d3561e`; root `CLAUDE.md` @ `4d3561e`; Claude Code memory docs (https://code.claude.com/docs/en/memory, read 2026-10-01)
 Authorized paths: `site/CLAUDE.md`, `.claude/rules/*.md`, `site/CHANGELOG.md`, `site/planning/tickets/TP2.1-*.md`
 
 ## Goal
@@ -22,7 +22,7 @@ Make every Claude session auto-load a small, curated instruction set instead of 
 - `AGENTS.md` heading names, verbatim: `## Development`, `## Deploy workflow — staging → production`, `## Indexing state — READ BEFORE TOUCHING`, `## Design system`, `### Content-section transforms — standing policy`, `## Content`.
 
 ## Decisions already frozen
-- **§13 one-intent: Product Authority re-scope for TP2.1**, on the same footing as TP2.0 (no product behavior, no Sprint 18 file). _[Pending Amul's confirmation before seal.]_
+- **§13 one-intent: Product Authority re-scope for TP2.1** (Amul, 2026-10-01, decision card), on the same footing as TP2.0 (no product behavior, no Sprint 18 file).
 - Plan v2.1 (Amul, 2026-10-01): `AGENTS.md` stays byte-for-byte unchanged. Canonical docs stay vendor-neutral. `.claude/rules/` only dispatches Claude to canonical owners.
 
 ## Questions this ticket may answer
@@ -50,7 +50,7 @@ Does a session launched in `site/` load the repo-root `.claude/rules/`? Record t
 
 ## Acceptance criteria
 - `git ls-files -s site/CLAUDE.md` shows mode `100644`. The file is ≤ 60 lines.
-- `git diff --stat cc37023 -- site/AGENTS.md` is empty.
+- `git diff --stat <seal> -- site/AGENTS.md` is empty (`<seal>` = this ticket's seal commit).
 - **All repo-authored instruction content that can auto-load is ≤ 120 lines:** root `CLAUDE.md` + `site/CLAUDE.md` + all four rule files.
 - Every rule parses with a `paths:` list, and a grep confirms every cited heading.
 - The diff is a subset of Authorized paths.
@@ -58,7 +58,7 @@ Does a session launched in `site/` load the repo-root `.claude/rules/`? Record t
 ## Validation matrix
 | Layer | Check | Expected |
 |---|---|---|
-| Diff | `git diff --name-only cc37023` | ⊆ Authorized paths |
+| Diff | `git diff --name-only <seal>` | ⊆ Authorized paths |
 | Static load set | The documented rules applied to the final file set | `AGENTS.md` excluded because `site/CLAUDE.md` is a real file |
 | Live load (where headless auth works) | `claude -p` with a throwaway `--settings` file outside the repo holding an `InstructionsLoaded` logging hook. Record `claude --version` and the effective Project-instructions setting. Reads: (a) none; (b) `site/planning/README.md`; (c) `site/src/styles/global.css`; (d) `site/src/content/` (any entry); (e) `site/public/robots.txt`; (f) `site/src/components/BaseHead.astro`; (g) launch from `site/` and read a planning file | (a) root `CLAUDE.md`; (b) + `site/CLAUDE.md` + `planning.md`; (c) + `design.md`; (d) + `content.md`; (e) + `deployment.md`; (f) both `design.md` and `deployment.md`; (g) recorded. `--debug` output contains no "AGENTS.md loaded" line |
 | No live auth | State "static only, live verification pending" | Ticket stays open until the live check runs |
@@ -79,7 +79,7 @@ R1: seal commit, then one completion commit on the executor's own branch, settin
 
 ## Pre-seal review
 Reviewer: Codex (R1) · Reviewed: rev 1 @ `7aaefc0` · REVISE. All findings incorporated:
-- BLOCKER, no TP2.1 re-scope: re-scope added, pending Amul.
+- BLOCKER, no TP2.1 re-scope: Amul granted it at approval.
 - REQUIRED, line budget omitted path-scoped rules: the budget now counts all four rules; `site/CLAUDE.md` is capped at 60 and each rule at 12.
 - REQUIRED, the hook can't prove `AGENTS.md` absent: added the static rule, the version/setting record and the `--debug` negative check.
 - REQUIRED, fallback vs closure conflict: static-only now keeps the ticket open.
@@ -87,7 +87,7 @@ Reviewer: Codex (R1) · Reviewed: rev 1 @ `7aaefc0` · REVISE. All findings inco
 - REQUIRED, matrix too narrow: added content, deployment, the BaseHead overlap and launch from `site/`.
 - REQUIRED, staging boundary: separated the local commit from the push; closure waits for green staging.
 - OPTIONAL, 50-line minimum: removed.
-Material changes: Why-now corrected after checking Amul's clone (`core.symlinks=true`, link resolves).
+Material changes: diff baselines moved to the seal commit (same fix TP2.2's review found). Why-now corrected after checking Amul's clone (`core.symlinks=true`, link resolves).
 
 ## Required completion report
 Standard template, appended here (≤ 25 lines), with the load-log excerpt.
