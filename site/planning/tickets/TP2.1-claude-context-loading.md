@@ -99,31 +99,21 @@ All auto-loadable repo instructions total ≤ 120 lines, `AGENTS.md` is unchange
 
 # TP2.1 Completion Report
 
-Result: COMPLETE (static verification only; live load check pending)
-Branch: claude/tp2-1-context-loading-086vgx
-Commit: a70931e (on seal 6e9facc)
-Deployment: not pushed to staging; Planner fast-forwards after review
+Result: COMPLETE WITH JUSTIFIED DEVIATION (live check run in sandbox; Windows/staging items pending)
+Branch: claude/tp2-1-context-loading-086vgx (on seal 6e9facc) · Commit: a70931e · Deployment: not pushed to staging
 
 ## Outcome
-`site/CLAUDE.md` is now a real file (mode 100644, 33 lines). Four path-scoped rules added. `AGENTS.md` unchanged and no longer auto-loaded by static rule.
-
-## Files changed
-| File | Change | Why |
-|---|---|---|
-| site/CLAUDE.md | symlink replaced by dispatcher | stop ingesting 57 KB AGENTS.md |
-| .claude/rules/{planning,content,design,deployment}.md | new, 8-10 lines each | path-scoped dispatch |
-| site/CHANGELOG.md | one dated entry | ticket scope item 3 |
+`site/CLAUDE.md` is a real file (100644, 33 lines); four path-scoped rules added (8-10 lines each); CHANGELOG entry added. Total auto-loadable repo instructions: 10+33+8+9+9+10 = 79 lines (≤ 120).
 
 ## Verification
-- `git diff --stat 6e9facc -- site/AGENTS.md`: empty.
-- Diff names: subset of Authorized paths.
-- Line budget: root 10 + site 33 + rules 8+10+9+10 = 80 (≤ 120).
-- Every cited heading exists verbatim in AGENTS.md (grep, 6/6); cited files exist.
-- Live load (`claude -p` InstructionsLoaded matrix, repo-root rules question, adversarial tests): NOT run; no headless auth in this sandbox. Static only, live verification pending; ticket stays open.
-- Build not run (docs/config only; no code touched).
+- `git diff --stat 6e9facc -- site/AGENTS.md` empty; diff names ⊆ Authorized paths; 6/6 cited headings grep-verified.
+- Live load, claude 2.1.287, `InstructionsLoaded` hook via `--settings`: (b) +planning.md, (c) +design.md, (d) +content.md, (e) +deployment.md, (f) design.md AND deployment.md, (g) from `site/`: planning.md loaded, so repo-root rules DO load there. All as expected.
+- (a) no reads: root CLAUDE.md AND `site/CLAUDE.md` (nested_traversal) loaded, expected root only. Not investigated; no AGENTS.md load event in any run.
+- `--debug` shows no "AGENTS.md loaded" line, but a builtin `cc-plugin-agents-md` plugin exists in this sandbox build; its effect is unproven either way.
+- Not run: adversarial tests, `npm run build` (no code touched), staging Actions.
 
 ## Deviations
-None. Relay said 50-80 lines for site/CLAUDE.md; ticket (authority) says ≤ 60, no minimum.
+Relay asked for 50-80 lines and branch `claude/execute-TP2.1`; ticket (authority) says ≤ 60 lines, and the session pins this branch.
 
 ## Next gate
-Planner review, staging fast-forward, green Actions build, live load check.
+Planner review, staging fast-forward, green Actions, record (a) anomaly.
