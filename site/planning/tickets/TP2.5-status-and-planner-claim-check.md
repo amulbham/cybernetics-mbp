@@ -23,7 +23,7 @@ The TP2.4 Planner drill passed a handoff whose state line was stale, because rec
 
 ## Decisions already frozen
 - Amul, 2026-10-01: one ticket, no hooks. TP2.6 hooks, the AI-Orchestrator versioning decision and Ticket D stay out.
-- **§13 one-intent: Product Authority re-scope for TP2.5** is asked at approval, as for TP2.3 and TP2.4.
+- **§13 one-intent: Product Authority re-scope for TP2.5** approved by Amul, 2026-10-01 22:36Z, on the same footing as TP2.4.
 - Handoffs stay ephemeral and are overridden by repository truth. The script verifies claims; it never makes a handoff authoritative.
 
 ## Questions this ticket may answer
@@ -32,13 +32,14 @@ The TP2.4 Planner drill passed a handoff whose state line was stale, because rec
 ## Scope
 1. **`site/scripts/project-status.mjs` and a `project:status` entry in `site/package.json`** (`node scripts/project-status.mjs`; Node and git only, no new dependency). Read-only: no write, no fetch, no network. Default output, under 40 lines:
    - current branch, HEAD, `origin/staging`, `origin/main` (short SHAs), ahead/behind counts between them and between HEAD and `origin/staging`, and working-tree state;
-   - age of the last fetch (mtime of `.git/FETCH_HEAD`), with a warning when absent or older than 10 minutes;
-   - every sprint contract under `planning/sprints/` whose `Status:` is not CLOSED, and every ticket under `planning/tickets/` whose `Status:` is not CLOSED, each as `id · Status`.
+   - age of the last fetch (mtime of the path from `git rev-parse --git-path FETCH_HEAD`, so linked worktrees work), with a warning when absent or older than 10 minutes;
+   - every sprint contract under `planning/sprints/` and every ticket under `planning/tickets/` whose `Status:` is not CLOSED, each as `id · Status`. `Status:` is read only from the header block (lines before the first `## `), as `Status: X` or `**Status:** X` (both forms exist: T12.3, T12.4 and T13.2 use the bold form). A file with no parseable header `Status:` is listed as `UNPARSED`, never skipped.
+   Fixed part under 40 lines; the non-closed list wraps rather than dropping entries.
 2. **`--check <handoff-file>`: the claim-check.** The script reads only a fenced block opened with ```` ```claims ```` in the handoff, one claim per line:
    - `ref <name> = <sha>`: `git rev-parse <name>` must start with `<sha>`;
    - `ancestor <sha> <name>`: `git merge-base --is-ancestor`;
    - `status <ticket-id> = <STATUS>`: the ticket's `Status:` line on `origin/staging` must equal it.
-   Output is one line per claim, `OK` or `MISMATCH expected / actual`, then a summary. Exit 0 only if the block exists, parses, has at least one claim and every claim is OK; otherwise exit 1. An unparseable line is a MISMATCH, never skipped. The script reads ticket files from `origin/staging` via `git show`, so it works from any checkout. Prose outside the block is untouched and still the Planner's manual check; the script prints a reminder to that effect.
+   `#` lines and blank lines are comments and are not claims. Output is one line per claim, `OK` or `MISMATCH expected / actual`, then a summary. Exit 0 only if the block exists, parses, has at least one claim and every claim is OK; otherwise exit 1. An unparseable line is a MISMATCH, never skipped. The script reads ticket files from `origin/staging` via `git show`, so it works from any checkout. Prose outside the block is untouched and still the Planner's manual check; the script prints a reminder to that effect.
 3. **`AI-Orchestrator\planner-handoff.md`:** add an empty `claims` block to the template under "verified refs", with the three claim forms shown as comments. Add one sentence to the template's recovery list calling `npm run project:status -- --check <handoff>`.
 4. **`AI-Orchestrator\README.md`, Session rotation 4a:** add the command as a step between "verify the refs" and "boot reads", a statement that exit 1 is a stop-and-report, and a note that prose claims remain a manual check. Record the shared-folder handoff location (`handoffs/planner-handoff.md` in the project folder) as a deliberate deviation for cloud Planners.
 5. **`CHANGELOG.md`:** one dated governance entry. Local files are named only.
@@ -48,13 +49,14 @@ The TP2.4 Planner drill passed a handoff whose state line was stale, because rec
 
 ## Implementation contract
 - Back up `README.md` and `planner-handoff.md` to `scratch\pre-TP2.5\` before editing.
-- The script uses `execFileSync` with argument arrays, never a shell string, and treats handoff text as untrusted data: it never executes or interpolates claim content beyond the three validated forms. Refs are matched against `^[A-Za-z0-9._/-]+$`, SHAs against `^[0-9a-f]{7,40}$`.
+- The script uses `execFileSync` with argument arrays, never a shell string, and treats handoff text as untrusted data: it never executes or interpolates claim content beyond the three validated forms. Refs are matched against `^[A-Za-z0-9._][A-Za-z0-9._/-]*$` (no leading hyphen) and resolved with `git rev-parse --verify --end-of-options <name>^{commit}`, which must yield exactly one commit. SHAs match `^[0-9a-f]{7,40}$`.
 - Absence behavior: missing file, missing block or git failure is a non-zero exit with a one-line reason.
 
 ## Acceptance criteria
 - `git diff --name-only <seal>` is a subset of the repo Authorized paths, and `package.json` changes only by one added script line.
+- Rejection cases (missing file or block, mismatch, unparseable line, unsafe ref) exit 1. The stale-fetch case is warning-only and its exit code is unchanged.
 - `npm run project:status` on a clean staging checkout shows staging and main SHAs equal to `git rev-parse`, and lists TP2.5 (and no CLOSED ticket) as non-closed.
-- `--check` against the live `handoffs/planner-handoff.md` (after a `claims` block is added to a copy) exits 0.
+- `--check` against the fixture `AI-Orchestrator\scratch\fixtures\planner-handoff-live.md` (a copy of the live shared handoff with a `claims` block added, placed by Amul or the Planner before the Executor starts) exits 0. If the fixture is missing, the Executor stops and reports.
 - Every adversarial case below fails closed.
 
 ## Validation matrix
@@ -68,9 +70,10 @@ The TP2.4 Planner drill passed a handoff whose state line was stale, because rec
 
 ## Adversarial tests
 Each on a copy of the handoff, restoring the copy afterward:
+- a ref of `--all`, a ref with a leading hyphen, and a ref matching more than one object: each exits 1;
 - a wrong SHA in a `ref` line, a wrong `status` value, an `ancestor` claim that is false: each exits 1 with a MISMATCH naming the claim;
 - no `claims` block, an empty block, an unparseable line, a ref containing `;` or a space: each exits 1 with no command run on the injected text;
-- run with a stale fetch (touch `.git/FETCH_HEAD` back 30 minutes): the warning appears and the exit code is unchanged.
+- run with a stale fetch (touch the `--git-path FETCH_HEAD` file back 30 minutes), in a main checkout and in a linked worktree: the warning appears and the exit code is unchanged.
 
 ## Regression boundaries
 `npm run build`, `build:pdfs`, `validate:*` scripts and every site output stay byte-for-byte unchanged. No new dependency, no lockfile change.
@@ -79,13 +82,17 @@ Each on a copy of the handoff, restoring the copy afterward:
 Exactly Scope 3 to 5. Stale language to search: any README line describing 4a as "verify the refs" with no claim-check step.
 
 ## Git and deployment boundary
-Commit choreography per §13, R1: seal commit, then one completion commit by a fresh Executor on its own branch with local files evidenced by hash. The Executor runs on Amul's machine because `AI-Orchestrator\` is local. No push to `staging` or `main`; the Planner fast-forwards `staging` after review. Closure needs a green staging Actions build and is recorded in the next legitimate planning commit. No `main`.
+Commit choreography per §13, R1: seal commit, then one completion commit by a fresh Executor on its own branch with local files evidenced by hash. The Executor runs on Amul's machine because `AI-Orchestrator\` is local. The Executor never pushes `staging` or `main`. The Planner fast-forwards and pushes `staging` after review, only on Amul's explicit authorization at that time. Closure needs a green staging Actions build and is recorded in the next legitimate planning commit. No `main`.
 
 ## Stop conditions
 The script would need to write, fetch or call the network; it would need to parse prose to be useful; or it needs a change to `PLANNING.md`, `ROADMAP.md` or `.claude/`.
 
 ## Pre-seal review
-Not yet run. R1 requires one outside reviewer (Codex) per §13, started by Amul's typed message on Amul's machine.
+Reviewer: Codex gpt-6.1-sol / medium (R1), run ad83c71e, on `9dd99ab`. Verdict REVISE: 1 BLOCKER, 7 REQUIRED, 1 OPTIONAL, 0 NEW. All incorporated, none rejected:
+- BLOCKER, missing §13 re-scope: recorded under Decisions already frozen.
+- REQUIRED: header-only `Status:` parsing for plain and bold forms; `FETCH_HEAD` via `git rev-parse --git-path`; comment lines in the claims block; ref hardening (`--end-of-options`, no leading hyphen, one commit); acceptance wording separating rejection from warning-only cases; mandatory live-handoff fixture; staging push ban scoped to the Executor.
+- OPTIONAL: 40-line cap applies to the fixed part and the list wraps.
+Revision 2 has not been re-reviewed.
 
 ## Required completion report
 Standard template (`planning/templates/completion-report.md`).
