@@ -1,6 +1,6 @@
 # TP2.2 — Review depth and resource policy
 
-Status: DRAFT (rev 2, after pre-seal review)
+Status: READY (sealed; contract is rev 2)
 Mode: IMPLEMENTATION
 Risk: R0
 Branch: staging
@@ -21,10 +21,11 @@ Product Authority settled the policy on 2026-10-01. TP2.0's §13 table (`PLANNIN
 - §2 already says tool bindings live in the orchestrator's configuration.
 
 ## Decisions already frozen
+- **§13 one-intent: Product Authority re-scope for TP2.2** (Amul, 2026-10-01, decision card). It runs alongside Sprint 18 on the same footing as TP2.0: governance only, no product behavior, no Sprint 18 file.
 - Amul, 2026-10-01: no model, vendor or CLI names in `PLANNING.md`. Bindings live in `AI-Orchestrator\README.md` and `review.ps1` only. That is the local-tooling ticket's job, not this one.
 
 ## Questions this ticket may answer
-- **For Product Authority, before seal:** does Amul re-scope §13 one-intent (`PLANNING.md:416`) for TP2.2 alongside Sprint 18, on the same footing as TP2.0 (governance only, no product behavior, no Sprint 18 file)? The seal commit moves the answer to Decisions already frozen.
+None.
 
 ## Scope
 1. **`PLANNING.md` §13: replace the four table rows** with:
@@ -82,7 +83,7 @@ A `PLANNING.md` change outside §13 is needed; the subsection can't fit in 12 li
 
 ## Pre-seal review
 Reviewers: Codex and Grok (elevated dual review; R0's tier is a Planner self-check) · Reviewed: rev 1 @ `39496a4` · both REVISE. Calibration: the elevation is because this ticket changes the review protocol itself. It does not redefine R0 depth. It was also the first end-to-end run of the local dual-review tooling, and the tooling's failures are logged for the tooling ticket.
-- Consensus, re-scope pending under frozen decisions (both BLOCKER): moved to Questions, for Amul before seal.
+- Consensus, re-scope pending under frozen decisions (both BLOCKER): Amul granted it at approval, and it is recorded under Decisions already frozen.
 - Consensus, R2/R3 mixed pre-seal review with verification (Codex REQUIRED, Grok BLOCKER; Planner: REQUIRED, fixable in one row): R2 is now `file:line` evidence, and R3's staging check is linked to §5 rather than made a review step.
 - Consensus, second-pass trigger conflicted with the one-review rule (Codex REQUIRED, Grok BLOCKER): replaced by the one-review rule.
 - Consensus, vendor grep failed a correct edit (Codex REQUIRED, Grok BLOCKER): changed to "no added matches".
