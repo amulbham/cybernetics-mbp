@@ -1,6 +1,6 @@
 # TP2.3 — Review tooling: explicit bindings, structured findings, mechanical summary
 
-Status: DRAFT (rev 2, after pre-seal review)
+Status: READY (sealed; contract is rev 2)
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -25,12 +25,13 @@ The README is also stale: it uses `-Ticket` while the script uses `-Id`, its Gro
 - The tiers are `-Tier R1|Standard|Full`. The reviewer prompt asks for free-form findings (`pre-seal-review.md`, "For each finding give").
 
 ## Decisions already frozen
+- **§13 one-intent: Product Authority re-scope for TP2.3** (Amul, 2026-10-01, decision card), on the same footing as TP2.2.
 - Amul, 2026-10-01: bindings live in `AI-Orchestrator\README.md` and `review.ps1` only, never in `PLANNING.md`. `~/.codex/config.toml` is not edited. Claude never writes `summary.md`.
 - Bindings: Codex `gpt-6.1-sol` at medium, the default reviewer; Grok `grok-4.7` at high, the second reviewer for R3. Planner: medium by default, low for mechanical work, high only on escalation (§13 Resource proportionality). Executor: medium by default, low only for genuinely mechanical work, high after failed verification or material ambiguity.
 - Consensus merges only on an unambiguous key match (Scope 3). When equivalence is uncertain, both findings are kept.
 
 ## Questions this ticket may answer
-- **For Product Authority, before seal:** does Amul re-scope §13 one-intent (`PLANNING.md:430`) for TP2.3 alongside Sprint 18, on the same footing as TP2.2?
+None.
 
 ## Scope
 1. **`pre-seal-review.md`: structured finding lines.** Replace the "For each finding give" block with a required one-line format and no other finding syntax:
@@ -107,7 +108,7 @@ A CLI can't be pinned by flag; a required check needs `config.toml` or credentia
 
 ## Pre-seal review
 Reviewer: Codex (R1) · Reviewed: rev 1 @ `f1dc34b` · REVISE (1 BLOCKER, 7 REQUIRED, 1 OPTIONAL). All findings incorporated except the identical-text rule:
-- BLOCKER, re-scope unresolved: put to Amul at approval, and recorded at seal.
+- BLOCKER, re-scope unresolved: Amul granted it at approval, and it is recorded under Decisions already frozen.
 - REQUIRED, false consensus on a shared key: consensus now needs a 1:1 key match, otherwise AMBIGUOUS, with a fixture. Not adopted: requiring identical problem text. Independent reviewers never share wording, so consensus would always be empty (TP2.2's two reviews shared no wording on any agreed finding). The Planner still confirms every consensus.
 - REQUIRED, the regex missed malformed records and flagged prose: replaced by an explicit body boundary, reserved-prefix validation, one terminal verdict, and a verdict/record consistency rule.
 - REQUIRED, `b0144e8` holds the old template: added `-PromptPath` and the full commands.
