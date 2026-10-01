@@ -1,6 +1,6 @@
 # TP2.3 — Review tooling: explicit bindings, structured findings, mechanical summary
 
-Status: VERIFIED LOCAL
+Status: CLOSED
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -138,3 +138,7 @@ Executor: branch `claude/execute-TP2.3` from seal `5246856`. Local files outside
 - README flags grep-checked against the script constants and parameters.
 - Not enforced: the 30-word field limits (prompt instruction only). `npm run build` not run locally; staging Actions is the authority.
 - Raw logs: `AI-Orchestrator\scratch\raw\`; validation output: `scratch\validation\{r1,r3,badmodel}\`.
+
+## Closure
+Recorded by the Planner in the TP2.4 draft commit (§13: no status-only commits). The Planner review passed against seal `5246856`: the repo diff is ⊆ Authorized paths, and local changes are evidenced by hash. Fast-forwarded to `staging @ 5ff46aa`; Actions run #89 green. `~/.codex/config.toml` unchanged.
+- Calibration (observational, not acted on): the tooling works end to end, but in the R3 validation both reviewers still returned REVISE on the corrected, sealed TP2.2 (Codex 0 BLOCKER / 2 REQUIRED, Grok 1 / 8). Reviewer strictness stays under observation for the next few tickets, and the review contract is not loosened.
