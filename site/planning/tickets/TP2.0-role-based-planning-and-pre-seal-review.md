@@ -1,6 +1,6 @@
 # TP2.0 — Role-based planning and pre-seal review protocol
 
-Status: DRAFT (rev 2, after pre-seal review)
+Status: READY
 Mode: DECISION
 Risk: R0
 Branch: staging
@@ -24,7 +24,7 @@ Make the planning protocol vendor-neutral and give pre-seal review a canonical p
 - Sprint 18 is `EXECUTING` (`planning/sprints/sprint-18-scholarly-publication-pipeline.md:3`).
 
 ## Decisions already frozen
-- **Product authority decision (Amul, 2026-10-01): TP2.0 is an explicit governance re-scope under §13 "One primary development intent".** It runs while Sprint 18 is open because it changes no product behavior and no Sprint 18 file, and every later Sprint 18 ticket benefits from it. This record is the authorization. _[Pending Amul's confirmation before seal.]_
+- **Product authority decision (Amul, 2026-10-01): TP2.0 is an explicit governance re-scope under §13 "One primary development intent".** It runs while Sprint 18 is open because it changes no product behavior and no Sprint 18 file, and every later Sprint 18 ticket benefits from it. This record is the authorization. Confirmed by Amul on 2026-10-01 (thread decision card, "Run it now").
 - Amul approved (2026-10-01): roles not vendors; tool bindings kept outside the protocol; risk-proportional pre-seal review; compact review records; no `planning/STATUS.md`.
 - Not reopened: risk classes, lifecycle states, change control, length caps, source-of-truth map.
 
@@ -79,7 +79,7 @@ Every `PLANNING.md` rule outside Scope 2, 3 and 6 is unchanged. `ticket-contract
 R0: seal commit, then one completion commit (§13). Fast-forward `origin/staging` after the planner accepts. No `main`, no deploy beyond the automatic staging build.
 
 ## Stop conditions
-A duty that doesn't fit the mapping, any need to touch an excluded file, or the §13 re-scope not confirmed by Amul.
+A duty that doesn't fit the mapping, any need to touch an excluded file, or any Sprint 18 file appearing in the diff.
 
 ## Pre-seal review
 Reviewers: Codex, Grok · Reviewed: rev 1 @ `7e9716c` · Both REVISE.
