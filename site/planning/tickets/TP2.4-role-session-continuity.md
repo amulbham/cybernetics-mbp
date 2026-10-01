@@ -1,6 +1,6 @@
 # TP2.4 — Role-session continuity: proactive rotation without automatic compaction
 
-Status: VERIFIED LOCAL
+Status: CLOSED
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
