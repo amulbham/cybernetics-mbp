@@ -1,6 +1,6 @@
 # TP2.5 — Status and Planner claim-check: cheap, mechanical session recovery
 
-Status: DRAFT
+Status: READY
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -92,7 +92,7 @@ Reviewer: Codex gpt-6.1-sol / medium (R1), run ad83c71e, on `9dd99ab`. Verdict R
 - BLOCKER, missing §13 re-scope: recorded under Decisions already frozen.
 - REQUIRED: header-only `Status:` parsing for plain and bold forms; `FETCH_HEAD` via `git rev-parse --git-path`; comment lines in the claims block; ref hardening (`--end-of-options`, no leading hyphen, one commit); acceptance wording separating rejection from warning-only cases; mandatory live-handoff fixture; staging push ban scoped to the Executor.
 - OPTIONAL: 40-line cap applies to the fixed part and the list wraps.
-Revision 2 has not been re-reviewed.
+Revision 2 was not re-reviewed; Amul approved the seal on the decision card, 2026-10-01 22:57Z.
 
 ## Required completion report
 Standard template (`planning/templates/completion-report.md`).
