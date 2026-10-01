@@ -1,6 +1,6 @@
 # TP2.1 — Claude context loading: real site/CLAUDE.md and path-scoped rules
 
-Status: READY (sealed; contract is rev 2)
+Status: CLOSED
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -117,3 +117,10 @@ Relay asked for 50-80 lines and branch `claude/execute-TP2.1`; ticket (authority
 
 ## Next gate
 Planner review, staging fast-forward, green Actions, record (a) anomaly.
+
+## Closure
+Recorded by the Planner in the TP2.3 draft commit (§13: no status-only commits).
+- Fast-forwarded to `staging @ 7f25037`; Actions run #88 green.
+- Real-session `/context` check (claude 2.1.287), Planner-run: launching from `site/` loads root `CLAUDE.md` + `site/CLAUDE.md` = 840 tokens of memory, down from ~21.8k with the symlink. `AGENTS.md` no longer auto-loads. Launching from the repo root loads root `CLAUDE.md` only (210 tokens).
+- Both adversarial tests passed: removing `paths:` from `planning.md` made it load at launch; a misspelled heading failed the heading grep.
+- Accepted minor deviations: three executor commits instead of one, and the executor did not update the Status line.
