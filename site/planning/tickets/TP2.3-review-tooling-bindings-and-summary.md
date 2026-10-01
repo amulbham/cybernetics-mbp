@@ -1,14 +1,14 @@
 # TP2.3 — Review tooling: explicit bindings, structured findings, mechanical summary
 
-Status: DRAFT (rev 1, for pre-seal review)
+Status: DRAFT (rev 2, after pre-seal review)
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
 Depends on: TP2.2 CLOSED; TP2.1 CLOSED (`staging @ 7f25037`)
 Unlocks: nothing drafted
-Inherits: `PLANNING.md` §2 and §13 @ `7f25037`; `planning/templates/pre-seal-review.md` @ `7f25037`; TP2.2 `## Pre-seal review` (first Full-tier run evidence)
+Inherits: `PLANNING.md` §2 and §13 @ `7f25037`; `planning/templates/pre-seal-review.md` @ `7f25037`; `planning/tickets/TP2.2-review-depth-and-resource-policy.md` `## Pre-seal review` @ `7f25037` (first Full-tier run evidence)
 Authorized paths: `site/planning/templates/pre-seal-review.md`, `site/CHANGELOG.md`, `site/planning/tickets/TP2.3-*.md`
-Authorized local paths (Amul's machine, outside the repo): `AI-Orchestrator\review.ps1`, `AI-Orchestrator\summarize.ps1`, `AI-Orchestrator\README.md`, `AI-Orchestrator\scratch\` (fixtures, backups, logs)
+Authorized local paths (Amul's machine, outside the repo): `AI-Orchestrator\review.ps1`, `AI-Orchestrator\summarize.ps1`, `AI-Orchestrator\README.md`, `AI-Orchestrator\scratch\` (fixtures, backups, logs, and all validation-run output under `scratch\validation\<run>\`). Reviews written later under `reviews\` in normal use are runtime output, not changes
 
 ## Goal
 Make the review tooling produce a trustworthy normalized summary without the Planner reading raw reviews, and without depending on any personal CLI default.
@@ -27,7 +27,7 @@ The README is also stale: it uses `-Ticket` while the script uses `-Id`, its Gro
 ## Decisions already frozen
 - Amul, 2026-10-01: bindings live in `AI-Orchestrator\README.md` and `review.ps1` only, never in `PLANNING.md`. `~/.codex/config.toml` is not edited. Claude never writes `summary.md`.
 - Bindings: Codex `gpt-6.1-sol` at medium, the default reviewer; Grok `grok-4.7` at high, the second reviewer for R3. Planner: medium by default, low for mechanical work, high only on escalation (§13 Resource proportionality). Executor: medium by default, low only for genuinely mechanical work, high after failed verification or material ambiguity.
-- Consensus merges only on an identical match (Scope 3). When equivalence is uncertain, both findings are kept.
+- Consensus merges only on an unambiguous key match (Scope 3). When equivalence is uncertain, both findings are kept.
 
 ## Questions this ticket may answer
 - **For Product Authority, before seal:** does Amul re-scope §13 one-intent (`PLANNING.md:430`) for TP2.3 alongside Sprint 18, on the same footing as TP2.2?
@@ -45,19 +45,26 @@ The README is also stale: it uses `-Ticket` while the script uses `-Id`, its Gro
    - The Grok call adds `-m`/`--effort` to the verified form (`--output-format json --max-turns 12 --permission-mode dontAsk --sandbox read-only --disable-web-search`, plus the prompt's tool-call budget).
    - `-Tier R1|R2|R3` maps to the §13 table: R1 and R2 run Codex, and R3 runs Codex and Grok. `-Elevate` runs both for a lower tier and writes `ELEVATED` into the summary header. `Standard`/`Full` are removed.
    - Each review file starts with a header recording the reviewer, the model and effort the CLI reported, the commit reviewed, the duration, the exit code and any fallback used. Fallbacks include the model fallback and the stdin-bundle fallback that runs when the Codex read-only sandbox fails. A reviewer failure is recorded, not hidden.
-   - The prompt goes to each CLI from a file or stdin, keeping its line structure. The PowerShell 5.1 one-line flattening is removed.
+   - The prompt goes to each CLI from a file or stdin, keeping its line structure. The PowerShell 5.1 one-line flattening is removed. The prompt is read from the worktree's `pre-seal-review.md` by default. `-PromptPath <file>` overrides this, and the override is recorded in the header.
+   - `-OutDir <dir>` sets where review files, the manifest and the summary go (default `reviews\`). Each run writes `<Id>-<reviewer>.md`, `<Id>-manifest.txt` and `<Id>-summary.md` only in that directory.
+   - Stdin-bundle fallback: the bundle contains the ticket, every `Inherits:` source at its pinned commit (`git show <rev>:<path>`), and each `-Extra` file, all with line numbers. If any source can't be resolved, the run fails visibly instead of sending a partial bundle.
    - If a review has no `VERDICT` line (for example, Grok cancelled early), the reviewer is retried once. A second miss is recorded as `FAILED` in the header and the run exits non-zero.
 3. **`summarize.ps1`: mechanical assembly, fail-closed.**
-   - It parses only Scope 1 lines.
-   - Group rules:
-     - CONSENSUS: same path (ignoring line number), same section and same severity.
-     - SEVERITY SPLIT: same path and section, different severity. The Planner adjudicates these.
+   - Input boundary: `review.ps1` writes its header lines, then a line `=== REVIEW ===`. The parser reads only what follows that line. In that body, free prose is allowed, but every line starting with a reserved prefix (`FINDING`, `NEW`, `VERDICT`) must be valid Scope 1 syntax.
+   - It reads only the reviewers listed in the run's manifest (written by `review.ps1`). A selected reviewer whose output is missing fails the run. Files from other runs or reviewers are never read.
+   - Key = path (ignoring line number) + section. Group rules:
+     - CONSENSUS (key match, Planner confirms): each reviewer has exactly one finding on the key, with the same severity.
+     - SEVERITY SPLIT: exactly one finding each on the key, with different severities. The Planner adjudicates these.
+     - AMBIGUOUS: a reviewer has more than one finding on a shared key. All of them are listed, unpaired.
      - CODEX-ONLY and GROK-ONLY.
      - NEW FINDINGS (NOT AUTHORIZED).
      - PLANNER DISPOSITION: left blank.
    - Matched findings are shown with both reviewers' text verbatim. Text is never merged or paraphrased.
    - Counts are per group and per reviewer, plus both `VERDICT` lines.
-   - If a review has no `VERDICT` line, or has a finding-like line (`^\s*(\d+\.|#+|-\s*\*\*Class)`) that isn't valid Scope 1 syntax, the script writes `UNPARSED: <reviewer>` with the offending line numbers and exits non-zero. It never writes zero counts for a review it couldn't read.
+   - Fail-closed: the script writes `UNPARSED: <reviewer>` with the offending line numbers, writes no counts and exits non-zero when:
+     - any reserved-prefix line is malformed;
+     - there isn't exactly one valid `VERDICT` line, as the last non-blank line;
+     - the verdict is `REVISE` with no `BLOCKER`/`REQUIRED` record, or `SEAL` with one.
 4. **`README.md`:** the bindings above (Claude effort tiers included), the fallback rule, the exact commands, the `-Id`/`-TicketPath`/`-Tier` usage, the tier mapping, the model-list commands (`codex debug models`, `grok models`), the folder layout, and the no-credentials rule. It must agree with the script line for line.
 5. **`CHANGELOG.md`:** one dated entry about the template change. Local-only changes are named but not detailed.
 
@@ -77,15 +84,16 @@ The README is also stale: it uses `-Ticket` while the script uses `-Id`, its Gro
 ## Validation matrix
 | Layer | Check | Expected |
 |---|---|---|
-| Fail-closed | `summarize.ps1` on the existing `reviews\TP2.2-codex.md` / `TP2.2-grok.md` (free-form) | Non-zero exit with `UNPARSED: codex` and `UNPARSED: grok`, and no zero-count summary |
-| Grouping | Fixture pair in `scratch\fixtures\` with one exact match, one severity split, one finding per single reviewer and one NEW each | Exactly one finding in each group, verbatim text, correct counts |
-| R1 live | `review.ps1 -Id TP2.2 -Tier R1` on a worktree at `b0144e8` | Codex only. The header reports `gpt-6.1-sol`/medium, the summary parses, and its counts are non-zero |
-| R3 live | `review.ps1 -Id TP2.2 -Tier R3` at `b0144e8` | Both reviewers complete. Grok's header reports `grok-4.7`/high. The summary parses |
+| Fail-closed | Copy `reviews\TP2.2-codex.md` / `TP2.2-grok.md` into `scratch\fixtures\historical\` (originals untouched), add a header and the `=== REVIEW ===` line, and run `summarize.ps1` on them | Non-zero exit, `UNPARSED: codex` and `UNPARSED: grok` (`REVISE` with no records), no counts |
+| Grouping | Deterministic fixture pair in `scratch\fixtures\` covering one consensus, one severity split, one single finding per reviewer, one NEW each, one AMBIGUOUS key (two Codex findings and one Grok finding on the same path and section), and one unrelated pair that shares a path but has different sections | Each finding in its expected group, verbatim text, exact counts |
+| R1 live | `review.ps1 -Id TP2.2-val -TicketPath site/planning/tickets/TP2.2-review-depth-and-resource-policy.md -Worktree scratch\wt-val-b0144e8 -Tier R1 -PromptPath <new template> -OutDir scratch\validation\r1` | Codex only. The header reports `gpt-6.1-sol`/medium and the prompt override. The summary parses; zero findings is valid |
+| R3 live | The same command with `-Tier R3 -OutDir scratch\validation\r3` | Both reviewers complete or record `FAILED` visibly. Grok's header reports `grok-4.7`/high. The summary parses |
 | Defaults | Both live runs with `config.toml` untouched | The headers show the pinned values, not the defaults |
 | Docs | `npm run build` | Passes, or the known sandbox font failure. Staging Actions is the authority |
 
 ## Adversarial tests
-- Corrupt one fixture `FINDING` line (drop a field). The summary must exit non-zero with that line number.
+- Corrupt one fixture `FINDING` line (drop a field), and separately one `NEW` line. Each must exit non-zero with the line number.
+- Add a stale `TP2.2-val-grok.md` to the R1 output directory. The R1 summary must ignore it.
 - Temporarily set the Codex model constant to a non-existent ID. The run must record the fallback in the header, or fail visibly. Restore it.
 
 ## Regression boundaries
@@ -98,7 +106,16 @@ R1: seal commit. The Executor is a fresh session on Amul's machine, started from
 A CLI can't be pinned by flag; a required check needs `config.toml` or credentials; a reviewer CLI's output can't be held to Scope 1 syntax after one prompt retry (record it, don't loosen the parser).
 
 ## Pre-seal review
-_[To be filled after review.]_ R1: one outside reviewer, Codex, through the current wrapper's tested Codex-only path.
+Reviewer: Codex (R1) · Reviewed: rev 1 @ `f1dc34b` · REVISE (1 BLOCKER, 7 REQUIRED, 1 OPTIONAL). All findings incorporated except the identical-text rule:
+- BLOCKER, re-scope unresolved: put to Amul at approval, and recorded at seal.
+- REQUIRED, false consensus on a shared key: consensus now needs a 1:1 key match, otherwise AMBIGUOUS, with a fixture. Not adopted: requiring identical problem text. Independent reviewers never share wording, so consensus would always be empty (TP2.2's two reviews shared no wording on any agreed finding). The Planner still confirms every consensus.
+- REQUIRED, the regex missed malformed records and flagged prose: replaced by an explicit body boundary, reserved-prefix validation, one terminal verdict, and a verdict/record consistency rule.
+- REQUIRED, `b0144e8` holds the old template: added `-PromptPath` and the full commands.
+- REQUIRED, `reviews\` outside the boundary: validation output goes to `scratch\validation\` via `-OutDir`.
+- REQUIRED, stale or unselected reviewer files: added the run manifest and the stale-file test, and historical reviews are copied, not reused.
+- REQUIRED, the fallback bundle omitted sources: the bundle now has every pinned source with line numbers, or fails.
+- REQUIRED, non-zero live counts were stochastic: zero is valid live, and fixtures prove the counts.
+- OPTIONAL, unpinned TP2.2 inherit: pinned.
 
 ## Required completion report
 Standard template, appended here (≤ 25 lines). Include local file hashes, both live-run headers and the fixture summary excerpt.
