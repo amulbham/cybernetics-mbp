@@ -94,3 +94,36 @@ Standard template, appended here (≤ 25 lines), with the load-log excerpt.
 
 ## Done when
 All auto-loadable repo instructions total ≤ 120 lines, `AGENTS.md` is unchanged and not auto-loaded, the rules dispatch as the matrix shows, staging is green, and the live check is recorded.
+
+---
+
+# TP2.1 Completion Report
+
+Result: COMPLETE (static verification only; live load check pending)
+Branch: claude/tp2-1-context-loading-086vgx
+Commit: a70931e (on seal 6e9facc)
+Deployment: not pushed to staging; Planner fast-forwards after review
+
+## Outcome
+`site/CLAUDE.md` is now a real file (mode 100644, 33 lines). Four path-scoped rules added. `AGENTS.md` unchanged and no longer auto-loaded by static rule.
+
+## Files changed
+| File | Change | Why |
+|---|---|---|
+| site/CLAUDE.md | symlink replaced by dispatcher | stop ingesting 57 KB AGENTS.md |
+| .claude/rules/{planning,content,design,deployment}.md | new, 8-10 lines each | path-scoped dispatch |
+| site/CHANGELOG.md | one dated entry | ticket scope item 3 |
+
+## Verification
+- `git diff --stat 6e9facc -- site/AGENTS.md`: empty.
+- Diff names: subset of Authorized paths.
+- Line budget: root 10 + site 33 + rules 8+10+9+10 = 80 (≤ 120).
+- Every cited heading exists verbatim in AGENTS.md (grep, 6/6); cited files exist.
+- Live load (`claude -p` InstructionsLoaded matrix, repo-root rules question, adversarial tests): NOT run; no headless auth in this sandbox. Static only, live verification pending; ticket stays open.
+- Build not run (docs/config only; no code touched).
+
+## Deviations
+None. Relay said 50-80 lines for site/CLAUDE.md; ticket (authority) says ≤ 60, no minimum.
+
+## Next gate
+Planner review, staging fast-forward, green Actions build, live load check.
