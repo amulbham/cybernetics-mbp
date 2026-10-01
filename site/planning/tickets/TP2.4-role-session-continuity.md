@@ -1,6 +1,6 @@
 # TP2.4 — Role-session continuity: proactive rotation without automatic compaction
 
-Status: DRAFT (rev 2, after pre-seal review)
+Status: READY (sealed; contract is rev 2)
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -22,13 +22,13 @@ This Planner thread has already been through one automatic compaction. Its conti
 - Reviewers are one-shot sessions (`pre-seal-review.md`).
 
 ## Decisions already frozen
+- **§13 one-intent: Product Authority re-scope for TP2.4** (Amul, 2026-10-01, decision card), on the same footing as TP2.3.
 - Amul, 2026-10-01: one ticket covering both roles. It is a single runtime problem: physical conversation lifetime is shorter than logical role lifetime.
 - `PLANNING.md` gets only the vendor-neutral rule. Thresholds, filenames and measurement commands live in `AI-Orchestrator\README.md`.
 - Live handoffs are ephemeral, sit outside the repo, and are overridden by repository truth. Templates under `AI-Orchestrator\templates\` and version control for `AI-Orchestrator` are deferred to the versioning decision.
 - Reviewers get no handoff mechanism.
 
 ## Questions this ticket may answer
-- **For Product Authority, before seal:** does Amul re-scope §13 one-intent (`PLANNING.md:430`) for TP2.4 alongside Sprint 18, on the same footing as TP2.3?
 - How does each role measure its own context use? `/context` works in a CLI session (Planner-run check, TP2.1 closure). The ticket records what works for a Remote Control session and for a Projects thread session. Where nothing works, the README names the fallback trigger (natural boundaries, or the first compaction warning). Record the answer; don't build tooling for it.
 
 ## Scope
@@ -123,7 +123,7 @@ The rule can't stay vendor-neutral within 8 lines; a drill needs a credential or
 
 ## Pre-seal review
 Reviewer: Codex (R1, new TP2.3 wrapper; summary assembled mechanically) · Reviewed: rev 1 @ `34ea222` · REVISE (1 BLOCKER, 5 REQUIRED). All incorporated:
-- BLOCKER, re-scope pending: put to Amul at approval.
+- BLOCKER, re-scope pending: Amul granted it at approval, and it is recorded under Decisions already frozen.
 - REQUIRED, recovery could skip mandated boot reads: Planner recovery now always does the root `CLAUDE.md` boot reads.
 - REQUIRED, a diff can't verify local files, untracked content or results: each claim is now checked against its own evidence type.
 - REQUIRED, recovery didn't stop on mismatch: both procedures now stop and report.
