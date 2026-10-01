@@ -1,6 +1,6 @@
 # TP2.3 — Review tooling: explicit bindings, structured findings, mechanical summary
 
-Status: READY (sealed; contract is rev 2)
+Status: VERIFIED LOCAL
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
@@ -123,3 +123,18 @@ Standard template, appended here (≤ 25 lines). Include local file hashes, both
 
 ## Done when
 Both live tiers produce parsed summaries with the pinned models, free-form reviews fail closed, the README matches the script, `config.toml` is unchanged, and staging is green.
+
+## Completion report
+Executor: branch `claude/execute-TP2.3` from seal `5246856`. Local files outside the repo; backups in `AI-Orchestrator\scratch\pre-TP2.3\`.
+- Repo diff: `pre-seal-review.md` (one-line FINDING/NEW/VERDICT format), `CHANGELOG.md`, this ticket only.
+- Local SHA-256 (first 16): review.ps1 D9BD39AEAA66BFAA (was DEC2D3A0FC5D), summarize.ps1 EFB84819F3692B09 (was B4DDF446023D), README.md 4892D3C0C951DEC2 (was C50BF9D4869D).
+- `~/.codex/config.toml` SHA-256 7A83A058...081341 before and after; never edited.
+- Fixtures (`scratch\tests\run-tests.ps1`, 0 failures): consensus, severity split, single-reviewer, NEW, AMBIGUOUS, same-path-different-section not merged; verbatim text and exact counts.
+- Historical TP2.2 reviews: exit 1, `UNPARSED: codex` and `UNPARSED: grok`, no counts.
+- Adversarial: dropped FINDING field and short NEW line exit non-zero with line numbers; SEAL with REQUIRED and non-final VERDICT rejected; stale `TP2.2-val-grok.md` ignored in R1; tampered file, foreign-run file and missing reviewer output all detected.
+- R1 live: header `ModelReported: gpt-6.1-sol`, `EffortReported: medium`, prompt override recorded, 185 s. Summary parsed: 0 BLOCKER / 0 REQUIRED / 3 OPTIONAL, SEAL.
+- R3 live: codex gpt-6.1-sol/medium 149 s; grok `grok-4.7-build`, `--effort high` passed (CLI does not report effort), Attempts 2 (first had no VERDICT), 643 s, Status OK. Summary parsed: codex 0B/2R/2O, grok 1B/8R/3O, CONSENSUS 1, AMBIGUOUS 2, GROK-ONLY 2; both REVISE.
+- Bad Codex model constant (restored, hash verified): header `Fallbacks: model gpt-nonexistent-9 -> gpt-5.6-sol`, run completed.
+- README flags grep-checked against the script constants and parameters.
+- Not enforced: the 30-word field limits (prompt instruction only). `npm run build` not run locally; staging Actions is the authority.
+- Raw logs: `AI-Orchestrator\scratch\raw\`; validation output: `scratch\validation\{r1,r3,badmodel}\`.

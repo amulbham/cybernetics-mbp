@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-01 — TP2.3: structured reviewer findings
+
+Governance only; no product, runtime, content, or indexing change. The reviewer prompt in planning/templates/pre-seal-review.md now requires one-line records (FINDING | class | section | path:line | problem | fix, NEW | path:line | issue, and a final VERDICT: line) in place of free-form finding blocks, so reviews can be summarized mechanically. The ten criteria, class definitions and the rule that NEW findings never authorize work are unchanged. Local review-runner scripts were also updated outside the repo; they are not detailed here.
+
 ## 2026-10-01 — TP2.1: Claude context loading
 
 Governance only; no product, runtime, content, or indexing change. `site/CLAUDE.md` was a symlink to `AGENTS.md`, so every Claude session that touched `site/` ingested all 57 KB of it. It is now a real dispatcher file (site map, hard-gate pointers, commands), and four path-scoped rules in `.claude/rules/` (planning, content, design, deployment) tell Claude which owner docs and headings to read before editing matching paths. `AGENTS.md` is unchanged and remains the vendor-neutral deep reference.

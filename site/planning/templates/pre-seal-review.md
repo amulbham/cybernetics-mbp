@@ -22,16 +22,15 @@ Check these ten criteria:
 9. Unnecessary process
 10. Contradictions with repository truth
 
-For each finding give:
-- Class: BLOCKER (contract cannot safely seal) | REQUIRED (must be corrected before seal) | OPTIONAL (does not delay seal)
-- Section: the ticket section affected
-- Problem: one or two sentences
-- Evidence: `file:line` in the repository
-- Minimal fix: the smallest change that resolves it
+Report findings only in these one-line records, with no other finding syntax:
+FINDING | <BLOCKER|REQUIRED|OPTIONAL> | <ticket section> | <path:line> | <problem, <= 30 words> | <minimal fix, <= 30 words>
+NEW | <path:line> | <out-of-scope issue, <= 30 words>
 
-Issues outside this ticket's scope go under NEW FINDINGS. NEW FINDINGS never authorize work.
+Classes: BLOCKER (contract cannot safely seal) | REQUIRED (must be corrected before seal) | OPTIONAL (does not delay seal).
+Fields contain no `|`. Free prose is allowed only above the first FINDING line.
+Issues outside this ticket's scope are NEW records. NEW findings never authorize work.
 
-End with exactly one line:
+End with exactly one line, the last non-blank line:
 VERDICT: SEAL | REVISE
 ```
 
