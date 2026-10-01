@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-01 — TP2.2: review depth and resource policy
+
+Governance only; no product, runtime, content, or indexing change. `PLANNING.md` §13's review-depth table now reads R1 one outside reviewer, R2 one outside reviewer with `file:line` evidence, R3 two outside reviewers (R3 closure also needs staging verification, per §5), replacing the model-family wording. A new "Resource proportionality" subsection sets effort and reviewer count in proportion to risk, escalating reviewer breadth rather than model size, and keeps tool and model bindings outside the protocol.
+
 ## 2026-10-01 — TP2.0: role-based planning and pre-seal review protocol
 
 Governance only; no product, runtime, content, or indexing change. `PLANNING.md` now names roles (Product Authority, Planner, Reviewer, Executor) instead of vendors; tool bindings live in the orchestrator's configuration. §13 gained a pre-seal review-depth table by risk (R0 self-check, R1 one reviewer, R2 one reviewer from a different model family, R3 two) and points to a new canonical reviewer prompt, `planning/templates/pre-seal-review.md`. `ticket-contract.md` gained an `Authorized paths:` header line (final diff must be a subset) and a `## Pre-seal review` section that forbids deferring `BLOCKER`/`REQUIRED` findings. A root `CLAUDE.md` bootstrap (pointers only) was added.

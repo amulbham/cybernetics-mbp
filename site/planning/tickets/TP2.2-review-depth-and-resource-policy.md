@@ -1,6 +1,6 @@
 # TP2.2 — Review depth and resource policy
 
-Status: READY (sealed; contract is rev 2)
+Status: VERIFIED LOCAL
 Mode: IMPLEMENTATION
 Risk: R0
 Branch: staging
@@ -101,3 +101,15 @@ Standard template, appended here (≤ 25 lines), with evidence cited by referenc
 
 ## Done when
 §13 carries the new table and the resource subsection, `PLANNING.md` has no added vendor names, and staging is green.
+
+## Completion report
+- Branch `claude/execute-TP2.2`, based on seal `b0144e8` (ancestor check passed).
+- Scope 1: §13 table rows replaced (R1 "One outside reviewer", R2 `file:line` evidence, R3 "Two outside reviewers"); sentence "R3 closure additionally requires staging verification, per §5." added after the table. No other §13 text changed.
+- Scope 2: `### Resource proportionality` added after the "The planner may raise a tier…" paragraph: heading, one lead-in line, 8 bullets (one per Scope 2 bullet, routing and executor-session folded into one). 10 non-blank lines (cap 12).
+- Scope 3: one CHANGELOG entry (3 lines of text), dated 2026-10-01, at top.
+- Diff boundary: `git diff --stat b0144e8` shows only `site/PLANNING.md`, `site/CHANGELOG.md`, and this ticket.
+- Section boundary: PLANNING.md hunks at `@@ -381` and `@@ -386`, both inside §13.
+- Vendor grep on PLANNING.md: only the pre-existing `.claude/skills` path (line 78); both "model famil" matches gone; no added matches.
+- Adversarial test: temporarily inserted "Codex" in the subsection; grep caught it (line 391); reverted.
+- Build: `npm run build` fails in this sandbox with `tsx: not found` (no node_modules installed); not a content failure. Staging Actions is the authority.
+- No stop condition triggered. Nothing pushed to staging or main.

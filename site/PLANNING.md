@@ -378,11 +378,25 @@ The reviewer prompt is canonical in `planning/templates/pre-seal-review.md`. The
 | Risk | Pre-seal review |
 |---|---|
 | R0 | Planner self-check |
-| R1 | One reviewer |
-| R2 | One reviewer from a different model family than the planner |
-| R3 | Two reviewers from different model families |
+| R1 | One outside reviewer |
+| R2 | One outside reviewer, with deeper evidence: every finding cites `file:line` and the repository evidence behind it |
+| R3 | Two outside reviewers |
+
+R3 closure additionally requires staging verification, per §5.
 
 The planner may raise a tier. Only Product Authority may lower one, and the lowering is recorded in the ticket. §5 evidence requirements are unchanged and separate.
+
+### Resource proportionality
+
+Extends the §7 proportionality rule to review and execution resources.
+- An outside reviewer runs in a separate session with its own usage allowance, not the Planner's.
+- Model effort and reviewer count are proportional to ticket risk and uncertainty; start at the lowest sufficient tier.
+- When evidence warrants escalation, escalate reviewer breadth, not model size or context size.
+- The current objective is to minimize Planner and Executor consumption while maintaining quality; after the first 5–10 reviewed tickets the Planner recalibrates using measured usage, escalation rate and accepted `BLOCKER`/`REQUIRED` findings, and proposes any change as a ticket.
+- Planner and Executor effort is normally the default tier; use the lowest tier for mechanical work and the highest only for R3 planning, unresolved architectural ambiguity, or diagnosis after failed verification.
+- The Planner works from the assembled review summary and opens a raw review only for a disputed or material finding, and always for any `BLOCKER`; Executors run in fresh sessions from sealed tickets.
+- The number of passes follows the table and the one-review rule; another pass happens only to clear a `BLOCKER` or `REQUIRED` finding.
+- Concrete tool and model bindings are operational configuration, kept outside this protocol (§2).
 
 ### Commit choreography follows risk
 
