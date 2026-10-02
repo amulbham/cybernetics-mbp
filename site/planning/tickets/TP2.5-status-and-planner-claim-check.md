@@ -1,6 +1,6 @@
 # TP2.5 — Status and Planner claim-check: cheap, mechanical session recovery
 
-Status: VERIFIED LOCAL
+Status: CLOSED
 Mode: IMPLEMENTATION
 Risk: R1
 Branch: staging
