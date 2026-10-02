@@ -1,6 +1,6 @@
 # TP2.6 — Bounded Claude hooks: main-push, indexing and authorized-path guards
 
-Status: READY
+Status: VERIFIED LOCAL
 Mode: IMPLEMENTATION
 Risk: R2
 Branch: staging
@@ -104,7 +104,7 @@ The guard denies the three rule classes, warns on out-of-ticket edits, fails ope
 
 # TP2.6 Completion Report
 
-Result: PENDING LIVE PROOF (implementation complete; live sections not yet run)
+Result: COMPLETE (warn-channel entry still pending)
 Branch: claude/execute-TP2.6
 Commit: this commit
 Deployment: none (Executor never pushes staging or main)
@@ -125,10 +125,12 @@ Deployment: none (Executor never pushes staging or main)
 |---|---|
 | `node --test .claude/hooks/guard.test.mjs` (Windows, Node 24) | 10/10 pass |
 | settings.json parse | valid, one PreToolUse hook |
-| Live, Amul's machine | PENDING |
-| Live, cloud | PENDING |
+| Live, Amul's machine | PASS: fresh session, detached d0cdbbb; main push denied by hook, `git status` ran, tree clean |
+| Live, cloud | PASS: branch d0cdbbb; "guard: main push denied. Claude sessions never push main; Amul pushes outside the session.", `git status` ran |
 | Warn channel (Questions) | PENDING; the guard emits JSON `additionalContext` on stdout |
 | Build | not run |
 
 ## Deviations from ticket
 Relative paths resolve against the payload `cwd` (inside the repo) rather than the root, so site-relative forms work. Bash push detection scans the whole command text.
+
+Note: an earlier local session did not load the hook because it was not a fresh session started in the checkout; a fresh session resolved it. The warn-channel result is pending until Amul sends it.
