@@ -1,6 +1,6 @@
 # TP2.6 — Bounded Claude hooks: main-push, indexing and authorized-path guards
 
-Status: DRAFT
+Status: READY
 Mode: IMPLEMENTATION
 Risk: R2
 Branch: staging
@@ -92,7 +92,7 @@ Either mandatory live environment (Amul's machine, the cloud session) is unavail
 Reviewer: Codex gpt-6.1-sol / medium (R2), run 3982184d, on `96db446`. Verdict REVISE: 1 BLOCKER, 9 REQUIRED, 0 NEW. All incorporated, none rejected, each checked against the repo:
 - BLOCKER, re-scope: recorded under Decisions already frozen (valid: `PLANNING.md:434`).
 - REQUIRED: Goal reworded as advisory; layered-enforcement source corrected to the infra plan (valid: not in `PLANNING.md`); `IN PROGRESS` added to ticket selection (valid: `PLANNING.md:176`); self-protection bootstrap and Bash rules; `BaseHead.astro` path in the Bash indexing rule; path normalization rule and tests; Planner staging push covered by the typed instruction; stop-and-report for unavailable live environments.
-Revision 2 has not been re-reviewed.
+Revision 2 was not re-reviewed; Amul approved the seal on the decision card, 2026-10-02 00:13Z.
 
 ## Required completion report
 Standard template (`planning/templates/completion-report.md`).
