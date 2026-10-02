@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-02 — TP2.6: bounded Claude hooks
+
+Governance only; no product, runtime, content, or indexing change. New `.claude/settings.json` wires one Claude Code `PreToolUse` hook to `.claude/hooks/guard.mjs`. The guard denies pushing `main`, editing `robots.txt` or `SITE_WIDE_NOINDEX`, and editing the hook or settings files themselves; it only warns on edits outside the single active ticket's `Authorized paths:`. It fails open on its own errors. Amul can disable the denies from outside the session; there is no in-band override. This is Claude-only routing: the canonical rules remain the prose in `PLANNING.md` and `AGENTS.md`, and no CI guard or branch protection exists yet.
+
 ## 2026-10-01 — TP2.5: status and Planner claim-check
 
 Governance only; no product, runtime, content, or indexing change. New read-only `npm run project:status` reports branch, HEAD, `origin/staging` and `origin/main` SHAs with ahead/behind counts, working-tree state, fetch age and every sprint or ticket whose `Status:` is not CLOSED. `npm run project:status -- --check <handoff>` mechanically verifies the `ref`, `ancestor` and `status` claims in a Planner handoff's `claims` block against the repository and exits 1 on any mismatch. It never writes, fetches or uses the network. The local orchestrator folder (`README.md`, `planner-handoff.md`) gained the matching recovery step and claims block outside the repo; they are not detailed here.

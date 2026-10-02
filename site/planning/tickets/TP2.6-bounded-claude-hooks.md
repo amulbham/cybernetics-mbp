@@ -99,3 +99,36 @@ Standard template (`planning/templates/completion-report.md`).
 
 ## Done when
 The guard denies the three rule classes, warns on out-of-ticket edits, fails open on its own errors, is proven live in two environments, staging Actions is green, and nothing outside the Authorized paths changed.
+
+---
+
+# TP2.6 Completion Report
+
+Result: PENDING LIVE PROOF (implementation complete; live sections not yet run)
+Branch: claude/execute-TP2.6
+Commit: this commit
+Deployment: none (Executor never pushes staging or main)
+
+## Outcome
+`guard.mjs` implements the three deny rules, the authorized-path warning and fail-open. `settings.json` wires one PreToolUse hook.
+
+## Files changed
+| File | Change | Why |
+|---|---|---|
+| `.claude/hooks/guard.mjs` | new | the guard |
+| `.claude/hooks/guard.test.mjs` | new | node --test cases on a temp git fixture |
+| `.claude/settings.json` | new, added last | one PreToolUse hook |
+| `site/CHANGELOG.md` | entry | governance entry |
+
+## Validation performed
+| Check | Result |
+|---|---|
+| `node --test .claude/hooks/guard.test.mjs` (Windows, Node 24) | 10/10 pass |
+| settings.json parse | valid, one PreToolUse hook |
+| Live, Amul's machine | PENDING |
+| Live, cloud | PENDING |
+| Warn channel (Questions) | PENDING; the guard emits JSON `additionalContext` on stdout |
+| Build | not run |
+
+## Deviations from ticket
+Relative paths resolve against the payload `cwd` (inside the repo) rather than the root, so site-relative forms work. Bash push detection scans the whole command text.
