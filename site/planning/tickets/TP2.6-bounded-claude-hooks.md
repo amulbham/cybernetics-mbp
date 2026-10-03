@@ -1,6 +1,6 @@
 # TP2.6 — Bounded Claude hooks: main-push, indexing and authorized-path guards
 
-Status: VERIFIED LOCAL
+Status: CLOSED
 Mode: IMPLEMENTATION
 Risk: R2
 Branch: staging
