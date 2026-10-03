@@ -44,10 +44,15 @@ const allowed = (r) => {
 	assert.equal(r.err, '');
 };
 
+const G = (args, cwd) => execFileSync('git', ['-c', 'user.name=t', '-c', 'user.email=t@t', ...args], { cwd, encoding: 'utf8' }).trim();
+
 before(() => {
 	root = mkRepo('staging');
 	mainRoot = mkRepo('main');
 	ticket(root, 'TX-1.md', 'READY');
+	// origin/staging is the base commit; local staging starts equal to it (a fast-forward)
+	G(['commit', '--allow-empty', '-q', '-m', 'base'], root);
+	G(['update-ref', 'refs/remotes/origin/staging', 'HEAD'], root);
 });
 after(() => {
 	rmSync(root, { recursive: true, force: true });
@@ -162,7 +167,7 @@ test('fails open on malformed input', () => {
 
 test('MBP_GUARD_OFF=1 disables denies and unset restores them', () => {
 	const off = { env: { MBP_GUARD_OFF: '1' } };
-	for (const cmd of ['git push origin main', 'echo x > site/public/robots.txt', 'rm .claude/hooks/guard.mjs']) {
+	for (const cmd of ['git push origin main', 'git push --force origin claude/x', 'echo x > site/public/robots.txt', 'rm .claude/hooks/guard.mjs']) {
 		assert.equal(bash(cmd, off).code, 0);
 		denied(bash(cmd));
 	}
@@ -170,5 +175,105 @@ test('MBP_GUARD_OFF=1 disables denies and unset restores them', () => {
 		const p = { file_path: f, old_string: 'a', new_string: 'b' };
 		assert.equal(file('Edit', p, off).code, 0);
 		denied(file('Edit', p));
+	}
+});
+
+test('force variants are denied', () => {
+	for (const c of [
+		'git push -f origin claude/x',
+		'git push --force origin claude/x',
+		'git push --force-with-lease origin claude/x',
+		'git push --force-with-lease=claude/x:abc origin claude/x',
+		'git push -uf origin claude/x',
+		'git push origin +claude/x',
+		'git push origin +HEAD:refs/heads/claude/x',
+		'git push --force origin HEAD:refs/heads/claude/x',
+	]) denied(bash(c));
+});
+
+test('staging push: fast-forward allowed, divergence denied', () => {
+	const d = mkRepo('staging');
+	try {
+		G(['commit', '--allow-empty', '-q', '-m', 'base'], d);
+		G(['update-ref', 'refs/remotes/origin/staging', 'HEAD'], d);
+		const base = G(['rev-parse', 'HEAD'], d);
+		G(['commit', '--allow-empty', '-q', '-m', 'ahead'], d); // fast-forward of origin/staging
+		const o = { dir: d };
+		allowed(bash('git push origin staging', o));
+		allowed(bash('git push', o)); // implicit, current branch staging
+		allowed(bash('git push origin HEAD', o));
+		allowed(bash('git push origin HEAD:staging', o));
+		allowed(bash('git push origin HEAD:refs/heads/staging', o));
+		allowed(bash(`git push origin ${base}:staging`, o)); // equal to origin/staging
+		G(['checkout', '-q', '--orphan', 'side'], d);
+		G(['commit', '--allow-empty', '-q', '-m', 'side'], d); // unrelated history
+		denied(bash('git push origin side:staging', o));
+		denied(bash('git push origin HEAD:staging', o));
+		denied(bash('git push origin HEAD:refs/heads/staging', o));
+		denied(bash('git push origin claude/x staging side:staging', o)); // one bad refspec among several
+		denied(bash('git push origin side:claude/x side:staging', o));
+		denied(bash('git push origin :staging', o)); // delete
+		denied(bash('git push --delete origin staging', o));
+		denied(bash('git push origin nope:staging', o)); // unresolvable source
+		denied(bash('git push origin "refs/heads/*:refs/heads/*"', o)); // unparseable
+		allowed(bash('git push origin side:claude/x', o)); // other branches unaffected
+		G(['checkout', '-q', 'staging'], d);
+		G(['branch', '-q', '-D', 'side'], d);
+	} finally {
+		rmSync(d, { recursive: true, force: true });
+	}
+});
+
+test('staging push with no origin/staging ref is denied, other branches unaffected', () => {
+	const d = mkRepo('staging');
+	try {
+		G(['commit', '--allow-empty', '-q', '-m', 'base'], d);
+		const o = { dir: d };
+		denied(bash('git push origin staging', o));
+		denied(bash('git push', o)); // implicit on staging
+		allowed(bash('git push origin claude/x', o));
+		assert.match(bash('git push origin staging', o).err, /origin\/staging/);
+		// with the override the denial lifts
+		assert.equal(bash('git push origin staging', { dir: d, env: { MBP_GUARD_OFF: '1' } }).code, 0);
+	} finally {
+		rmSync(d, { recursive: true, force: true });
+	}
+});
+
+test('push scope warns, never denies', () => {
+	const d = mkRepo('claude/execute-T');
+	const scoped = (line) =>
+		writeFileSync(path.join(d, 'site/planning/tickets/T.md'), `# T\n\nStatus: READY\n${line}\nAuthorized paths: \`site/a.md\`\n`);
+	try {
+		G(['commit', '--allow-empty', '-q', '-m', 'base'], d);
+		const o = { dir: d };
+		scoped('Push scope: `claude/execute-T`, `claude/execute-T-*` (never `staging` or `main`); external `tp2.7`');
+		allowed(bash('git push origin claude/execute-T', o));
+		allowed(bash('git push -u origin HEAD', o));
+		allowed(bash('git push origin claude/execute-T-extra', o));
+		for (const c of ['git push origin other', 'git push origin HEAD:refs/heads/other']) {
+			const r = bash(c, o);
+			assert.equal(r.code, 0);
+			assert.match(JSON.parse(r.out).hookSpecificOutput.additionalContext, /other.*Push scope/);
+		}
+		// missing, malformed or conflicting scope: no warning
+		scoped('Branch: staging');
+		allowed(bash('git push origin other', o));
+		scoped('Push scope: not a list');
+		allowed(bash('git push origin other', o));
+		scoped('Push scope: `main`');
+		allowed(bash('git push origin other', o));
+		scoped('Push scope: `claude/execute-T`');
+		writeFileSync(path.join(d, 'site/planning/tickets/T2.md'), '# T\n\nStatus: READY\nPush scope: `x`\nAuthorized paths: `a`\n');
+		allowed(bash('git push origin other', o));
+		rmSync(path.join(d, 'site/planning/tickets/T2.md'));
+		// no active ticket: no warning
+		writeFileSync(path.join(d, 'site/planning/tickets/T.md'), '# T\n\nStatus: CLOSED\nPush scope: `claude/execute-T`\n');
+		allowed(bash('git push origin other', o));
+		// main stays denied whatever the scope
+		scoped('Push scope: `main`');
+		denied(bash('git push origin main', o));
+	} finally {
+		rmSync(d, { recursive: true, force: true });
 	}
 });

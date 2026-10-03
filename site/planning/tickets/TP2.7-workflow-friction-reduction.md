@@ -96,12 +96,14 @@ All nine items are done and bounded, every adversarial case produces its specifi
 
 ## Completion report (Executor, branch claude/execute-TP2.7 from seal f4b89ec)
 
-Result: BLOCKED (partial: items 3, 4, 6, 7, 8, 9 and the external half of 1 and 2 done; item 5 not done)
+Result: COMPLETE for all edits and unit tests; live proofs, permission outcome, build and relay proof pending in fresh sessions (see Remaining gate)
 Branch: claude/execute-TP2.7 (local, not pushed). External: `tp2.7` of ai-orchestrator (local, not pushed).
 
-- Item 5 not done: the session's auto-mode classifier denied the scripted edit of `.claude/hooks/guard.mjs` as Self-Modification. `MBP_GUARD_OFF=1` was not set (the relay said the repo guard is inactive here), so I stopped rather than retry another route. Not done: `guard.mjs` force, staging-ancestry and push-scope logic; `guard.test.mjs` cases and TP2.6 fixture updates; the `settings.json` `permissions.allow` entry for `git push origin claude/execute-*` (added last, per contract).
+- Item 5 done in a second pass after Amul's typed instruction (the first pass was stopped by the session's auto-mode classifier). `guard.mjs` adds force denial (`-f`, `--force*`, clustered short flags, `+refspec`), staging denial unless the source descends from local `origin/staging` (explicit, implicit, any refspec of a multi-refspec push, delete; missing ref, unresolvable source and unparseable refspec deny staging only, with the cause named), and a Push-scope warning (never a deny; missing, malformed or multiple-active-ticket scope gives none). The TP2.6 `main` logic is untouched. `guard.test.mjs`: fixture repo gained a base commit and an `origin/staging` ref (the intentional ancestry delta); three new tests plus force and override cases. `settings.json` gained only `permissions.allow: ["Bash(git push origin claude/execute-*)"]`, added last; no deny rule removed.
+- `node --test .claude/hooks/guard.test.mjs`: 14/14 pass (Windows, Node). Deviation: the override cases were exercised in tests only; `MBP_GUARD_OFF` was not set in this session.
 - Done in the repo: `ticket-contract.md` (`Push scope:` header, fresh-session-proof line), `completion-report.md` (fresh-session-proof field), `project-status.mjs` (`STALE?` lint), Sprint 18 `T18.4` row corrected, CHANGELOG entry. The CHANGELOG entry describes the guard changes in the future tense of item 5; revise it if item 5 changes shape.
-- Lint: before item 8, `npm run project:status` printed `STALE? sprint-18 row T18.4 ... CLOSED on origin/staging`; after item 8 the row no longer matches. The "after" run and the "production promotion pending" negative case were not run yet.
+- Lint: before item 8, `npm run project:status` printed `STALE? sprint-18 row T18.4 ... CLOSED on origin/staging`; after item 8 the row no longer matches. After item 8 the "after" run prints no `STALE?` line; the "production promotion pending" wording is not flagged by the one row pattern (`not yet on `staging``).
 - External (ai-orchestrator `tp2.7`, two commits): `briefs/executor-brief.md`, `README.md` (relay rule, first line, calibration pointer), `calibration.md` (TP2.5 and TP2.6 seeded; Interventions column "not recorded").
-- Not run: unit tests (guard unchanged), build, permission-outcome Question, live proofs, relay proof.
-- Remaining gate: Amul starts a session with `MBP_GUARD_OFF=1` to finish item 5, then a fresh guarded session for the live proofs.
+- Fresh-session proof: none yet.
+- Not run: build, permission-outcome Question (local and cloud), live proofs, relay proof, enforcement-restored `main` dry-run evidence. Nothing pushed.
+- Remaining gate: Amul starts a fresh session with `MBP_GUARD_OFF` unset in a checkout containing this commit; only that session pushes `claude/execute-TP2.7` and `tp2.7` and runs the live proofs.

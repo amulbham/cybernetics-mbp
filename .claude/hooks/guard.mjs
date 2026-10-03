@@ -91,7 +91,16 @@ function activeTicketPaths(root) {
 	const line = active[0].head.find((l) => /^\*{0,2}Authorized paths:/.test(l));
 	if (!line) return null;
 	const entries = [...line.matchAll(/`([^`]+)`/g)].map((m) => m[1]).filter((e) => !e.includes('\\'));
-	return { name: active[0].f, entries };
+	return { name: active[0].f, entries, pushScope: parsePushScope(active[0].head) };
+}
+
+// Backticked branch globs before the first "(" or ";". Missing or malformed gives null (no warning).
+function parsePushScope(head) {
+	const line = head.find((l) => /^\*{0,2}Push scope:/.test(l));
+	if (!line) return null;
+	const entries = [...line.split(/[(;]/)[0].matchAll(/`([^`]+)`/g)].map((m) => m[1]);
+	if (entries.length === 0 || entries.some((e) => !/^[A-Za-z0-9._\/*?-]+$/.test(e) || e === 'main' || e === 'staging')) return null;
+	return entries;
 }
 
 function warnFor(rel, root) {
@@ -139,12 +148,125 @@ function pushesMain(cmd, cwd) {
 	return false;
 }
 
-function checkBash(cmd, cwd) {
-	if (pushesMain(cmd, cwd)) return MAIN_ERR;
+// ---- TP2.7: force, staging ancestry, push scope (main is handled by pushesMain) ----
+const FORCE_ERR = 'guard: force push denied. Claude sessions never force push; Amul does that outside the session.';
+const SAFE_REF = /^[A-Za-z0-9._\/@{}^~-]+$/;
+const stripHeads = (r) => r.replace(/^refs\/heads\//, '');
+const stagingErr = (cause) =>
+	`guard: staging push denied (${cause}). Executors never push staging; the Planner pushes only a fast-forward of origin/staging on Amul's typed instruction.`;
+
+// Every `git ... push ...` in the command as {cwd, force, del, pos}.
+function parsePushes(cmd, cwd) {
+	const re = /\bgit\b((?:\s+(?:-C\s+\S+|-c\s+\S+|--[\w-]+(?:=\S+)?))*)\s+push\b([^;&|\n]*)/g;
+	const out = [];
+	for (const m of cmd.matchAll(re)) {
+		const toks = m[2].trim().split(/\s+/).filter(Boolean);
+		const p = { cwd, force: false, del: false, pos: [] };
+		const c = /-C\s+(\S+)/.exec(m[1]);
+		if (c) p.cwd = path.resolve(cwd, unquote(c[1]));
+		for (let i = 0; i < toks.length; i++) {
+			const t = toks[i];
+			if (/^(-o|--push-option|--repo|--receive-pack|--exec)$/.test(t)) i++;
+			else if (t === '--delete') p.del = true;
+			else if (/^--force(-with-lease|-if-includes)?(=.*)?$/.test(t)) p.force = true;
+			else if (/^-[A-Za-z]+$/.test(t)) {
+				if (t.includes('f')) p.force = true;
+				if (t.includes('d')) p.del = true;
+			} else if (!t.startsWith('-')) p.pos.push(unquote(t));
+		}
+		out.push(p);
+	}
+	return out;
+}
+
+function currentBranch(cwd) {
+	try {
+		return git(['branch', '--show-current'], cwd);
+	} catch (e) {
+		process.stderr.write(`guard: branch lookup failed (${String(e.message).split('\n')[0]}); allowing\n`);
+		return null;
+	}
+}
+
+// Refspecs of one push as {raw, src, dest, plus}; dest null when the current branch is unknown.
+function destinations(p) {
+	const refspecs = p.pos.slice(1);
+	const list = [];
+	let branch;
+	const cur = () => (branch === undefined ? (branch = currentBranch(p.cwd)) : branch);
+	if (refspecs.length === 0) list.push({ raw: '', src: 'HEAD', dest: cur(), plus: false });
+	for (const r0 of refspecs) {
+		const plus = r0.startsWith('+');
+		const r = r0.replace(/^\+/, '');
+		if (p.del) list.push({ raw: r0, src: null, dest: stripHeads(r), plus });
+		else if (r.includes(':')) {
+			const i = r.indexOf(':');
+			list.push({ raw: r0, src: r.slice(0, i) || null, dest: stripHeads(r.slice(i + 1)), plus });
+		} else if (r === 'HEAD') list.push({ raw: r0, src: 'HEAD', dest: cur(), plus });
+		else list.push({ raw: r0, src: r, dest: stripHeads(r), plus });
+	}
+	return list;
+}
+
+// Deny message for a staging destination unless the source descends from the local origin/staging ref.
+function stagingCheck(d, cwd) {
+	if (d.src === null) return stagingErr('delete or empty source');
+	if (!SAFE_REF.test(d.src)) return stagingErr('unparseable refspec');
+	let base;
+	try {
+		base = git(['rev-parse', '--verify', '--quiet', 'refs/remotes/origin/staging^{commit}'], cwd);
+	} catch {
+		return stagingErr('local origin/staging ref missing; run git fetch');
+	}
+	let src;
+	try {
+		src = git(['rev-parse', '--verify', '--quiet', '--end-of-options', `${d.src}^{commit}`], cwd);
+	} catch {
+		return stagingErr('source does not resolve to a commit');
+	}
+	try {
+		execFileSync('git', ['merge-base', '--is-ancestor', base, src], { cwd, stdio: 'ignore' });
+		return null;
+	} catch (e) {
+		return e.status === 1 ? stagingErr('source does not descend from origin/staging') : stagingErr('ancestry lookup failed');
+	}
+}
+
+// Returns {deny}, {warn} or {}. Main pushes are denied earlier by pushesMain.
+function checkPushes(cmd, cwd, root) {
+	const dests = [];
+	for (const p of parsePushes(cmd, cwd)) for (const d of destinations(p)) dests.push({ ...d, p });
+	if (dests.some((d) => d.p.force || d.plus)) return { deny: FORCE_ERR };
+	for (const d of dests) {
+		const unparsed = d.dest !== null && !SAFE_REF.test(d.dest);
+		if (d.dest === 'staging' || (unparsed && /staging|\*/.test(d.dest))) {
+			const e = stagingCheck(d, d.p.cwd);
+			if (e) return { deny: e };
+		}
+	}
+	const scope = activeTicketPaths(root)?.pushScope;
+	if (scope) {
+		for (const d of dests) {
+			if (d.dest && d.dest !== 'staging' && !scope.some((e) => globToRe(e).test(d.dest))) {
+				return { warn: `Push-scope warning: ${d.dest} is outside the Push scope of the active ticket. Push only to the branches the ticket names unless Amul has re-scoped it.` };
+			}
+		}
+	}
+	return {};
+}
+
+function emitWarn(w) {
+	process.stdout.write(JSON.stringify({ hookSpecificOutput: { hookEventName: 'PreToolUse', additionalContext: w } }));
+}
+
+function checkBash(cmd, cwd, root) {
+	if (pushesMain(cmd, cwd)) return { deny: MAIN_ERR };
+	const r = checkPushes(cmd, cwd, root);
+	if (r.deny) return r;
 	const c = norm(cmd).replace(/\d*>&\d+|\d*>\s*\/dev\/null/g, '');
-	if (/robots\.txt|BaseHead\.astro|SITE_WIDE_NOINDEX/.test(c) && WRITE_IND.test(c)) return IDX_ERR;
-	if (/\.claude\/(settings(\.local)?\.json|hooks)/.test(c) && SELF_IND.test(c)) return SELF_ERR;
-	return null;
+	if (/robots\.txt|BaseHead\.astro|SITE_WIDE_NOINDEX/.test(c) && WRITE_IND.test(c)) return { deny: IDX_ERR };
+	if (/\.claude\/(settings(\.local)?\.json|hooks)/.test(c) && SELF_IND.test(c)) return { deny: SELF_ERR };
+	return r;
 }
 
 function main() {
@@ -155,11 +277,12 @@ function main() {
 	const off = process.env.MBP_GUARD_OFF === '1';
 	if (tool === 'Bash') {
 		if (off) return 0;
-		const d = checkBash(String(ti.command ?? ''), cwd);
-		if (d) {
-			process.stderr.write(`${d}\n`);
+		const r = checkBash(String(ti.command ?? ''), cwd, repoRoot(cwd));
+		if (r.deny) {
+			process.stderr.write(`${r.deny}\n`);
 			return 2;
 		}
+		if (r.warn) emitWarn(r.warn);
 		return 0;
 	}
 	if (!['Edit', 'Write', 'MultiEdit', 'NotebookEdit'].includes(tool)) return 0;
