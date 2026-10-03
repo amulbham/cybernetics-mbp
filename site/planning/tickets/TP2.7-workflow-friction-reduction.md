@@ -107,3 +107,20 @@ Branch: claude/execute-TP2.7 (local, not pushed). External: `tp2.7` of ai-orches
 - Fresh-session proof: none yet.
 - Not run: build, permission-outcome Question (local and cloud), live proofs, relay proof, enforcement-restored `main` dry-run evidence. Nothing pushed.
 - Remaining gate: Amul starts a fresh session with `MBP_GUARD_OFF` unset in a checkout containing this commit; only that session pushes `claude/execute-TP2.7` and `tp2.7` and runs the live proofs.
+
+## Completion report, push and live proof phase (Executor, fresh local session, branch claude/execute-TP2.7 @ 9152b8c)
+
+Result: PARTIAL. Local push and live proofs pass; cloud proofs, cloud permission outcome and relay proof NOT run. Not closable until those and the staging build are done.
+
+- Fresh-session proof: local Claude Code session started after the commit, in a checkout at `9152b8c` (clean tree, branch `claude/execute-TP2.7`), `MBP_GUARD_OFF` unset (checked: empty).
+- Enforcement restored (evidence): a dry-run push of HEAD to `main` was denied by the guard: "main push denied. Claude sessions never push main; Amul pushes outside the session."
+- Live proof, force: a `--force` push of HEAD to `refs/heads/claude/x` was denied by the guard: "force push denied." Nothing reached the remote.
+- Live proof, ordinary push: `git push origin claude/execute-TP2.7` was not blocked by the guard; exit 0, new remote branch created.
+- External push: `git push origin tp2.7` in `amulbham/ai-orchestrator` (tp2.7 @ 202c883), exit 0, new remote branch. The guard issued the expected Push-scope warning (branch outside this ticket's local scope; the ticket authorizes it as external). `main` of ai-orchestrator untouched; merge waits for Amul's typed instruction.
+- Permission outcome (local only): the `claude/execute-*` push ran with no guard block. I could not observe from inside the session whether a permission prompt or classifier check appeared for it, so "allow rule matched, no prompt" is not independently confirmed. The `tp2.7` push is not covered by the rule and also executed; I cannot tell whether Amul approved a prompt for it. Amul to confirm both from the terminal. Cloud outcome: not run.
+- Guard observation: the guard matches on the raw command string, so a compound command that merely contains text such as a main-push example (for instance inside a heredoc) is denied as a main push. Safe direction, but a false positive; not changed here (out of scope).
+- Build: `npm run build` in `site/` passed (exit 0, Pagefind indexed). Staging Actions has not run: nothing was pushed to `staging`.
+- Lint: `npm run project:status` prints no `STALE?` line on this tree.
+- Relay proof: not run. It requires a Planner message to start a fresh Executor (plan step 3), which this session cannot originate. No improvised fallback was attempted.
+- Cloud live proofs: not run (no cloud session available here).
+- Remaining: cloud fresh-session proofs and permission outcome; relay proof; Amul's typed instruction to fast-forward `staging` and a green staging build; calibration row at closure.
