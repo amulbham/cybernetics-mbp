@@ -1,6 +1,6 @@
 # TP2.7 — Workflow calibration and friction reduction from TP2.0–TP2.6 evidence
 
-Status: DRAFT (rev 2)
+Status: READY
 Mode: IMPLEMENTATION
 Risk: R2
 Branch: staging
@@ -86,7 +86,7 @@ R2 choreography per §13: seal commit, then one completion commit by a fresh Exe
 A deny rule blocks a routine allowed command; the allow rule cannot be made narrower than `claude/execute-*`; a live environment is unavailable (unit results never substitute); the lint needs ticket-specific parsing beyond the one row pattern; or any item needs `PLANNING.md` or a policy change.
 
 ## Pre-seal review
-Reviewer: Codex gpt-6.1-sol/medium, R2, run c9032212, commit 6d82cc2. Verdict REVISE: 1 BLOCKER, 8 REQUIRED, 0 NEW. All accepted and incorporated in rev 2: BLOCKER (guard override persisting through pushes) became the enforcement-restore step in the Implementation contract; REQUIRED: seven-vs-nine wording, relay delivery and proof, staging-ancestry lookup failures, this ticket's own `Push scope:`, one canonical calibration location, permission-outcome recording, TP2.6 test fixture updates, "fails closed" wording. Revision 2 has not been re-reviewed.
+Reviewer: Codex gpt-6.1-sol/medium, R2, run c9032212, commit 6d82cc2. Verdict REVISE: 1 BLOCKER, 8 REQUIRED, 0 NEW. All accepted and incorporated in rev 2: BLOCKER (guard override persisting through pushes) became the enforcement-restore step in the Implementation contract; REQUIRED: seven-vs-nine wording, relay delivery and proof, staging-ancestry lookup failures, this ticket's own `Push scope:`, one canonical calibration location, permission-outcome recording, TP2.6 test fixture updates, "fails closed" wording. Revision 2 was not re-reviewed; Amul approved sealing it as revised on 2026-10-03, including the §13 one-intent re-scope.
 
 ## Required completion report
 Standard template, including the new fresh-session-proof field.
