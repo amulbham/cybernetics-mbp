@@ -93,3 +93,15 @@ Standard template, including the new fresh-session-proof field.
 
 ## Done when
 All nine items are done and bounded, every adversarial case produces its specified outcome (rejection cases exit 2; fast-forward, warn-only, no-ticket and override cases exit 0), live proofs pass in two fresh sessions, the stale row is gone, staging Actions is green, and nothing outside the Authorized paths changed.
+
+## Completion report (Executor, branch claude/execute-TP2.7 from seal f4b89ec)
+
+Result: BLOCKED (partial: items 3, 4, 6, 7, 8, 9 and the external half of 1 and 2 done; item 5 not done)
+Branch: claude/execute-TP2.7 (local, not pushed). External: `tp2.7` of ai-orchestrator (local, not pushed).
+
+- Item 5 not done: the session's auto-mode classifier denied the scripted edit of `.claude/hooks/guard.mjs` as Self-Modification. `MBP_GUARD_OFF=1` was not set (the relay said the repo guard is inactive here), so I stopped rather than retry another route. Not done: `guard.mjs` force, staging-ancestry and push-scope logic; `guard.test.mjs` cases and TP2.6 fixture updates; the `settings.json` `permissions.allow` entry for `git push origin claude/execute-*` (added last, per contract).
+- Done in the repo: `ticket-contract.md` (`Push scope:` header, fresh-session-proof line), `completion-report.md` (fresh-session-proof field), `project-status.mjs` (`STALE?` lint), Sprint 18 `T18.4` row corrected, CHANGELOG entry. The CHANGELOG entry describes the guard changes in the future tense of item 5; revise it if item 5 changes shape.
+- Lint: before item 8, `npm run project:status` printed `STALE? sprint-18 row T18.4 ... CLOSED on origin/staging`; after item 8 the row no longer matches. The "after" run and the "production promotion pending" negative case were not run yet.
+- External (ai-orchestrator `tp2.7`, two commits): `briefs/executor-brief.md`, `README.md` (relay rule, first line, calibration pointer), `calibration.md` (TP2.5 and TP2.6 seeded; Interventions column "not recorded").
+- Not run: unit tests (guard unchanged), build, permission-outcome Question, live proofs, relay proof.
+- Remaining gate: Amul starts a session with `MBP_GUARD_OFF=1` to finish item 5, then a fresh guarded session for the live proofs.

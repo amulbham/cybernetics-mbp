@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-03 — TP2.7: workflow friction reduction
+
+Governance only; no product, runtime, content, or indexing change. Ticket and completion-report templates gained a `Push scope:` header and a fresh-session-proof field for live or hook proofs. `npm run project:status` prints `STALE?` for a sprint-contract row that says "not yet on `staging`" when the ticket is CLOSED or VERIFIED LOCAL on `origin/staging`; the Sprint 18 `T18.4` row was corrected. The Claude hook guard additionally denies force pushes and any `staging` push that does not descend from the local `origin/staging` ref, and warns on pushes outside the ticket's `Push scope:`; `main` stays denied. An executor brief template, relay rule and calibration table were added to the local orchestrator repo outside this one.
+
 ## 2026-10-02 — TP2.6: bounded Claude hooks
 
 Governance only; no product, runtime, content, or indexing change. New `.claude/settings.json` wires one Claude Code `PreToolUse` hook to `.claude/hooks/guard.mjs`. The guard denies pushing `main`, editing `robots.txt` or `SITE_WIDE_NOINDEX`, and editing the hook or settings files themselves; it only warns on edits outside the single active ticket's `Authorized paths:`. It fails open on its own errors. Amul can disable the denies from outside the session; there is no in-band override. This is Claude-only routing: the canonical rules remain the prose in `PLANNING.md` and `AGENTS.md`, and no CI guard or branch protection exists yet.

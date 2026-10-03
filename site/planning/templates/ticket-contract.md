@@ -44,6 +44,7 @@ Branch: staging
 Depends on: ticket IDs / commits / verified contracts
 Unlocks: next ticket or decision
 Inherits: <path> @ <commit> — only what this ticket doesn't itself change/constrain/test
+Push scope: branch globs the Executor may push, normally `claude/execute-<ticket>`; never `staging` or `main`
 Authorized paths: repo-relative paths or gitignore-style globs; the final diff must be a subset
 
 ## Goal
@@ -80,6 +81,8 @@ Unknowns that implementation evidence is allowed to resolve.
 | Layer | Command/check | Expected result |
 
 Cite an established verification bundle/command where one already exists and is trusted, plus only the ticket-specific delta — don't recopy a bundle's component commands.
+
+Any live or hook proof states its session setup: a fresh session started in a checkout that contains the changed files.
 
 ## Adversarial tests
 - Mutation or negative case.

@@ -152,7 +152,30 @@ function status() {
   }
   lines.push(`not CLOSED (${open.length}):`);
   lines.push(...(open.length ? wrapList(open) : ['  none']));
+  lines.push(...staleRows());
   console.log(lines.join('\n'));
+}
+
+// A sprint-contract ticket row that says "not yet on `staging`" while that ticket's file on
+// origin/staging is CLOSED or VERIFIED LOCAL. One row pattern only; lookup failures are skipped.
+function staleRows() {
+  const base = join(SITE_ROOT, 'planning', 'sprints');
+  if (!existsSync(base)) return [];
+  const hits = [];
+  for (const f of readdirSync(base).filter((n) => n.endsWith('.md')).sort()) {
+    for (const row of readFileSync(join(base, f), 'utf8').split(/\r?\n/)) {
+      const m = row.match(/^\|\s*`([A-Za-z0-9.]+)`\s*\|/);
+      if (!m || !/not yet on `staging`/.test(row)) continue;
+      let st = null;
+      try {
+        st = stagingTicketStatus(m[1]);
+      } catch {
+        continue;
+      }
+      if (st === 'CLOSED' || st === 'VERIFIED LOCAL') hits.push(`STALE? ${itemId(f, true)} row ${m[1]} says not yet on staging; ticket is ${st} on origin/staging`);
+    }
+  }
+  return hits;
 }
 
 // Parse the first ```claims block. Returns array of {n, text}.

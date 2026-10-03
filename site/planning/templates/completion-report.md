@@ -34,6 +34,8 @@ What now works or what the audit established.
 ## Validation performed
 | Command/check | Result | Key output |
 
+Fresh-session proof: session setup for each live or hook proof (a fresh session started in a checkout containing the changed files), or "none".
+
 ## Adversarial tests
 | Mutation | Expected failure | Observed | Restored |
 
