@@ -125,3 +125,6 @@ Result: PARTIAL. Local push and live proofs pass; cloud proofs, cloud permission
 - Relay proof: not run. It requires a Planner message to start a fresh Executor (plan step 3), which this session cannot originate. No improvised fallback was attempted.
 - Cloud live proofs: not run (no cloud session available here).
 - Remaining: cloud fresh-session proofs and permission outcome; relay proof; Amul's typed instruction to fast-forward `staging` and a green staging build; calibration row at closure.
+
+## Conditional close (Amul, 2026-10-06)
+Amul chose to park TP2.7 and move on to product work. Recorded state: all nine items done; unit tests 14/14; local live proofs passed (force and `main` dry-run denied, ordinary `claude/execute-*` push allowed); a second fresh session also passed the same three checks (cloud versus local not confirmed). Not done and carried forward: relay proof, the permission-prompt outcome (local not observed, cloud not run), and the calibration row at closure. A first cloud attempt ran on the default branch and is invalid (no hook); it left a stray remote branch `claude/x` to delete. Closure still needs Amul's typed go to fast-forward `staging` and a green staging build. Per the ticket's stopping rule, no new TP ticket without a named real failure; the redirect false-warning is the one named issue.
