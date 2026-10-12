@@ -55,6 +55,30 @@
 	font-style: italic;
 }
 
+/* ---- Glyph coverage Latin Modern Roman lacks (T18.5 refinement) ----
+   Each face is limited by unicode-range to exactly the characters it exists
+   for, so it never changes the look of ordinary text:
+   - Greek (the corpus uses δ) from Latin Modern Math, the same Computer
+     Modern design and the same GUST Font License;
+   - U+221E (∞) inside code, where the mono face has no glyph, from the
+     already-bundled Latin Modern Roman.
+   Not covered, by design of the platform: the corpus's ⚠ is written U+26A0
+   U+FE0F, an emoji-presentation sequence. Chrome honors an explicit emoji
+   variation selector over any CSS (font order, a bundled symbol face, and
+   font-variant-emoji were all tested), so it renders from the system emoji
+   font; the source text is not altered to avoid that.
+   Sources, licenses, and SHA-256s: public/fonts/print/README.md. */
+@font-face {
+	font-family: 'LM Math Print';
+	src: url('../../public/fonts/print/latinmodern-math.otf') format('opentype');
+	unicode-range: U+0370-03FF;
+}
+@font-face {
+	font-family: 'LM Infinity Print';
+	src: url('../../public/fonts/print/lmroman10-regular.otf') format('opentype');
+	unicode-range: U+221E;
+}
+
 :root {
 	--bg: #ffffff !important;
 	--bg-raised: #ffffff !important;
@@ -78,7 +102,7 @@
 	/* Print-only tokens. Ochre is the quiet second signature cue. */
 	--print-ochre: #8a6a1c;
 	--print-rule: #8c8c88;
-	--print-serif: 'LM Roman 10', 'Times New Roman', Times, serif;
+	--print-serif: 'LM Roman 10', 'LM Math Print', 'Times New Roman', Times, serif;
 	color-scheme: light;
 	/* rem-based screen tokens (--text-*) follow this root size. */
 	font-size: 11pt;
@@ -255,6 +279,9 @@ main,
 	color: var(--text-primary);
 	hyphens: manual;
 	text-wrap: balance;
+	/* The shared heading rule left-aligns h1-h6; the title block is centered
+	   as one axis with the subtitle, byline, and date. */
+	text-align: center;
 }
 .title .subtitle {
 	order: 2;
@@ -498,6 +525,12 @@ code {
 	background: none;
 	border-radius: 0;
 	font-size: 0.86em;
+}
+/* The site's mono face has no ∞; the unicode-range face above supplies it. */
+code,
+pre,
+pre.astro-code {
+	font-family: 'LM Infinity Print', var(--font-mono);
 }
 pre,
 pre.astro-code {

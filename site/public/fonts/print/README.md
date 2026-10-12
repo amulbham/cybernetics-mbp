@@ -18,6 +18,19 @@ Latin Modern Roman 10, the body face of the scholarly paper PDFs. Used only by `
 | `lmroman10-bold.otf` | `102fe06c430a8b681b2bf6876b7cd967ae4d47b4b6b41d915eb7913b726d9fb1` |
 | `lmroman10-bolditalic.otf` | `c37a28eed7a6e03f792b98b5e5f637b2fcda378bb4855f99284f1a88fe35f124` |
 
-## Known glyph gaps
+## Glyph-coverage fonts
 
-Latin Modern Roman has no Greek letters or pictographs. In the current paper corpus that affects `δ` (U+03B4, Invariants and Three Self-Organizing Systems), the `⚠` emoji (U+26A0, Three Self-Organizing Systems), and `∞` (U+221E) inside FAFSA's one monospace code block. They render through the stylesheet's serif and generic fallbacks, which are system fonts. Evidence and the decision about them: `planning/audits/T18.5-scholarly-pdf-visual-evidence.md`.
+Latin Modern Roman has no Greek letters or pictographs, and the site's code font has no `∞`. Two characters in the paper corpus needed coverage; each is supplied by a bundled face limited with `unicode-range` to exactly those characters, so ordinary text is unaffected. Every other character stays in Latin Modern Roman.
+
+The third gap, `⚠` in Three Self-Organizing Systems, is not covered. The source writes it as U+26A0 U+FE0F, an emoji-presentation sequence, and Chrome honors an explicit emoji variation selector over any CSS: a bundled Noto Sans Symbols 2 face placed first, with and without the selector in its `unicode-range`, and `font-variant-emoji: text` all still rendered the system color-emoji font. It therefore uses the system emoji font, as the pre-T18.5 PDF did.
+
+| Character | Face (CSS family) | File | Origin | License |
+|---|---|---|---|---|
+| `δ` (U+03B4, any Greek) | Latin Modern Math 1.959 (`LM Math Print`) | `latinmodern-math.otf` | GUST e-foundry: `https://www.gust.org.pl/projects/e-foundry/lm-math/download/latinmodern-math-1959.zip` (576,413 bytes, SHA-256 `aaaa060b4ffc091461e875efb9498b9abfa7c7a48f38eb33882868839903a4f8`); only the OTF extracted | GUST Font License. The zip ships the 2006 preliminary text, kept as `GUST-FONT-LICENSE-LatinModernMath-as-shipped.txt` (whitespace-normalized as above; SHA-256 `e120f067589d589a9fa436db09940bd2e03b477cf29b15443c6f87d3861f734b`); the current 1.0 text above has the same grant. |
+| `∞` (U+221E) in code | `lmroman10-regular.otf` again (`LM Infinity Print`) | none new | already bundled | as above |
+
+| File | SHA-256 |
+|---|---|
+| `latinmodern-math.otf` | `6075562b771f8b82f0c179e363389684f2dd09de30038269e2628e504bd7be0f` |
+
+The font files are byte-for-byte as shipped. Evidence of the embedded fonts: `planning/audits/T18.5-scholarly-pdf-visual-evidence.md`.
