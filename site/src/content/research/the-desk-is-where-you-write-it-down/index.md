@@ -106,7 +106,11 @@ Stopping the active search for an answer doesn't turn the brain off. Attention c
 
 Neuroscientists use the term *Default Mode Network* (DMN) for a distributed set of regions associated with internally directed processes, including mind-wandering and aspects of autobiographical thought. Christoff and colleagues sampled people's mental states during a task using functional MRI and found contributions from default-mode and executive systems during mind-wandering (Christoff et al., 2009). What looks like a lapse in deliberate attention is not necessarily cognitive inactivity. But DMN activity is not a one-to-one measure of incubation, and neither a historical walk nor a stalled train tells us which network was active at a particular moment.
 
-The more precise creativity finding concerns cooperation rather than segregation. Spontaneous association and deliberate control both contribute to creative idea generation, with interactions between the DMN and executive-control network (ECN) among the neural signatures researchers study. Beaty and colleagues connected default–executive coupling to creative idea production (Beaty et al., 2015). Chen and colleagues then analyzed resting-state imaging and divergent-thinking performance across ten independent samples from Austria, Canada, China, Japan, and the United States (N = 2,433). More frequent DMN–ECN switching predicted divergent-thinking ability in their analysis, while the relationship with network balance followed an inverted-U pattern (Chen et al., 2025). Direct neural recordings and stimulation in thirteen patients supplied further evidence that the DMN contributes to creative thinking (Bartoli et al., 2024). None of these results assigns the DMN exclusively to discovery or the ECN exclusively to capture.
+The more precise creativity finding concerns cooperation rather than segregation. Spontaneous association and deliberate control both contribute to creative idea generation, with interactions between the DMN and executive-control network (ECN) among the neural signatures researchers study. Beaty and colleagues connected default–executive coupling to creative idea production (Beaty et al., 2015).
+
+> **Evidence.** Chen and colleagues then analyzed resting-state imaging and divergent-thinking performance across ten independent samples from Austria, Canada, China, Japan, and the United States (N = 2,433). More frequent DMN–ECN switching predicted divergent-thinking ability in their analysis, while the relationship with network balance followed an inverted-U pattern (Chen et al., 2025).
+
+Direct neural recordings and stimulation in thirteen patients supplied further evidence that the DMN contributes to creative thinking (Bartoli et al., 2024). None of these results assigns the DMN exclusively to discovery or the ECN exclusively to capture.
 
 The inverted-U finding is especially useful because it resists a simple 'more mind-wandering is always better' story. Chen and colleagues found a relationship between divergent-thinking performance and the balance of network switching, not a universal schedule for how long anyone should incubate. The paper's broader interpretation is that creative work can draw on associative and controlled processes whose contributions vary across a task. An institution that rewards uninterrupted visible attention may overlook some of that work. The brain-imaging studies do not themselves establish the institutional consequence; they clarify why an exclusively presence-based model is an incomplete starting point.
 
@@ -134,7 +138,9 @@ Walking is the paper's clearest behavioral example of how conditions can influen
 
 Darwin gave thinking outside the study a recurring place in his day. Poincare described the deliberate work that preceded an unexpected insight. Rowling developed an idea on a train when she had nothing with which to record it. The experiences differ, but they bring two functions into view.
 
-*Discovery* names the formation or recognition of a new possibility. *Capture* names the work that tests, records, refines, and communicates it so that someone can use it. These are functions, not addresses. Insights occur at desks; people write proofs on scraps of paper while traveling. The distinction is between producing a connection and making it dependable and durable, not between working and taking a break. The functions may happen in the same hour. Someone drafting an argument can uncover its central idea while trying to explain an earlier one, then test that idea in the next sentence. A programmer can find a bug by tracing the code line by line or by recognizing, halfway through an unrelated walk, what assumption the program was making. These are not rival versions of work. What matters is which operation is being performed and what conditions make it easier to complete.
+> **Definition.** {#discovery-capture} *Discovery* names the formation or recognition of a new possibility. *Capture* names the work that tests, records, refines, and communicates it so that someone can use it.
+
+These are functions, not addresses. Insights occur at desks; people write proofs on scraps of paper while traveling. The distinction is between producing a connection and making it dependable and durable, not between working and taking a break. The functions may happen in the same hour. Someone drafting an argument can uncover its central idea while trying to explain an earlier one, then test that idea in the next sentence. A programmer can find a bug by tracing the code line by line or by recognizing, halfway through an unrelated walk, what assumption the program was making. These are not rival versions of work. What matters is which operation is being performed and what conditions make it easier to complete.
 
 Wallas (1926) supplied an established vocabulary for a common route through creative thought: preparation, incubation, illumination, and verification. Preparation brings a problem into focus; incubation reduces direct effort while processing may continue; illumination is the recognition of a new connection; verification examines it. The stages can overlap, repeat, or unfold out of order. Experimental research suggests that disengagement can help some creative tasks, particularly when the intervening activity makes modest demands on attention (Ritter & Dijksterhuis, 2014). The historical accounts illustrate possibilities within that tradition; they cannot certify a neurological sequence. Appendix B retains the fuller framework definitions. The sequence is a way to describe a recurring pattern, not a rule that every discovery must pass through four labeled gates. It also does not make convergent reasoning synonymous with capture: selecting the correct relationship between clues can itself produce a new idea. By the same token, a spontaneous association becomes useful only if someone can determine whether it survives scrutiny. The two operational terms are meant to make those functions easier to discuss, not to replace the richer account of reasoning with a slogan.
 
@@ -144,7 +150,11 @@ Nor is the relation between creativity and working conditions a new discovery. A
 
 That question does not imply workers should make every decision unilaterally. The individual knows the immediate demands of a problem; a manager sees deadlines, dependencies, and coordination needs the individual may not. Both forms of knowledge matter. A shared review may benefit from in-person collaboration while another task benefits from uninterrupted attention or an unscheduled walk. A fixed rule can serve the first need and obstruct the second when it treats every task alike. Consider a design review that depends on several people inspecting the same prototype. It may make sense to choose one room and one time. But the judgment that co-presence is valuable for that meeting does not determine where someone should spend the following afternoon solving a problem alone. Those decisions require different information. Treating them as identical is a loss of precision, not a gain in coordination.
 
-The cited workplace research measures outcomes such as attendance, satisfaction, and retention, not whether incubation produced an insight. Improved matching between tasks and working conditions is therefore an institutional hypothesis, not an experimentally established creativity gain. The practical question nevertheless changes: **which conditions does the work require, and who can recognize when those conditions should change?** The answer cannot be given entirely from a corporate policy or entirely from an individual preference. It has to be negotiated in the work itself, with clear shared requirements where coordination matters and discretion where the institution lacks a reason to prescribe the method.
+> **Counterpoint.** The cited workplace research measures outcomes such as attendance, satisfaction, and retention, not whether incubation produced an insight. Improved matching between tasks and working conditions is therefore an institutional hypothesis, not an experimentally established creativity gain.
+
+> **Key idea.** The practical question nevertheless changes: **which conditions does the work require, and who can recognize when those conditions should change?**
+
+The answer cannot be given entirely from a corporate policy or entirely from an individual preference. It has to be negotiated in the work itself, with clear shared requirements where coordination matters and discretion where the institution lacks a reason to prescribe the method.
 
 
 ## 7. The Office Worth Showing Up To
@@ -330,95 +340,97 @@ The two Tuesdays made that problem ordinary. A dependable journey, a decent lunc
 
 The desk remains indispensable. It is where many ideas are tested, revised, made legible, and shared. The work of capture is not clerical afterthought: it is how an intuition becomes a claim someone else can challenge, a design someone else can build, or a result that survives its author. The argument for discovery has always depended on that other half of the process. The mistake was never building desks or asking people to show up. It was allowing the work easiest to observe to stand for everything required to produce it.
 
-**The desk is where you write it down. It should not be the only place that counts as work.**
+> **The desk is where you write it down. It should not be the only place that counts as work.**
 
 
 ## References
 
-1. Barrero, J.M., Bloom, N., & Davis, S.J. (2023). The evolution of working from home. Journal of Economic Perspectives, 37(4), 23-50. [DOI](https://doi.org/10.1257/jep.37.4.23)
-2. Bartoli, E., Devara, E., Dang, H.Q., et al. (2024). Default mode network electrophysiological dynamics and causal role in creative thinking. Brain, 147(10), 3409-3425. [DOI](https://doi.org/10.1093/brain/awae199)
+1. Barrero, J.M., Bloom, N., & Davis, S.J. (2023). The evolution of working from home. Journal of Economic Perspectives, 37(4), 23-50. [doi.org/10.1257/jep.37.4.23](https://doi.org/10.1257/jep.37.4.23)
+2. Bartoli, E., Devara, E., Dang, H.Q., et al. (2024). Default mode network electrophysiological dynamics and causal role in creative thinking. Brain, 147(10), 3409-3425. [doi.org/10.1093/brain/awae199](https://doi.org/10.1093/brain/awae199)
 3. Bartholomae, C. (2024). Does walking help creativity? How isolating motor functions to rhythmic and obstructed ambulation affects divergent thinking. Arkansas State University.
-4. Beaty, R.E., Benedek, M., Kaufman, S.B., & Silvia, P.J. (2015). Default and executive network coupling supports creative idea production. Scientific Reports, 5, 10964. [DOI](https://doi.org/10.1038/srep10964)
-5. Beethoven-Haus Bonn. (n.d.). *Nature* [historical letters and commentary on walking]. [Source](https://www.beethoven.de/en/g/natur)
+4. Beaty, R.E., Benedek, M., Kaufman, S.B., & Silvia, P.J. (2015). Default and executive network coupling supports creative idea production. Scientific Reports, 5, 10964. [doi.org/10.1038/srep10964](https://doi.org/10.1038/srep10964)
+5. Beethoven-Haus Bonn. (n.d.). *Nature* [historical letters and commentary on walking]. [beethoven.de/en/g/natur](https://www.beethoven.de/en/g/natur)
 6. Bloom, N., & Davis, S.J. (2023). Work from home and productivity. Hoover Institution Economics Applied Interview, November 2023.
-7. Bloom, N., Han, R., & Liang, J. (2024). Hybrid working from home improves retention without damaging performance. Nature, 630(8018), 920-925. [DOI](https://doi.org/10.1038/s41586-024-07500-2)
-8. Buffer. (2020). State of Remote Work 2020. [Source](https://buffer.com/state-of-remote-work/2020)
+7. Bloom, N., Han, R., & Liang, J. (2024). Hybrid working from home improves retention without damaging performance. Nature, 630(8018), 920-925. [doi.org/10.1038/s41586-024-07500-2](https://doi.org/10.1038/s41586-024-07500-2)
+8. Buffer. (2020). State of Remote Work 2020. [buffer.com/state-of-remote-work/2020](https://buffer.com/state-of-remote-work/2020)
 9. California Association of Professional Scientists (CASE) v. State of California. (2025). CEQA complaint filed June 5, 2025. As reported in Bloomberg Law (June 2025).
-10. California State Auditor. (2025, August 12). *State telework policies* (Report 2024-118). [Source](https://www.auditor.ca.gov/reports/2024-118/)
-11. Christoff, K., Gordon, A.M., Smallwood, J., Smith, R., & Schooler, J.W. (2009). Experience sampling during fMRI reveals default network and executive system contributions to mind wandering. PNAS, 106(21), 8719-8724. [DOI](https://doi.org/10.1073/pnas.0900234106)
-12. Chen, Q., Kenett, Y.N., Cui, Z., et al. (2025). Dynamic switching between brain networks predicts creative ability. Communications Biology, 8, 54. [DOI](https://doi.org/10.1038/s42003-025-07470-9)
-13. Corners, G. F. (1935, March). Nikola Tesla's youth and strength at 78. *Physical Culture*. Reproduced by Tesla Universe. [Source](https://teslauniverse.com/nikola-tesla/articles/nikola-teslas-youth-and-strength-78)
-14. Darwin Online. (n.d.). The complete work of Charles Darwin online. University of Cambridge. [Source](http://darwin-online.org.uk/)
-15. Darwin, F. (c.1884/Darwin Online). *Reminiscences of My Father's Everyday Life* [manuscript]. CUL-DAR140.3. [Source](https://darwin-online.org.uk/converted/manuscripts/Darwin_F_Reminiscences_CUL-DAR140.3.1--159.html)
-16. Diaz, K.M. (2026, April 15). What sitting all day does to your brain and body. TED2026, Vancouver. [Source](https://www.ted.com/talks/keith_diaz_what_sitting_all_day_does_to_your_brain_and_body)
+10. California State Auditor. (2025, August 12). *State telework policies* (Report 2024-118). [auditor.ca.gov/reports/2024-118/](https://www.auditor.ca.gov/reports/2024-118/)
+11. Christoff, K., Gordon, A.M., Smallwood, J., Smith, R., & Schooler, J.W. (2009). Experience sampling during fMRI reveals default network and executive system contributions to mind wandering. PNAS, 106(21), 8719-8724. [doi.org/10.1073/pnas.0900234106](https://doi.org/10.1073/pnas.0900234106)
+12. Chen, Q., Kenett, Y.N., Cui, Z., et al. (2025). Dynamic switching between brain networks predicts creative ability. Communications Biology, 8, 54. [doi.org/10.1038/s42003-025-07470-9](https://doi.org/10.1038/s42003-025-07470-9)
+13. Corners, G. F. (1935, March). Nikola Tesla's youth and strength at 78. *Physical Culture*. Reproduced by Tesla Universe. [teslauniverse.com](https://teslauniverse.com/nikola-tesla/articles/nikola-teslas-youth-and-strength-78)
+14. Darwin Online. (n.d.). The complete work of Charles Darwin online. University of Cambridge. [darwin-online.org.uk](http://darwin-online.org.uk/)
+15. Darwin, F. (c.1884/Darwin Online). *Reminiscences of My Father's Everyday Life* [manuscript]. CUL-DAR140.3. [darwin-online.org.uk](https://darwin-online.org.uk/converted/manuscripts/Darwin_F_Reminiscences_CUL-DAR140.3.1--159.html)
+16. Diaz, K.M. (2026, April 15). What sitting all day does to your brain and body. TED2026, Vancouver. [ted.com](https://www.ted.com/talks/keith_diaz_what_sitting_all_day_does_to_your_brain_and_body)
 17. Noden, M. (1988, February 15). *Frisky as the Dickens*. *Sports Illustrated*; see also Ackroyd, P. (1990). *Dickens*. HarperCollins.
-18. Ding, Y., & Ma, M. S. (2024). *Return-to-office mandates*. *Academy of Management Proceedings*, 2024(1). [DOI](https://doi.org/10.5465/AMPROC.2024.21245abstract) Expanded working paper: *Return-to-Office Mandates: Determinants and Impacts on Employee Satisfaction and Firm Financial Performance* (SSRN 4675401). [DOI](https://doi.org/10.2139/ssrn.4675401)
-19. Ericsson, K.A., Krampe, R.Th., & Tesch-Romer, C. (1993). The role of deliberate practice in the acquisition of expert performance. Psychological Review, 100(3), 363-406. [DOI](https://doi.org/10.1037/0033-295x.100.3.363)
-20. Evans, G.W., & Wener, R.E. (2006). Rail commuting duration and passenger stress. Health Psychology, 25(3), 408-412. [DOI](https://doi.org/10.1037/0278-6133.25.3.408)
-21. Evans, G.W., Wener, R.E., & Phillips, D. (2002). The morning rush hour: Predictability and commuter stress. Environment and Behavior, 34(4), 521-530. [DOI](https://doi.org/10.1177/00116502034004007)
-22. Fair Labor Standards Act of 1938. Pub. L. 75-718, 52 Stat. 1060. [Source](https://www.govinfo.gov/content/pkg/STATUTE-52/pdf/STATUTE-52-Pg1060.pdf)
+18. Ding, Y., & Ma, M. S. (2024). *Return-to-office mandates*. *Academy of Management Proceedings*, 2024(1). [doi.org/10.5465/AMPROC.2024.21245abstract](https://doi.org/10.5465/AMPROC.2024.21245abstract) Expanded working paper: *Return-to-Office Mandates: Determinants and Impacts on Employee Satisfaction and Firm Financial Performance* (SSRN 4675401). [doi.org/10.2139/ssrn.4675401](https://doi.org/10.2139/ssrn.4675401)
+19. Ericsson, K.A., Krampe, R.Th., & Tesch-Romer, C. (1993). The role of deliberate practice in the acquisition of expert performance. Psychological Review, 100(3), 363-406. [doi.org/10.1037/0033-295x.100.3.363](https://doi.org/10.1037/0033-295x.100.3.363)
+20. Evans, G.W., & Wener, R.E. (2006). Rail commuting duration and passenger stress. Health Psychology, 25(3), 408-412. [doi.org/10.1037/0278-6133.25.3.408](https://doi.org/10.1037/0278-6133.25.3.408)
+21. Evans, G.W., Wener, R.E., & Phillips, D. (2002). The morning rush hour: Predictability and commuter stress. Environment and Behavior, 34(4), 521-530. [doi.org/10.1177/00116502034004007](https://doi.org/10.1177/00116502034004007)
+22. Fair Labor Standards Act of 1938. Pub. L. 75-718, 52 Stat. 1060. [govinfo.gov/content/pkg/STATUTE-52/pdf/STATUTE-52-Pg1060.pdf](https://www.govinfo.gov/content/pkg/STATUTE-52/pdf/STATUTE-52-Pg1060.pdf)
 23. Ford Motor Company. (1926). Ford announces five-day, 40-hour workweek. As documented in History.com and Ford corporate history archives.
 24. Gartner Research. (2024). RTO mandate survey, n=2,080 knowledge workers. As reported in HR Dive (January 2024).
-25. Gensler. (2021). U.S. Workplace Survey 2021. [Source](https://www.gensler.com/research-insight/workplace-surveys/us/2021)
-26. Pitchforth, J., Nelson, E. C., van den Helder, M., & Oosting, W. (2020). *The work environment pilot: An experiment to determine the optimal office design for a technology company*. *PLOS ONE*, 15(5), e0232943. [DOI](https://doi.org/10.1371/journal.pone.0232943) Correction: [DOI](https://doi.org/10.1371/journal.pone.0235428)
+25. Gensler. (2021). U.S. Workplace Survey 2021. [gensler.com/research-insight/workplace-surveys/us/2021](https://www.gensler.com/research-insight/workplace-surveys/us/2021)
+26. Pitchforth, J., Nelson, E. C., van den Helder, M., & Oosting, W. (2020). *The work environment pilot: An experiment to determine the optimal office design for a technology company*. *PLOS ONE*, 15(5), e0232943. [doi.org/10.1371/journal.pone.0232943](https://doi.org/10.1371/journal.pone.0232943) Correction: [doi.org/10.1371/journal.pone.0235428](https://doi.org/10.1371/journal.pone.0235428)
 27. HealthEquity. (2025). RTO and Commuter Insights Study. Globe Newswire, February 2025.
-28. Hobfoll, S.E. (1989). Conservation of resources. American Psychologist, 44(3), 513-524. [DOI](https://doi.org/10.1037/0003-066x.44.3.513)
-29. IT Brew. (2024, January 4). Why Stanford's Nick Bloom thinks RTO is dead as a doornail. [Source](https://www.itbrew.com/stories/2024/01/04/)
+28. Hobfoll, S.E. (1989). Conservation of resources. American Psychologist, 44(3), 513-524. [doi.org/10.1037/0003-066x.44.3.513](https://doi.org/10.1037/0003-066x.44.3.513)
+29. IT Brew. (2024, January 4). Why Stanford's Nick Bloom thinks RTO is dead as a doornail. [itbrew.com/stories/2024/01/04/](https://www.itbrew.com/stories/2024/01/04/)
 30. Kekule, F.A. (1890). Benzolfest: Rede. Berichte der Deutschen Chemischen Gesellschaft, 23(1), 1302-1311.
 31. Kierkegaard, S. (1847). Letter to Henriette Kierkegaard. In Letters and Documents (Trans. H. Rosenmeier, 1978). Princeton University Press.
-32. Ding, Y., Ma, M. S., Xing, B. B., Yang, Y., & Jin, Z. (2024; revised 2025). *Return to office mandates, brain drain and gender difference* [working paper]. SSRN 5031481. [DOI](https://doi.org/10.2139/ssrn.5031481)
+32. Ding, Y., Ma, M. S., Xing, B. B., Yang, Y., & Jin, Z. (2024; revised 2025). *Return to office mandates, brain drain and gender difference* [working paper]. SSRN 5031481. [doi.org/10.2139/ssrn.5031481](https://doi.org/10.2139/ssrn.5031481)
 33. Mendes, K. (2026a, April). Superhuman Ways of Working program. As reported in Business Insider (April 2026).
-34. Mendes, K. (2026b, June). We wanted people in the office, so we made it worth showing up. Superhuman Blog. [Source](https://blog.superhuman.com/we-wanted-people-in-the-office-so-we-made-it-worth-showing-up/)
-35. Microsoft. (2025, June 17). *Breaking down the infinite workday*. *Work Trend Index*. [Source](https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday)
-36. Mohd Suadi Nata, D.H., Mohamad Jamil, P.A.S., & Muhammad Rawee, M.N. (2024). A growing concern: Long commutes and mental fatigue among workers. Makara Journal of Health Research, 28(3), 193-199. [DOI](https://doi.org/10.7454/msk.v28i3.1725)
-37. NAIOP. (2023). The evolution of office amenities. [Source](https://www.naiop.org/research-and-publications/magazine/2023/Summer-2023/)
+34. Mendes, K. (2026b, June). We wanted people in the office, so we made it worth showing up. Superhuman Blog. [blog.superhuman.com](https://blog.superhuman.com/we-wanted-people-in-the-office-so-we-made-it-worth-showing-up/)
+35. Microsoft. (2025, June 17). *Breaking down the infinite workday*. *Work Trend Index*. [microsoft.com](https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday)
+36. Mohd Suadi Nata, D.H., Mohamad Jamil, P.A.S., & Muhammad Rawee, M.N. (2024). A growing concern: Long commutes and mental fatigue among workers. Makara Journal of Health Research, 28(3), 193-199. [doi.org/10.7454/msk.v28i3.1725](https://doi.org/10.7454/msk.v28i3.1725)
+37. NAIOP. (2023). The evolution of office amenities. [naiop.org/research-and-publications/magazine/2023/Summer-2023/](https://www.naiop.org/research-and-publications/magazine/2023/Summer-2023/)
 38. Newport, C. (2016). Deep Work: Rules for Focused Success in a Distracted World. Grand Central Publishing.
 39. Nietzsche, F. (1889/1968). Twilight of the Idols (Trans. R.J. Hollingdale). London: Penguin.
 40. Nippert-Eng, C.E. (1996). Home and Work: Negotiating Boundaries Through Everyday Life. Chicago: University of Chicago Press.
-41. Occupational Health Science. (2023). The unique impact of commuting time, quality, and predictability on worker well-being and performance. [DOI](https://doi.org/10.1007/s41542-023-00164-w)
+41. Occupational Health Science. (2023). The unique impact of commuting time, quality, and predictability on worker well-being and performance. [doi.org/10.1007/s41542-023-00164-w](https://doi.org/10.1007/s41542-023-00164-w)
 42. Oldenburg, R. (1989). The Great Good Place. New York: Paragon House.
-43. Oppezzo, M., & Schwartz, D.L. (2014). Give your ideas some legs: The positive effect of walking on creative thinking. Journal of Experimental Psychology: Learning, Memory, and Cognition, 40(4), 1142-1152. [DOI](https://doi.org/10.1037/a0036577)
-44. Pham, L.B., & Taylor, S.E. (1999). From thought to action: Effects of process- versus outcome-based mental simulations on performance. Personality and Social Psychology Bulletin, 25(2), 250-260. [DOI](https://doi.org/10.1177/0146167299025002010)
+43. Oppezzo, M., & Schwartz, D.L. (2014). Give your ideas some legs: The positive effect of walking on creative thinking. Journal of Experimental Psychology: Learning, Memory, and Cognition, 40(4), 1142-1152. [doi.org/10.1037/a0036577](https://doi.org/10.1037/a0036577)
+44. Pham, L.B., & Taylor, S.E. (1999). From thought to action: Effects of process- versus outcome-based mental simulations on performance. Personality and Social Psychology Bulletin, 25(2), 250-260. [doi.org/10.1177/0146167299025002010](https://doi.org/10.1177/0146167299025002010)
 45. Poincare, H. (1908/1913). Mathematical creation. In The Foundations of Science. New York: Science Press.
-46. Ritter, S.M., & Dijksterhuis, A. (2014). Creativity -- the unconscious foundations of the incubation period. Frontiers in Human Neuroscience, 8, 215. [DOI](https://doi.org/10.3389/fnhum.2014.00215)
-47. Spreng, R.N., Mar, R.A., & Kim, A.S.N. (2009). The common neural basis of autobiographical memory, prospection, navigation, theory of mind, and the default mode: A quantitative meta-analysis. Journal of Cognitive Neuroscience, 21(3), 489-510. [DOI](https://doi.org/10.1162/jocn.2008.21029)
+46. Ritter, S.M., & Dijksterhuis, A. (2014). Creativity -- the unconscious foundations of the incubation period. Frontiers in Human Neuroscience, 8, 215. [doi.org/10.3389/fnhum.2014.00215](https://doi.org/10.3389/fnhum.2014.00215)
+47. Spreng, R.N., Mar, R.A., & Kim, A.S.N. (2009). The common neural basis of autobiographical memory, prospection, navigation, theory of mind, and the default mode: A quantitative meta-analysis. Journal of Cognitive Neuroscience, 21(3), 489-510. [doi.org/10.1162/jocn.2008.21029](https://doi.org/10.1162/jocn.2008.21029)
 48. Steelcase. (2023). Workplace research across 11 countries. As cited in NAIOP (2023).
-49. Stroom, M., Eichholtz, P., Kok, N., et al. (2024). Does working from home work? That depends on the home. PLOS One. [DOI](https://doi.org/10.1371/journal.pone.0306475)
-50. Tesla, N. (1919). *My inventions: The autobiography of Nikola Tesla*. [Source](https://en.wikisource.org/wiki/My_Inventions)
-51. Thabane, A., Arora, V., Boilard, J., et al. (2026). The impact of walking on creative thinking: A systematic review and meta-analysis. PLOS One, 21(5), e0347878. [DOI](https://doi.org/10.1371/journal.pone.0347878)
-52. Vitruvius. (c.25 BCE). *De Architectura*, Book IX, §10 [later account of the Archimedes bath story]. [Source](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Vitruvius/9%2A.html)
+49. Stroom, M., Eichholtz, P., Kok, N., et al. (2024). Does working from home work? That depends on the home. PLOS One. [doi.org/10.1371/journal.pone.0306475](https://doi.org/10.1371/journal.pone.0306475)
+50. Tesla, N. (1919). *My inventions: The autobiography of Nikola Tesla*. [en.wikisource.org](https://en.wikisource.org/wiki/My_Inventions)
+51. Thabane, A., Arora, V., Boilard, J., et al. (2026). The impact of walking on creative thinking: A systematic review and meta-analysis. PLOS One, 21(5), e0347878. [doi.org/10.1371/journal.pone.0347878](https://doi.org/10.1371/journal.pone.0347878)
+52. Vitruvius. (c.25 BCE). *De Architectura*, Book IX, §10 [later account of the Archimedes bath story]. [penelope.uchicago.edu/Thayer/E/Roman/Texts/Vitruvius/9%2A.html](https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Vitruvius/9%2A.html)
 53. Wallas, G. (1926). The Art of Thought. London: Jonathan Cape.
 54. Watt, J. (recollection recounted to the Hart family c.1813; published 1859). *Glasgow Green separate-condenser account* [retrospective historical testimony]. See also Rosen (2010).
-55. Wener, R.E., & Evans, G.W. (2011). Comparing stress of car and train commuters. Transportation Research Part F, 14(2), 111-116. [DOI](https://doi.org/10.1016/j.trf.2010.11.008)
-56. Kacevac, S. (2024, January 15). Daily rituals of scientists: Albert Einstein. *A Brilliant Mind*. [Source](https://abrilliantmind.blog/daily-rituals-of-scientists-albert-einstein/)
-57. Institute for Advanced Study. (n.d.). Albert Einstein's house: 112 Mercer Street, Princeton. [Source](https://www.ias.edu/albert-einsteins-house-112-mercer-street-princeton)
-58. Princeton University. (2022, March 14). Why Einstein wouldn't think of March 14 as Pi Day, and other insights into his life and times. [Source](https://www.princeton.edu/news/2022/03/14/why-einstein-wouldnt-think-march-14-pi-day-and-other-insights-his-life-and-times)
-59. Darwin Correspondence Project. (n.d.). *Darwin and working from home*. University of Cambridge. [Source](https://www.darwinproject.ac.uk/commentary/curious/darwin-and-working-home)
-60. Newton Project. (n.d.). *The life and work of Isaac Newton at a glance*. University of Oxford. [Source](https://newtonproject.ox.ac.uk/his-life-and-work-at-a-glance)
-61. Stukeley, W. (1752). *Memoirs of Sir Isaac Newton's Life* [manuscript, MS/142]. Royal Society Collections. [Source](https://catalogues.royalsociety.org/calmview/Record.aspx?id=MS%2F142&src=CalmView.Catalog)
-62. Poincare, H. (1908, December 24). Comment on invente: le travail de l'inconscient. *Le Matin*, 25(9067), 1. Henri Poincare Papers, University of Nantes. [Source](https://henripoincarepapers.univ-nantes.fr/chp/text/hp1908mab)
-63. Rowling, J. K. (n.d.). *Biography* [archived text of author's former official website]. The Rowling Library. [Source](https://www.therowlinglibrary.com/jkrowling.com/textonly/en/biography.html)
-64. Bonomolo, C. (2017, December 15). J. K. Rowling originally wrote Harry Potter's Hogwarts houses idea on an unusual item. *ComicBook.com*. [Source](https://comicbook.com/movies/news/harry-potter-JK-rowling-hogwarts-houses/)
-65. Brucks, M. S., & Levav, J. (2022). Virtual communication curbs creative idea generation. *Nature*, 605, 108–112. [DOI](https://doi.org/10.1038/s41586-022-04643-y)
-66. Microsoft. (n.d.). *User presence in Teams*. Microsoft Learn. [Source](https://learn.microsoft.com/en-us/MicrosoftTeams/presence-admins)
-67. Slack. (n.d.). *User presence and status*. Slack Developer Docs. [Source](https://docs.slack.dev/apis/web-api/user-presence-and-status/)
-68. Cristea, I. C., & Leonardi, P. M. (2019). Get noticed and die trying: Signals, sacrifice, and the production of face time in distributed work. *Organization Science*, 30(3), 552–572. [DOI](https://doi.org/10.1287/orsc.2018.1265)
-69. Abendroth, A.-K., Lott, Y., & Dummert, S. (2026, September 28). Establishing digital presence: How occupational status, job insecurity and job dissatisfaction shape digital availability, visibility and faking behaviours among home-based workers. *Work, Employment and Society*, OnlineFirst. [DOI](https://doi.org/10.1177/09500170261476006)
-70. Indiana University Press. (n.d.). *Through the Eyes of Descartes* [discussion of Baillet’s 1691 biography and the lost *Olympica*]. [Source](https://publish.iupress.indiana.edu/read/through-the-eyes-of-descartes/section/f3716b36-715f-4124-9538-afd69000fda5)
-71. Tchaikovsky, M. (1906). *The Life & Letters of Peter Ilich Tchaikovsky* (R. Newmarch, Trans.). [Source](https://www.gutenberg.org/files/45259/45259-h/45259-h.htm)
-72. Mahler Foundation. (n.d.). *The three composing huts*. [Source](https://www.mahlerfoundation.org/foundation/projects/the-three-composing-huts/)
-73. Rocke, A. J. (2010). *Image and Reality: Kekulé, Kopp, and the Scientific Imagination*. University of Chicago Press. [DOI](https://doi.org/10.7208/chicago/9780226723358.003.0010)
-74. Grossman, J. (n.d.). *Fair Labor Standards Act of 1938: Maximum struggle for a minimum wage*. U.S. Department of Labor. [Source](https://www.dol.gov/general/aboutdol/history/flsa1938)
-75. Shelley, M. W. (1831). *Introduction to Frankenstein; or, The Modern Prometheus* (revised edition). [Source](https://en.wikisource.org/wiki/Frankenstein%2C_or_the_Modern_Prometheus_%28Revised_Edition%2C_1831%29/Introduction)
-76. Nguyen, L. (2024, May 23). *HSBC’s New York attendance jumps to 80% at new office*. Reuters. [Source](https://www.reuters.com/business/finance/hsbcs-new-york-attendance-jumps-80-new-office-2024-05-23/)
-77. Business Insider. (2024, July). *See inside Pinterest’s quirky Dublin office, which has a pub and a workspace resembling a Celtic forest*. [Source](https://www.businessinsider.com/photos-pinterest-dublin-office-own-pub-and-guinness-on-tap-2024-7)
-78. Rosen, W. (2010). *The most useful man who ever lived*. The New Atlantis. [Source](https://www.thenewatlantis.com/publications/the-most-useful-man-who-ever-lived)
-79. Amabile, T. M., Conti, R., Coon, H., Lazenby, J., & Herron, M. (1996). Assessing the work environment for creativity. *Academy of Management Journal*, 39(5), 1154–1184. [DOI](https://doi.org/10.2307/256995)
-80. Malinin, L. H. (2016). Creative practices embodied, embedded, and enacted in architectural settings: Toward an ecological model of creativity. *Frontiers in Psychology*, 6, 1978. [DOI](https://doi.org/10.3389/fpsyg.2015.01978)
+55. Wener, R.E., & Evans, G.W. (2011). Comparing stress of car and train commuters. Transportation Research Part F, 14(2), 111-116. [doi.org/10.1016/j.trf.2010.11.008](https://doi.org/10.1016/j.trf.2010.11.008)
+56. Kacevac, S. (2024, January 15). Daily rituals of scientists: Albert Einstein. *A Brilliant Mind*. [abrilliantmind.blog/daily-rituals-of-scientists-albert-einstein/](https://abrilliantmind.blog/daily-rituals-of-scientists-albert-einstein/)
+57. Institute for Advanced Study. (n.d.). Albert Einstein's house: 112 Mercer Street, Princeton. [ias.edu/albert-einsteins-house-112-mercer-street-princeton](https://www.ias.edu/albert-einsteins-house-112-mercer-street-princeton)
+58. Princeton University. (2022, March 14). Why Einstein wouldn't think of March 14 as Pi Day, and other insights into his life and times. [princeton.edu](https://www.princeton.edu/news/2022/03/14/why-einstein-wouldnt-think-march-14-pi-day-and-other-insights-his-life-and-times)
+59. Darwin Correspondence Project. (n.d.). *Darwin and working from home*. University of Cambridge. [darwinproject.ac.uk/commentary/curious/darwin-and-working-home](https://www.darwinproject.ac.uk/commentary/curious/darwin-and-working-home)
+60. Newton Project. (n.d.). *The life and work of Isaac Newton at a glance*. University of Oxford. [newtonproject.ox.ac.uk/his-life-and-work-at-a-glance](https://newtonproject.ox.ac.uk/his-life-and-work-at-a-glance)
+61. Stukeley, W. (1752). *Memoirs of Sir Isaac Newton's Life* [manuscript, MS/142]. Royal Society Collections. [catalogues.royalsociety.org](https://catalogues.royalsociety.org/calmview/Record.aspx?id=MS%2F142&src=CalmView.Catalog)
+62. Poincare, H. (1908, December 24). Comment on invente: le travail de l'inconscient. *Le Matin*, 25(9067), 1. Henri Poincare Papers, University of Nantes. [henripoincarepapers.univ-nantes.fr/chp/text/hp1908mab](https://henripoincarepapers.univ-nantes.fr/chp/text/hp1908mab)
+63. Rowling, J. K. (n.d.). *Biography* [archived text of author's former official website]. The Rowling Library. [therowlinglibrary.com/jkrowling.com/textonly/en/biography.html](https://www.therowlinglibrary.com/jkrowling.com/textonly/en/biography.html)
+64. Bonomolo, C. (2017, December 15). J. K. Rowling originally wrote Harry Potter's Hogwarts houses idea on an unusual item. *ComicBook.com*. [comicbook.com](https://comicbook.com/movies/news/harry-potter-JK-rowling-hogwarts-houses/)
+65. Brucks, M. S., & Levav, J. (2022). Virtual communication curbs creative idea generation. *Nature*, 605, 108–112. [doi.org/10.1038/s41586-022-04643-y](https://doi.org/10.1038/s41586-022-04643-y)
+66. Microsoft. (n.d.). *User presence in Teams*. Microsoft Learn. [learn.microsoft.com/en-us/MicrosoftTeams/presence-admins](https://learn.microsoft.com/en-us/MicrosoftTeams/presence-admins)
+67. Slack. (n.d.). *User presence and status*. Slack Developer Docs. [docs.slack.dev/apis/web-api/user-presence-and-status/](https://docs.slack.dev/apis/web-api/user-presence-and-status/)
+68. Cristea, I. C., & Leonardi, P. M. (2019). Get noticed and die trying: Signals, sacrifice, and the production of face time in distributed work. *Organization Science*, 30(3), 552–572. [doi.org/10.1287/orsc.2018.1265](https://doi.org/10.1287/orsc.2018.1265)
+69. Abendroth, A.-K., Lott, Y., & Dummert, S. (2026, September 28). Establishing digital presence: How occupational status, job insecurity and job dissatisfaction shape digital availability, visibility and faking behaviours among home-based workers. *Work, Employment and Society*, OnlineFirst. [doi.org/10.1177/09500170261476006](https://doi.org/10.1177/09500170261476006)
+70. Indiana University Press. (n.d.). *Through the Eyes of Descartes* [discussion of Baillet’s 1691 biography and the lost *Olympica*]. [publish.iupress.indiana.edu](https://publish.iupress.indiana.edu/read/through-the-eyes-of-descartes/section/f3716b36-715f-4124-9538-afd69000fda5)
+71. Tchaikovsky, M. (1906). *The Life & Letters of Peter Ilich Tchaikovsky* (R. Newmarch, Trans.). [gutenberg.org/files/45259/45259-h/45259-h.htm](https://www.gutenberg.org/files/45259/45259-h/45259-h.htm)
+72. Mahler Foundation. (n.d.). *The three composing huts*. [mahlerfoundation.org](https://www.mahlerfoundation.org/foundation/projects/the-three-composing-huts/)
+73. Rocke, A. J. (2010). *Image and Reality: Kekulé, Kopp, and the Scientific Imagination*. University of Chicago Press. [doi.org/10.7208/chicago/9780226723358.003.0010](https://doi.org/10.7208/chicago/9780226723358.003.0010)
+74. Grossman, J. (n.d.). *Fair Labor Standards Act of 1938: Maximum struggle for a minimum wage*. U.S. Department of Labor. [dol.gov/general/aboutdol/history/flsa1938](https://www.dol.gov/general/aboutdol/history/flsa1938)
+75. Shelley, M. W. (1831). *Introduction to Frankenstein; or, The Modern Prometheus* (revised edition). [en.wikisource.org](https://en.wikisource.org/wiki/Frankenstein%2C_or_the_Modern_Prometheus_%28Revised_Edition%2C_1831%29/Introduction)
+76. Nguyen, L. (2024, May 23). *HSBC’s New York attendance jumps to 80% at new office*. Reuters. [reuters.com](https://www.reuters.com/business/finance/hsbcs-new-york-attendance-jumps-80-new-office-2024-05-23/)
+77. Business Insider. (2024, July). *See inside Pinterest’s quirky Dublin office, which has a pub and a workspace resembling a Celtic forest*. [businessinsider.com](https://www.businessinsider.com/photos-pinterest-dublin-office-own-pub-and-guinness-on-tap-2024-7)
+78. Rosen, W. (2010). *The most useful man who ever lived*. The New Atlantis. [thenewatlantis.com](https://www.thenewatlantis.com/publications/the-most-useful-man-who-ever-lived)
+79. Amabile, T. M., Conti, R., Coon, H., Lazenby, J., & Herron, M. (1996). Assessing the work environment for creativity. *Academy of Management Journal*, 39(5), 1154–1184. [doi.org/10.2307/256995](https://doi.org/10.2307/256995)
+80. Malinin, L. H. (2016). Creative practices embodied, embedded, and enacted in architectural settings: Toward an ecological model of creativity. *Frontiers in Psychology*, 6, 1978. [doi.org/10.3389/fpsyg.2015.01978](https://doi.org/10.3389/fpsyg.2015.01978)
 
 ## Appendix A: Historical Accounts of Discovery and Working Conditions
 
 This selected survey records **seventeen historical figures**, ordered approximately by era. A documented walking routine, a retrospective report of an insight, and a story passed down much later are different forms of evidence. The table states what survives and how it is known; terms such as *incubation* remain interpretive rather than retrospective diagnoses. A case is not evidence that a particular neural network caused a discovery.
+
+<!-- table-layout: responsive-records -->
 
 | Figure | Era / domain | Reported practice or episode | Documentary basis and limitation |
 |---|---|---|---|
@@ -447,6 +459,8 @@ This selected survey records **seventeen historical figures**, ordered approxima
 
 The following table summarizes four principal cases using the paper’s operational framework. It records reported events and limitations, not a verified four-stage neurological timeline. No individual insight is known to have arrived on an assigned schedule.
 
+<!-- table-layout: responsive-records -->
+
 | Figure | Discovery condition (reported) | Interval or habit reported | Capture method described | Scheduled? |
 |---|---|---|---|---|
 | Charles Darwin | Daily Sandwalk; early circuits counted with flints, later varied according to his strength | Decades-long walking practice* | Worked and wrote in his study; individual discoveries cannot be timed to particular walks | No specific insight scheduled |
@@ -461,6 +475,8 @@ The following table summarizes four principal cases using the paper’s operatio
 
 The paper uses two operational terms: *discovery* for the generation and recognition of new possibilities, and *capture* for testing, refining, documenting, and communicating them. Wallas's four stages help unpack a recurring route through creative work. The stages are not mandatory discrete events, spatial categories, or one-to-one neural states; preparation and verification may recur, and insight can arise during focused work.
 
+
+<!-- table-layout: responsive-records -->
 
 | Term | Definition | Wallas stage | Neural correlate (qualified) | Institutional implication |
 |---|---|---|---|---|

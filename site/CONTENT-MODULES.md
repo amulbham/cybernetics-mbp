@@ -81,8 +81,9 @@ Visually, `#ref-*` links are ink + dotted underline (Sprint 6.4) — a page with
 - **Trigger**: any `<table>`, anywhere in the tree (including inside list items).
 - **Produces**: wrapped in `<div class="table-container" tabindex="0">`, `overflow-x: auto` so wide tables scroll instead of breaking the prose column.
 - **Authoring example**: a plain Markdown table.
-- **Constraints**: none — applies unconditionally to every table.
-- **Files**: `src/lib/rehype-table-wrap.mjs`.
+- **Constraints**: applies unconditionally to every *unmarked* table; the explicit opt-in below is the only variant.
+- **Opt-in: `responsive-records` (T20.1)** — put exactly `<!-- table-layout: responsive-records -->` on its own line immediately before the table, one blank line between. The marker is consumed; the table gets `.table-container[data-table-layout="responsive-records"]` (no scroll tab stop) plus a generated `ul.table-records` (one `<li><dl>` record per body row, each cell labelled by its column header) built from the same table. From 1100px up the wrapped table shows; below it the records show and the table is `display: none` (never both, so the hidden one is absent from the accessibility tree and tab order); print always shows the table. The records are `data-pagefind-ignore`. Supported shape: one header row of unique non-empty `<th>`, rectangular body rows, no rowspan/colspan or nested table. An unknown layout value, a marker not directly followed by a table (orphan/duplicate) or an unsupported shape **fails the build** (`validate-research-links.mjs` runs the same pipeline). Used by the Desk's three appendix tables only; `scripts/validate-desk-presentation.mjs` is its opt-in inventory check.
+- **Files**: `src/lib/rehype-table-wrap.mjs`, `.table-container[data-table-layout]` / `.table-records` rules in `src/styles/global.css`.
 
 ### Figures
 

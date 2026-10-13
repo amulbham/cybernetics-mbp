@@ -54,9 +54,9 @@ B — Production Ready corpus + front door
     unconfirmed; batch ran under a recorded unsealed-ticket exception,
     see planning/audits/T20.0-desk-pilot-evidence.md):
     "The Desk Is Where You Write It Down" — Knowledge Work, Zenodo
-    DOI-backed, scholarly PDF required; compiled MD v41.10 carries a
-    legacy `pillar: systems-architecture` to reconcile under an
-    approved content ticket (no silent argument edits)
+    DOI-backed, scholarly PDF required; the v41.10 Site MD's legacy
+    `pillar` was reconciled to `category: knowledge-work` at intake
+    (T20.0; no argument edits)
     Publication MD v1.0 (Grokbot-to-site authoring contract)
     finalized against post-S19 code and tested on the final Desk
     manuscript

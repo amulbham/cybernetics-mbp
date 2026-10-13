@@ -371,6 +371,71 @@ tbody tr:hover {
 	outline-offset: 2px;
 }
 
+/* Responsive-records tables — explicit author opt-in via
+   `<!-- table-layout: responsive-records -->` (rehype-table-wrap.mjs, T20.1).
+   Wide screens: the authored table, wrapped (no sideways scroll). Narrow
+   screens: the generated `.table-records` list (one labelled record per body
+   row) replaces it; `display: none` on the inactive projection also removes
+   it from the accessibility tree and tab order. The generated list is hidden
+   by default, so it never reaches print/PDF — only the screen media query
+   below reveals it. Unmarked tables never match these selectors. */
+.table-container[data-table-layout='responsive-records'] {
+	overflow: visible;
+}
+.table-container[data-table-layout='responsive-records'] thead th {
+	white-space: normal;
+	vertical-align: bottom;
+	line-height: 1.35;
+}
+.table-container[data-table-layout='responsive-records'] tbody td {
+	overflow-wrap: break-word;
+}
+.table-records {
+	display: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+@media screen and (max-width: 1099px) {
+	.table-container[data-table-layout='responsive-records'] table {
+		display: none;
+	}
+	.table-container[data-table-layout='responsive-records'] .table-records {
+		display: block;
+	}
+	.table-record {
+		padding: var(--space-4);
+		border-bottom: 1px solid var(--border);
+	}
+	.table-record:last-child {
+		border-bottom: none;
+	}
+	.table-record dl {
+		margin: 0;
+	}
+	.table-record dt {
+		margin-top: var(--space-3);
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--text-secondary);
+	}
+	.table-record dt:first-child {
+		margin-top: 0;
+	}
+	.table-record dd {
+		margin: var(--space-1) 0 0;
+		font-size: var(--text-sm);
+		line-height: 1.5;
+		overflow-wrap: anywhere;
+	}
+	.table-record dt:first-child + dd {
+		font-weight: 700;
+	}
+}
+
 /* Pull quotes — produced by the rehype-pull-quote build-time transform
    (src/lib/rehype-pull-quote.mjs): a blockquote whose entire content is one
    bolded line, e.g. `> **Not a score. A dependency.**`. Deliberately no left
