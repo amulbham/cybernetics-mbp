@@ -1,6 +1,6 @@
 # Sprint 19 — Publication Taxonomy
 
-Status: PROPOSED (awaiting Product Authority authorization of the sealed T19.0)
+Status: EXECUTING (T19.0 rev 3 sealed 2026-10-13 under a Product Authority one-time exception to the second independent R3 pre-seal review; that review was not completed)
 Risk ceiling: R3
 Branch: `staging`
 Depends on: Sprint 18 CLOSED (`main @ 6db9e80`); Product Authority taxonomy decisions and Planner review, 2026-10-13
@@ -23,7 +23,7 @@ Required `category` (`cybernetics`, `knowledge-work`, `ai-systems`, `essays`) ro
 
 ## Hypotheses to test
 
-- Explicit no-slash `_redirects` lines are needed and work on Cloudflare Pages (T19.0 Q1).
+- Explicit no-slash `_redirects` lines are needed and work on Cloudflare Pages (T19.0 Q1); some are deliberate aliases, even when the old URL was previously 404.
 - PDF text and link annotations, not bytes, are the stable preservation oracle (Q2).
 
 ## Hard constraints
@@ -40,7 +40,7 @@ Desk ingestion; Chisel Draft v6 appendix and IWL editorial mismatches; Publicati
 
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| `T19.0` | IMPLEMENTATION / R3 | Publication taxonomy migration: `category`, route-history registry, direct 301 matrix, validators, staging QA, product-only promotion | Sprint 18 CLOSED; this contract | DRAFT. Two-reviewer pre-seal review, then Amul's authorization to seal |
+| `T19.0` | IMPLEMENTATION / R3 | Publication taxonomy migration: `category`, route-history registry, direct 301 matrix, validators, staging QA, product-only promotion | Sprint 18 CLOSED; this contract | READY / EXECUTING. Sealed 2026-10-13 with one independent review plus a recorded one-time exception to the second; staging only, production needs Amul's separate typed approval |
 
 ## Sprint-level acceptance criteria
 
@@ -60,7 +60,7 @@ Any PDF difference beyond the category segment or label; a Cloudflare redirect b
 
 ## Exit state
 
-- True at close: the taxonomy is live on staging (and on production if approved); docs and the content-manager skill describe `category` and PDF eligibility correctly; the ROADMAP direction below is applied.
+- True at the validated staging gate: taxonomy, PDF preservation and redirects are verified on staging; ROADMAP explicitly says STAGING ACCEPTED / awaiting production approval. At production closure, record PRODUCTION VERIFIED / CLOSED **only after** the matching production workflow and postrelease matrix pass. If promotion is deferred, record that deferral rather than asserting the taxonomy is live on production.
 - Deliberately open: Desk ingestion, Publication MD v1.0, Home/About redesign, Chisel editorial work, discovery and indexing.
 
 ## Canonical documentation targets
@@ -71,13 +71,15 @@ Any PDF difference beyond the category segment or label; a Cloudflare redirect b
 
 Replace in `ROADMAP.md`:
 
-1. **Header paragraph, final sentence** ("Production Ready corpus/front door work (next planned object: the Chisel paper, not yet executing) and route-aware discovery stay directional and unnumbered.") →
-"Sprint 19 (`T19.0`, publication taxonomy migration: `pillar` → required `category`, scholarly-PDF eligibility decoupled from editorial category) is the next planned object. After it, the next manuscript pilot is *The Desk Is Where You Write It Down* (Knowledge Work, Zenodo DOI-backed, scholarly PDF required). Home and About follow Desk. The Chisel paper is deferred editorial work. Corpus/front-door work and route-aware discovery stay directional and unnumbered."
+1. **Header paragraph, final sentence** (the existing Chisel-next wording) → replace using the **actual verified release gate**. Before staging acceptance, say "Sprint 19 taxonomy migration in progress; Desk planned after taxonomy." After staging acceptance but before promotion, say "Sprint 19 staging accepted; production promotion pending Product Authority authorization; Desk is the next manuscript pilot after taxonomy release." After production verification, say "Sprint 19 publication taxonomy production-verified and closed at [verified SHA]; next manuscript pilot: *The Desk Is Where You Write It Down* (Knowledge Work, Zenodo-backed, PDF required); then Home and About." If promotion is deferred, record it expressly; never use NEXT/COMPLETE language unsupported by deployed evidence. Chisel remains published with editorial revision deferred. Corpus readiness and indexing stay separately gated.
 
 2. **Research Object MVP block, item B** → 
 ```text
 S19 — Publication taxonomy (T19.0, R3)
-    NEXT: required `category` (cybernetics | knowledge-work |
+    STATUS: reflect verified PLANNED / EXECUTING / STAGING ACCEPTED /
+    PRODUCTION VERIFIED / CLOSED or explicit release deferral; never
+    hard-code NEXT once implementation has shipped
+    required `category` (cybernetics | knowledge-work |
     ai-systems | essays) replaces `pillar`; `format: paper` carries
     the scholarly PDF; a DOI requires `format: paper`; direct 301s
     for every retired public URL; route-history ledger protects
@@ -110,4 +112,4 @@ B — Production Ready corpus + front door
 4. **"Three of five pillars…" bullet** →
 "**Category coverage** — `cybernetics` (Invariants, Three Self-Organizing Systems), `knowledge-work` (The Chisel Fallacy), and `essays` (FAFSA, a scholarly paper placed editorially among essays; Frontier Utility). `ai-systems` is intentionally empty until a work belongs there; its landing page shows an empty state and the homepage links it unconditionally. `/research/memos/` remains a functional empty route outside the four-category navigation."
 
-Unchanged: the public-launch block, the Sprint 18 status line, and "Polish, not urgent" (including the Chisel IWL editorial mismatches).
+Unchanged: the public-launch block, Sprint 18 historical closure, and "Polish, not urgent" (including Chisel IWL editorial mismatches). Record staging/production SHAs only after the corresponding deployments are verified, and preserve an explicit production deferral if one exists. The Product Authority coordinates independent reviewers; the Executor receives the approved contract and does not call review tooling.
