@@ -1,6 +1,6 @@
 # Sprint 19 — Publication Taxonomy
 
-Status: EXECUTING (T19.0 rev 3 sealed 2026-10-13 under a Product Authority one-time exception to the second independent R3 pre-seal review; that review was not completed)
+Status: STAGING VERIFIED by the Executor (T19.0 on staging, run 38450257817 @ `84d0025`); awaiting Product Authority staging acceptance and production authorization. T19.0 was sealed under a Product Authority one-time exception to the second independent R3 pre-seal review, which was not completed
 Risk ceiling: R3
 Branch: `staging`
 Depends on: Sprint 18 CLOSED (`main @ 6db9e80`); Product Authority taxonomy decisions and Planner review, 2026-10-13
@@ -40,7 +40,7 @@ Desk ingestion; Chisel Draft v6 appendix and IWL editorial mismatches; Publicati
 
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| `T19.0` | IMPLEMENTATION / R3 | Publication taxonomy migration: `category`, route-history registry, direct 301 matrix, validators, staging QA, product-only promotion | Sprint 18 CLOSED; this contract | READY / EXECUTING. Sealed 2026-10-13 with one independent review plus a recorded one-time exception to the second; staging only, production needs Amul's separate typed approval |
+| `T19.0` | IMPLEMENTATION / R3 | Publication taxonomy migration: `category`, route-history registry, direct 301 matrix, validators, staging QA, product-only promotion | Sprint 18 CLOSED; this contract | STAGING VERIFIED (Executor). Sealed 2026-10-13 with one independent review plus a recorded one-time exception to the second; evidence `planning/audits/T19.0-taxonomy-migration-evidence.md`; production needs Amul's separate typed approval |
 
 ## Sprint-level acceptance criteria
 

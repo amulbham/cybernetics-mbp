@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-13 — Sprint 19 / T19.0: publication taxonomy migration (staging)
+
+`pillar` is replaced by a required `category` — `cybernetics`, `knowledge-work`, `ai-systems`, `essays` — defined once in `src/lib/categories.ts` and used as the sole routing input. Editorial category and scholarly-PDF eligibility are now independent: `format: paper` alone carries the PDF, Highwire tags and `ScholarlyArticle` JSON-LD, in any category, and a `doi` requires `format: paper`. Chisel moved to Knowledge Work (its IWL with it); FAFSA moved to Essays and kept its scholarly Paper identity, PDF and metadata; Invariants, Three SOS and Frontier Utility keep their routes. `/research/memos/` stays a route-only empty page outside navigation; AI Systems is an empty landing page. Badges, OG borders, the homepage grid, footer and About cards read the category registry; the masthead still reads Paper/Essay/Memo.
+
+`src/lib/route-history.ts` records historical public commitments (categories served, scholarly PDF, companion IWL) and the retired-category map, and one generator derives every single-hop 301 in `dist/_redirects`: 22 rules covering the four legacy `paper.pdf` URLs, the old page, IWL, PDF, legacy PDF and OG routes of the two moved entries (with and without trailing slash), and the retired `policy-systems`, `seo-architecture` and `systems-architecture` pages. `validate:pdfs` now checks the history against built artifacts; `validate:semantics` checks per-category `isPartOf`/`articleSection` and category navigation (the homepage and footer previously linked two category pages that returned 404).
+
+Verified on the deployed staging build (Actions run 38450257817 at `84d0025`): all 22 redirects return an unfollowed single-hop 301 to a 200 target, including the no-slash aliases; all four PDFs serve 200 `application/pdf` and match the pre-change text, link annotations, fonts and page counts (local baseline and current production); indexing unchanged. T19.0 was sealed under a Product Authority one-time exception to the second independent R3 pre-seal review. Not yet on production. Evidence: `planning/audits/T19.0-taxonomy-migration-evidence.md`.
+
 ## 2026-10-12 — Sprint 18 closed: product-only release to production
 
 T18.2 through T18.5 reached production together. Staging first: a two-parent merge of the product branch into `staging` (`9ac21f2`, Actions run `38327371002`), fast-forward pushed and green through build, PDF generation, PDF identity validation, and the Cloudflare deploy. Then production: `main` fast-forwarded `4d0a0f4` to `7c5d3cd` (ten linear commits, no merges), run `38328055979` green at that SHA. The TP2 governance lineage lives only on `staging` and was never merged into `main`.
