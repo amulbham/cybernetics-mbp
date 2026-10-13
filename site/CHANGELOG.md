@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-12 — Sprint 18 closed: product-only release to production
+
+T18.2 through T18.5 reached production together. Staging first: a two-parent merge of the product branch into `staging` (`9ac21f2`, Actions run `38327371002`), fast-forward pushed and green through build, PDF generation, PDF identity validation, and the Cloudflare deploy. Then production: `main` fast-forwarded `4d0a0f4` to `7c5d3cd` (ten linear commits, no merges), run `38328055979` green at that SHA. The TP2 governance lineage lives only on `staging` and was never merged into `main`.
+
+Verified on the deployed Linux-generated PDFs, on both hosts: all four return 200 `application/pdf` (29, 21, 17, and 12 pages); all 19 paper tables are complete in the PDF text (F01, F06, F08, C01 included) and the continuations render correctly; page numbers and running heads are correct; Latin Modern Roman embeds on every page, `δ` from Latin Modern Math, `∞` from Latin Modern Roman; the font files are served; `citation_pdf_url`, Download link, and canonical URL agree; the four legacy `paper.pdf` URLs 301 to the slug PDFs; `robots.txt` is `Disallow: /` and pages send `noindex, nofollow`; the Chisel Article to IWL navigation works and the IWL and essay PDFs stay 404. Before promotion production served the previous PDFs and no font path.
+
+Accepted exception: `⚠️` in Three Self-Organizing Systems renders from the platform emoji font (Noto Color Emoji on the Linux build). Sprint 18 is closed; the earlier T18.5 entry's "not yet on staging or main" described its local state and is superseded by this one. Carried forward, not Sprint 18 work: the Chisel paper's older Draft v6 development-log appendix and manuscript identity, which belong to the Chisel Production Ready phase (the next planned object, not yet executing). Evidence: `planning/audits/T18.5-release-verification-evidence.md`.
+
 ## 2026-10-12 — T18.5: scholarly PDF visual treatment
 
 The four paper PDFs now read as typeset scholarly papers instead of the Signal web design: white pages, Latin Modern Roman 10 (bundled in `public/fonts/print/`, GUST Font License, embedded in every PDF), 11pt justified hyphenated body, a centered title block, booktabs-style tables, label-and-rule primitives and alerts instead of cards, restrained navy and ochre accents, page numbers on every page, and a running head of "Bham" plus the article's own `<h1>` on body pages. All of it is `print-research.css` (page margin boxes and `string-set`); no HTML, builder, screen CSS, route, or content changed. Page counts went from 55/38/31/22 to 29/21/17/12. `δ` now comes from bundled Latin Modern Math and `∞` in the FAFSA code block from Latin Modern Roman, both limited by `unicode-range`.

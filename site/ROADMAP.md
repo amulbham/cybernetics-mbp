@@ -6,7 +6,7 @@ Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Oper
 
 **Sprint 12 (Reader Context) is complete and production-verified** (`T12.0`–`T12.4`, all `CLOSED`) — `readerNote`, `FromTheAuthor`, and the `readerNote.for → Article.audience` projection are all live on `amulbham.com` (`main @ b64e381`), independently re-verified there: human matrix, semantic matrix, reading-shell smoke test, all three paper PDFs, canonical identity/Person/DOI/`isBasedOn` regression, and indexing state (still deliberately deindexed) all confirmed unchanged. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-12-reader-context.md`.
 
-**Sprint 13 (IWL Foundation) is complete and production-verified** (`T13.0`–`T13.4`, all `CLOSED`) — the outer Article/IWL envelope (`iwl` collection, validated registry, derived route, plain `IwlLayout`, bidirectional navigation, zero JSON-LD/PDF) is live on `amulbham.com` (`main @ ca67561`), independently re-verified there: both routes `200`, IWL PDF `404`, sitemap inclusion, `noindex, nofollow`, a real end-to-end production search confirming the IWL's own content is indexed, and byte-identical regression on the existing corpus (DOI/`audience`/`isBasedOn`). One real, product-authority-approved pair is live: **"The Chisel Fallacy: What Pangram Actually Measures"** (the first `ai-systems`-pillar paper) and its companion IWL. Field-level reference: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object" and `PUBLISHING.md` §2a. Three pre-existing, sitewide, non-IWL findings were recorded but not fixed (see `planning/tickets/T13.3-iwl-outer-contract-validation.md`); a fourth (breadcrumbs not a semantic `<nav>`) was explicitly accepted by Amul as a known release gap. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-13-iwl-foundation.md`. **Sprint 14** (IWL decomposition and corroboration) is closed (`T14.0`–`T14.2`). Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. **Sprint 15** (minimum IWL formalization) is closed on OPAQUE V1 (`T15.0`–`T15.1`). Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. **Sprint 18** (scholarly publication pipeline) is in progress. `T18.0` is closed. `T18.1` is closed and promoted to production (`main @ 0c25022`, 2026-09-29): it moves the paper PDF to `{entry.id}.pdf` and 301s `paper.pdf`. `T18.2` (print artifact quality: masthead ORCID break and Chisel IWL lead-in fixed, page-1 ORCID check added, long-form reading baseline recorded) is closed and verified on staging at `6bdd880`; production promotion is pending. `T18.3` (rendered table behavior audit) is closed and verified on staging at `6fcdbd5`; production promotion is pending. `T18.4` (PDF table information-loss correction: table headers wrap in print so no table text is clipped; evidence in `planning/audits/T18.4-pdf-table-evidence.md`) is closed and on `staging`; production promotion is pending. `T18.5` (scholarly PDF visual treatment: white pages, bundled Latin Modern, running head, page numbers, academic tables; evidence in `planning/audits/T18.5-scholarly-pdf-visual-evidence.md`) is verified locally on its own product-only branch and visually accepted; staging integration is pending and is the current pointer. Print pagination, mobile row-label association, and other unresolved print-quality work stay open. Contract: `planning/sprints/sprint-18-scholarly-publication-pipeline.md`. Production Ready corpus/front-door work and route-aware discovery stay directional and unnumbered. Program direction: `planning/programs/research-object-arc-13-17.md`.
+**Sprint 13 (IWL Foundation) is complete and production-verified** (`T13.0`–`T13.4`, all `CLOSED`) — the outer Article/IWL envelope (`iwl` collection, validated registry, derived route, plain `IwlLayout`, bidirectional navigation, zero JSON-LD/PDF) is live on `amulbham.com` (`main @ ca67561`), independently re-verified there: both routes `200`, IWL PDF `404`, sitemap inclusion, `noindex, nofollow`, a real end-to-end production search confirming the IWL's own content is indexed, and byte-identical regression on the existing corpus (DOI/`audience`/`isBasedOn`). One real, product-authority-approved pair is live: **"The Chisel Fallacy: What Pangram Actually Measures"** (the first `ai-systems`-pillar paper) and its companion IWL. Field-level reference: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object" and `PUBLISHING.md` §2a. Three pre-existing, sitewide, non-IWL findings were recorded but not fixed (see `planning/tickets/T13.3-iwl-outer-contract-validation.md`); a fourth (breadcrumbs not a semantic `<nav>`) was explicitly accepted by Amul as a known release gap. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-13-iwl-foundation.md`. **Sprint 14** (IWL decomposition and corroboration) is closed (`T14.0`–`T14.2`). Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. **Sprint 15** (minimum IWL formalization) is closed on OPAQUE V1 (`T15.0`–`T15.1`). Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. **Sprint 18** (scholarly publication pipeline) is complete and production-verified (`T18.0`–`T18.5`, all `CLOSED`; `main @ 7c5d3cd`, 2026-10-12). Paper PDFs live at `{entry.id}.pdf` with a 301 from `paper.pdf` (T18.1); the masthead ORCID and Chisel IWL-link print defects are fixed with a page-1 ORCID check (T18.2); all 33 live tables were observed (T18.3) and the PDF clipping defect is fixed by wrapping table headers in print (T18.4); and the four paper PDFs are a scholarly projection with bundled Latin Modern, running head, page numbers, and academic tables (T18.5). Independently re-verified on the deployed staging and production PDFs: 19 of 19 tables complete, embedded fonts, canonical URLs, four legacy 301s, noindex and robots unchanged. One accepted exception: `⚠️` in Three Self-Organizing Systems renders from the platform emoji font. The release went to `main` product-only; the TP2 governance lineage stays on `staging` only. Evidence: `planning/audits/T18.5-release-verification-evidence.md`. Deferred and non-blocking, not an unfinished Sprint 18 gate: mobile row-label association and other print-polish items. Corpus readiness (Production Ready) and crawl indexing remain separately gated; nothing in Sprint 18 opened either. Contract: `planning/sprints/sprint-18-scholarly-publication-pipeline.md`. Production Ready corpus/front-door work (next planned object: the Chisel paper, not yet executing) and route-aware discovery stay directional and unnumbered. Program direction: `planning/programs/research-object-arc-13-17.md`.
 
 ## Research Object MVP
 
@@ -34,30 +34,26 @@ Optional:
      history exists and product authority chooses the test
 
 Pre-launch direction:
-A — scholarly publication pipeline (Sprint 18)
-    T18.0 CLOSED
-    T18.1 CLOSED and promoted to production (PDF URL)
-    T18.2 CLOSED, VERIFIED STAGING @ 6bdd880 (print fixes);
-          production promotion pending
-    T18.3 CLOSED, VERIFIED STAGING @ 6fcdbd5; production promotion
-          pending
-    T18.4 CLOSED, on staging (table headers wrap in print);
-          production promotion pending
-    T18.5 VERIFIED LOCAL, visually accepted (scholarly PDF
-          treatment); staging integration pending
-    visual / table work still open (print pagination, mobile row-label
-    association, unresolved print quality)
+A — scholarly publication pipeline (Sprint 18) — CLOSED, production-verified
+    T18.0–T18.5 all CLOSED; main @ 7c5d3cd (2026-10-12)
+    deferred, non-blocking polish (not a Sprint 18 gate): mobile
+    row-label association
 
 B — Production Ready corpus + front door
+    NEXT PLANNED OBJECT (not yet executing): the Chisel paper —
+    v09 publication ingestion and full research-object QA, with
+    the Publication Markdown normalization convention defined in
+    that CONTENT phase
     apply the reusable system to each launch work
     known: the Chisel paper's HTML and PDF carry an older Draft v6
     IWL development-log appendix and older manuscript identity
-    (CONTENT/ingestion issue, deferred from T18.5)
+    (CONTENT/ingestion issue, deferred from T18.5 into the Chisel phase)
     CONTENT / READER / SCHOLARLY checks
     editorial refinement
     Home / About / corpus presentation
 
 C — route-aware discovery
+    separately gated; nothing in Sprint 18 opened it
     open only intended crawl surfaces
     verify Scholar-facing routes and metadata
 
