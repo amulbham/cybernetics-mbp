@@ -2,6 +2,7 @@
 title: 'How Frontier Model Training Became a Public Utility'
 subtitle: 'The frontier is already everywhere. Now what?'
 format: 'essay'
+category: 'essays'
 pubDate: 2026-08-19
 description: >-
   In July 2026, Anthropic CEO Dario Amodei asked policymakers to restrict

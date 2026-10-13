@@ -16,21 +16,20 @@ All defined in `src/styles/global.css`, in three places kept in sync by conventi
 | `--accent-hover` | `#243c56` | `#a8bdd4` | Hover of accent |
 | `--accent-fg` | `#fbfaf6` | `#0e1013` | Text on the primary button |
 
-## Pillars (5)
+## Categories (4)
 
-12% wash + a small dot + label. Never full page chrome — a pillar colors a badge, a dot, an optional 3px leading edge on a research card. It never colors a page background.
+12% wash + a small dot + label. Never full page chrome — a category colors a badge, a dot, an optional 3px leading edge on a research card. It never colors a page background.
 
 | Token | Light | Dark |
 |---|---|---|
 | `--pillar-ai-systems` | `#2e4a68` | `#8fa8c4` |
-| `--pillar-seo-architecture` | `#2d6a52` | `#6fba9a` |
-| `--pillar-systems-architecture` | `#4a5563` | `#a0a8b4` |
-| `--pillar-policy-systems` | `#6b4e38` | `#c4a48a` |
+| `--pillar-knowledge-work` | `#4a5563` | `#a0a8b4` |
+| `--pillar-essays` | `#6b4e38` | `#c4a48a` |
 | `--pillar-cybernetics` | `#6b4a62` | `#c4a8b8` |
 
-## Alerts (severity, not pillars)
+## Alerts (severity, not categories)
 
-8% wash. `--alert-warning`'s light value is `#7c5f26`, **not** the original Signal-pass spec's `#8a6a2a`: that value computed to 4.05:1 against its own 8% wash (WCAG AA needs 4.5:1) — darkened to `#7c5f26`, verified at 4.75:1. The spec's own suspected failure, `--pillar-systems-architecture`, actually passed clean (5.64:1 light / 6.64:1 dark) and needed no change.
+8% wash. `--alert-warning`'s light value is `#7c5f26`, **not** the original Signal-pass spec's `#8a6a2a`: that value computed to 4.05:1 against its own 8% wash (WCAG AA needs 4.5:1) — darkened to `#7c5f26`, verified at 4.75:1. The spec's own suspected failure, `--pillar-knowledge-work` (then named for an earlier category), actually passed clean (5.64:1 light / 6.64:1 dark) and needed no change.
 
 | Token | Light | Dark |
 |---|---|---|

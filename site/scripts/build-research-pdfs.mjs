@@ -33,8 +33,9 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import sirv from 'sirv';
 import { absolutizePdfLinks } from './absolutize-pdf-links.mjs';
-import { discoverPapers } from './discover-research.mjs';
-import { LEGACY_PAPER_PDF_FILENAME, legacyPaperPdfRedirect, paperPdfFilename } from '../src/lib/research-routing.ts';
+import { discoverPapers, discoverResearch } from './discover-research.mjs';
+import { LEGACY_PAPER_PDF_FILENAME, paperPdfFilename } from '../src/lib/research-routing.ts';
+import { redirectRules, renderRedirectLines } from '../src/lib/route-history.ts';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url)); // site/
 const REAL_DIST = join(ROOT, 'dist');
@@ -144,11 +145,15 @@ async function main() {
 			generated++;
 		}
 
-		const redirectLines = papers
-			.map((paper) => legacyPaperPdfRedirect(paper.route, paper.id))
-			.sort();
+		// T19.0: one generator (route-history.ts) owns the whole file — each
+		// current paper's legacy paper.pdf, every retired public route of a moved
+		// entry (page, IWL, PDFs, OG image), and the retired category pages — all
+		// single-hop 301s straight to the current URL. validate-research-pdfs.mjs
+		// recomputes the same set; nothing here is hand-listed.
+		const { papers: allPapers, nonPapers } = discoverResearch();
+		const redirectLines = renderRedirectLines(redirectRules([...allPapers, ...nonPapers]));
 		writeFileSync(join(REAL_DIST, '_redirects'), `${redirectLines.join('\n')}\n`);
-		console.log(`build-research-pdfs: wrote dist/_redirects (${redirectLines.length} legacy 301 rule(s))`);
+		console.log(`build-research-pdfs: wrote dist/_redirects (${redirectLines.length} 301 rule(s))`);
 	} finally {
 		if (server) await stopServer(server);
 		rmSync(transientDist, { recursive: true, force: true });

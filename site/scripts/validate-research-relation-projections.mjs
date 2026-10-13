@@ -41,7 +41,7 @@ import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { relationsSchema } from '../src/lib/research-relations.ts';
 import { projectionsSchema } from '../src/lib/research-relation-projections.ts';
-import { canonicalPath } from '../src/lib/research-routing.ts';
+import { canonicalPath, routingEntryFromFrontmatter } from '../src/lib/research-routing.ts';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url)); // site/
 const RELATIONS_PATH = join(ROOT, 'src', 'data', 'research-relations.json');
@@ -71,7 +71,7 @@ function loadJson(path, label) {
 
 /**
  * Resolves a research collection id to the shape canonicalPath() expects
- * ({ id, data: { format, pillar } }), read directly from its own
+ * ({ id, data: { format, category } }), read directly from its own
  * frontmatter — the same resolution rehype-research-links.mjs's own
  * resolveTargetHref() already uses, reused here rather than re-implemented,
  * per the ticket's own "one routing source of truth" instruction. Returns
@@ -83,7 +83,7 @@ function resolveEntry(id) {
 	const filePath = existsSync(mdPath) ? mdPath : existsSync(mdxPath) ? mdxPath : null;
 	if (!filePath) return null;
 	const { frontmatter } = parseFrontmatter(readFileSync(filePath, 'utf8'));
-	return { id, data: { format: frontmatter.format, pillar: frontmatter.pillar } };
+	return routingEntryFromFrontmatter(id, frontmatter);
 }
 
 // 1. Canonical relation registry — parse, schema-validate, uniqueness.

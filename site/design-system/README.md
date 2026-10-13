@@ -6,7 +6,7 @@ This folder is the visual contract. Tokens live in `src/styles/global.css` — t
 
 **Philosophy**: do not optimize research for shorter attention spans; optimize the interface for deeper attention. Prose is the default. Semantic primitives (see `CONTENT-MODULES.md`) appear only at cognitive load, not for decoration.
 
-**Two font families only**: Atkinson Hyperlegible (body and headings — no separate display face) and IBM Plex Mono (`.meta` utility class and code only — dates, tags, breadcrumbs, pillar labels).
+**Two font families only**: Atkinson Hyperlegible (body and headings — no separate display face) and IBM Plex Mono (`.meta` utility class and code only — dates, tags, breadcrumbs, category labels).
 
 **Light and dark are equal reading modes**, not a default plus an afterthought. Every color token ships both values, plus the `prefers-color-scheme` fallback for a reader who hasn't made an explicit choice.
 

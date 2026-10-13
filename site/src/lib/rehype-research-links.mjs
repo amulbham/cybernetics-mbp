@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from '@astrojs/markdown-remark';
-import { canonicalPath } from './research-routing.ts';
+import { canonicalPath, routingEntryFromFrontmatter } from './research-routing.ts';
 import { relationsSchema } from './research-relations.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -65,7 +65,7 @@ function loadAcceptedRelations() {
 
 /**
  * Resolves a relation target's href via the real canonicalPath() —
- * never a hand-built /research/{pillar}/{id}/ string. Reads the target
+ * never a hand-built /research/{category}/{id}/ string. Reads the target
  * entry's own frontmatter directly (the same parser Astro's own content
  * pipeline uses) rather than importing it through `astro:content`, which
  * is a Vite virtual module and is not resolvable from here: this plugin
@@ -84,9 +84,10 @@ function resolveTargetHref(targetId, hrefCache) {
 		throw new Error(`rehype-research-links: relation target "${targetId}" has no matching research entry`);
 	}
 	const { frontmatter } = parseFrontmatter(readFileSync(filePath, 'utf8'));
-	// Shaped exactly like the CollectionEntry canonicalPath() expects —
-	// only the two fields categorySegment() actually reads.
-	const entry = { id: targetId, data: { format: frontmatter.format, pillar: frontmatter.pillar } };
+	// Shaped exactly like the CollectionEntry canonicalPath() expects, via the
+	// shared helper (T19.0) — it throws on a missing/unknown category rather
+	// than producing an undefined route.
+	const entry = routingEntryFromFrontmatter(targetId, frontmatter);
 	const href = canonicalPath(entry);
 	hrefCache.set(targetId, href);
 	return href;

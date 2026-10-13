@@ -2,7 +2,7 @@
 title: 'Three Self-Organizing Systems'
 subtitle: 'A Classification Exercise Using the Seven Invariants'
 format: 'paper'
-pillar: 'cybernetics'
+category: 'cybernetics'
 pubDate: 2026-08-31
 description: >-
   The seven invariants established in Paper A make self-organization testable

@@ -22,8 +22,8 @@
    localStorage session), that rule would otherwise win on specificity
    alone regardless of stylesheet load order. !important is the only way
    to guarantee "light paper" without also copy-pasting the dark-mode
-   selector shape. The pillar and alert tokens keep their Signal values:
-   they are semantic signals (which pillar, which severity), not branding. */
+   selector shape. The category and alert tokens keep their Signal values:
+   they are semantic signals (which category, which severity), not branding. */
 
 /* ---- Bundled print serif: Latin Modern Roman 10 (GUST Font License) ----
    Loaded from the repository's own font files, relative to THIS stylesheet's
@@ -90,9 +90,8 @@
 	--accent-hover: #1f3a5f !important;
 	--accent-fg: #ffffff !important;
 	--pillar-ai-systems: #2e4a68 !important;
-	--pillar-seo-architecture: #2d6a52 !important;
-	--pillar-systems-architecture: #4a5563 !important;
-	--pillar-policy-systems: #6b4e38 !important;
+	--pillar-knowledge-work: #4a5563 !important;
+	--pillar-essays: #6b4e38 !important;
 	--pillar-cybernetics: #6b4a62 !important;
 	--alert-note: #2e4a68 !important;
 	--alert-tip: #2d6a52 !important;

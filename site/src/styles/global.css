@@ -51,14 +51,13 @@
 	--content-width-prose: 720px;
 	--content-width-wide: 960px;
 
-	/* Pillar accents — used as muted tints (color-mix), not full-saturation fills */
+	/* Category accents (--pillar-* prefix kept, T19.0) — used as muted tints (color-mix), not full-saturation fills */
 	--pillar-ai-systems: #2e4a68;
-	--pillar-seo-architecture: #2d6a52;
-	--pillar-systems-architecture: #4a5563;
-	--pillar-policy-systems: #6b4e38;
+	--pillar-knowledge-work: #4a5563;
+	--pillar-essays: #6b4e38;
 	--pillar-cybernetics: #6b4a62;
 
-	/* Admonition severity colors — same muted-tint treatment as pillar accents.
+	/* Admonition severity colors — same muted-tint treatment as category accents.
 	   --alert-warning is intentionally darker than a literal "scale down the
 	   hue" pass would give you: the straight scale-down failed contrast on
 	   its own 8% wash (4.05:1, computed against WCAG AA's 4.5:1 minimum) —
@@ -92,9 +91,8 @@
 	--shadow-lg: none;
 
 	--pillar-ai-systems: #8fa8c4;
-	--pillar-seo-architecture: #6fba9a;
-	--pillar-systems-architecture: #a0a8b4;
-	--pillar-policy-systems: #c4a48a;
+	--pillar-knowledge-work: #a0a8b4;
+	--pillar-essays: #c4a48a;
 	--pillar-cybernetics: #c4a8b8;
 
 	--alert-note: #8fa8c4;
@@ -119,9 +117,8 @@
 		--shadow-md: none;
 		--shadow-lg: none;
 		--pillar-ai-systems: #8fa8c4;
-		--pillar-seo-architecture: #6fba9a;
-		--pillar-systems-architecture: #a0a8b4;
-		--pillar-policy-systems: #c4a48a;
+		--pillar-knowledge-work: #a0a8b4;
+		--pillar-essays: #c4a48a;
 		--pillar-cybernetics: #c4a8b8;
 		--alert-note: #8fa8c4;
 		--alert-tip: #6fba9a;
@@ -289,7 +286,7 @@ hr {
 	border: none;
 	border-top: 1px solid var(--border);
 }
-/* Technical/metadata accent role: dates, tags, breadcrumbs, pillar labels */
+/* Technical/metadata accent role: dates, tags, breadcrumbs, category labels */
 .meta {
 	font-family: var(--font-mono);
 	font-size: var(--text-xs);

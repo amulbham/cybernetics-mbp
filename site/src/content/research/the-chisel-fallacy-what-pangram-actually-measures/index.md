@@ -2,7 +2,7 @@
 title: 'The Chisel Fallacy: What Pangram Actually Measures'
 subtitle: 'Pangram Is a Very Sophisticated Way of Asking the Wrong Question'
 format: 'paper'
-pillar: 'ai-systems'
+category: 'knowledge-work'
 pubDate: 2026-09-22
 description: >-
   For most of writing's history, textual production and intellectual

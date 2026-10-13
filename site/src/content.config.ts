@@ -1,6 +1,7 @@
 import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { CATEGORY_SLUGS } from './lib/categories';
 
 // Everything published — papers, essays, memos — lives in one collection,
 // distinguished by `format`, not split across separate collections. Unified
@@ -20,11 +21,21 @@ const research = defineCollection({
 					// `##` heading in the body: a subtitle written as a heading gets
 					// picked up by the TOC transform as a real section. See AGENTS.md.
 					subtitle: z.string().optional(),
-				// 'paper': rigorous, protocol-driven research (requires `pillar`).
-				// 'essay': long-form analytical prose, no pillar.
-				// 'memo': shorter, more casual notes, no pillar.
+				// What kind of publication this is — and the only thing that decides
+				// whether it gets a scholarly PDF, Highwire tags and ScholarlyArticle
+				// JSON-LD (T19.0: 'paper' alone, regardless of category).
+				// 'paper': rigorous, protocol-driven research; scholarly PDF.
+				// 'essay': long-form analytical prose.
+				// 'memo': shorter, more casual notes.
 				format: z.enum(['paper', 'essay', 'memo']),
-				pillar: z.string().optional(),
+				// Editorial placement and the sole routing input (T19.0): the URL is
+				// /research/{category}/{id}/, independent of `format`. The list lives
+				// in src/lib/categories.ts so the schema, nav and landing pages
+				// cannot drift apart.
+				category: z.enum(CATEGORY_SLUGS),
+				// Retired in T19.0 (replaced by `category`). A leftover key fails the
+				// build instead of being silently stripped by the object schema.
+				pillar: z.never({ message: 'pillar is retired — use category' }).optional(),
 				pubDate: z.coerce.date(),
 				dateModified: z.coerce.date().optional(),
 				// Full abstract — shown as the JSON-LD `description` (schema.org has no
@@ -95,9 +106,13 @@ const research = defineCollection({
 					.strict()
 					.optional(),
 			})
-			.refine((data) => data.format !== 'paper' || !!data.pillar, {
-				message: 'pillar is required when format is "paper"',
-				path: ['pillar'],
+			// A DOI means the work is published via Zenodo, and every Zenodo
+			// publication needs a matching scholarly PDF — which only `paper`
+			// gets (T19.0). The reverse is not required: a paper may exist
+			// before it has a DOI.
+			.refine((data) => !data.doi || data.format === 'paper', {
+				message: 'doi requires format "paper": a DOI-bearing work must carry a scholarly PDF',
+				path: ['doi'],
 			})
 			.refine((data) => !data.heroImage || !!data.heroImageAlt, {
 				message: 'heroImageAlt is required whenever heroImage is set',

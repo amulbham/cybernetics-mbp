@@ -1,12 +1,12 @@
 ---
 interface Props {
 	variant?: 'pillar' | 'neutral';
-	/** Pillar slug (e.g. 'ai-systems') — selects the badge's tint color when variant="pillar". */
-	pillar?: string;
+	/** Category slug (e.g. 'ai-systems') — selects the badge's tint color when variant="pillar". The `--pillar-*` token prefix predates categories and was deliberately kept (T19.0). */
+	category?: string;
 }
 
-const { variant = 'neutral', pillar } = Astro.props;
-const style = variant === 'pillar' && pillar ? `--badge-color: var(--pillar-${pillar});` : undefined;
+const { variant = 'neutral', category } = Astro.props;
+const style = variant === 'pillar' && category ? `--badge-color: var(--pillar-${category});` : undefined;
 ---
 
 <span class:list={['badge meta', `badge-${variant}`]} style={style}>

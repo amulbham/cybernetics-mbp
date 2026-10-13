@@ -33,6 +33,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CATEGORIES, categoryLabel } from '../src/lib/categories.ts';
+import { categoryPath } from '../src/lib/research-routing.ts';
 import { discoverResearch, SITE_ORIGIN } from './discover-research.mjs';
 import { extractCanonicalHrefs, extractCitationMeta, extractJsonLdBlocks, findArticleLikeJsonLd } from './lib/built-html.mjs';
 import { personIdentity } from '../src/lib/structured-data.ts';
@@ -55,7 +57,7 @@ function fail(scope, message) {
 // T12.2: its real Schema.org definition centers NewsArticle-style reporting
 // process, not a research paper's intellectual motivation — semantic
 // silence beats an approximate public claim). `isPartOf` is deliberately
-// NOT here: it's the legitimate paper-pillar CollectionPage link (checked
+// NOT here: it's the legitimate paper-category CollectionPage link (checked
 // on its own terms below), not a forbidden relation property. `audience` is
 // ALSO deliberately not here as of T12.2 — it's no longer a blanket
 // prohibition, it's a source-conditional requirement, checked by its own
@@ -212,7 +214,7 @@ function validateResearchObject(record) {
 		fail(scope, `Article carries a top-level @id ("${article['@id']}") — Sprint 11 freezes no additional top-level graph identity`);
 	}
 
-	// Pillar CollectionPage linkage stays paper-only and @id-free (§37, §15)
+	// Category CollectionPage linkage stays paper-only and @id-free (§37, §15)
 	if (record.format === 'paper') {
 		const isPartOf = article.isPartOf;
 		const ok = isPartOf && isPartOf['@type'] === 'CollectionPage' && typeof isPartOf.name === 'string' && typeof isPartOf.url === 'string';
@@ -221,8 +223,19 @@ function validateResearchObject(record) {
 		} else if (Object.prototype.hasOwnProperty.call(isPartOf, '@id')) {
 			fail(scope, `paper Article.isPartOf carries an unexpected @id — Sprint 11 freezes no CollectionPage @id`);
 		}
+		// T19.0 — the CollectionPage a paper links to is its *category's* landing
+		// page (a paper placed in Essays links to Essays), independently derived
+		// here from the record's category, not read back from the layout.
+		const expectedSection = categoryLabel(record.category);
+		const expectedSectionUrl = `${SITE_ORIGIN}${categoryPath(record.category)}`;
+		if (ok && (isPartOf.name !== expectedSection || isPartOf.url !== expectedSectionUrl)) {
+			fail(scope, `paper Article.isPartOf ${JSON.stringify({ name: isPartOf.name, url: isPartOf.url })} !== expected ${JSON.stringify({ name: expectedSection, url: expectedSectionUrl })}`);
+		}
+		if (article.articleSection !== expectedSection) {
+			fail(scope, `paper Article.articleSection "${article.articleSection}" !== expected "${expectedSection}"`);
+		}
 	} else if (article.isPartOf !== undefined) {
-		fail(scope, `non-paper Article carries isPartOf (${JSON.stringify(article.isPartOf)}) — pillar linkage is paper-only`);
+		fail(scope, `non-paper Article carries isPartOf (${JSON.stringify(article.isPartOf)}) — category linkage is paper-only`);
 	}
 
 	// Person parity (§18, §19)
@@ -371,6 +384,40 @@ function validateAbout() {
 }
 
 // ---------------------------------------------------------------------------
+// Category navigation (T19.0) — the homepage lists the registered categories
+// in registry order, every /research/{segment}/ link on a representative page
+// set resolves to a built page, and route-only memos never appears in
+// navigation. Before T19.0 the homepage and footer linked two category pages
+// that returned 404; this check makes that class of defect a build failure.
+// ---------------------------------------------------------------------------
+
+function validateCategoryNavigation() {
+	const pages = ['/', '/research/', '/about/', ...allRecords.map((record) => record.route)];
+	for (const route of pages) {
+		const html = readDistHtml(route);
+		if (html === null) {
+			fail(`nav:${route}`, 'dist HTML missing');
+			continue;
+		}
+		for (const match of html.matchAll(/href="(\/research\/[a-z0-9-]+\/)"/g)) {
+			if (readDistHtml(match[1]) === null) fail(`nav:${route}`, `links to ${match[1]} but no built page exists there`);
+		}
+		if (html.includes('href="/research/memos/"')) {
+			// /research/memos/ is route-only: it may exist, but is never navigation.
+			fail(`nav:${route}`, 'links to the route-only /research/memos/ page — it must stay out of navigation');
+		}
+	}
+	const home = readDistHtml('/');
+	if (home !== null) {
+		const linked = [...home.matchAll(/class="pillar-card" href="(\/research\/[a-z0-9-]+\/)"/g)].map((m) => m[1]);
+		const expected = CATEGORIES.map((category) => categoryPath(category.slug));
+		if (JSON.stringify(linked) !== JSON.stringify(expected)) {
+			fail('nav:/', `homepage category cards ${JSON.stringify(linked)} !== registry order ${JSON.stringify(expected)}`);
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -383,6 +430,7 @@ function main() {
 	for (const record of allRecords) validateResearchObject(record);
 	validateHomepage();
 	validateAbout();
+	validateCategoryNavigation();
 
 	if (failures.length > 0) {
 		console.error(`validate-research-semantics: ${failures.length} check(s) failed:\n`);

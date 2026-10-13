@@ -1,8 +1,8 @@
 ---
 import { getEntry } from 'astro:content';
 import { HOMEPAGE_SPOTLIGHT } from '../consts';
-import { formatPillarLabel } from '../lib/pillars';
-import { categorySegment, formatLabel } from '../lib/research-routing';
+import { categoryLabel } from '../lib/categories';
+import { canonicalPath } from '../lib/research-routing';
 import Badge from './Badge.astro';
 import Card from './Card.astro';
 import FormattedDate from './FormattedDate.astro';
@@ -19,16 +19,10 @@ if (!spotlight) {
 <section class="spotlight">
 	<p class="meta spotlight-label">Spotlight</p>
 	<ul class="spotlight-feed">
-		<Card href={`/research/${categorySegment(spotlight)}/${spotlight.id}/`}>
-			{
-				spotlight.data.format === 'paper' ? (
-					<Badge variant="pillar" pillar={spotlight.data.pillar}>
-						{formatPillarLabel(spotlight.data.pillar!)}
-					</Badge>
-				) : (
-					<Badge variant="neutral">{formatLabel(spotlight.data.format)}</Badge>
-				)
-			}
+		<Card href={canonicalPath(spotlight)}>
+			<Badge variant="pillar" category={spotlight.data.category}>
+				{categoryLabel(spotlight.data.category)}
+			</Badge>
 			<h3>{spotlight.data.title}</h3>
 			<p>{spotlight.data.excerpt}</p>
 			<span class="meta">
