@@ -1,7 +1,7 @@
 ---
 title: 'The Invariants of Self-Organizing Systems'
 format: 'paper'
-pillar: 'cybernetics'
+category: 'cybernetics'
 pubDate: 2026-08-24
 doi: 'https://doi.org/10.5281/zenodo.20531589'
 description: >-

@@ -1,29 +1,30 @@
 ---
-// Surfaces up to 3 other research entries sharing the current one's pillar
-// (papers only) and/or tags. Scored, not just filtered, so a same-pillar
-// paper with no tag overlap still outranks an off-pillar/no-pillar entry
-// with one shared tag.
+// Surfaces up to 3 other research entries sharing the current one's category
+// and/or tags. Scored, not just filtered, so a same-category entry with no
+// tag overlap still outranks an off-category entry with one shared tag —
+// except `essays`, an editorial catch-all rather than a topical cluster,
+// which earns no category bonus (categories.ts `relatedBonus`; T19.0).
 import { getCollection } from 'astro:content';
 import Badge from './Badge.astro';
 import Card from './Card.astro';
-import { formatPillarLabel } from '../lib/pillars';
-import { categorySegment, formatLabel } from '../lib/research-routing';
+import { categoryEarnsRelatedBonus, categoryLabel } from '../lib/categories';
+import { canonicalPath } from '../lib/research-routing';
 
 interface Props {
 	currentId: string;
-	pillar?: string;
+	category: string;
 	tags: string[];
 }
 
-const { currentId, pillar, tags } = Astro.props;
+const { currentId, category, tags } = Astro.props;
 
 const all = await getCollection('research');
 const related = all
 	.filter((entry) => entry.id !== currentId)
 	.map((entry) => {
-		const pillarScore = pillar && entry.data.pillar === pillar ? 2 : 0;
+		const categoryScore = categoryEarnsRelatedBonus(category) && entry.data.category === category ? 2 : 0;
 		const tagScore = entry.data.tags.filter((tag) => tags.includes(tag)).length;
-		return { entry, score: pillarScore + tagScore };
+		return { entry, score: categoryScore + tagScore };
 	})
 	.filter((x) => x.score > 0)
 	.sort((a, b) => b.score - a.score || b.entry.data.pubDate.valueOf() - a.entry.data.pubDate.valueOf())
@@ -37,14 +38,10 @@ const related = all
 			<h2>Related Research</h2>
 			<ul>
 				{related.map((entry) => (
-					<Card href={`/research/${categorySegment(entry)}/${entry.id}/`}>
-						{entry.data.format === 'paper' ? (
-							<Badge variant="pillar" pillar={entry.data.pillar}>
-								{formatPillarLabel(entry.data.pillar!)}
-							</Badge>
-						) : (
-							<Badge variant="neutral">{formatLabel(entry.data.format)}</Badge>
-						)}
+					<Card href={canonicalPath(entry)}>
+						<Badge variant="pillar" category={entry.data.category}>
+							{categoryLabel(entry.data.category)}
+						</Badge>
 						<h3>{entry.data.title}</h3>
 						<p>{entry.data.excerpt}</p>
 					</Card>

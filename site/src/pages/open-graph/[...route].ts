@@ -7,15 +7,15 @@ import { categorySegment } from '../../lib/research-routing';
 const DARK_BG: [number, number, number] = [11, 13, 18];
 const TEXT_PRIMARY: [number, number, number] = [243, 244, 247];
 const TEXT_SECONDARY: [number, number, number] = [154, 163, 184];
-const PILLAR_RGB: Record<string, [number, number, number]> = {
-	'ai-systems': [35, 55, 255],
-	'seo-architecture': [14, 159, 110],
-	'systems-architecture': [124, 58, 237],
-	'policy-systems': [180, 83, 9],
+// One border color per category, mirroring the dark-theme `--pillar-{category}`
+// tokens in global.css (T19.0 decision 16) — every entry has a category, so
+// there is no accent-only fallback any more.
+const CATEGORY_RGB: Record<string, [number, number, number]> = {
+	cybernetics: [196, 168, 184], // #c4a8b8
+	'knowledge-work': [160, 168, 180], // #a0a8b4
+	'ai-systems': [143, 168, 196], // #8fa8c4
+	essays: [196, 164, 138], // #c4a48a
 };
-// Mirrors --accent's dark-theme value in global.css — essays/memos have no
-// pillar to derive a border color from, so they get the plain accent instead.
-const ACCENT_RGB: [number, number, number] = [91, 107, 255];
 
 // `description` frontmatter is the full abstract — too long for the image
 // canvas. Truncate to a short blurb at a word boundary.
@@ -34,7 +34,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
 		description: truncate(page.description, 180),
 		bgGradient: [DARK_BG],
 		border: {
-			color: page.format === 'paper' ? (PILLAR_RGB[page.pillar!] ?? TEXT_SECONDARY) : ACCENT_RGB,
+			color: CATEGORY_RGB[page.category] ?? TEXT_SECONDARY,
 			width: 8,
 			side: 'block-start',
 		},

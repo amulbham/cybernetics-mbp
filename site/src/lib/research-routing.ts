@@ -1,20 +1,59 @@
 import type { CollectionEntry } from 'astro:content';
-import { formatPillarLabel } from './pillars';
+import { categoryLabel, isCategorySlug } from './categories';
 
-/**
- * The URL category segment for a research entry: a paper's pillar
- * (e.g. "policy-systems"), or the pluralized format for anything else
- * ("essays", "memos"). Single source of truth for this derivation — used by
- * the [category] route, ResearchLayout's canonicalURL, the OG image route,
- * and both index pages — so it can't drift out of sync the way a
- * hand-duplicated canonicalURL frontmatter field once did (see AGENTS.md).
- */
-export function categorySegment(entry: CollectionEntry<'research'>): string {
-	return entry.data.format === 'paper' ? entry.data.pillar! : `${entry.data.format}s`;
+/** The only two fields every routing helper reads. A `CollectionEntry<'research'>` satisfies it; so does the shape `routingEntryFromFrontmatter()` builds for plain-Node scripts. */
+export interface RoutableEntry {
+	id: string;
+	data: { category: string };
 }
 
-export function canonicalPath(entry: CollectionEntry<'research'>): string {
+/**
+ * The URL category segment for a research entry: its authored `category`
+ * (T19.0 — formerly a paper's `pillar`, or the pluralized `format`). Single
+ * source of truth for this derivation — used by the [category] route,
+ * ResearchLayout's canonicalURL, the OG image route, and the index pages —
+ * so it can't drift out of sync the way a hand-duplicated canonicalURL
+ * frontmatter field once did (see AGENTS.md). Category is editorial
+ * placement only; `format` alone decides whether an entry gets a PDF.
+ */
+export function categorySegment(entry: RoutableEntry): string {
+	return entry.data.category;
+}
+
+export function canonicalPath(entry: RoutableEntry): string {
 	return `/research/${categorySegment(entry)}/${entry.id}/`;
+}
+
+/** A category landing page, e.g. `/research/essays/`. Takes a segment, not an entry. */
+export function categoryPath(segment: string): string {
+	return `/research/${segment}/`;
+}
+
+/** The Open Graph image route for an entry. Same segment/id as the HTML route. */
+export function ogImagePath(entry: RoutableEntry): string {
+	return `/open-graph/${categorySegment(entry)}/${entry.id}.png`;
+}
+
+/**
+ * Builds the routing entry for scripts and rehype plugins that read raw
+ * frontmatter in a plain-Node context (no `astro:content`). Throws on a
+ * retired `pillar` key or a missing/unknown `category`, so a bad file can
+ * never produce an `undefined` route silently. `format` is passed through
+ * for callers that need it.
+ */
+export function routingEntryFromFrontmatter(
+	id: string,
+	frontmatter: Record<string, unknown>,
+): { id: string; data: { format: string; category: string } } {
+	if ('pillar' in frontmatter) {
+		throw new Error(`research entry "${id}": frontmatter key "pillar" is retired — use "category"`);
+	}
+	if (!isCategorySlug(frontmatter.category)) {
+		throw new Error(
+			`research entry "${id}": category ${JSON.stringify(frontmatter.category)} is missing or not one of the registered categories`,
+		);
+	}
+	return { id, data: { format: String(frontmatter.format), category: frontmatter.category } };
 }
 
 /**
@@ -42,15 +81,13 @@ export function legacyPaperPdfRedirect(route: string, id: string): string {
  * drift). Extends this routing authority rather than duplicating it, same
  * discipline this file's own header comment establishes for canonicalPath.
  */
-export function iwlPath(parent: CollectionEntry<'research'>): string {
+export function iwlPath(parent: RoutableEntry): string {
 	return `${canonicalPath(parent)}iwl/`;
 }
 
-const FORMAT_PLURAL_LABELS: Record<string, string> = { essays: 'Essays', memos: 'Memos' };
-
-/** Human-readable label for a category *segment* (not an entry) — "Policy Systems" for a pillar slug, "Essays"/"Memos" for those. */
+/** Human-readable label for a category *segment* (not an entry) — "Knowledge Work" for a category slug, "Memos" for the route-only memos page. Throws on an unknown segment. */
 export function categoryLabelFromSegment(category: string): string {
-	return FORMAT_PLURAL_LABELS[category] ?? formatPillarLabel(category);
+	return categoryLabel(category);
 }
 
 const FORMAT_LABELS: Record<CollectionEntry<'research'>['data']['format'], string> = {
@@ -59,7 +96,7 @@ const FORMAT_LABELS: Record<CollectionEntry<'research'>['data']['format'], strin
 	memo: 'Memo',
 };
 
-/** Singular label for a `format` value — "Paper"/"Essay"/"Memo" — used on badges that mix formats (homepage, tag pages). */
+/** Singular label for a `format` value — "Paper"/"Essay"/"Memo" — used by the article masthead. */
 export function formatLabel(format: CollectionEntry<'research'>['data']['format']): string {
 	return FORMAT_LABELS[format];
 }

@@ -5,35 +5,23 @@ import Card from '../../components/Card.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { formatPillarLabel } from '../../lib/pillars';
+import { CATEGORIES } from '../../lib/categories';
+import { canonicalPath, categoryPath } from '../../lib/research-routing';
 
 const entries = await getCollection('research');
-const papers = entries.filter((entry) => entry.data.format === 'paper');
 
-const pillars = [...new Set(papers.map((paper) => paper.data.pillar!))].sort();
-const pillarGroups = pillars.map((pillar) => ({
-	category: pillar,
-	label: formatPillarLabel(pillar),
-	entries: papers
-		.filter((paper) => paper.data.pillar === pillar)
+// One section per registered category, in registry order — scholarly papers
+// and commentary sit together under the category they were placed in (so
+// Essays appears once). A category only gets a section here once it has at
+// least one entry (same convention as before); every category's landing page
+// at /research/{category}/ exists regardless, with an empty state.
+const categoryGroups = CATEGORIES.map((category) => ({
+	category: category.slug,
+	label: category.label,
+	entries: entries
+		.filter((entry) => entry.data.category === category.slug)
 		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
-}));
-
-// Essays/memos sections only show up here once they have at least one entry
-// (same convention as pillar sections) — the dedicated /research/essays/
-// and /research/memos/ pages always exist regardless, with an empty
-// state, since those are fixed taxonomy categories rather than ad-hoc pillars.
-const formatGroups = (['essay', 'memo'] as const)
-	.map((format) => ({
-		category: `${format}s`,
-		label: format === 'essay' ? 'Essays' : 'Memos',
-		entries: entries
-			.filter((entry) => entry.data.format === format)
-			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
-	}))
-	.filter((group) => group.entries.length > 0);
-
-const categoryGroups = [...pillarGroups, ...formatGroups];
+})).filter((group) => group.entries.length > 0);
 ---
 
 <!doctype html>
@@ -41,7 +29,7 @@ const categoryGroups = [...pillarGroups, ...formatGroups];
 	<head>
 		<BaseHead
 			title="Research"
-			description="Research from Amul Bham — papers organized by pillar, plus longer essays and shorter memos."
+			description="Research from Amul Bham — organized by category: Cybernetics, Knowledge Work, AI Systems, and Essays."
 		/>
 		<style>
 			main {
@@ -100,11 +88,11 @@ const categoryGroups = [...pillarGroups, ...formatGroups];
 				categoryGroups.map(({ category, label, entries }) => (
 					<section class="category-section" id={category}>
 						<h2>
-							<a href={`/research/${category}/`}>{label}</a>
+							<a href={categoryPath(category)}>{label}</a>
 						</h2>
 						<ul class="entries">
 							{entries.map((entry) => (
-								<Card href={`/research/${category}/${entry.id}/`}>
+								<Card href={canonicalPath(entry)}>
 									<span class="meta">
 										<FormattedDate date={entry.data.pubDate} />
 									</span>

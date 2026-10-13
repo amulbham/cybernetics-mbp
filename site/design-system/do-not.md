@@ -7,7 +7,7 @@ Short rules. This is the load-bearing file — if you're about to do one of thes
 - Add a third font, or a display face. Two families, no exceptions.
 - Use electric `#2337ff` / `#5b6bff`, or any neon — that's the palette Signal replaced.
 - Color H1s, gradient text, glass, noise, glow, blobs, parallax.
-- Give a page a pillar-colored background. Pillars are a 12% wash on a badge/dot, never chrome.
+- Give a page a category-colored background. Categories are a 12% wash on a badge/dot, never chrome.
 - Add a new component when a token plus an existing component will do.
 - Add a new content primitive here — that's Sprint 2 / `CONTENT-MODULES.md` territory, not a visual-token change.
 - Ship a different palette per route.
@@ -23,6 +23,6 @@ Short rules. This is the load-bearing file — if you're about to do one of thes
 - Quiet indigo/steel, paper, hairlines.
 - Dual-theme everything, as complete pairs — never ship one side.
 - Underline prose links.
-- 8–12% tints for pillar/alert washes, nothing more saturated.
+- 8–12% tints for category/alert washes, nothing more saturated.
 - Atkinson for body/headings, mono for `.meta` only.
 - Build grammar from observed research (what real papers actually need), not imagined requirements.

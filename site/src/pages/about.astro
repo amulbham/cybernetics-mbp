@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { CATEGORIES } from '../lib/categories';
 import { personIdentity } from '../lib/structured-data';
 
 const pageTitle = `About — ${SITE_TITLE}`;
@@ -132,34 +133,14 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 				</p>
 
 				<div class="pillar-grid">
-					<div class="pillar-card">
-						<h3>AI Systems</h3>
-						<p>
-							Agentic retrieval architectures, deterministic pipelines, and the operational
-							tradeoffs of running language models at production scale.
-						</p>
-					</div>
-					<div class="pillar-card">
-						<h3>SEO Architecture</h3>
-						<p>
-							Information architecture, crawl graph topology, and structured data deployed as
-							foundational software infrastructure.
-						</p>
-					</div>
-					<div class="pillar-card">
-						<h3>Systems Architecture</h3>
-						<p>
-							Distributed systems mechanics, idempotency protocols, and fault-tolerant event-driven
-							pipelines.
-						</p>
-					</div>
-					<div class="pillar-card">
-						<h3>Policy Systems</h3>
-						<p>
-							Institutional and financial policies modeled as deterministic compilers and rules
-							engines, examining rational-actor adaptations.
-						</p>
-					</div>
+					{
+						CATEGORIES.map((category) => (
+							<div class="pillar-card">
+								<h3>{category.label}</h3>
+								<p>{category.description}</p>
+							</div>
+						))
+					}
 				</div>
 
 				<h2>Methodology</h2>

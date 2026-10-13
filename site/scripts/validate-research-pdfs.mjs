@@ -29,8 +29,21 @@ import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { AUTHOR, SOCIAL_LINKS } from '../src/consts.ts';
-import { LEGACY_PAPER_PDF_FILENAME, legacyPaperPdfRedirect, paperPdfFilename } from '../src/lib/research-routing.ts';
-import { discoverNonPapers, discoverPapers, SITE_ORIGIN } from './discover-research.mjs';
+import {
+	LEGACY_PAPER_PDF_FILENAME,
+	canonicalPath,
+	categoryPath,
+	iwlPath,
+	ogImagePath,
+	paperPdfFilename,
+} from '../src/lib/research-routing.ts';
+import {
+	RETIRED_CATEGORY_REDIRECTS,
+	ROUTE_HISTORY,
+	redirectRules,
+	renderRedirectLines,
+} from '../src/lib/route-history.ts';
+import { discoverIwl, discoverNonPapers, discoverPapers, SITE_ORIGIN } from './discover-research.mjs';
 import { decodeEntities, extractCitationMeta, extractJsonLdBlocks, findArticleLikeJsonLd } from './lib/built-html.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url)); // site/
@@ -415,17 +428,90 @@ function filesNamed(dir, name, acc = []) {
 	return acc;
 }
 
-function validateRedirects(papers) {
+/** Maps a site URL path to the file Cloudflare would serve for it from dist/: a trailing slash means that directory's index.html. */
+function distFileFor(urlPath) {
+	return urlPath.endsWith('/') ? join(DIST, urlPath, 'index.html') : join(DIST, urlPath);
+}
+
+function validateRedirects(entries) {
 	const redirectsPath = join(DIST, '_redirects');
 	if (!existsSync(redirectsPath)) {
 		fail('redirects', 'dist/_redirects is missing — build:pdfs must write it before validate:pdfs');
 		return;
 	}
-	const actual = readFileSync(redirectsPath, 'utf8').split(/\r?\n/).filter((line) => line.length > 0).sort();
-	const expected = papers.map((paper) => legacyPaperPdfRedirect(paper.route, paper.id)).sort();
-	if (actual.length !== expected.length || actual.some((line, i) => line !== expected[i])) {
-		fail('redirects', `dist/_redirects does not match the discovered paper corpus.\n    expected:\n      ${expected.join('\n      ')}\n    actual:\n      ${actual.join('\n      ')}`);
+	let expected;
+	try {
+		// The same generator build-research-pdfs.mjs used (route-history.ts). It
+		// throws on a conflict, a self-redirect, or a chain, so "direct,
+		// single-hop" is enforced here too.
+		expected = renderRedirectLines(redirectRules(entries)).sort();
+	} catch (err) {
+		fail('redirects', `the redirect generator rejected the route history: ${err.message}`);
+		return;
 	}
+	const actual = readFileSync(redirectsPath, 'utf8').split(/\r?\n/).filter((line) => line.length > 0).sort();
+	if (actual.length !== expected.length || actual.some((line, i) => line !== expected[i])) {
+		fail('redirects', `dist/_redirects does not match the generated set (${actual.length} actual vs ${expected.length} expected).\n    expected:\n      ${expected.join('\n      ')}\n    actual:\n      ${actual.join('\n      ')}`);
+	}
+}
+
+// T19.0 — the route-history ledger is checked *against generated artifacts*.
+// It records historical public commitments only; the entry's current
+// category, format and IWL relationship come from frontmatter and the iwl
+// collection, never from the ledger.
+function validateRouteHistory(entries) {
+	const byId = new Map(entries.map((entry) => [entry.id, entry]));
+	const iwls = discoverIwl();
+	let rows = 0;
+	for (const row of ROUTE_HISTORY) {
+		rows++;
+		const scope = `route-history:${row.id}`;
+		const entry = byId.get(row.id);
+		if (!entry) {
+			fail(scope, 'row has no matching research entry — a published entry was removed or renamed');
+			continue;
+		}
+		const current = { id: entry.id, data: { category: entry.category } };
+		if (!row.categories.includes(entry.category)) {
+			fail(scope, `current category "${entry.category}" is not recorded in categories [${row.categories.join(', ')}] — append it; a published entry cannot move silently`);
+		}
+		if (row.pdf) {
+			if (entry.format !== 'paper') {
+				fail(scope, `the row promises a public scholarly PDF but the entry is format "${entry.format}" — a scholarly publication must stay format: paper`);
+			}
+			const pdf = join(DIST, entry.route, paperPdfFilename(entry.id));
+			if (!existsSync(pdf)) fail(scope, `promised scholarly PDF is missing at ${pdf}`);
+		}
+		if (row.iwl) {
+			const published = iwls.filter((iwl) => iwl.parent === row.id && iwl.publicationState === 'published');
+			if (published.length !== 1) {
+				fail(scope, `the row promises a public IWL but the iwl collection holds ${published.length} published IWL(s) for this entry`);
+			}
+			const page = distFileFor(iwlPath(current));
+			if (!existsSync(page)) fail(scope, `promised IWL page is missing at ${page}`);
+		}
+		for (const category of row.categories) {
+			if (category === entry.category) continue;
+			const old = { id: entry.id, data: { category } };
+			for (const shadow of [join(DIST, canonicalPath(old)), join(DIST, ogImagePath(old))]) {
+				if (existsSync(shadow)) fail(scope, `retired route still exists at ${shadow} — a retired path must be a redirect, never a shadow`);
+			}
+		}
+	}
+	for (const slug of Object.keys(RETIRED_CATEGORY_REDIRECTS)) {
+		const shadow = join(DIST, categoryPath(slug));
+		if (existsSync(shadow)) fail(`route-history:retired-category:${slug}`, `retired category still built at ${shadow} — it must be a redirect only`);
+	}
+	// Every redirect target must exist, and no redirect source may be a real file.
+	try {
+		for (const { from, to } of redirectRules(entries)) {
+			if (!existsSync(distFileFor(to))) fail('redirects', `target of ${from} does not exist in dist: ${to}`);
+			if (existsSync(distFileFor(from))) fail('redirects', `source ${from} is a real file in dist — a redirect would be shadowed`);
+		}
+	} catch (err) {
+		fail('redirects', `the redirect generator rejected the route history: ${err.message}`);
+	}
+	validateRouteHistory.rows = rows;
 }
 
 function filesEnding(dir, suffix, acc = []) {
@@ -472,7 +558,9 @@ async function main() {
 		await validatePaper(paper, frontmatter);
 	}
 
-	validateRedirects(papers);
+	const entries = [...papers, ...nonPapers];
+	validateRedirects(entries);
+	validateRouteHistory(entries);
 	validateNoStrayPaperPdfs();
 
 	for (const entry of nonPapers) {
@@ -487,6 +575,7 @@ async function main() {
 	}
 
 	console.log(`papers: ${papers.length} / pdfs: ${pdfsFound} / ok`);
+	console.log(`redirects: ${redirectRules(entries).length} rule(s) / route-history rows: ${validateRouteHistory.rows} / ok`);
 }
 
 // Re-reads one entry's frontmatter directly — discoverPapers() already did

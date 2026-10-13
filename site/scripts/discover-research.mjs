@@ -17,10 +17,11 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from '@astrojs/markdown-remark';
-import { canonicalPath } from '../src/lib/research-routing.ts';
+import { canonicalPath, routingEntryFromFrontmatter } from '../src/lib/research-routing.ts';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url)); // site/
 const CONTENT_DIR = join(ROOT, 'src', 'content', 'research');
+const IWL_DIR = join(ROOT, 'src', 'content', 'iwl');
 
 // astro.config.mjs's `site:` field is the real source of truth for the
 // production origin, but that file isn't safely importable from a plain
@@ -39,9 +40,9 @@ export const SITE_ORIGIN = 'https://amulbham.com';
  * every entry this repo has that must NOT have a paper.pdf, Highwire tags,
  * a Download link, or a PDF MediaObject.
  *
- * Each record: { id, title, format, route, doi, readerNote }. `route` comes
+ * Each record: { id, title, format, category, route, doi, readerNote }. `route` comes
  * from the real canonicalPath()/categorySegment() (research-routing.ts),
- * never a hand-built "/research/{pillar}/{slug}/" string, so it can't drift
+ * never a hand-built "/research/{category}/{slug}/" string, so it can't drift
  * from the actual route the same way canonicalURL frontmatter once did.
  * `doi` (Sprint 11.7, added for validate-research-semantics.mjs's DOI/
  * Highwire parity check) is the raw authored frontmatter value — the full
@@ -68,11 +69,14 @@ export function discoverResearch() {
 		const filePath = existsSync(mdPath) ? mdPath : existsSync(mdxPath) ? mdxPath : null;
 		if (!filePath) continue;
 		const { frontmatter } = parseFrontmatter(readFileSync(filePath, 'utf8'));
-		const entry = { id: slug, data: { format: frontmatter.format, pillar: frontmatter.pillar } };
+		// T19.0: the shared helper builds the routing entry and throws on a
+		// missing/unknown category or a retired pillar key — no undefined routes.
+		const entry = routingEntryFromFrontmatter(slug, frontmatter);
 		const record = {
 			id: slug,
 			title: frontmatter.title,
 			format: frontmatter.format,
+			category: entry.data.category,
 			route: canonicalPath(entry),
 			doi: frontmatter.doi ?? null,
 			readerNote: frontmatter.readerNote ?? null,
@@ -91,4 +95,26 @@ export function discoverPapers() {
 /** The complement — essays/memos today. Used for non-paper leak checks, never for PDF typesetting. */
 export function discoverNonPapers() {
 	return discoverResearch().nonPapers;
+}
+
+/**
+ * Every `iwl` collection source (T19.0): { id, parent, publicationState }, read
+ * straight from src/content/iwl/*.md frontmatter, never from dist/. Used by
+ * validate-research-pdfs.mjs to check a route-history row's IWL promise
+ * against the *current* IWL collection, which stays the authority for whether
+ * an Article has a published companion.
+ */
+export function discoverIwl() {
+	const records = [];
+	if (!existsSync(IWL_DIR)) return records;
+	for (const file of readdirSync(IWL_DIR)) {
+		if (!/\.(md|mdx)$/.test(file)) continue;
+		const { frontmatter } = parseFrontmatter(readFileSync(join(IWL_DIR, file), 'utf8'));
+		records.push({
+			id: file.replace(/\.(md|mdx)$/, ''),
+			parent: frontmatter.parent,
+			publicationState: frontmatter.publicationState,
+		});
+	}
+	return records;
 }

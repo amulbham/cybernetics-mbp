@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import { formatPillarLabel } from '../lib/pillars';
-import { categorySegment, formatLabel } from '../lib/research-routing';
+import { categoryLabel } from '../lib/categories';
+import { canonicalPath } from '../lib/research-routing';
 import Badge from './Badge.astro';
 import Card from './Card.astro';
 import FormattedDate from './FormattedDate.astro';
@@ -28,14 +28,10 @@ const recentEntries = (await getCollection('research'))
 		recentEntries.length > 0 ? (
 			<ul class="research-feed">
 				{recentEntries.map((entry) => (
-					<Card href={`/research/${categorySegment(entry)}/${entry.id}/`}>
-						{entry.data.format === 'paper' ? (
-							<Badge variant="pillar" pillar={entry.data.pillar}>
-								{formatPillarLabel(entry.data.pillar!)}
-							</Badge>
-						) : (
-							<Badge variant="neutral">{formatLabel(entry.data.format)}</Badge>
-						)}
+					<Card href={canonicalPath(entry)}>
+						<Badge variant="pillar" category={entry.data.category}>
+							{categoryLabel(entry.data.category)}
+						</Badge>
 						<h3>{entry.data.title}</h3>
 						<p>{entry.data.excerpt}</p>
 						<span class="meta">

@@ -20,7 +20,14 @@ import {
 	type ProjectionProperty,
 } from '../lib/research-relation-projections';
 import { getPublishedIwlForParent } from '../lib/iwl';
-import { canonicalPath, categoryLabelFromSegment, categorySegment, iwlPath, paperPdfFilename } from '../lib/research-routing';
+import {
+	canonicalPath,
+	categoryLabelFromSegment,
+	categoryPath,
+	iwlPath,
+	ogImagePath as routeOgImagePath,
+	paperPdfFilename,
+} from '../lib/research-routing';
 import { personIdentity } from '../lib/structured-data';
 import { slugifyTag } from '../lib/tags';
 import ArticleShell from './ArticleShell.astro';
@@ -48,7 +55,7 @@ const {
 	dateModified,
 	tags,
 	doi,
-	pillar,
+	category,
 	id,
 	minutesRead,
 	wordCount,
@@ -58,16 +65,20 @@ const {
 	readerNote,
 } = Astro.props;
 
+// `format` alone decides the scholarly-artifact behavior below (PDF, Highwire,
+// ScholarlyArticle, isPartOf); `category` is editorial placement and only
+// routes the page (T19.0).
 const isPaper = format === 'paper';
-const category = isPaper ? pillar! : `${format}s`;
 const categoryLabel = categoryLabelFromSegment(category);
-const categoryUrl = `/research/${category}/`;
+const categoryUrl = categoryPath(category);
 
-// Derived, not frontmatter, so it can never drift from the entry's actual
-// route (this previously happened: a paper's canonicalURL frontmatter still
-// said `systems-architecture` after its `pillar` was changed to `policy-systems`).
-const canonicalURL = new URL(`/research/${category}/${id}/`, Astro.site).toString();
-const ogImagePath = `/open-graph/${category}/${id}.png`;
+// Derived, not frontmatter, and never a hand-built template: every URL below
+// comes from the routing helpers (research-routing.ts), so it can never drift
+// from the entry's actual route (this previously happened with a hand-authored
+// canonicalURL field that outlived a category change).
+const routing = { id, data: { category } };
+const canonicalURL = new URL(canonicalPath(routing), Astro.site).toString();
+const ogImagePath = routeOgImagePath(routing);
 const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
 
 // The one paper-PDF identity (Sprint 8.4, filename T18.1) — derived, never
@@ -160,8 +171,9 @@ const jsonLd = {
 		'@type': 'WebPage',
 		'@id': canonicalURL,
 	},
-	// isPartOf/articleSection link a paper to its pillar — essays/memos have
-	// no pillar to link to, so this is paper-only.
+	// isPartOf/articleSection link a paper to its category's CollectionPage.
+	// Still paper-only (keyed on `format`, not category): a paper placed in
+	// Essays links to Essays; a commentary essay carries neither.
 	...(isPaper && {
 		isPartOf: {
 			'@type': 'CollectionPage',
@@ -404,7 +416,7 @@ const citationPublicationDate = isPaper
 			</Fragment>
 			<slot />
 			<AuthorNote />
-			<RelatedResearch currentId={id} pillar={pillar} tags={tags} />
+			<RelatedResearch currentId={id} category={category} tags={tags} />
 		</ArticleShell>
 	</body>
 </html>
