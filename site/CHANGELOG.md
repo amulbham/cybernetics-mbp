@@ -2,6 +2,14 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-12 — T18.5: scholarly PDF visual treatment
+
+The four paper PDFs now read as typeset scholarly papers instead of the Signal web design: white pages, Latin Modern Roman 10 (bundled in `public/fonts/print/`, GUST Font License, embedded in every PDF), 11pt justified hyphenated body, a centered title block, booktabs-style tables, label-and-rule primitives and alerts instead of cards, restrained navy and ochre accents, page numbers on every page, and a running head of "Bham" plus the article's own `<h1>` on body pages. All of it is `print-research.css` (page margin boxes and `string-set`); no HTML, builder, screen CSS, route, or content changed. Page counts went from 55/38/31/22 to 29/21/17/12. `δ` now comes from bundled Latin Modern Math and `∞` in the FAFSA code block from Latin Modern Roman, both limited by `unicode-range`.
+
+Verified locally on an isolated product-only branch cut at T18.4: build, `build:pdfs`, and `validate:pdfs` green; all 19 paper tables complete in the PDF text layer (F01, F06, F08, C01 included); running head on every body page and page numbers correct; screen HTML identical apart from `/about`'s build-time `dateModified`. A deliberate table-clipping mutation was caught on 15 of 15 FAFSA and Chisel tables; the old nowrap header rule is no longer a sensitive regression under these font metrics, and T18.4's wrapping fix stays. The Product Authority accepted the visual treatment on 2026-10-12.
+
+Accepted exception: `⚠️` in Three Self-Organizing Systems is an emoji-presentation sequence that Chrome draws from the system emoji font whatever the CSS; no emoji font was added and the source is unchanged. Deferred, not fixed here: the Chisel paper's rendered content includes an older Draft v6 IWL development-log appendix and older manuscript identity (a CONTENT/ingestion issue). Not yet on `staging` or `main`; staging integration and production promotion are separate decisions. Evidence: `planning/audits/T18.5-scholarly-pdf-visual-evidence.md`.
+
 ## 2026-10-02 — TP2.6: bounded Claude hooks
 
 Governance only; no product, runtime, content, or indexing change. New `.claude/settings.json` wires one Claude Code `PreToolUse` hook to `.claude/hooks/guard.mjs`. The guard denies pushing `main`, editing `robots.txt` or `SITE_WIDE_NOINDEX`, and editing the hook or settings files themselves; it only warns on edits outside the single active ticket's `Authorized paths:`. It fails open on its own errors. Amul can disable the denies from outside the session; there is no in-band override. This is Claude-only routing: the canonical rules remain the prose in `PLANNING.md` and `AGENTS.md`, and no CI guard or branch protection exists yet.
@@ -29,6 +37,7 @@ Governance only; no product, runtime, content, or indexing change. `PLANNING.md`
 ## 2026-10-01 — TP2.0: role-based planning and pre-seal review protocol
 
 Governance only; no product, runtime, content, or indexing change. `PLANNING.md` now names roles (Product Authority, Planner, Reviewer, Executor) instead of vendors; tool bindings live in the orchestrator's configuration. §13 gained a pre-seal review-depth table by risk (R0 self-check, R1 one reviewer, R2 one reviewer from a different model family, R3 two) and points to a new canonical reviewer prompt, `planning/templates/pre-seal-review.md`. `ticket-contract.md` gained an `Authorized paths:` header line (final diff must be a subset) and a `## Pre-seal review` section that forbids deferring `BLOCKER`/`REQUIRED` findings. A root `CLAUDE.md` bootstrap (pointers only) was added.
+
 
 ## 2026-09-30 — T18.4: PDF table information-loss correction
 

@@ -1,13 +1,20 @@
-/* Sprint 8.1 — PDF / print presentation contract.
+/* Sprint 8.1 — PDF / print presentation contract; T18.5 scholarly treatment.
    Loaded via Vivliostyle's --style flag against the built, unmodified
    screen HTML. This file never ships to a browser — it exists purely for
    the PDF typeset. Screen CSS (global.css, every component's scoped
    <style>) is completely untouched by this sprint.
 
-   Token values below are the exact light-mode Signal palette from
-   global.css's :root block, repeated verbatim (not reinvented) and
-   forced with !important. That's necessary, not decorative: global.css's
-   dark-mode override lives behind
+   T18.5: the PDF is a scholarly projection of the one authoritative HTML
+   article — white pages, a bundled Latin Modern Roman serif, compact
+   working-paper density, restrained navy (links, labels) and ochre (one
+   hairline accent) cues. The screen design (Signal cream, Atkinson, 20px
+   body) is deliberately NOT carried into print. Only the stylesheet changes:
+   no DOM, builder, route, or content edit — page numbers and the running
+   head come from CSS paged media (@page margin boxes, string-set) alone.
+
+   Token values below replace the Signal light-mode palette from
+   global.css's :root block, forced with !important. That's necessary, not
+   decorative: global.css's dark-mode override lives behind
    `@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) {...} }`,
    a higher-specificity selector than a plain `:root {}` override — if the
    typesetting browser ever reports a dark OS preference (nothing in this
@@ -15,17 +22,73 @@
    localStorage session), that rule would otherwise win on specificity
    alone regardless of stylesheet load order. !important is the only way
    to guarantee "light paper" without also copy-pasting the dark-mode
-   selector shape. */
+   selector shape. The pillar and alert tokens keep their Signal values:
+   they are semantic signals (which pillar, which severity), not branding. */
+
+/* ---- Bundled print serif: Latin Modern Roman 10 (GUST Font License) ----
+   Loaded from the repository's own font files, relative to THIS stylesheet's
+   location (Vivliostyle resolves `--style` URLs against the stylesheet file),
+   so the PDF never depends on a local-machine font or an external web font.
+   Source, license, and checksums: public/fonts/print/README.md. */
+@font-face {
+	font-family: 'LM Roman 10';
+	src: url('../../public/fonts/print/lmroman10-regular.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'LM Roman 10';
+	src: url('../../public/fonts/print/lmroman10-italic.otf') format('opentype');
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'LM Roman 10';
+	src: url('../../public/fonts/print/lmroman10-bold.otf') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'LM Roman 10';
+	src: url('../../public/fonts/print/lmroman10-bolditalic.otf') format('opentype');
+	font-weight: 700;
+	font-style: italic;
+}
+
+/* ---- Glyph coverage Latin Modern Roman lacks (T18.5 refinement) ----
+   Each face is limited by unicode-range to exactly the characters it exists
+   for, so it never changes the look of ordinary text:
+   - Greek (the corpus uses δ) from Latin Modern Math, the same Computer
+     Modern design and the same GUST Font License;
+   - U+221E (∞) inside code, where the mono face has no glyph, from the
+     already-bundled Latin Modern Roman.
+   Not covered, by design of the platform: the corpus's ⚠ is written U+26A0
+   U+FE0F, an emoji-presentation sequence. Chrome honors an explicit emoji
+   variation selector over any CSS (font order, a bundled symbol face, and
+   font-variant-emoji were all tested), so it renders from the system emoji
+   font; the source text is not altered to avoid that.
+   Sources, licenses, and SHA-256s: public/fonts/print/README.md. */
+@font-face {
+	font-family: 'LM Math Print';
+	src: url('../../public/fonts/print/latinmodern-math.otf') format('opentype');
+	unicode-range: U+0370-03FF;
+}
+@font-face {
+	font-family: 'LM Infinity Print';
+	src: url('../../public/fonts/print/lmroman10-regular.otf') format('opentype');
+	unicode-range: U+221E;
+}
+
 :root {
-	--bg: #f4f1ea !important;
-	--bg-raised: #fbfaf6 !important;
-	--bg-subtle: #ebe7de !important;
-	--border: #d5d0c6 !important;
-	--text-primary: #1c1d1f !important;
-	--text-secondary: #5c6168 !important;
-	--accent: #2e4a68 !important;
-	--accent-hover: #243c56 !important;
-	--accent-fg: #fbfaf6 !important;
+	--bg: #ffffff !important;
+	--bg-raised: #ffffff !important;
+	--bg-subtle: #f6f6f4 !important;
+	--border: #c4c4c0 !important;
+	--text-primary: #111111 !important;
+	--text-secondary: #333333 !important;
+	--accent: #1f3a5f !important;
+	--accent-hover: #1f3a5f !important;
+	--accent-fg: #ffffff !important;
 	--pillar-ai-systems: #2e4a68 !important;
 	--pillar-seo-architecture: #2d6a52 !important;
 	--pillar-systems-architecture: #4a5563 !important;
@@ -36,7 +99,13 @@
 	--alert-important: #4a5563 !important;
 	--alert-warning: #7c5f26 !important;
 	--alert-caution: #9b3b32 !important;
+	/* Print-only tokens. Ochre is the quiet second signature cue. */
+	--print-ochre: #8a6a1c;
+	--print-rule: #8c8c88;
+	--print-serif: 'LM Roman 10', 'LM Math Print', 'Times New Roman', Times, serif;
 	color-scheme: light;
+	/* rem-based screen tokens (--text-*) follow this root size. */
+	font-size: 11pt;
 }
 
 @page {
@@ -45,12 +114,72 @@
 	   rather than left as whatever Vivliostyle's own default happens to
 	   be, per the 8.1 spec's explicit "pick one, document it." */
 	size: letter;
-	margin: 1in;
+	margin: 1in 1.3in 1in 1.3in;
+
+	/* T18.5 running furniture. Page number on every page (including the
+	   first); a restrained running head on body pages only. The head is
+	   "Bham" at left and the article's own <h1> text at right, taken from
+	   the existing DOM with `string-set` below — no authored short-title
+	   field and no hardcoded article string. */
+	@top-left {
+		content: 'Bham';
+		font-family: var(--print-serif);
+		font-size: 9pt;
+		font-variant: small-caps;
+		letter-spacing: 0.04em;
+		color: #444444;
+		vertical-align: bottom;
+		padding-bottom: 0.2in;
+	}
+	@top-right {
+		content: string(running-title);
+		font-family: var(--print-serif);
+		font-size: 9pt;
+		font-style: italic;
+		color: #444444;
+		vertical-align: bottom;
+		padding-bottom: 0.2in;
+		text-align: right;
+	}
+	@bottom-center {
+		content: counter(page);
+		font-family: var(--print-serif);
+		font-size: 10pt;
+		color: #222222;
+		vertical-align: top;
+		padding-top: 0.2in;
+	}
+}
+
+/* First page: the title block is the head — no running head there. */
+@page :first {
+	@top-left {
+		content: none;
+	}
+	@top-right {
+		content: none;
+	}
+}
+
+/* The running head's text is the page's own <h1>. */
+h1 {
+	string-set: running-title content(text);
+}
+
+html {
+	background: var(--bg);
 }
 
 body {
 	background: var(--bg);
 	color: var(--text-primary);
+	font-family: var(--print-serif);
+	font-size: 1rem;
+	line-height: 1.4;
+	margin: 0;
+	text-align: justify;
+	orphans: 2;
+	widows: 2;
 }
 
 /* ---- Hide: screen-only chrome, not article content ---- */
@@ -117,6 +246,13 @@ footer,
 	width: auto !important;
 	max-width: none !important;
 }
+/* T18.5: the page margin (@page) is the only margin; the screen shell's own
+   column padding would only narrow the measure inside it. */
+main,
+.prose {
+	margin: 0 !important;
+	padding: 0 !important;
+}
 
 /* ---- Title block: reorder so TITLE is the first bibliographic element ----
    Screen DOM order is breadcrumbs -> .date.meta -> h1 -> subtitle ->
@@ -128,15 +264,54 @@ footer,
 .title {
 	display: flex !important;
 	flex-direction: column !important;
+	text-align: center;
+	margin: 0 0 1.1em;
+	padding: 0;
+	line-height: 1.2;
 }
 .title h1 {
 	order: 1;
+	margin: 0 0 0.35em;
+	font-size: 19pt;
+	font-weight: 700;
+	line-height: 1.18;
+	letter-spacing: 0;
+	color: var(--text-primary);
+	hyphens: manual;
+	text-wrap: balance;
+	/* The shared heading rule left-aligns h1-h6; the title block is centered
+	   as one axis with the subtitle, byline, and date. */
+	text-align: center;
 }
 .title .subtitle {
 	order: 2;
+	margin: 0 0 0.6em;
+	font-size: 12.5pt;
+	font-style: italic;
+	color: var(--text-secondary);
 }
 .title .masthead {
 	order: 3;
+	margin: 0.5em 0 0.4em;
+	font-family: var(--print-serif);
+	font-size: 10pt;
+	letter-spacing: 0;
+	color: var(--text-primary);
+	line-height: 1.35;
+}
+.title .masthead p {
+	margin: 0 0 0.12em;
+}
+.title .masthead .name {
+	font-family: var(--print-serif);
+	font-size: 12pt;
+	font-weight: 400;
+	font-variant: small-caps;
+	letter-spacing: 0.03em;
+}
+.title .masthead a {
+	color: var(--text-primary);
+	text-decoration: none;
 }
 /* T18.2: the masthead ORCID (orcid.org/0009-0009-7660-4031) has hyphen
    break opportunities and otherwise wraps after its last hyphen, splitting
@@ -151,18 +326,373 @@ footer,
 .title .date.meta {
 	order: 4;
 	text-align: center;
+	margin: 0.2em 0 0;
+	font-family: var(--print-serif);
+	font-size: 10pt;
+	font-style: italic;
+	letter-spacing: 0;
+	color: var(--text-secondary);
 }
 .title hr {
 	order: 5;
+	width: 35%;
+	margin: 0.9em auto 0;
+	border: none;
+	border-top: 0.75pt solid var(--print-ochre);
 }
 
-/* T18.4: table headers may wrap on paper. On screen `thead th` is
+/* ---- Headings: compact, bold Latin Modern; never stranded at a page foot ---- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--print-serif);
+	font-weight: 700;
+	letter-spacing: 0;
+	color: var(--text-primary);
+	text-align: left;
+	hyphens: manual;
+	break-after: avoid;
+	break-inside: avoid;
+}
+.prose h2 {
+	font-size: 13.5pt;
+	line-height: 1.22;
+	margin: 1.5em 0 0.45em;
+}
+.prose h3 {
+	font-size: 11.5pt;
+	line-height: 1.25;
+	margin: 1.15em 0 0.35em;
+}
+.prose h4 {
+	font-size: 11pt;
+	font-style: italic;
+	line-height: 1.25;
+	margin: 1em 0 0.3em;
+}
+.prose h5,
+.prose h6 {
+	font-size: 11pt;
+	line-height: 1.25;
+	margin: 0.9em 0 0.3em;
+}
+
+/* A section opener (h2 + its italic "Responds to" / "Subtitle" lines in the
+   protocol papers) stays with the first block of the section's body, so a
+   page never ends on a heading and its subtitle alone. */
+.prose h2 + p,
+.prose h2 + p + p {
+	break-after: avoid;
+}
+
+/* ---- Prose rhythm ---- */
+.prose p {
+	margin: 0 0 0.6em;
+}
+/* Running prose hyphenates (Vivliostyle's own dictionaries, lang="en") so
+   justified lines stay even; headings, tables, and references stay manual. */
+.prose p,
+.prose li {
+	hyphens: auto;
+	hyphenate-limit-chars: 7 3 3;
+	hyphenate-limit-lines: 2;
+}
+.prose ul,
+.prose ol {
+	margin: 0 0 0.7em;
+	padding-left: 1.5em;
+}
+.prose li {
+	margin-bottom: 0.2em;
+}
+.prose li > p {
+	margin-bottom: 0.25em;
+}
+strong,
+b {
+	font-weight: 700;
+}
+em,
+i {
+	font-style: italic;
+}
+
+/* ---- Links: ink-quiet. External links navy; citations inherit ink ----
+   The PDF keeps every link annotation (identity validator reads them); only
+   the screen underline treatment is dropped, as in a typeset paper. */
+a {
+	color: var(--accent);
+	text-decoration: none;
+}
+.prose a {
+	color: var(--accent);
+	text-decoration: none;
+}
+.prose a[href^='#ref-'] {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* ---- Quotations ---- */
+blockquote {
+	margin: 0.8em 0 0.8em 1.2em;
+	padding: 0 0 0 0.9em;
+	border-left: 1.5pt solid var(--print-rule);
+	font-size: 1em;
+	font-style: normal;
+	color: var(--text-secondary);
+}
+blockquote p {
+	margin-bottom: 0.4em;
+}
+.pull-quote {
+	margin: 1.1em auto;
+	max-width: 80%;
+	padding: 0;
+	border: none;
+	text-align: center;
+	font-size: 12.5pt;
+	font-style: italic;
+	font-weight: 700;
+	line-height: 1.3;
+	color: var(--text-primary);
+	letter-spacing: 0;
+	break-inside: avoid;
+}
+
+/* ---- Research primitives / key findings / alerts: label + left rule, not cards ---- */
+.research-primitive,
+.key-findings,
+.markdown-alert {
+	margin: 0.9em 0;
+	padding: 0.1em 0 0.1em 0.95em;
+	border: none;
+	border-left: 2.25pt solid var(--accent);
+	border-radius: 0;
+	background: none !important;
+	box-shadow: none;
+}
+.research-primitive-label,
+.markdown-alert-title,
+.key-findings-heading {
+	font-family: var(--print-serif);
+	font-size: 9.5pt;
+	font-weight: 700;
+	font-variant: small-caps;
+	letter-spacing: 0.06em;
+	text-transform: none;
+	color: var(--accent);
+	margin: 0 0 0.25em;
+	break-after: avoid;
+}
+.key-findings-heading {
+	font-size: 11pt;
+}
+.research-primitive-body > :first-child,
+.markdown-alert > :nth-child(2) {
+	margin-top: 0;
+}
+.research-primitive-body > :last-child,
+.markdown-alert > :last-child {
+	margin-bottom: 0;
+}
+.key-findings-list {
+	margin: 0;
+	padding-left: 1.3em;
+}
+.markdown-alert-note {
+	border-left-color: var(--alert-note);
+}
+.markdown-alert-tip {
+	border-left-color: var(--alert-tip);
+}
+.markdown-alert-important {
+	border-left-color: var(--alert-important);
+}
+.markdown-alert-warning {
+	border-left-color: var(--alert-warning);
+}
+.markdown-alert-caution {
+	border-left-color: var(--alert-caution);
+}
+
+/* ---- Code: quiet and wrapped, so a long line can never clip ---- */
+code {
+	padding: 0;
+	background: none;
+	border-radius: 0;
+	font-size: 0.86em;
+}
+/* The site's mono face has no ∞; the unicode-range face above supplies it. */
+code,
+pre,
+pre.astro-code {
+	font-family: 'LM Infinity Print', var(--font-mono);
+}
+pre,
+pre.astro-code {
+	margin: 0.8em 0;
+	padding: 0.5em 0.8em;
+	border: 0.5pt solid var(--border);
+	border-radius: 0;
+	background: var(--bg-subtle) !important;
+	font-size: 8.5pt;
+	line-height: 1.35;
+	text-align: left;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+pre.astro-code span {
+	background: none !important;
+}
+
+/* ---- Figures ---- */
+figure {
+	margin: 1em 0;
+	text-align: center;
+	break-inside: avoid;
+}
+figcaption {
+	margin-top: 0.4em;
+	font-family: var(--print-serif);
+	font-size: 9.5pt;
+	letter-spacing: 0;
+	color: var(--text-secondary);
+}
+img {
+	border-radius: 0;
+}
+
+/* ---- Tables: booktabs-style rules, serif, no card chrome ----
+   T18.4: table headers may wrap on paper. On screen `thead th` is
    `white-space: nowrap` (global.css), so a wide header row scrolls inside
    `.table-container`; on paper that wrapper cannot scroll, so any column
    pushed past the print column edge was clipped and its text was lost from
    the PDF (T18.3: F01, F08, C01, F06). Letting headers wrap restores
    complete tables. General rule, not per-table. `!important` is needed to
-   win over the page stylesheet (see the top of this file). */
+   win over the page stylesheet (see the top of this file). T18.5 keeps this
+   rule exactly; the treatment below changes appearance only. */
 thead th {
 	white-space: normal !important;
+}
+.table-container {
+	margin: 1em 0;
+	border: none;
+	border-radius: 0;
+	background: none;
+}
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-top: 1pt solid var(--text-primary);
+	border-bottom: 1pt solid var(--text-primary);
+	font-family: var(--print-serif);
+	font-size: 10pt;
+	line-height: 1.3;
+	text-align: left;
+}
+thead {
+	background: none;
+	border-bottom: 0.6pt solid var(--text-primary);
+}
+thead th {
+	padding: 4pt 6pt;
+	font-family: var(--print-serif);
+	font-size: 9.5pt;
+	font-weight: 700;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--text-primary);
+	text-align: left;
+	vertical-align: bottom;
+	hyphens: manual;
+}
+tbody td {
+	padding: 3.5pt 6pt;
+	border-bottom: 0.4pt solid var(--border);
+	color: var(--text-primary);
+	vertical-align: top;
+	hyphens: manual;
+}
+tbody tr:last-child td {
+	border-bottom: none;
+}
+tbody tr {
+	break-inside: avoid;
+}
+tbody tr:hover {
+	background: none;
+}
+
+/* ---- References: numbered, compact, left-aligned for long URLs ---- */
+.references {
+	margin-top: 1.5em;
+	padding-top: 0;
+	border-top: none;
+}
+.references-heading {
+	margin-top: 0;
+}
+.references-list {
+	margin: 0;
+	padding-left: 2em;
+	font-size: 10pt;
+	line-height: 1.32;
+	color: var(--text-primary);
+	text-align: left;
+}
+.references-list li {
+	hyphens: manual;
+	margin-bottom: 0.4em;
+	padding-left: 0.2em;
+	break-inside: avoid;
+}
+
+/* ---- AuthorNote: quiet closing identity block ---- */
+.author-note {
+	margin-top: 1.6em;
+	padding-top: 0.7em;
+	border-top: 0.5pt solid var(--print-rule);
+	break-inside: avoid;
+}
+.author-note p {
+	margin: 0;
+	text-align: left;
+}
+#author-note-label {
+	margin-bottom: 0.3em;
+	font-family: var(--print-serif);
+	font-size: 9pt;
+	font-weight: 700;
+	font-variant: small-caps;
+	letter-spacing: 0.06em;
+	text-transform: none;
+	color: var(--accent);
+}
+.author-note-bio {
+	margin-bottom: 0.3em;
+	font-size: 10pt;
+	line-height: 1.35;
+	color: var(--text-primary);
+}
+.author-note-links {
+	font-family: var(--print-serif);
+	font-size: 9.5pt;
+	letter-spacing: 0;
+}
+.author-note-links a {
+	color: var(--text-secondary);
+}
+
+hr {
+	border-top-color: var(--print-rule);
+}
+
+/* .meta is the screen's mono metadata role; in print it falls back to serif. */
+.meta {
+	font-family: var(--print-serif);
+	letter-spacing: 0;
 }
