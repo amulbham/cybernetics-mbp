@@ -1,6 +1,6 @@
 # Sprint 19 — Publication Taxonomy
 
-Status: STAGING VERIFIED by the Executor (T19.0 on staging, run 38450257817 @ `84d0025`); awaiting Product Authority staging acceptance and production authorization. T19.0 was sealed under a Product Authority one-time exception to the second independent R3 pre-seal review, which was not completed
+Status: CLOSED — production verified 2026-10-13 (`main @ 077a0c1`, Actions run 38453516645); evidence: `planning/audits/T19.0-taxonomy-migration-evidence.md`. T19.0 was sealed under a Product Authority one-time exception to the second independent R3 pre-seal review, which was not completed
 Risk ceiling: R3
 Branch: `staging`
 Depends on: Sprint 18 CLOSED (`main @ 6db9e80`); Product Authority taxonomy decisions and Planner review, 2026-10-13
@@ -40,7 +40,7 @@ Desk ingestion; Chisel Draft v6 appendix and IWL editorial mismatches; Publicati
 
 | Ticket | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| `T19.0` | IMPLEMENTATION / R3 | Publication taxonomy migration: `category`, route-history registry, direct 301 matrix, validators, staging QA, product-only promotion | Sprint 18 CLOSED; this contract | STAGING VERIFIED (Executor). Sealed 2026-10-13 with one independent review plus a recorded one-time exception to the second; evidence `planning/audits/T19.0-taxonomy-migration-evidence.md`; production needs Amul's separate typed approval |
+| `T19.0` | IMPLEMENTATION / R3 | Publication taxonomy migration: `category`, route-history registry, direct 301 matrix, validators, staging QA, product-only promotion | Sprint 18 CLOSED; this contract | CLOSED. Verified on staging (run 38450257817 @ `84d0025`) and on production (`main @ 077a0c1`, run 38453516645) after a product-only release; sealed 2026-10-13 with one independent review plus a recorded one-time exception to the second; evidence `planning/audits/T19.0-taxonomy-migration-evidence.md` |
 
 ## Sprint-level acceptance criteria
 
@@ -113,3 +113,7 @@ B — Production Ready corpus + front door
 "**Category coverage** — `cybernetics` (Invariants, Three Self-Organizing Systems), `knowledge-work` (The Chisel Fallacy), and `essays` (FAFSA, a scholarly paper placed editorially among essays; Frontier Utility). `ai-systems` is intentionally empty until a work belongs there; its landing page shows an empty state and the homepage links it unconditionally. `/research/memos/` remains a functional empty route outside the four-category navigation."
 
 Unchanged: the public-launch block, Sprint 18 historical closure, and "Polish, not urgent" (including Chisel IWL editorial mismatches). Record staging/production SHAs only after the corresponding deployments are verified, and preserve an explicit production deferral if one exists. The Product Authority coordinates independent reviewers; the Executor receives the approved contract and does not call review tooling.
+
+## Closure (2026-10-13)
+
+Sprint 19 is closed on production at `main @ 077a0c1`, released product-only (the implementation commit cherry-picked onto `main`; the TP2 governance lineage on `staging` was not merged). Outcome against the sprint-level criteria: all five entries serve at their approved category routes and the four category landing pages plus `/research/memos/` return 200; every retired public URL (22 sources) returns a single-hop 301 to a 200 target; the four scholarly PDFs, FAFSA included, match the pre-change text, link annotations, fonts and page counts; the validators fail closed on every adversarial case; indexing controls are unchanged. The two-reviewer pre-seal requirement was waived once by the Product Authority and is recorded as not completed. Accepted nonblocking follow-ups: homepage hero and About editorial copy, RSS `guid` for the two moved entries, the Planner's optional CI hardening. Deliberately open: Desk ingestion, Publication MD v1.0, Home/About redesign, Chisel editorial work, discovery and indexing.
