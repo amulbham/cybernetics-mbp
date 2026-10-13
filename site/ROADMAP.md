@@ -49,10 +49,13 @@ S19 — Publication taxonomy (T19.0, R3)
     all four scholarly PDF identities (FAFSA included)
 
 B — Production Ready corpus + front door
-    MANUSCRIPT PILOT (S19 is closed; Desk v41.10 is on STAGING for
-    acceptance — not production; DOI/Zenodo and public release
-    unconfirmed; batch ran under a recorded unsealed-ticket exception,
-    see planning/audits/T20.0-desk-pilot-evidence.md):
+    MANUSCRIPT PILOT (S19 is closed; Desk v41.10 plus the T20.1
+    reading polish is STAGING ACCEPTED at 68b8f5b — not production;
+    DOI/Zenodo and public release unconfirmed; screen-reader and
+    forced-colors checks UNVERIFIED; T20.0 ran under a recorded
+    unsealed-ticket exception, see planning/audits/T20.0-desk-pilot-
+    evidence.md; T20.1 evidence: planning/audits/T20.1-desk-reading-
+    polish-evidence.md):
     "The Desk Is Where You Write It Down" — Knowledge Work, Zenodo
     DOI-backed, scholarly PDF required; the v41.10 Site MD's legacy
     `pillar` was reconciled to `category: knowledge-work` at intake

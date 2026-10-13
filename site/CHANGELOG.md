@@ -2,6 +2,12 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-13 — T20.1: Desk reading polish accepted on staging
+
+Sealed R2 ticket T20.1 (seal `d77ac43`, implementation `68b8f5b`, Actions run 104) promoted five exact-text passages in the Desk into the existing Markdown components (Evidence, Definition anchored `primitive-discovery-capture`, Counterpoint, Key idea, pull quote), relabelled all 64 bibliography links with their own path (`doi.org/10…`; hrefs unchanged), and added an explicit `<!-- table-layout: responsive-records -->` opt-in to `rehype-table-wrap` for the Desk's three appendix tables (wrapped table from 1100px, labelled records below, Pagefind-ignored, print shows the table). Unmarked tables are byte-identical; the four existing PDFs are unchanged; citation inventory preserved (80 anchors, 62 linked entries / 64 hrefs, 18 approved unlinked, 92 canonical inline citations). Desk source SHA-256 `648737aa…bdb7c7`. Content-manager skill, AGENTS, PUBLISHING, CONTENT-MODULES and ROADMAP reconciled; new opt-in `scripts/validate-desk-presentation.mjs`.
+
+The Product Authority accepted the staging result on 2026-10-13. Staging only — not on production. Real Tab/Shift+Tab and zoom-equivalent checks passed; screen-reader and forced-colors checks are UNVERIFIED and carried to the production gate. Zenodo, indexing, production promotion and the production-PDF checksum handoff remain separate authorizations. Evidence: `planning/audits/T20.1-desk-reading-polish-evidence.md`.
+
 ## 2026-10-13 — Desk pilot (T20.0 batch): *The Desk Is Where You Write It Down* ingested on staging
 
 The v41.10 Site manuscript (Knowledge Work, `format: paper`, DOI `10.5281/zenodo.23328158` reserved, `pubDate` 2026-10-14) was placed in the `research` collection with the scholarly PDF, Highwire and `ScholarlyArticle` metadata, and a route-history row. Approved source edits only: one stray blank line between References 78 and 79 removed (it had stopped most author-year citations linking: inline citation links went from 26 to 92, covering 58 of 80 references), ten Crossref-confirmed DOI links and one GovInfo statute link added, no prose or citation text changed. 18 References stay unlinked by recorded Product Authority exception; `PUBLISHING.md` now says so. Source hash `0d6660a7…65ff6cb`; evidence: `planning/audits/T20.0-desk-pilot-evidence.md`.
