@@ -2,6 +2,12 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-13 — Desk pilot (T20.0 batch): *The Desk Is Where You Write It Down* ingested on staging
+
+The v41.10 Site manuscript (Knowledge Work, `format: paper`, DOI `10.5281/zenodo.23328158` reserved, `pubDate` 2026-10-14) was placed in the `research` collection with the scholarly PDF, Highwire and `ScholarlyArticle` metadata, and a route-history row. Approved source edits only: one stray blank line between References 78 and 79 removed (it had stopped most author-year citations linking: inline citation links went from 26 to 92, covering 58 of 80 references), ten Crossref-confirmed DOI links and one GovInfo statute link added, no prose or citation text changed. 18 References stay unlinked by recorded Product Authority exception; `PUBLISHING.md` now says so. Source hash `0d6660a7…65ff6cb`; evidence: `planning/audits/T20.0-desk-pilot-evidence.md`.
+
+Staging only — not on production; Zenodo upload/publication, DOI resolution and indexing are unchanged and unauthorized. The batch ran under a recorded unsealed-ticket exception (no sealed ticket, no R3 pre-seal review); the sealed-ticket process resumes for later batches.
+
 ## 2026-10-13 — Sprint 19 closed: publication taxonomy released to production
 
 T19.0 reached production product-only. `main` was fast-forwarded `6db9e80` to `077a0c1` — the T19.0 implementation commit cherry-picked from `staging` onto `main` (no conflicts, no merge), Actions run 38453516645 green through build, PDF generation, PDF and route-history validation, and the Cloudflare deploy. The TP2 governance lineage lives only on `staging` and was not merged into `main`; a full local build, PDF build and validation on the main-based tree, and the independent redirect-matrix oracle, passed before the push.

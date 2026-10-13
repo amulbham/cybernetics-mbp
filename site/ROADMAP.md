@@ -49,7 +49,10 @@ S19 — Publication taxonomy (T19.0, R3)
     all four scholarly PDF identities (FAFSA included)
 
 B — Production Ready corpus + front door
-    NEXT MANUSCRIPT PILOT (S19 is closed; not yet executing):
+    MANUSCRIPT PILOT (S19 is closed; Desk v41.10 is on STAGING for
+    acceptance — not production; DOI/Zenodo and public release
+    unconfirmed; batch ran under a recorded unsealed-ticket exception,
+    see planning/audits/T20.0-desk-pilot-evidence.md):
     "The Desk Is Where You Write It Down" — Knowledge Work, Zenodo
     DOI-backed, scholarly PDF required; compiled MD v41.10 carries a
     legacy `pillar: systems-architecture` to reconcile under an
