@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = 'Amul Bham';
 export const SITE_DESCRIPTION =
-	'Applied research on AI systems, SEO architecture, systems design, and policy systems.';
+	'Independent research on how ideas emerge, how systems organize, and how technology and institutions shape the conditions for discovery.';
 
 // Single source of truth for the site owner's identity/social profiles —
 // used by SocialLinks.astro (footer chips: linkedin/substack/github/orcid),
@@ -46,7 +46,7 @@ export const AUTHOR = {
 // schema field would make "which piece is pinned" a fact scattered across
 // content files instead of one place to look). A wrong slug fails the build
 // (Spotlight.astro throws via getEntry) rather than silently showing nothing.
-export const HOMEPAGE_SPOTLIGHT = 'an-engineers-guide-to-structural-financial-aid-exploits';
+export const HOMEPAGE_SPOTLIGHT = 'the-desk-is-where-you-write-it-down';
 
 // Sitewide content license — shown in ArticleMasthead.astro, the footer, and
 // each entry's JSON-LD `license` field. Single source of truth so these

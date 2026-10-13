@@ -2,8 +2,7 @@
 import { getEntry } from 'astro:content';
 import { HOMEPAGE_SPOTLIGHT } from '../consts';
 import { categoryLabel } from '../lib/categories';
-import { canonicalPath } from '../lib/research-routing';
-import Badge from './Badge.astro';
+import { canonicalPath, formatLabel } from '../lib/research-routing';
 import Card from './Card.astro';
 import FormattedDate from './FormattedDate.astro';
 
@@ -20,14 +19,13 @@ if (!spotlight) {
 	<p class="meta spotlight-label">Spotlight</p>
 	<ul class="spotlight-feed">
 		<Card href={canonicalPath(spotlight)}>
-			<Badge variant="pillar" category={spotlight.data.category}>
-				{categoryLabel(spotlight.data.category)}
-			</Badge>
+			<span class="meta spotlight-meta">
+				<FormattedDate date={spotlight.data.pubDate} /> · {categoryLabel(spotlight.data.category)}
+			</span>
 			<h3>{spotlight.data.title}</h3>
 			<p>{spotlight.data.excerpt}</p>
-			<span class="meta">
-				<FormattedDate date={spotlight.data.pubDate} />
-			</span>
+			{/* Visible affordance only: the Card is already one anchor, so this must not be a second link. */}
+			<span class="spotlight-read">Read {formatLabel(spotlight.data.format).toLowerCase()} →</span>
 		</Card>
 	</ul>
 </section>
@@ -45,6 +43,9 @@ if (!spotlight) {
 		margin: 0;
 		padding: 0;
 	}
+	.spotlight-meta {
+		display: block;
+	}
 	.spotlight-feed h3 {
 		margin: 0.7em 0 0.5em;
 		font-size: 1.5em;
@@ -56,5 +57,11 @@ if (!spotlight) {
 		max-width: var(--content-width-prose);
 		font-size: 1.05em;
 		color: var(--text-primary);
+	}
+	.spotlight-read {
+		display: inline-block;
+		margin-top: 0.4em;
+		font-weight: 700;
+		color: var(--accent);
 	}
 </style>

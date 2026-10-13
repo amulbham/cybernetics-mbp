@@ -1,21 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import Button from '../components/Button.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import RecentResearch from '../components/RecentResearch.astro';
 import Spotlight from '../components/Spotlight.astro';
 import { HOMEPAGE_SPOTLIGHT, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { CATEGORIES } from '../lib/categories';
-import { categoryPath } from '../lib/research-routing';
 import { personIdentity } from '../lib/structured-data';
 
-// Category navigation, not a content listing — shown unconditionally for all
-// four categories regardless of how many entries each currently has (unlike
-// research/index.astro's category sections, which only render once a category
-// has at least one entry). An empty category (AI Systems today) is still a
-// legitimate place to browse to, the same way nav links don't disappear when
-// a section is thin. CATEGORIES (src/lib/categories.ts) is the one source.
+// T21.0 homepage: a short hero, one pinned spotlight (HOMEPAGE_SPOTLIGHT, consts.ts), a
+// chronological feed of the next entries, and an exit to the archive. No category blocks —
+// category navigation lives in the header/footer and on the research index.
+const archiveCount = (await getCollection('research')).length;
 
 // Homepage entity graph: establishes Amul Bham as a disambiguated Person
 // entity and the site itself as a WebSite entity, for crawler/LLM entity
@@ -50,21 +46,8 @@ const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c
 		<script type="application/ld+json" set:html={personJsonLdString} />
 		<script type="application/ld+json" set:html={websiteJsonLdString} />
 		<style>
-			main {
-				width: var(--content-width-wide);
-				max-width: calc(100% - 2em);
-			}
 			.hero {
-				max-width: var(--content-width-prose);
-				margin: 0 0 3.5em;
-			}
-			.hero .eyebrow {
-				margin: 0 0 1em;
-				font-family: var(--font-mono);
-				font-size: 0.85em;
-				letter-spacing: 0.15em;
-				text-transform: uppercase;
-				color: var(--accent);
+				margin: 0 0 var(--space-7);
 			}
 			.hero h1 {
 				margin-bottom: 0.6em;
@@ -73,62 +56,13 @@ const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c
 				font-size: 1.1em;
 				color: var(--text-secondary);
 			}
-			.cta-links {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: flex-start;
-				gap: 0.75em;
-				margin-top: 1.75em;
+			.hero .about-link {
+				margin: 1.25em 0 0;
+				font-weight: 700;
 			}
-			.section-label {
-				font-family: var(--font-mono);
-				font-size: var(--text-xs);
-				text-transform: uppercase;
-				letter-spacing: 0.08em;
-				color: var(--text-secondary);
-				margin-bottom: var(--space-5);
-			}
-			.pillars-grid {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				gap: var(--space-4);
-				margin-bottom: var(--space-7);
-				list-style: none;
-				padding: 0;
-			}
-			@media (max-width: 640px) {
-				.pillars-grid {
-					grid-template-columns: 1fr;
-				}
-			}
-			.pillar-card {
-				display: block;
-				border: 1px solid var(--border);
-				border-radius: var(--radius-md);
-				padding: var(--space-5);
-				text-decoration: none;
-				color: inherit;
-				transition: border-color 0.15s ease;
-			}
-			.pillar-card:hover,
-			.pillar-card:focus-visible {
-				border-color: var(--accent);
-			}
-			.pillar-dot {
-				width: 8px;
-				height: 8px;
-				border-radius: 50%;
-				margin-bottom: var(--space-3);
-			}
-			.pillar-card h3 {
-				font-size: var(--text-base);
-				margin: 0 0 var(--space-2);
-			}
-			.pillar-card p {
-				font-size: var(--text-sm);
-				color: var(--text-secondary);
+			.archive-link {
 				margin: 0;
-				line-height: 1.5;
+				font-weight: 700;
 			}
 		</style>
 	</head>
@@ -136,39 +70,16 @@ const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c
 		<Header />
 		<main id="main-content">
 			<section class="hero">
-				<p class="eyebrow">Amul Bham</p>
-				<h1>Applied research on AI systems, SEO architecture, systems design, and policy systems.</h1>
-				<p class="positioning">
-					I design and build systems at the intersection of AI infrastructure, information
-					architecture, and technical SEO — and publish research on how those disciplines converge
-					in production.
-				</p>
-				<nav class="cta-links" aria-label="Primary">
-					<Button href="/research" variant="primary">Browse research</Button>
-					<Button href="/about" variant="secondary">About Amul</Button>
-				</nav>
+				<h1>Research on knowledge, cognition, and complex systems.</h1>
+				<p class="positioning">{SITE_DESCRIPTION}</p>
+				<p class="about-link"><a href="/about">About the researcher →</a></p>
 			</section>
 
 			<Spotlight />
 
-			<RecentResearch excludeId={HOMEPAGE_SPOTLIGHT} />
+			<RecentResearch variant="feed" excludeId={HOMEPAGE_SPOTLIGHT} limit={5} />
 
-			<div>
-				<p class="section-label">Research categories</p>
-				<ul class="pillars-grid">
-					{
-						CATEGORIES.map((category) => (
-							<li>
-								<a class="pillar-card" href={categoryPath(category.slug)}>
-									<span class="pillar-dot" style={`background: var(--pillar-${category.slug})`} />
-									<h3>{category.label}</h3>
-									<p>{category.description}</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</div>
+			<p class="archive-link"><a href="/research/">View the full archive ({archiveCount} entries) →</a></p>
 		</main>
 		<Footer />
 	</body>
