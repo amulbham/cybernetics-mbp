@@ -42,7 +42,8 @@ const { label, entries } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Tag: ${label}`} description={`Research and writing tagged "${label}".`} />
+		{/* Launch policy (T22.0): tag pages stay navigable but out of search results and the sitemap. */}
+		<BaseHead title={`Tag: ${label}`} description={`Research and writing tagged "${label}".`} noindex />
 		<style>
 			.intro {
 				margin-bottom: 2.5em;
