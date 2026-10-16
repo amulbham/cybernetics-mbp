@@ -36,7 +36,7 @@ dist="${DIST_DIR:-dist}"
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
-fail() { echo "carry-over-pdfs: $*" >&2; exit 1; }
+fail() { echo "carry-over-pdfs: $*" >&2; echo "::error title=carry-over-pdfs::$*"; exit 1; } # the ::error:: line shows the reason as a run annotation
 
 # guard — runs first on every main deploy (see the workflow). Once a production manifest exists,
 # an ordinary deploy must not regenerate and replace the approved PDFs:
@@ -67,8 +67,11 @@ awk '{print $2}' "$work/manifest" | sort > "$work/expected"
 
 fetch() { # $1 = relative path, $2 = destination, $3 = optional absolute URL (the pinned Desk bootstrap only)
   mkdir -p "$(dirname "$2")"
-  if [ -n "${3:-}" ]; then curl -fsSL --retry 3 -o "$2" "$3"; else curl -fsS --retry 3 -o "$2" "$ORIGIN/$1"; fi
-  head -c 5 "$2" | grep -q '%PDF-' || fail "$1 (from ${3:-$ORIGIN}) is not a PDF"
+  url="$ORIGIN/$1"; follow="-sS"
+  if [ -n "${3:-}" ]; then url="$3"; follow="-sSL"; fi
+  code="$(curl $follow --retry 3 --retry-all-errors -o "$2" -w '%{http_code}' "$url")" || fail "download of $url failed (curl exit $?)"
+  [ "$code" = "200" ] || fail "download of $url returned HTTP $code"
+  [ "$(head -c 5 "$2")" = "%PDF-" ] || fail "$1 (from $url) is not a PDF"
 }
 
 case "$mode" in
@@ -83,7 +86,10 @@ case "$mode" in
       fi
       echo "carried over $rel"
     done < "$work/manifest"
-    (cd "$dist" && sha256sum -c "$work/manifest") || fail "a carried-over PDF does not match the approved manifest"
+    if ! (cd "$dist" && sha256sum -c "$work/manifest" > "$work/carry.log" 2>&1); then
+      cat "$work/carry.log" >&2
+      fail "a carried-over PDF does not match the approved manifest: $(grep -v ': OK$' "$work/carry.log" | tr '\n' ' ')"
+    fi
     echo "carry-over-pdfs: $EXPECTED_COUNT PDFs carried over and verified against the manifest."
     ;;
   verify)
