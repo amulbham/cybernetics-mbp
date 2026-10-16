@@ -56,7 +56,8 @@ if [ "$mode" = "guard" ]; then
 fi
 
 [ -n "${PDF_MANIFEST:-}" ] || fail "PDF_MANIFEST is empty — refusing to carry over unverified PDFs"
-printf '%s\n' "$PDF_MANIFEST" | sed 's/\r$//' > "$work/manifest"
+# Blank lines (a trailing newline in the variable, CRLF pasting) are not entries; every other line must be one.
+printf '%s\n' "$PDF_MANIFEST" | sed 's/\r$//' | sed '/^[[:space:]]*$/d' > "$work/manifest"
 
 # Manifest shape: exactly EXPECTED_COUNT well-formed, unique lines.
 n="$(grep -c '' "$work/manifest")"
