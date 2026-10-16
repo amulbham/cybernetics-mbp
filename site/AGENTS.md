@@ -29,13 +29,15 @@ Manage with `astro dev stop`, `astro dev status`, `astro dev logs`. Search (`/se
 
 ## Indexing state — READ BEFORE TOUCHING
 
-The site is **deliberately deindexed** while content/design work continues:
+Indexing is **fail-closed and controlled by one switch** (T22.0): a build is indexable only when the build environment sets `SITE_INDEXING=open` (`src/lib/indexing.mjs`). Anything else — unset, any other value, every `staging` build, previews and manual runs from another ref — is closed: `noindex, nofollow` on every page and `robots.txt` = `User-agent: *` / `Disallow: /`.
 
-- `public/robots.txt` → `Disallow: /`
-- `src/components/BaseHead.astro` → `const SITE_WIDE_NOINDEX = true;` forces `noindex, nofollow` on every page via the `<SEO/>` call, regardless of environment (staging and production both stay deindexed).
-- Individual pages can still force `noindex` themselves via `<BaseHead noindex />` regardless of the site-wide flag (used by `404.astro`, since a 404 should never be indexed even after launch).
+- `.github/workflows/deploy-pages.yml` sets `SITE_INDEXING` to `open` only for a push to `main` **and** only when the repository variable `SITE_INDEXING` is exactly `open` (Settings → Secrets and variables → Actions → Variables). Opening or closing production is that one variable plus a re-run of the `main` workflow; rollback is setting it to anything else (or deleting it) and re-running.
+- `src/components/BaseHead.astro` derives `SITE_WIDE_NOINDEX` from that switch; a page can only *add* `noindex` (`<BaseHead noindex />`: 404, search, and any landing page with no entries — `/research/ai-systems/` today, route-only `/research/memos/`), never remove it.
+- `src/pages/robots.txt.js` generates `robots.txt` from the same switch (open: `Allow: /` + the production `Sitemap:` line). The sitemap (`astro.config.mjs` → `inSitemap()`) lists only indexable pages.
+- `public/_headers` sends `X-Robots-Tag: noindex, nofollow` on every Cloudflare-owned hostname (`https://:project.pages.dev/*`, `https://:version.:project.pages.dev/*` — the staging alias and previews), never on `amulbham.com`.
+- `scripts/validate-indexing.mjs` (run by `npm run build`) fails the build if the page meta, `robots.txt`, sitemap and `_headers` disagree.
 
-**Do not flip `SITE_WIDE_NOINDEX` to `false` or restore `robots.txt` to `Allow: /` without the user explicitly asking for it.** When they do: flip both together (they were designed as one change), and restore the `Sitemap: https://amulbham.com/sitemap-index.xml` line in `robots.txt` at the same time.
+**Do not set the repository variable `SITE_INDEXING` to `open`, or change this mechanism, without the user explicitly asking for it** — the launch sequence, verification matrix and rollback are in `planning/tickets/T22.0-public-mvp-launch.md`. Never open staging.
 
 ## Design system
 

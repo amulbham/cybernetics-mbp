@@ -7,6 +7,7 @@ import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import { SEO } from 'astro-seo';
 import { SITE_TITLE } from '../consts';
+import { indexingOpen } from '../lib/indexing.mjs';
 
 interface Props {
 	title: string;
@@ -19,18 +20,21 @@ interface Props {
 		modifiedTime?: string;
 		tags?: string[];
 	};
-	/** Force this specific page to stay out of search results regardless of SITE_WIDE_NOINDEX (e.g. 404.astro). */
+	/** Force this specific page to stay out of search results even when the site is open (e.g. 404.astro). Only `true` has an effect. */
 	noindex?: boolean;
 }
 
-// Site-wide deindex while the redesign is still in progress. Flip to `false`
-// only when the site is confirmed launch-ready (see Phase 5 in the design
-// plan) — also restore the `Sitemap:` line in public/robots.txt at the same
-// time. Individual pages can still force noindex via the `noindex` prop
-// (e.g. 404.astro) regardless of this flag.
-const SITE_WIDE_NOINDEX = true;
+// Site-wide deindex is the fail-closed default: a build is indexable only when
+// the build environment sets SITE_INDEXING=open (src/lib/indexing.mjs; the
+// workflow sets it for `main` only, and only when the repo variable says so).
+// robots.txt (src/pages/robots.txt.js) reads the same switch, so the two can
+// never disagree. Individual pages can still force noindex via the `noindex`
+// prop (404, search, empty landing pages) even when the site is open; the prop
+// can only add noindex, never remove it.
+const SITE_WIDE_NOINDEX = !indexingOpen();
 
 const { title, description, image = '/favicon-512.png', article, noindex } = Astro.props;
+const noindexPage = noindex === true || SITE_WIDE_NOINDEX;
 const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.url).toString();
 ---
 
@@ -89,8 +93,8 @@ const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.
 <SEO
 	title={title}
 	description={description}
-	noindex={noindex ?? SITE_WIDE_NOINDEX}
-	nofollow={noindex ?? SITE_WIDE_NOINDEX}
+	noindex={noindexPage}
+	nofollow={noindexPage}
 	openGraph={{
 		basic: {
 			title,

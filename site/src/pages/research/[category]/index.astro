@@ -50,7 +50,8 @@ const description = categoryDescription(category);
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`${label} Research`} description={description} />
+		{/* An empty landing page (AI Systems today; the route-only /research/memos/) stays noindex until it has an entry. */}
+		<BaseHead title={`${label} Research`} description={description} noindex={entries.length === 0 ? true : undefined} />
 		<style>
 			.breadcrumbs {
 				margin: 0 0 1.5em;

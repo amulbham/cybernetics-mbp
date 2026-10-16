@@ -1,5 +1,6 @@
 // @ts-check
 
+import { fileURLToPath } from 'node:url';
 import mdx from '@astrojs/mdx';
 import { unified, rehypeHeadingIds } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
@@ -13,12 +14,16 @@ import { rehypeReferences } from './src/lib/rehype-references.mjs';
 import { rehypeResearchLinks } from './src/lib/rehype-research-links.mjs';
 import { rehypeResearchPrimitive } from './src/lib/rehype-research-primitive.mjs';
 import { rehypeTableWrap } from './src/lib/rehype-table-wrap.mjs';
+import { inSitemap, populatedCategories } from './src/lib/indexing.mjs';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
+
+const populated = populatedCategories(fileURLToPath(new URL('./src/content/research/', import.meta.url)));
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://amulbham.com',
-	integrations: [mdx(), sitemap()],
+	// T22.0: the sitemap lists only indexable pages (no search, no 404, no empty landing pages).
+	integrations: [mdx(), sitemap({ filter: (page) => inSitemap(page, populated) })],
 	markdown: {
 		processor: unified({
 			remarkPlugins: [remarkReadingTime, remarkAlert],
