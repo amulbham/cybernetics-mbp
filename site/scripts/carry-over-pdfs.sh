@@ -13,7 +13,12 @@
 #           same manifest again.
 # guard   first step of every main deploy — fail-closed rule that keeps an ordinary deploy from
 #         replacing approved PDFs once a manifest exists (details at the guard block below).
-# The source is always the production origin below; there is no override.
+# The source is the production origin below; there is no override. The one exception is the
+# Desk bootstrap (T22.0 Amendment A): the Desk's published Zenodo deposit is the approved Desk
+# artifact, so if production's copy of exactly that one path does not already match the manifest,
+# `carry` fetches the pinned Zenodo file instead. The manifest hash still gates the result — bytes
+# from any source are accepted only if they match it — and no other path has an alternate source.
+# Once production serves the approved bytes, the Zenodo branch is never taken again.
 #
 # PDF_MANIFEST: exactly five lines in `sha256sum` format, e.g.
 #   <64 hex>  research/knowledge-work/<id>/<id>.pdf
@@ -23,6 +28,9 @@ set -euo pipefail
 
 ORIGIN="https://amulbham.com"
 EXPECTED_COUNT=5 # the launch corpus: five scholarly PDFs. Change deliberately, with the manifest.
+# Desk bootstrap source (Amendment A) — Zenodo record 10.5281/zenodo.23328158, its single published file.
+DESK_PATH="research/knowledge-work/the-desk-is-where-you-write-it-down/the-desk-is-where-you-write-it-down.pdf"
+DESK_BOOTSTRAP_URL="https://zenodo.org/api/records/23328158/files/v41.10-Site-Bham-The-Desk-Is-Where-You-Write-It-Down.pdf/content"
 mode="${1:-}"
 dist="${DIST_DIR:-dist}"
 work="$(mktemp -d)"
@@ -57,28 +65,41 @@ if grep -vqE '^[0-9a-f]{64}  research/[a-z0-9_./-]+\.pdf$' "$work/manifest"; the
 awk '{print $2}' "$work/manifest" | sort > "$work/expected"
 [ "$(uniq "$work/expected" | wc -l)" -eq "$EXPECTED_COUNT" ] || fail "manifest lists a path twice"
 
-fetch() { # $1 = relative path, $2 = destination
+fetch() { # $1 = relative path, $2 = destination, $3 = optional absolute URL (the pinned Desk bootstrap only)
   mkdir -p "$(dirname "$2")"
-  curl -fsS --retry 3 -o "$2" "$ORIGIN/$1"
-  head -c 5 "$2" | grep -q '%PDF-' || fail "$1 from $ORIGIN is not a PDF"
+  if [ -n "${3:-}" ]; then curl -fsSL --retry 3 -o "$2" "$3"; else curl -fsS --retry 3 -o "$2" "$ORIGIN/$1"; fi
+  head -c 5 "$2" | grep -q '%PDF-' || fail "$1 (from ${3:-$ORIGIN}) is not a PDF"
 }
 
 case "$mode" in
   carry)
     (cd "$dist" && find . -name '*.pdf' | sed 's#^\./##' | sort) > "$work/built"
     if ! diff -u "$work/expected" "$work/built" > "$work/diff"; then cat "$work/diff" >&2; fail "built PDF set differs from the manifest (missing or unexpected files)"; fi
-    while read -r _ rel; do
+    while read -r want rel; do
       fetch "$rel" "$dist/$rel"
+      if [ "$rel" = "$DESK_PATH" ] && [ "$(sha256sum "$dist/$rel" | cut -d' ' -f1)" != "$want" ]; then
+        echo "production's $rel does not match the manifest — bootstrapping it from the pinned Zenodo deposit"
+        fetch "$rel" "$dist/$rel" "$DESK_BOOTSTRAP_URL"
+      fi
       echo "carried over $rel"
     done < "$work/manifest"
     (cd "$dist" && sha256sum -c "$work/manifest") || fail "a carried-over PDF does not match the approved manifest"
     echo "carry-over-pdfs: $EXPECTED_COUNT PDFs carried over and verified against the manifest."
     ;;
   verify)
-    mkdir -p "$work/live"
-    while read -r _ rel; do fetch "$rel" "$work/live/$rel"; done < "$work/manifest"
-    (cd "$work/live" && sha256sum -c "$work/manifest") || fail "a live PDF does not match the approved manifest"
-    echo "carry-over-pdfs: live PDFs match the manifest after deploy."
+    # Right after the upload the edge can briefly serve the previous deployment: retry before failing.
+    for attempt in 1 2 3 4 5 6; do
+      rm -rf "$work/live"; mkdir -p "$work/live"
+      while read -r _ rel; do fetch "$rel" "$work/live/$rel"; done < "$work/manifest"
+      if (cd "$work/live" && sha256sum -c "$work/manifest" > "$work/verify.log" 2>&1); then
+        echo "carry-over-pdfs: live PDFs match the manifest after deploy (attempt $attempt)."
+        exit 0
+      fi
+      echo "carry-over-pdfs: live PDFs not yet matching (attempt $attempt of 6)" >&2
+      sleep 10
+    done
+    cat "$work/verify.log" >&2
+    fail "a live PDF does not match the approved manifest"
     ;;
   *)
     fail "usage: carry-over-pdfs.sh guard|carry|verify"
