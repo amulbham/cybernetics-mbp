@@ -69,30 +69,22 @@ jobs:
         run: npm run build:pdfs
 
       - name: Carry over the live scholarly PDFs (opt-in, main only)
-        # T22.0 — Vivliostyle PDFs are not byte-reproducible, so any redeploy
-        # changes every PDF's bytes. The PDF deposited on Zenodo must be the
-        # exact bytes the site serves, so a redeploy that must NOT change the
-        # PDFs (the production indexing step) replaces each freshly typeset
-        # PDF with the one the live site already serves. Runs only for `main`
-        # and only while the repository variable PDF_CARRY_OVER is "true".
-        # Fail-closed: a missing/unreadable live PDF fails the run before
-        # anything is deployed; validate:pdfs below still gates the result.
-        # Turn the variable off again before any content change.
+        # T22.0 — Vivliostyle PDFs are not byte-reproducible, so every redeploy
+        # would change every PDF's bytes, but the PDF deposited on Zenodo must be
+        # the exact file the site serves. While the repository variable
+        # PDF_CARRY_OVER is "true" (main only), each freshly typeset PDF is
+        # replaced by the one production serves and every byte must match the
+        # approved manifest in the repository variable PDF_MANIFEST (exactly five
+        # lines, the S2/S3 production hashes). Any mismatch or missing/unexpected
+        # file fails the run before anything is deployed. The source is always
+        # https://amulbham.com (see site/scripts/carry-over-pdfs.sh). Keep the
+        # variable on for every main deploy that does not change a manuscript
+        # (the indexing step AND the docs-only closure commit); turn it off, and
+        # refresh the manifest, before any content change.
         if: github.ref_name == 'main' && vars.PDF_CARRY_OVER == 'true'
         env:
-          LIVE_BASE: ${{ vars.PDF_CARRY_OVER_BASE || 'https://amulbham.com' }}
-        run: |
-          set -euo pipefail
-          count=0
-          while IFS= read -r f; do
-            rel="${f#dist/}"
-            curl -fsS --retry 3 -o "$f.live" "$LIVE_BASE/$rel"
-            head -c 5 "$f.live" | grep -q '%PDF-'
-            mv "$f.live" "$f"
-            count=$((count + 1))
-            echo "carried over $rel"
-          done < <(find dist -name '*.pdf' | sort)
-          test "$count" -ge 1
+          PDF_MANIFEST: ${{ vars.PDF_MANIFEST }}
+        run: bash scripts/carry-over-pdfs.sh carry
 
       - name: Validate Scholar/PDF identity
         # Sprint 8.6 — the fail-closed gate: a paper's citation_pdf_url /
@@ -147,3 +139,11 @@ jobs:
             --branch="$BRANCH" \
             --commit-hash="${{ github.sha }}" \
             --commit-message="$COMMIT_MESSAGE"
+
+      - name: Verify the live PDFs after deploy (opt-in, main only)
+        # Re-downloads the five production PDFs and checks them against the same
+        # approved manifest; a mismatch fails the run (and is reported, not hidden).
+        if: github.ref_name == 'main' && vars.PDF_CARRY_OVER == 'true'
+        env:
+          PDF_MANIFEST: ${{ vars.PDF_MANIFEST }}
+        run: bash scripts/carry-over-pdfs.sh verify
