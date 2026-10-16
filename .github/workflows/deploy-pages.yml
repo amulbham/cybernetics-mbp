@@ -34,6 +34,13 @@ defaults:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # T22.0 — indexing is fail-closed. A build is indexable only for a ref of
+    # `main` AND only when the repository variable SITE_INDEXING (Settings ->
+    # Secrets and variables -> Actions -> Variables) is exactly "open". Every
+    # staging push, preview and manual run from another ref gets "closed";
+    # an unset variable is also closed. See site/src/lib/indexing.mjs.
+    env:
+      SITE_INDEXING: ${{ github.ref_name == 'main' && vars.SITE_INDEXING == 'open' && 'open' || 'closed' }}
     permissions:
       contents: read
     steps:

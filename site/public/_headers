@@ -1,0 +1,9 @@
+# Cloudflare Pages response headers (T22.0). Never let a Cloudflare-owned
+# hostname be indexed: the staging alias (staging.<project>.pages.dev),
+# per-deployment previews, and the project's own *.pages.dev address. The
+# production custom domain (amulbham.com) does not match these rules.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
