@@ -46,6 +46,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: PDF release guard (main only)
+        # T22.0 — once a production PDF manifest exists, an ordinary main deploy must not
+        # regenerate and replace the approved PDFs. Stops the run here, before any build or
+        # deploy, unless PDF_CARRY_OVER is "true" or a separately authorized new-version PDF
+        # release is under way (PDF_RELEASE=new-version). Passes when no manifest exists yet.
+        if: github.ref_name == 'main'
+        env:
+          PDF_MANIFEST: ${{ vars.PDF_MANIFEST }}
+          PDF_CARRY_OVER: ${{ vars.PDF_CARRY_OVER }}
+          PDF_RELEASE: ${{ vars.PDF_RELEASE }}
+        run: bash scripts/carry-over-pdfs.sh guard
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
