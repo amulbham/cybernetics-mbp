@@ -52,7 +52,7 @@ Full procedure: `.claude/skills/content-manager/`. Full rationale: `AGENTS.md`'s
 - `description` = full abstract (JSON-LD). `excerpt` ≤200 chars (meta + cards). Both required — no fallback if `excerpt` is missing.
 - Subtitle is frontmatter, never a `##` heading — a heading gets picked up by the TOC as a real section.
 - Papers: `(Author, Year)` / `Name (Year)` so the citation linker works. Essays/memos: manual first-mention external links instead.
-- Every `## References` entry is a real URL. Ordered list only (the numbering is load-bearing — it's what `id="ref-N"` keys off).
+- Every `## References` entry is a verified real URL (a DOI where one exists). The one exception: a legitimate print, archival or reported source with no verified landing page may stay unlinked when the Product Authority approves it and the evidence file records it — never guess or fabricate a URL (Desk: 18 entries, `planning/audits/T20.0-desk-pilot-evidence.md`). Show each link as its own path — a DOI as `doi.org/10.…`, a web source as host/path — never a generic `[DOI]`/`[Source]`. Ordered list only, with no blank line between entries (a blank line makes the list loose and stops most author-year citations from linking) — the numbering is load-bearing, it's what `id="ref-N"` keys off.
 - Tags: sentence case, except a piece's own coined proper nouns.
 - Do not hand-type a byline. The masthead is automatic from `consts.ts`.
 - Images live in the entry's own slug folder.
@@ -93,7 +93,7 @@ Full contract: `design-system/` (`tokens.md`, `components.md`, `do-not.md`). Not
 
 State: Signal locked 2026-08-26. Two fonts (Atkinson Hyperlegible body/headings, IBM Plex Mono `.meta`/code). Dual theme, complete pairs, plus the `prefers-color-scheme` fallback for no-explicit-choice readers. Research primitives: `--bg-subtle` field, 6px `--accent` left rule, label `font-weight: 700`. Alerts stay 4px + an 8% severity wash — a deliberately different, quieter system voice than a primitive's argument-topology signal, not an oversight.
 
-The homepage's one editorial pin (above Recent Research) is `HOMEPAGE_SPOTLIGHT` in `consts.ts` — change that one line to pin a different piece; there is no `featured:` frontmatter field, and a wrong slug fails the build rather than silently rendering nothing (Sprint 6.3).
+The homepage's one editorial pin (the spotlight, above the recent-research feed) is `HOMEPAGE_SPOTLIGHT` in `consts.ts` — change that one line to pin a different piece; there is no `featured:` frontmatter field, and a wrong slug fails the build rather than silently rendering nothing (Sprint 6.3).
 
 ### The research object → two projections (Sprint 8, frozen 8.7)
 

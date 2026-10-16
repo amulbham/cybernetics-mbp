@@ -33,6 +33,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { HOMEPAGE_SPOTLIGHT } from '../src/consts.ts';
 import { CATEGORIES, categoryLabel } from '../src/lib/categories.ts';
 import { categoryPath } from '../src/lib/research-routing.ts';
 import { discoverResearch, SITE_ORIGIN } from './discover-research.mjs';
@@ -384,8 +385,8 @@ function validateAbout() {
 }
 
 // ---------------------------------------------------------------------------
-// Category navigation (T19.0) — the homepage lists the registered categories
-// in registry order, every /research/{segment}/ link on a representative page
+// Category navigation (T19.0, homepage part reworked by T21.0) — the footer lists
+// the registered categories in registry order, every /research/{segment}/ link on a representative page
 // set resolves to a built page, and route-only memos never appears in
 // navigation. Before T19.0 the homepage and footer linked two category pages
 // that returned 404; this check makes that class of defect a build failure.
@@ -409,11 +410,21 @@ function validateCategoryNavigation() {
 	}
 	const home = readDistHtml('/');
 	if (home !== null) {
-		const linked = [...home.matchAll(/class="pillar-card" href="(\/research\/[a-z0-9-]+\/)"/g)].map((m) => m[1]);
+		// T21.0: the homepage no longer carries category blocks; category navigation is the footer,
+		// which must list the registered categories in registry order. The spotlight must link to
+		// its canonical article route.
+		if (/class="pillar-card"|Research categories/.test(home)) {
+			fail('nav:/', 'homepage still contains a category grid block (retired by T21.0)');
+		}
+		const footerNav = /<nav class="footer-nav"[^>]*aria-label="Footer"[\s\S]*?<\/nav>/.exec(home)?.[0] ?? '';
+		const linked = [...footerNav.matchAll(/href="(\/research\/[a-z0-9-]+\/)"/g)].map((m) => m[1]);
 		const expected = CATEGORIES.map((category) => categoryPath(category.slug));
 		if (JSON.stringify(linked) !== JSON.stringify(expected)) {
-			fail('nav:/', `homepage category cards ${JSON.stringify(linked)} !== registry order ${JSON.stringify(expected)}`);
+			fail('nav:/', `footer category links ${JSON.stringify(linked)} !== registry order ${JSON.stringify(expected)}`);
 		}
+		const spotlightRoute = routeById.get(HOMEPAGE_SPOTLIGHT);
+		if (!spotlightRoute) fail('nav:/', `HOMEPAGE_SPOTLIGHT "${HOMEPAGE_SPOTLIGHT}" is not a research entry`);
+		else if (!home.includes(`href="${spotlightRoute}"`)) fail('nav:/', `homepage does not link its spotlight ${spotlightRoute}`);
 	}
 }
 

@@ -9,42 +9,80 @@ import FormattedDate from './FormattedDate.astro';
 interface Props {
 	/** Entry id to omit — the homepage passes HOMEPAGE_SPOTLIGHT so the pinned piece isn't shown twice. */
 	excludeId?: string;
+	/**
+	 * `cards` (default) is the original three-card grid used by the 404 page. `feed` is the homepage's
+	 * opt-in single-column list (T21.0): up to `limit` entries, ties on `pubDate` broken by entry id
+	 * ascending, divider rows instead of cards, and nothing rendered when there are no entries.
+	 */
+	variant?: 'cards' | 'feed';
+	limit?: number;
 }
 
-const { excludeId } = Astro.props;
+const { excludeId, variant = 'cards', limit = 5 } = Astro.props;
 
-const recentEntries = (await getCollection('research'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.filter((entry) => entry.id !== excludeId)
-	.slice(0, 3);
+const entries = await getCollection('research');
+const recentEntries =
+	variant === 'feed'
+		? entries
+				.sort(
+					(a, b) =>
+						b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0),
+				)
+				.filter((entry) => entry.id !== excludeId)
+				.slice(0, limit)
+		: entries
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+				.filter((entry) => entry.id !== excludeId)
+				.slice(0, 3);
 ---
 
-<section class="recent-research">
-	<div class="section-heading">
-		<h2>Recent Research</h2>
-		<a href="/research">View all research →</a>
-	</div>
-	{
-		recentEntries.length > 0 ? (
-			<ul class="research-feed">
-				{recentEntries.map((entry) => (
-					<Card href={canonicalPath(entry)}>
-						<Badge variant="pillar" category={entry.data.category}>
-							{categoryLabel(entry.data.category)}
-						</Badge>
-						<h3>{entry.data.title}</h3>
-						<p>{entry.data.excerpt}</p>
-						<span class="meta">
-							<FormattedDate date={entry.data.pubDate} />
-						</span>
-					</Card>
-				))}
-			</ul>
-		) : (
-			<p class="empty">No research published yet — check back soon.</p>
+{
+	variant === 'feed' ? (
+		recentEntries.length > 0 && (
+			<section class="recent-feed" aria-labelledby="recent-feed-heading">
+				<h2 id="recent-feed-heading">Recent research</h2>
+				<ul class="feed-list">
+					{recentEntries.map((entry) => (
+						<li class="feed-item">
+							<p class="meta feed-meta">
+								<FormattedDate date={entry.data.pubDate} /> · {categoryLabel(entry.data.category)}
+							</p>
+							<h3>
+								<a href={canonicalPath(entry)}>{entry.data.title}</a>
+							</h3>
+							<p class="feed-excerpt">{entry.data.excerpt}</p>
+						</li>
+					))}
+				</ul>
+			</section>
 		)
-	}
-</section>
+	) : (
+		<section class="recent-research">
+			<div class="section-heading">
+				<h2>Recent Research</h2>
+				<a href="/research">View all research →</a>
+			</div>
+			{recentEntries.length > 0 ? (
+				<ul class="research-feed">
+					{recentEntries.map((entry) => (
+						<Card href={canonicalPath(entry)}>
+							<Badge variant="pillar" category={entry.data.category}>
+								{categoryLabel(entry.data.category)}
+							</Badge>
+							<h3>{entry.data.title}</h3>
+							<p>{entry.data.excerpt}</p>
+							<span class="meta">
+								<FormattedDate date={entry.data.pubDate} />
+							</span>
+						</Card>
+					))}
+				</ul>
+			) : (
+				<p class="empty">No research published yet — check back soon.</p>
+			)}
+		</section>
+	)
+}
 
 <style>
 	.recent-research {
@@ -81,6 +119,51 @@ const recentEntries = (await getCollection('research'))
 	}
 	.research-feed p {
 		margin: 0 0 0.6em;
+		font-size: 0.95em;
+		color: var(--text-primary);
+	}
+	/* Homepage feed (variant="feed", T21.0): single column, divider rows, no card chrome. */
+	.recent-feed {
+		max-width: var(--content-width-prose);
+		margin: 0 auto var(--space-6);
+	}
+	.recent-feed h2 {
+		margin: 0 0 var(--space-4);
+	}
+	.feed-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.feed-item {
+		padding: var(--space-5) 0;
+		border-top: 1px solid var(--border);
+	}
+	.feed-item:last-child {
+		border-bottom: 1px solid var(--border);
+	}
+	.feed-meta {
+		margin: 0 0 var(--space-2);
+	}
+	.feed-item h3 {
+		margin: 0 0 var(--space-2);
+		font-size: 1.15em;
+	}
+	.feed-item h3 a {
+		color: var(--text-primary);
+		text-decoration: none;
+	}
+	.feed-item h3 a:hover {
+		color: var(--accent);
+		text-decoration: underline;
+	}
+	.feed-item h3 a:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+		border-radius: var(--radius-sm);
+	}
+	.feed-excerpt {
+		margin: 0;
 		font-size: 0.95em;
 		color: var(--text-primary);
 	}
