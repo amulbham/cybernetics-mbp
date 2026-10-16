@@ -38,15 +38,21 @@ export function populatedCategories(contentDir) {
 }
 
 /**
- * Sitemap membership for a built page URL. Excluded: internal search, the 404
- * page, and any `/research/{segment}/` landing page with no entries (today
- * `ai-systems`, and the route-only `memos`) — those render an empty state and
- * are `noindex` on the page itself until an entry exists.
+ * Pages that must stay `noindex` and out of the sitemap even when the site is
+ * open: internal search, the 404 page, every tag page (launch policy, T22.0 —
+ * navigable, not indexed), and any `/research/{segment}/` landing page with no
+ * entries (today `ai-systems`, and the route-only `memos`), which renders an
+ * empty state until an entry exists. Each such page sets `noindex` itself;
+ * `scripts/validate-indexing.mjs` checks the built HTML against this rule.
  */
-export function inSitemap(pageUrl, populated) {
-	const { pathname } = new URL(pageUrl);
-	if (pathname === '/search/' || pathname === '/404/' || pathname === '/404') return false;
+export function staysOut(pathname, populated) {
+	if (pathname === '/search/' || pathname === '/404/' || pathname === '/404') return true;
+	if (pathname.startsWith('/tags/')) return true;
 	const landing = /^\/research\/([a-z0-9-]+)\/$/.exec(pathname);
-	if (landing && !populated.has(landing[1])) return false;
-	return true;
+	return !!landing && !populated.has(landing[1]);
+}
+
+/** Sitemap membership for a built page URL: everything that does not stay out. */
+export function inSitemap(pageUrl, populated) {
+	return !staysOut(new URL(pageUrl).pathname, populated);
 }

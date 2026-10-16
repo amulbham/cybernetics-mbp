@@ -4,8 +4,9 @@
 // Reads built dist/ and checks that the page-level robots meta, robots.txt and
 // the sitemap all agree with the one switch (SITE_INDEXING, src/lib/indexing.mjs):
 //   closed (default): every page `noindex, nofollow`; robots.txt `Disallow: /`.
-//   open:             only the pages that must stay out (404, search, empty landing pages)
-//                     are noindex; robots.txt allows crawling and names the sitemap; the
+//   open:             only the pages that must stay out
+//                     (404, search, tag pages, empty landing pages) are noindex;
+//                     robots.txt allows crawling and names the sitemap; the
 //                     sitemap lists every indexable page and nothing noindex.
 // Either way `dist/_headers` must still carry the *.pages.dev X-Robots-Tag rules.
 // It checks consistency, not intent — the intent (open only on production) lives in the
@@ -13,7 +14,7 @@
 
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-import { indexingOpen, populatedCategories } from '../src/lib/indexing.mjs';
+import { indexingOpen, populatedCategories, staysOut } from '../src/lib/indexing.mjs';
 
 const DIST = process.argv[2] ?? 'dist';
 const open = indexingOpen();
@@ -43,11 +44,7 @@ const robotsMeta = (html) => (/<meta name="robots" content="([^"]*)"/.exec(html)
 const isNoindex = (html) => /noindex/.test(robotsMeta(html));
 
 const populated = populatedCategories(join(DIST, '..', 'src', 'content', 'research'));
-const mustStayOut = (route) => {
-	if (route === '/404' || route === '/404/' || route === '/search/') return true;
-	const landing = /^\/research\/([a-z0-9-]+)\/$/.exec(route);
-	return !!landing && !populated.has(landing[1]);
-};
+const mustStayOut = (route) => staysOut(route, populated);
 
 for (const file of pages) {
 	const route = routeOf(file);
