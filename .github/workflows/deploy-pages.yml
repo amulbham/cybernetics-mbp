@@ -68,6 +68,32 @@ jobs:
         # the same lazy-download behavior confirmed locally.
         run: npm run build:pdfs
 
+      - name: Carry over the live scholarly PDFs (opt-in, main only)
+        # T22.0 — Vivliostyle PDFs are not byte-reproducible, so any redeploy
+        # changes every PDF's bytes. The PDF deposited on Zenodo must be the
+        # exact bytes the site serves, so a redeploy that must NOT change the
+        # PDFs (the production indexing step) replaces each freshly typeset
+        # PDF with the one the live site already serves. Runs only for `main`
+        # and only while the repository variable PDF_CARRY_OVER is "true".
+        # Fail-closed: a missing/unreadable live PDF fails the run before
+        # anything is deployed; validate:pdfs below still gates the result.
+        # Turn the variable off again before any content change.
+        if: github.ref_name == 'main' && vars.PDF_CARRY_OVER == 'true'
+        env:
+          LIVE_BASE: ${{ vars.PDF_CARRY_OVER_BASE || 'https://amulbham.com' }}
+        run: |
+          set -euo pipefail
+          count=0
+          while IFS= read -r f; do
+            rel="${f#dist/}"
+            curl -fsS --retry 3 -o "$f.live" "$LIVE_BASE/$rel"
+            head -c 5 "$f.live" | grep -q '%PDF-'
+            mv "$f.live" "$f"
+            count=$((count + 1))
+            echo "carried over $rel"
+          done < <(find dist -name '*.pdf' | sort)
+          test "$count" -ge 1
+
       - name: Validate Scholar/PDF identity
         # Sprint 8.6 — the fail-closed gate: a paper's citation_pdf_url /
         # MediaObject.contentUrl / Download href / JSON-LD article URL all
