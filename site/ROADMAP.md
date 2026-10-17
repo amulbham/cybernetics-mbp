@@ -13,12 +13,12 @@ Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Oper
 - **T22.0 S0–S4:** product-only production promotion, Zenodo Desk artifact correction and production indexing activation. `origin/main @ 384f0349`; GitHub Actions workflow #118 succeeded on 2026-10-16. No wholesale staging merge. The Desk DOI is `10.5281/zenodo.23328158`; the exact production Desk PDF was reported SHA-identical to its Zenodo deposit.
 - **Discovery:** production `robots.txt` advertises `https://amulbham.com/sitemap-index.xml` and allows crawling. The sitemap has **13 intended canonical URLs**. Search, 404, empty AI Systems and memos, and all 41 tag listings remain `noindex`; staging and preview remain blocked. Search engine indexing and Google Scholar inclusion **are not guaranteed or confirmed** by an indexable site.
 - **PDF identity:** all five approved PDF hashes live in the `PDF_MANIFEST` repo variable; `PDF_CARRY_OVER=true` must remain on for routine production deploys. The PDF guard prevents unapproved regeneration. See `HANDOFF.md` and `AGENTS.md`.
-- **Remaining T22.0 gates:** S5 Search Console Domain verification/sitemap submission is **not yet confirmed by owner**; S6 docs/evidence closure remains separately gated. Every documentation push to `main` redeploys and requires subsequent production + SHA verification.
+- **Remaining T22.0 gates:** S5 Search Console setup/submission was **confirmed complete by the Product Authority on 2026-10-16** (private Search Console state not independently viewed here). S6 docs/evidence closure remains separately gated. Every documentation push to `main` redeploys and requires subsequent production + SHA verification.
 
 ### Immediate next work
 
-1. Confirm Search Console ownership, submit the sitemap index, and record URL Inspection outcomes; no need to wait for Google Scholar inclusion.
-2. Complete T22.0 S6 as a bounded docs closure after approval, keeping PDF carry-over and current indexing state, then verify post-deploy.
+1. Complete T22.0 S6 as a bounded docs/evidence closure after approval, keeping PDF carry-over and current indexing state, then verify post-deploy.
+2. Follow Search Console indexing and sitemap processing over time, logging concrete errors or discoveries if they appear; S5 setup/submission is owner-reported done and need not be repeated.
 3. Resume About-page simplification and editorial corpus work **after** closure. Preserve original research manuscripts and historic closed tickets.
 4. Investigate historical Invariants DOI-file mismatch if version parity becomes important; screen-reader verification and `FormattedDate` local-time formatting are known non-launch-blocking follow-ups.
 

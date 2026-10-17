@@ -29,7 +29,7 @@ Manage with `astro dev stop`, `astro dev status`, `astro dev logs`. Search (`/se
 
 ## Indexing state — READ BEFORE TOUCHING
 
-**Current production status (2026-10-16): indexing OPEN following T22.0 S4** (run #118 on `main @ 384f034`); the 13-URL sitemap is advertised. S5 Search Console submission not yet confirmed, S6 closure pending; check live state before further changes. Staging remains CLOSED.
+**Current production status (2026-10-16): indexing OPEN following T22.0 S4** (run #118 on `main @ 384f034`); the 13-URL sitemap is advertised. S5 Search Console setup owner-confirmed complete (2026-10-16; private status not independently inspected), S6 closure pending; check live state before further changes. Staging remains CLOSED.
 
 Indexing is **fail-closed and controlled by one switch** (T22.0): a build is indexable only when the build environment sets `SITE_INDEXING=open` (`src/lib/indexing.mjs`). Anything else — unset, any other value, every `staging` build, previews and manual runs from another ref — is closed: `noindex, nofollow` on every page and `robots.txt` = `User-agent: *` / `Disallow: /`.
 
