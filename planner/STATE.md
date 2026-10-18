@@ -1,36 +1,39 @@
 # Planner state — research website
 
 Snapshot updated: 2026-10-18.
-State: ACTIVE — T22.0 S6 documentation candidate prepared; release not authorized/executed.
-Primary intent: finish S6 administrative/evidence closure, then address the Chisel manuscript/IWL revision.
+State: T22.0 S6 ACCEPTED WITH RECORDED FOLLOW-UPS; launch closure recorded. Chisel intake next.
+Primary intent: compare the latest canonical Chisel manuscript and companion IWL with their published sources, then bound the revision/publication flow.
 
-## Decision and authority state
+## Authority and decisions
 
-- **APPROVED:** repo-backed Planner Workspace v1; routine approved checkpoints belong on non-deploying `planner/context`; canonical documents receive only selected verified/accepted conclusions.
-- **APPROVED, 2026-10-18:** Product Authority approved preparation of one combined S6 documentation candidate after the Planner boot/status review. Production push/deployment remains a separate approval gate.
-- **APPROVED sequencing:** after S6, update Chisel's article and companion IWL from the Product Authority's latest canonical versions, using that case to establish a reusable article-revision flow. About simplification follows Chisel.
-- **APPROVED historical exception:** two outside R3 pre-seal reviews waived for T22.0 only. Technical release gates were not waived; do not generalize the exception.
-- **NOT AUTHORIZED by this preparation:** production push/deploy, Actions-variable change, Chisel manuscript/IWL implementation, new DOI publication or overwriting published PDF bytes.
+- **APPROVED:** repo-backed Planner workspace; approved working notes on non-deploying `planner/context`; promote only verified/accepted conclusions into canonical paths through scoped release work.
+- **RELEASE EXECUTED:** Product Authority's conditional S6 go was given to Claude Code; the Executor promoted `5bf8518` and returned the After-S6 report. Product Authority requested moving to the next work after that report.
+- **PLANNER ACCEPTANCE, 2026-10-18:** S6 accepted with the recorded verification limitations. No further production deployment is required solely to stamp CLOSED. Final R3 report is appended to the canonical ticket path on this branch; its later promotion to main belongs with an authorized release.
+- **APPROVED sequencing:** Chisel canonical article plus IWL update and an evidence-earned reusable revision flow, then About simplification.
+- **Historical exception:** T22.0 alone had two outside R3 pre-seal reviews waived. Preserve that record; it does not authorize later exceptions.
+- No new manuscript/IWL implementation, DOI publication, variable/workflow change or production deployment is authorized by this intake.
 
-## Confirmed repository state at the preparation base
+## Verified state and evidence limits
 
-- `main = 384f0349fb313733c4feb27e17a8e5caf3580696`; `staging = b26267cfa619dd0ccbd63e4b39a7512b0d13521e`; `planner/context` and draft PR #1's source branch were both `72a2f8f902f6c0701588a2abad664a1f5964fb86`. Remote heads rechecked 2026-10-18; these are base snapshots, not a claim that this note's own future commit has that SHA.
-- **VERIFIED (GitHub):** latest production run #118 / `38982151022` on `384f034` succeeded, including guard, carry-over, validation, upload and post-deploy PDF verification. Production source contains 5 papers + 1 essay.
-- **REPORTED, not freshly reproduced:** S4 open-indexing matrix, 13 intended sitemap URLs, 23 redirects, and Desk/Zenodo byte parity. Production robots/sitemap requests from the Planner environment returned unusable "Site Unavailable" HTML; no live outage or fresh deployed-matrix result is inferred.
-- **S5:** owner-confirmed Search Console setup complete on 2026-10-16. Private dashboard, actual Google crawling/indexing and Scholar inclusion remain UNVERIFIED.
-- **S6:** local combined candidate `abb26e3ec04dc4f98b475dbc2d105a5aa5e4ffd3` prepared on `planner/t22-s6-closure` against `main @ 384f034`; PR #1 is still open/draft at the same source head; its stale description was corrected through GitHub. Selected staging ticket/evidence records are included, with historical text preserved and later release addenda. No candidate production push/deployment has occurred.
+- `main = 5bf8518f7cbba16a7a8a950b2abac2a42c3502a6`; `staging = b26267cfa619dd0ccbd63e4b39a7512b0d13521e`; Planner note base `72d8828d6c597bafeff3a049057c4683456c1da9`. Rechecked 2026-10-18; these are base snapshots, not this note's own commit SHA.
+- **VERIFIED:** main's tree `622e58be04b1ea1fc073e315c53d02810f95c1e7` exactly equals reviewed candidate `abb26e3`; main advanced from `384f034` with the exact 17-file docs-only diff.
+- **VERIFIED (GitHub):** production #119 / `39165606863` succeeded on `5bf8518`; all 14 job steps successful, including guard, carry-over, PDF validation, deploy and post-deploy PDF verify.
+- **EXECUTOR-REPORTED:** full direct After-S6 matrix passed: 23 redirects; five approved PDF hashes; Desk/Zenodo parity; six entries/IWL/OG/RSS/homepage; open intended production indexing, 13 sitemap URLs, exclusions and preview-host protections. The Planner did not independently repeat those live requests.
+- Cloudflare deployment ID and private `PDF_RELEASE` unset state were not read. SHA-linked workflow, changed About build stamp and the live matrix support deployment correspondence. Carry-over ran and all hashes were preserved; do not claim private settings were independently inspected. Confirm normal `PDF_RELEASE` state in the next authorized release preflight.
+- **S5:** owner-confirmed Search Console setup complete; Google processing/crawling and Scholar inclusion remain UNVERIFIED external outcomes.
+- **PR #1:** closed without merge as superseded by the combined S6 release; branch and history retained. No second production push was made.
 
-## Next action and release boundary
+## Chisel intake and next action
 
-1. Review the S6 candidate: PR #1 content, selected T20/T21/T22 records, narrow AGENTS/PUBLISHING/ROADMAP/CHANGELOG reconciliation and `site/planning/audits/T22.0-public-mvp-launch-evidence.md`. Do not wholesale merge staging or Planner history.
-2. Give Claude Code the reviewed candidate. PR #1's body now correctly records S5 and the three-commit/eight-file initial draft; update it again to the final scope when updating/superseding that draft. Obtain explicit production release approval before pushing main.
-3. Preserve `SITE_INDEXING=open`, `PDF_CARRY_OVER=true`, the approved exact five-entry `PDF_MANIFEST`, and normally unset `PDF_RELEASE`. Check current settings without changing them. On authorized deployment, verify the full ticket's After S6 matrix and all five PDF hashes. Only then accept/mark S6 CLOSED and append the final R3 report (maximum 100 lines).
-4. **Chisel next:** identify exact latest canonical manuscript/IWL sources, compare with published sources, and decide article/PDF/DOI/version and paired-IWL release implications. The canonical versions and reusable workflow are not yet established; no implementation ticket is pre-created.
-5. About simplification follows Chisel. Treat Search Console/Scholar discovery monitoring, the historical Invariants DOI mismatch, date-format and AT follow-ups separately.
+1. Obtain the Product Authority's exact canonical manuscript MD and companion IWL MD. No latest-version source has been inspected yet; do not substitute a guessed Library version.
+2. Published source baseline: Chisel is a Knowledge Work paper dated 2026-09-22, no DOI authored in current frontmatter; its IWL is published v2 and identifies manuscript v6. The current PDF is protected by the launch manifest. External deposit/version status is not inferred from absent DOI frontmatter.
+3. Compare content, title/identity, citations, frontmatter, original/modified dates, reader components, companion linkage and version history. Determine PDF/DOI/version implications and preservation of the other four approved PDFs before implementation.
+4. Derive the reusable revision checklist from this real delta; preserve OPAQUE V1 and avoid an automatic versioning system or pre-created downstream tickets. About follows Chisel.
+5. Promote the accepted S6 final report/addendum into main with the next appropriate approved docs/product release; do not deploy solely to flip state. Further release work still needs its normal seal and authorization.
 
 ## Pointers
 
-- `planner/checkpoints/2026-10-18-s6-preparation-and-chisel-next.md`: current approval, provenance, candidate and handoff limits.
-- `planner/checkpoints/2026-10-18-public-launch-continuity.md`: earlier launch context; preserve unchanged.
-- `HANDOFF.md`, `planner/README.md`, canonical `site/PLANNING.md` and `site/AGENTS.md` retain their separate authority.
-- GitHub: [PR #1](https://github.com/amulbham/cybernetics-mbp/pull/1), [production #118](https://github.com/amulbham/cybernetics-mbp/actions/runs/38982151022).
+- `planner/checkpoints/2026-10-18-s6-accepted-chisel-intake.md`: closure review, evidence provenance and queued canonical promotion.
+- `site/planning/tickets/T22.0-public-mvp-launch.md` on this branch: preserved original contract plus accepted R3 completion report.
+- `site/planning/audits/T22.0-public-mvp-launch-evidence.md` on main: earlier preparation evidence and exact release matrix pointer.
+- [Run #119](https://github.com/amulbham/cybernetics-mbp/actions/runs/39165606863); [closed PR #1](https://github.com/amulbham/cybernetics-mbp/pull/1).
