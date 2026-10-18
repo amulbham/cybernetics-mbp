@@ -10,6 +10,10 @@
 // representation: generated mobile records are excluded), exactly three
 // `responsive-records` opt-ins whose generated records mirror the canonical
 // table, no duplicate ids, Pagefind ignore, and that no other page was opted in.
+// T23.0.1 extends the allow-list to exactly two further pages — the Chisel article
+// (2 opted + 2 plain tables) and its IWL (13 opted + 2 plain) — with pinned counts and
+// the same record/label/cell, id, wrapper and Pagefind checks; every other research
+// page must still carry zero opt-ins and only original wrappers.
 // It never imports a production serializer — expectations are pinned here.
 // Exit 1 on any failed check. Does not change shared validators.
 
@@ -169,6 +173,86 @@ const blocks = [...css.replace(/\n/g, '').matchAll(/@media screen and \((?:max-w
 const revealing = blocks.filter((b) => /responsive-records\] \.table-records\{display:block/.test(b));
 ok(revealing.length === 1 && /responsive-records\] table\{display:none/.test(revealing[0]), 'CSS: the block that reveals the records also hides the table (never both)');
 
+// ---- T23.0.1: the two further allowed opt-in pages (pinned) ---------------------
+console.log('== Chisel opt-ins (T23.0.1)');
+const CHISEL = 'the-chisel-fallacy-what-pangram-actually-measures';
+const CHISEL_PAGES = [
+	{ label: 'Chisel article', rel: `research/knowledge-work/${CHISEL}/index.html`, opted: 2, plain: 2, frag: (u) => u.includes(CHISEL) && !u.includes('/iwl') && !u.includes('.pdf') },
+	{ label: 'Chisel IWL', rel: `research/knowledge-work/${CHISEL}/iwl/index.html`, opted: 13, plain: 2, frag: (u) => u.includes(CHISEL) && u.includes('/iwl') },
+];
+const allowedRel = new Set(CHISEL_PAGES.map((p) => p.rel));
+const chiselBodies = {};
+for (const page of CHISEL_PAGES) {
+	const file = join(DIST, page.rel);
+	if (!existsSync(file)) { ok(false, `${page.label}: built page exists`, file); continue; }
+	const d = parse(readFileSync(file, 'utf8'));
+	const els = [];
+	(function walk(n, anc) {
+		if (n.nodeName && !n.nodeName.startsWith('#')) els.push({ n, anc });
+		for (const c of n.childNodes || []) walk(c, n.nodeName && !n.nodeName.startsWith('#') ? [...anc, n] : anc);
+	})(d, []);
+	const qq = (pred) => els.filter(({ n, anc }) => pred(n, anc));
+	const conts = qq((n) => cls(n).includes('table-container')).map(({ n }) => n);
+	const opt = conts.filter((n) => attr(n, 'data-table-layout') === 'responsive-records');
+	const plain = conts.filter((n) => attr(n, 'data-table-layout') === undefined);
+	ok(conts.length === page.opted + page.plain && opt.length === page.opted && plain.length === page.plain, `${page.label}: ${page.opted} responsive-records + ${page.plain} original-wrapper containers`, `${opt.length}/${plain.length}/${conts.length}`);
+	ok(qq((n) => attr(n, 'data-table-layout') !== undefined).length === page.opted, `${page.label}: no stray data-table-layout attribute`);
+	ok(plain.every((n) => attr(n, 'tabindex') === '0' && (n.childNodes || []).filter((c) => c.nodeName === 'table').length === 1), `${page.label}: unmarked tables keep the original scroll wrapper`);
+	const pids = qq((n) => attr(n, 'id') !== undefined).map(({ n }) => attr(n, 'id'));
+	ok(pids.filter((v, i) => pids.indexOf(v) !== i).length === 0, `${page.label}: no duplicate id attributes`);
+	let shapeBad = 0, labelBad = 0, cellsT = 0, cellsR = 0, tabStops = 0, noIgnore = 0, recIds = 0, nested = 0, dupHeads = 0;
+	const bodies = [];
+	for (const n of opt) {
+		const tables = (n.childNodes || []).filter((c) => c.nodeName === 'table');
+		const lists = (n.childNodes || []).filter((c) => c.nodeName === 'ul' && cls(c).includes('table-records'));
+		if (tables.length !== 1 || lists.length !== 1) { shapeBad++; continue; }
+		if (attr(n, 'tabindex') !== undefined) tabStops++;
+		if (attr(lists[0], 'data-pagefind-ignore') === undefined) noIgnore++;
+		const flat = [];
+		(function walk(x) { for (const c of x.childNodes || []) { if (c.nodeName === 'tr') flat.push(c); else walk(c); } })(tables[0]);
+		const heads = flat[0].childNodes.filter((c) => c.nodeName === 'th').map((c) => norm(text(c)));
+		const body = flat.slice(1).map((r) => r.childNodes.filter((c) => c.nodeName === 'td').map((c) => norm(text(c))));
+		bodies.push(body);
+		if (new Set(heads.map((h) => h.toLowerCase())).size !== heads.length || heads.some((h) => !h)) dupHeads++;
+		const recs = lists[0].childNodes.filter((c) => c.nodeName === 'li');
+		if (recs.length !== body.length) labelBad++;
+		recs.forEach((rec, r) => {
+			const dl = rec.childNodes.find((c) => c.nodeName === 'dl');
+			const dts = dl.childNodes.filter((c) => c.nodeName === 'dt').map((c) => norm(text(c)));
+			const dds = dl.childNodes.filter((c) => c.nodeName === 'dd').map((c) => norm(text(c)));
+			cellsT += (body[r] || []).length; cellsR += dds.length;
+			if (JSON.stringify(dts) !== JSON.stringify(heads) || JSON.stringify(dds) !== JSON.stringify(body[r])) labelBad++;
+		});
+		const within = (x) => { let c = 0; (function w(y) { for (const k of y.childNodes || []) { if (k.nodeName && !k.nodeName.startsWith('#')) { if (attr(k, 'id') !== undefined) recIds++; if (k.nodeName === 'table') nested++; } w(k); } })(x); return c; };
+		within(lists[0]);
+	}
+	ok(shapeBad === 0, `${page.label}: each opted container holds one canonical table and one generated record list`, `${shapeBad} bad`);
+	ok(tabStops === 0, `${page.label}: opted wrappers are not sideways-scroll tab stops`);
+	ok(noIgnore === 0, `${page.label}: generated records are data-pagefind-ignore`);
+	ok(labelBad === 0 && cellsT === cellsR && cellsT > 0, `${page.label}: every record label equals its column header and every value its cell`, `${cellsR}/${cellsT} cells, ${labelBad} mismatched`);
+	ok(dupHeads === 0, `${page.label}: column headers unique and non-empty`);
+	ok(recIds === 0 && nested === 0, `${page.label}: generated records contain no id and no nested table`);
+	chiselBodies[page.rel] = bodies;
+	// Pagefind: the authored table is indexed once; generated records are not.
+	const fragDir = join(DIST, 'pagefind', 'fragment');
+	if (existsSync(fragDir)) {
+		let found = null;
+		for (const fn of readdirSync(fragDir)) {
+			try {
+				const raw = gunzipSync(readFileSync(join(fragDir, fn))).toString('utf8');
+				const json = JSON.parse(raw.slice(raw.indexOf('{')));
+				if (page.frag(json.url || '')) { found = json; break; }
+			} catch { /* not a fragment we can read */ }
+		}
+		if (found) {
+			const c = norm(found.content || '');
+			const longest = bodies.flatMap((b) => b.map((row) => row.reduce((a, x) => (x.length > a.length ? x : a), '')));
+			const notOnce = longest.filter((cell) => cell.length > 0 && count(c, cell) !== 1);
+			ok(longest.length > 0 && notOnce.length === 0, `${page.label}: Pagefind indexes the longest cell of every opted row exactly once`, `${longest.length} rows, ${notOnce.length} not once`);
+		} else ok(false, `${page.label}: Pagefind fragment found`);
+	} else console.log(`SKIP  ${page.label}: Pagefind fragment directory not present`);
+}
+
 console.log('== Site-wide');
 const research = join(DIST, 'research');
 let otherOpt = 0, otherTables = 0, otherPlain = 0;
@@ -176,7 +260,7 @@ let otherOpt = 0, otherTables = 0, otherPlain = 0;
 	for (const e of readdirSync(d, { withFileTypes: true })) {
 		const p = join(d, e.name);
 		if (e.isDirectory()) walk(p);
-		else if (e.name === 'index.html' && !p.replace(/\\/g, '/').includes(`/${DESK}/`)) {
+		else if (e.name === 'index.html' && !p.replace(/\\/g, '/').includes(`/${DESK}/`) && ![...allowedRel].some((r) => p.replace(/\\/g, '/').endsWith(`/${r}`))) {
 			const h = readFileSync(p, 'utf8');
 			otherOpt += (h.match(/data-table-layout/g) || []).length;
 			otherTables += (h.match(/<table/g) || []).length;
@@ -184,7 +268,7 @@ let otherOpt = 0, otherTables = 0, otherPlain = 0;
 		}
 	}
 })(research);
-ok(otherOpt === 0, 'no other research page carries a responsive-records container', String(otherOpt));
+ok(otherOpt === 0, 'no other research page carries a responsive-records container (Desk and the two Chisel pages are checked above with pinned counts)', String(otherOpt));
 ok(otherPlain === otherTables, 'every other table keeps the original wrapper', `${otherPlain}/${otherTables}`);
 
 // Pagefind: the authored table is indexed once; generated records are not.
