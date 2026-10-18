@@ -1,6 +1,12 @@
-# Project handoff — research website (2026-10-16)
+# Project handoff — research website (refreshed 2026-10-18)
 
 **Purpose:** durable, repo-backed context for a fresh Planner or Executor session. Read this first, then inspect the *current* remote heads, `site/ROADMAP.md`, `site/AGENTS.md`, `site/PLANNING.md`, and the relevant source/ticket. This is a point-in-time snapshot, not authority over later commits or deployed evidence.
+
+## Fresh-session boot (Planner Workspace v1, approved 2026-10-18)
+- **Latest working context:** read [`planner/STATE.md` on the non-deploying `planner/context` branch](https://github.com/amulbham/cybernetics-mbp/blob/planner/context/planner/STATE.md), then [`planner/README.md`](planner/README.md) and the most recent relevant checkpoint. The `planner/context` branch may be newer than this snapshot.
+- **Authority split:** this HANDOFF supplies orientation, `planner/` holds provisional working notes, and `site/PLANNING.md` plus code/canonical docs own approved rules and release procedures. Never treat a checkpoint as a sealed ticket or a successful deployment.
+- **Transition:** fresh chats handle active website planning; the previous long chat is for consulting. Boot by checking current GitHub branches, actions and open PRs. The initial workspace lives in [draft PR #1](https://github.com/amulbham/cybernetics-mbp/pull/1) until approved T22.0 S6 promotion to `main`; do not interpret the PR as merged or production verified.
+- **No automatic deploy:** `planner/context` receives routine checkpoints. A `main` or `staging` push deploys the website and requires explicit authorization and verification.
 
 ## Roles and operating model
 - **Product Authority:** the site owner; decides editorial content, publication, indexing, scope, production gates and review exceptions.
@@ -14,7 +20,7 @@
 - **T22.0 S0–S4:** production content deployment, Zenodo Desk PDF byte-parity correction, and production-only indexing activation reported verified. Six research entries (five `paper`, one `essay`), five scholarly PDFs, one published Chisel IWL companion, 23 redirects (22 frozen T19.0 + Desk legacy `paper.pdf`).
 - **Indexing as reported after S4:** production `robots.txt` = `Allow: /` with `Sitemap: https://amulbham.com/sitemap-index.xml`; sitemap index references `sitemap-0.xml` (13 canonical URLs: home, About, research hub, three populated categories, six research entries, Chisel IWL). Public article pages `index, follow`. Search, 404, empty `ai-systems`/memos and 41 tag pages remain `noindex, nofollow` and outside sitemap. `pages.dev` preview/staging receives `X-Robots-Tag: noindex, nofollow`; production host does not. This host-level matrix is from Executor deployed checks; reverify after subsequent deployments.
 - **S5 Google Search Console:** **Product Authority confirmed on 2026-10-16 that Search Console setup was finished** after the S4 indexing-open deployment. Treat S5 as owner-reported complete; this chat does not have access to the private Search Console dashboard, the submitted-sitemap status, or any URL Inspection details. Google crawling/indexing and Google Scholar inclusion remain pending external processes, not evidence of a site problem.
-- **S6 documentation closure:** not yet performed as of this snapshot. This handoff/README/roadmap change is **a proposed documentation branch, not T22.0 closure or authorization to push production**.
+- **S6 documentation closure:** still pending as of the 2026-10-18 GitHub check. The handoff/README/roadmap/Planner Workspace additions are **a proposed documentation branch, not T22.0 closure or authorization to push production**.
 
 ## Scholar publication integrity
 - Desk DOI: `10.5281/zenodo.23328158`; public Zenodo deposit has PDF SHA-256 `268d16c0f29d6ba4c0e8299ff30a816fe44d62591206e434ae277d080b40cfd9`, 425,531 bytes, 37 pages. The production PDF at `/research/knowledge-work/the-desk-is-where-you-write-it-down/the-desk-is-where-you-write-it-down.pdf` was reported downloaded and **byte-identical** after correction.
@@ -37,11 +43,11 @@
 7. S4 was explicitly approved and manually deployed via Actions workflow #118 at the same `384f034` commit; production indexing-opening matrix reported passed. **S5 Search Console setup was subsequently confirmed complete by the Product Authority on 2026-10-16. S6 closure is still separate and unperformed.**
 
 ## Next actions for a new chat
-1. Fetch current `origin/main`/`origin/staging`, most recent GitHub Actions deployments, and this HANDOFF before issuing new instructions.
+1. Read `planner/STATE.md` from `planner/context` and this HANDOFF, then fetch current `origin/main`/`origin/staging`, most recent GitHub Actions deployments and open PRs before issuing new instructions.
 2. Treat S5 as **owner-reported complete**, not independently inspected. If needed, request a Search Console screenshot/export for submitted-sitemap status and any URL Inspection errors; do not redo ownership verification or sitemap submission by default. Monitor future crawl/indexing and Google Scholar discovery separately.
 3. Finish **T22.0 S6** docs/evidence closure *after* Product Authority acceptance; any `main` push triggers full deploy, so maintain `PDF_CARRY_OVER=true` and `PDF_MANIFEST`, then re-verify all five PDF hashes, robots/sitemap, and production. Do not treat this handoff branch as S6 itself.
 4. Then return to the editorial **About simplification**, remaining corpus work, and low-priority polish. No need to relaunch or change indexing to redesign About.
-5. Record live discoveries in `site/CHANGELOG.md`, active items in `site/ROADMAP.md`, and update this file after significant release transitions. Do not rewrite sealed history.
+5. Save approved context checkpoints on `planner/context`; promote verified decisions to `site/CHANGELOG.md` (history), `site/ROADMAP.md` (active work), and other canonical locations as appropriate. Refresh this handoff at significant release boundaries, not every turn. Do not rewrite sealed history.
 
 ## Source of truth / useful commands
 - `site/AGENTS.md`: repo implementation, deployment and indexing rules; `site/PUBLISHING.md`: research publication semantics; `site/PLANNING.md`: roles, risk gates, seal rules; `site/ROADMAP.md`: pending work; `site/CHANGELOG.md`: historical shipped record.

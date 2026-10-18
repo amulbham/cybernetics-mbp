@@ -1,6 +1,6 @@
 # cybernetics-mbp
 
-Personal research hub for Amul Bham (amulbham.com) — Astro 7, static output, deployed on Cloudflare Pages. This file auto-loads every session. **At the start of new work, read root `HANDOFF.md` for current release state, `ROADMAP.md` for pending items and `CHANGELOG.md` for recent history** — both are real files in this repo, not auto-loaded, so they have to be opened deliberately. **For what a research page *is* — frontmatter, transforms, layout, grammar, presentation, all in one map — read `PUBLISHING.md`**, the publishing specification; this file (`AGENTS.md`) stays the pipeline/routing/deploy reference underneath it.
+Personal research hub for Amul Bham (amulbham.com) — Astro 7, static output, deployed on Cloudflare Pages. This file auto-loads every session. **At the start of new work, read root `HANDOFF.md` for release orientation, `planner/STATE.md` on branch `planner/context` for working Planner context, `ROADMAP.md` for pending items and `CHANGELOG.md` for recent history** — both are real files in this repo, not auto-loaded, so they have to be opened deliberately. **For what a research page *is* — frontmatter, transforms, layout, grammar, presentation, all in one map — read `PUBLISHING.md`**, the publishing specification; this file (`AGENTS.md`) stays the pipeline/routing/deploy reference underneath it.
 
 ## Planning and ticket execution
 

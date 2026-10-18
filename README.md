@@ -2,7 +2,12 @@
 
 Independent research publishing site for [Amul Bham](https://amulbham.com), built in Astro and deployed via GitHub Actions to Cloudflare Pages.
 
-**New session? Start with [HANDOFF.md](HANDOFF.md).** It captures the latest verified production state, launch decisions, outstanding gates, PDF hashes and the shortest context-recovery path.
+**New session? Start with [HANDOFF.md](HANDOFF.md)**, then [`planner/STATE.md` on the `planner/context` branch](https://github.com/amulbham/cybernetics-mbp/blob/planner/context/planner/STATE.md). The handoff explains launch state and pointers; Planner working-memory updates do not need production deployments.
+
+## Planner shared workspace
+- [`planner/README.md`](planner/README.md) — working-memory protocol, branch rules, checkpointing and promotion.
+- [`planner/checkpoints/`](planner/checkpoints/) — selected reasoning/decision snapshots, not implementation authority.
+- `planner/context` — non-deploying branch for the latest mutable Planner state and new checkpoints; always verify current `main` separately.
 
 ## Repository guide
 - [`site/AGENTS.md`](site/AGENTS.md) — implementation/deploy/indexing rules and canonical technical boundaries.
