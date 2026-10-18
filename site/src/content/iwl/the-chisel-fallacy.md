@@ -24,6 +24,8 @@ dateModified: 2026-10-18
 
 Compact record of the paper's macro development arc across nine drafts. Development Ledger entries document the individual intellectual events; this table shows what kind of development each version represented and whether it received external position 3 review.
 
+<!-- table-layout: responsive-records -->
+
 | Draft | Primary development | Character | Position 3? |
 | --- | --- | --- | --- |
 | v1 | First complete draft assembled; structure, sources, and cases in place; Vending Machine Assumption absent | Assembled but conceptually incomplete | Yes |
@@ -50,6 +52,8 @@ A qualification on reviewer independence: while these instances are different sy
 
 Meaningful intellectual developments that materially changed the artifact. Five entries carry Discovery Context notes — retrospective authorial commentary, non-verifying. Their evidentiary value depends on whether their specifics contact independent anchors that can be checked.
 
+<!-- table-layout: responsive-records -->
+
 | Phase | Event | What changed | Why it mattered |
 | --- | --- | --- | --- |
 | v1 phase | Chisel Fallacy location revised | Moved from inside Pangram's architecture to downstream inference from its score | The paper is stronger when Pangram may be entirely correct and the fallacy still holds; argument survives a hypothetically perfect detector |
@@ -63,11 +67,15 @@ Meaningful intellectual developments that materially changed the artifact. Five 
 
 > Discovery Context / Authorial Rationale — VMA coined:  This was the missing piece that made the paper click. Before naming this concept, the paper felt like it was circling something without being able to touch it. I have learned to recognize this feeling — when something is hard to even talk about because you are missing the words for it, that is the signal that a named concept is needed. The realization formed from watching how people criticize AI writing. Everyone uses AI differently. AI is a tool whose value is determined by the user. We all carry a different mental model of what AI-assisted work is doing. That needed to be named before the paper could explain why detection feels sufficient when it is not.
 
+<!-- table-layout: responsive-records -->
+
 | Phase | Event | What changed | Why it mattered |
 | --- | --- | --- | --- |
 | v3 phase | Mathematics sub-beat added | Historical floor migration traced through computation, symbolic manipulation, proof verification, AI discovery; Tao ICM 2026 as primary citation | Provided the longest documented floor migration history of any domain; grounded the structural argument in a century-long pattern |
 
 > Discovery Context / Authorial Rationale — Mathematics sub-beat added:  We hit a wall where adding more examples was not making the paper more convincing — quantity was diluting rather than strengthening. Creative domains like music raise contested authorship questions that distract from the core argument. The mathematics case arose organically. OpenAI released a claimed solution to Navier-Stokes in early September 2026, and I had been tracking the AI-in-mathematics conversation since August. The connection clicked: mathematics is the same abstraction the paper is making about writing, but happening at a different intellectual level. In math, what got delegated was the traversal of a long-standing problem — the syntax of proof. The real work was figuring out what it meant. There is also a practical dimension: the SEO part of my brain recognized this was an active topic. The mathematical connection is genuine and the distribution value is real — I do not think those are in tension.
+
+<!-- table-layout: responsive-records -->
 
 | Phase | Event | What changed | Why it mattered |
 | --- | --- | --- | --- |
@@ -75,6 +83,8 @@ Meaningful intellectual developments that materially changed the artifact. Five 
 | v5 phase | "Show your work" hook added | Introductory hook paragraph added to The Intellectual Work Ledger subheading | Gives the reader the core insight before the technical explanation; reader arrives at the architecture already understanding why such a system would be useful |
 
 > Discovery Context / Authorial Rationale — "Show your work" hook added:  On one of the final full read-throughs, I hit the IWL section and just felt the paper asking too much. The reader had already done real work to follow the argument, and here was another wall of text asking them to absorb a new concept. It felt like homework. I took a step back and asked where this concept comes from at its most basic level. What is the IWL, underneath all the architecture? It is show your work. The analogy injects the core insight into the reader's head before I go into the specifics, in a form they already understand and trust. Sometimes the right move is to go back to first principles, not forward into more complexity.
+
+<!-- table-layout: responsive-records -->
 
 | Phase | Event | What changed | Why it mattered |
 | --- | --- | --- | --- |
@@ -84,6 +94,8 @@ Meaningful intellectual developments that materially changed the artifact. Five 
 | v6 phase | Agency Gradient coined | Concept identified as upstream from VMA; named as the empirical fact that AI-assisted work spans a broad spectrum of retained human agency; identified as path to a future paper | Named the missing upstream variable; paper created the conceptual path to the next investigation |
 
 > Discovery Context / Authorial Rationale — Agency Gradient coined:  The core insight arrived after the paper was largely complete. AI is a fundamentally open-ended tool with no social agreement on what "using AI" means. Two people using the exact same model on the exact same task can produce outcomes that are almost incomparable: one is pulling a lever and hoping, the other is directing a complex argument with sustained intellectual judgment. I first named this "AI Variance" but that sounded like model stochasticity. Then "Agency Variance" — but variance is still statistical. "Agency Gradient" landed: it has directionality, describes the axis rather than just the range. This is probably a paper on its own. This paper created the path to that one.
+
+<!-- table-layout: responsive-records -->
 
 | Phase | Event | What changed | Why it mattered |
 | --- | --- | --- | --- |
@@ -99,6 +111,8 @@ Meaningful intellectual developments that materially changed the artifact. Five 
 
 What was rejected and why. Three entries carry Discovery Context notes.
 
+<!-- table-layout: responsive-records -->
+
 | Decision point | Rejected | Adopted | Reason |
 | --- | --- | --- | --- |
 | Chisel Fallacy location | Pangram itself commits the fallacy | Fallacy occurs in downstream inference from Pangram's score | The paper is stronger when Pangram can be entirely correct and the fallacy still exists; argument does not depend on the tool being wrong |
@@ -106,11 +120,15 @@ What was rejected and why. Three entries carry Discovery Context notes.
 
 > Discovery Context / Authorial Rationale — Section 2 anchor example:  I was trying to prove — or reconstruct in the reader's head — that a piece of work can have intellectual value regardless of who put the syntax together. The core observation I kept seeing: once something gets bucketed as AI-assisted, the work itself gets completely ignored. I had Bitcoin later in the paper as theoretical backing for the Fabrication Paradox. During a read-through, the connection formed. The raw thought was something like: we literally do not know who Satoshi is, yet Bitcoin's white paper and blockchain technology are foundational. Nobody disputes it. Nobody cares who Satoshi is. Coming out of that section I wanted the reader to understand that intellectual value and syntax production are two separate things.
 
+<!-- table-layout: responsive-records -->
+
 | Decision point | Rejected | Adopted | Reason |
 | --- | --- | --- | --- |
 | DA definition scope | "AI-assisted production in which the author delegates lower-level work" | Tool-agnostic: "any capable agent — human collaborator, AI model, or otherwise" | Sanderson is the paper's primary demonstration and does not involve AI; AI-specific definition excluded the most important example |
 
 > Discovery Context / Authorial Rationale — DA definition scope:  Throughout the earlier drafts, DA had been implied rather than clearly stated — a concept I was actively engaging in, but the definition had not caught up with what I actually meant. The definition clarification came from a simple pressure test. I looked at Sanderson and asked: does our current definition include what he is doing? The answer was no — "AI-assisted production" excluded him by definition. The concept was right but the words were wrong. Once that was clear, the definition wrote itself.
+
+<!-- table-layout: responsive-records -->
 
 | Decision point | Rejected | Adopted | Reason |
 | --- | --- | --- | --- |
@@ -122,6 +140,8 @@ What was rejected and why. Three entries carry Discovery Context notes.
 | Stankova claim | "Stankova was doing Directed Authorship" | "Stankova's disclosed use is consistent with Directed Authorship" | DA is a workflow definition; claiming it as a verdict makes the same inferential move the paper criticizes |
 
 > Discovery Context / Authorial Rationale — Stankova claim:  The Stankova case came from just reading the news. It worked because what happened was picture perfect: her article about students being underprepared was completely displaced by questions about her AI use. The softening — from "was doing Directed Authorship" to "consistent with Directed Authorship" — was a precision fix I had not caught myself. My position 3 methodology flagged it; I recognized immediately it was right. The paper cannot determine from outside what she was doing intellectually. The example still works without needing to settle what she was doing.
+
+<!-- table-layout: responsive-records -->
 
 | Decision point | Rejected | Adopted | Reason |
 | --- | --- | --- | --- |
@@ -184,6 +204,8 @@ Four subsections: core claims with epistemic status, novel concepts derivation r
 
 Epistemic status categories: Verified external fact · Externally supported premise · Internal inference · Established mechanism applied to new domain · Open hypothesis
 
+<!-- table-layout: responsive-records -->
+
 | Claim | Depends on | Source / Evidence | Verif. | Epistemic status |
 | --- | --- | --- | --- | --- |
 | Detection insufficient to settle intellectual contribution | Textual provenance ≠ intellectual contribution | PeerPrism SIGIR 2026 (10.1145/3805712.3808602); PNAS 2025 (10.1073/pnas.2422455122) | ✅ | Externally supported premise |
@@ -213,6 +235,8 @@ Epistemic status categories: Verified external fact · Externally supported prem
 
 The paper's own argument rendered as typed relational structure.
 
+<!-- table-layout: responsive-records -->
+
 | From | Relationship | To | Note |
 | --- | --- | --- | --- |
 | Agency Gradient (empirical fact) | COLLAPSES_TO → | Vending Machine Assumption | VMA treats the low-agency endpoint of the gradient as representative of the whole category |
@@ -231,6 +255,8 @@ The paper's own argument rendered as typed relational structure.
 ### 4D — Discourse Position Map
 
 Standard research program fixture. Maps each coined concept against existing and converging territory. Format adapted from the author's parallel work on the mathematics framework paper.
+
+<!-- table-layout: responsive-records -->
 
 | Concept | Existing / converging territory | What this paper does with it | Novelty position |
 | --- | --- | --- | --- |

@@ -13,12 +13,17 @@
 #           same manifest again.
 # guard   first step of every main deploy — fail-closed rule that keeps an ordinary deploy from
 #         replacing approved PDFs once a manifest exists (details at the guard block below).
-# The source is the production origin below; there is no override. The one exception is the
-# Desk bootstrap (T22.0 Amendment A): the Desk's published Zenodo deposit is the approved Desk
-# artifact, so if production's copy of exactly that one path does not already match the manifest,
-# `carry` fetches the pinned Zenodo file instead. The manifest hash still gates the result — bytes
-# from any source are accepted only if they match it — and no other path has an alternate source.
-# Once production serves the approved bytes, the Zenodo branch is never taken again.
+# The default source is the production origin below; there is no override. There are exactly two
+# alternate sources, each only for a path whose production copy does not already match the
+# manifest, and the manifest hash still gates every byte (bytes from any source are accepted only
+# if they match it):
+#   1. The Desk bootstrap (T22.0 Amendment A): the Desk's published Zenodo deposit is the approved
+#      Desk artifact, so for exactly that one path `carry` fetches the pinned Zenodo file. Once
+#      production serves the approved bytes, the Zenodo branch is never taken again.
+#   2. A frozen artifact for a revised paper (T23.0, described next): one hash-named file
+#      committed under site/release-pdfs/, at most one swap per run, and only when the committed
+#      release expectation also names it.
+# No other path has an alternate source.
 #
 # Revised papers (T23.0). A revised paper's PDF cannot come from production (production still
 # serves the old bytes), so `carry` may install ONE frozen, hash-named artifact per run from

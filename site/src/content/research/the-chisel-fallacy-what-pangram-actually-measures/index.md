@@ -289,6 +289,8 @@ A standard for intellectual provenance should apply to the paper that proposes i
 
 ### Development Ledger — Selected Entries
 
+<!-- table-layout: responsive-records -->
+
 | **Phase** | **Event** | **What changed** | **Why it mattered** |
 |----|----|----|----|
 | v2 phase | VMA coined — missing causal antecedent identified | v1 distinguished two workflows but could not explain why critics feel detection is sufficient; Vending Machine Assumption named the antecedent | Closed the logical gap; made the Chisel Fallacy structurally inevitable rather than arbitrary |
@@ -307,6 +309,8 @@ A standard for intellectual provenance should apply to the paper that proposes i
 > ***Fabricator:** Must explain why this concept arrived at v6 specifically — after the paper was considered structurally complete — rather than v1 or v3. Must account for the "future paper" observation, which requires knowing what the next investigation will be about. That information is not in the published paper.*
 
 ### Decision Record — Selected Entries
+
+<!-- table-layout: responsive-records -->
 
 | **Decision** | **Rejected** | **Adopted** | **Reason** |
 |----|----|----|----|

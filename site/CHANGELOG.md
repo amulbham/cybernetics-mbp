@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-18 — T23.0.1: Chisel tables use the responsive-records layout (staging; not on production)
+
+Sealed R1 corrective ticket T23.0.1 (lightweight treatment authorized by the Product Authority; no outside reviewer ran). The two four-column tables in the Chisel article and the 13 IWL tables of four or more columns now carry the existing `responsive-records` opt-in, so they read as labelled records below 1100 px and as tables above; table content is unchanged. `scripts/validate-desk-presentation.mjs` now permits exactly those two further pages with pinned counts and still fails any other opt-in. The carry-over script header and two documentation statements that said no other path has an alternate source, or that the layout is Desk-only, were reconciled. The shared `FormattedDate` time-zone behavior is recorded as a follow-up, not changed. Staging only.
+
 ## 2026-10-18 — T23.0: Chisel canonical revision implemented on staging (not on production)
 
 Sealed R3 ticket T23.0 (seal `e1388da`; the two outside pre-seal reviews were waived once by the Product Authority and were not performed). The Chisel manuscript v9 and IWL v4 replace the published v6/v2 files under unchanged ids, routes and PDF filename; `pubDate` stays 2026-09-22 and `dateModified` is 2026-10-18; the reserved DOI 10.5281/zenodo.23458660 is recorded and does not resolve until the owner publishes the Zenodo record. The `iwl` schema gains an optional `dateModified`. `scripts/carry-over-pdfs.sh` gains the frozen-artifact path and the committed release expectation (`site/release-pdfs/`), so a revised paper's approved PDF can ship while the other four stay byte-identical; ordinary carry-over is unchanged. Staging only: no production deployment, no Zenodo action, and PDF custody files are added at the release gate.
