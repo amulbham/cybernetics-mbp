@@ -1,63 +1,26 @@
-# Astro Starter Kit: Blog
+# Research site (Astro)
 
+This is the Astro application for [amulbham.com](https://amulbham.com), not the Astro starter blog.
+
+For the current release state and context handoff, start at [`../HANDOFF.md`](../HANDOFF.md). Read [`AGENTS.md`](AGENTS.md) before changing implementation or deployment, [`PUBLISHING.md`](PUBLISHING.md) for content/metadata/PDF contract, [`PLANNING.md`](PLANNING.md) before executing sealed tickets, and [`ROADMAP.md`](ROADMAP.md) for priorities.
+
+## Structure
+- `src/content/research/`: authored research entries; `category` controls routing, `format` controls scholarly PDF eligibility.
+- `src/content/iwl/`: published or unpublished companion Intellectual Work Ledgers.
+- `src/pages/`, `src/layouts/`, `src/components/`: HTML routes, publication shell and UI.
+- `src/lib/indexing.mjs`, `src/pages/robots.txt.js`, `public/_headers`: crawl-control contract.
+- `scripts/`: research validators, PDF builder and PDF carry-over guard.
+- `.github/workflows/deploy-pages.yml` (repo root): authoritative deployment workflow.
+
+## Commands
 ```sh
-npm create astro@latest -- --template blog
+npm ci
+npm run build            # source/link/semantic/indexing checks, Astro, Pagefind
+npm run build:pdfs       # creates scholarly PDFs in dist/
+npm run validate:pdfs    # checks PDF/HTML identity and redirects
+npm run preview          # local built-site preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Cloudflare Pages native Git builds are not the intended publication pipeline; GitHub Actions generates and deploys the complete HTML + PDFs. Do not deploy directly without confirming which indexing and PDF-preservation settings apply. Changes to `main` automatically trigger production deployments.
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+**Publication safety:** the production repository variables `SITE_INDEXING`, `PDF_MANIFEST`, `PDF_CARRY_OVER`, and `PDF_RELEASE` govern crawling and artifact preservation. Never mutate them without authorization. See `AGENTS.md` and the live T22.0 ticket for exact gates.

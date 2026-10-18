@@ -2,6 +2,16 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-16 — T22.0 production launch and indexing activation; S6 pending
+
+The accepted Desk manuscript/reading presentation (T20.0/T20.1) and simplified homepage (T21.0) were promoted through the product-only T22.0 release, first at `main @ cde8012` (Actions #112). Production source contains six entries, five scholarly papers plus one essay, and the published Chisel IWL. The staging-only TP2 governance history was not merged into main.
+
+The Desk Zenodo publication preceded the initial production PDF. Product Authority-approved Amendment A made the canonical production PDF serve the exact published deposit bytes (SHA-256 `268d16c0f29d6ba4c0e8299ff30a816fe44d62591206e434ae277d080b40cfd9`) while preserving the four existing PDFs. Failed runs #114/#115 stopped before upload; #116 succeeded at `384f034`. Run #118 at that same commit then performed the authorized production-only indexing activation. The Planner independently inspected GitHub's successful guard, carry-over, PDF validation, upload and post-deploy verification steps on 2026-10-18. The detailed live matrix (13 intended sitemap URLs, 23 redirects, open intended production pages, noindex tag/empty/search pages and protected preview hosts) and site/Zenodo byte comparison are Executor-reported; they were not freshly reproduced by the Planner.
+
+S5 Search Console setup was confirmed complete by the Product Authority on 2026-10-16. Actual Google crawling/indexing and Google Scholar inclusion are unverified external outcomes. Two independent R3 pre-seal reviews were waived for T22.0 only, not represented as completed. Earlier T20.1 screen-reader/forced-colors limitations and T21.0 screen-reader/date-format findings remain recorded follow-ups.
+
+On 2026-10-18 the Product Authority approved preparing one combined documentation/evidence candidate incorporating PR #1 and the selected staging records, with narrow current-guidance corrections. **S6 is not CLOSED:** the approved documentation deployment, required post-deploy matrix and acceptance remain outstanding. Routine production deploys retain `PDF_CARRY_OVER=true`, the exact approved `PDF_MANIFEST` and authorized indexing settings. Historical entries below describe their original release states and are unchanged. Evidence: `planning/audits/T22.0-public-mvp-launch-evidence.md`; historical contract and Amendment A: `planning/tickets/T22.0-public-mvp-launch.md`.
+
 ## 2026-10-13 — Sprint 19 closed: publication taxonomy released to production
 
 T19.0 reached production product-only. `main` was fast-forwarded `6db9e80` to `077a0c1` — the T19.0 implementation commit cherry-picked from `staging` onto `main` (no conflicts, no merge), Actions run 38453516645 green through build, PDF generation, PDF and route-history validation, and the Cloudflare deploy. The TP2 governance lineage lives only on `staging` and was not merged into `main`; a full local build, PDF build and validation on the main-based tree, and the independent redirect-matrix oracle, passed before the push.
