@@ -1,46 +1,24 @@
 ---
-title: 'The Chisel Fallacy: What Pangram Actually Measures'
-subtitle: 'Pangram Is a Very Sophisticated Way of Asking the Wrong Question'
-format: 'paper'
-category: 'knowledge-work'
+title: "The Chisel Fallacy: What AI Detection Misses and What the Intellectual Work Ledger Gets Right"
+subtitle: "Pangram Is a Very Sophisticated Way of Asking the Wrong Question"
+format: paper
+category: knowledge-work
 pubDate: 2026-09-22
-description: >-
-  For most of writing's history, textual production and intellectual
-  production were coupled tightly enough that one could stand in for the
-  other — but that coupling has weakened. This paper names the error that
-  follows from treating AI-detection evidence as a verdict on intellectual
-  contribution: the Chisel Fallacy. It identifies the Vending Machine
-  Assumption — the belief that AI-assisted writing means near-total
-  delegation — as the mental model that makes this error feel coherent, and
-  defines Directed Authorship, a tool-agnostic workflow in which the author
-  retains intellectual responsibility while delegating lower-level
-  execution, as the pattern the fallacy obscures. Drawing on cases from AI
-  detection (Pangram), mathematics, programming, and professional
-  publishing, the paper proposes a better standard: the Intellectual Work
-  Ledger, a multi-surface constraint architecture — Development Ledger,
-  Decision Record, Authorial Accountability, Dependency/Proof Chain —
-  designed to make the intellectual work behind an artifact inspectable
-  rather than merely asserting that it occurred. It also proposes the
-  Fabrication Paradox: the property of a sufficiently constrained
-  verification system in which successful fabrication of intellectual
-  provenance increasingly requires possessing the very competence being
-  counterfeited. The paper applies its own standard to itself, publishing
-  an Intellectual Work Ledger alongside it.
-excerpt: >-
-  Why an AI-detection score can't settle who supplied the intellectual
-  work — and the Intellectual Work Ledger, a proposed better standard.
+dateModified: 2026-10-18
+description: "A detector can be accurate while the inference drawn from its score is still the fallacy."
+excerpt: "A detector can be accurate while the inference drawn from its score is still the fallacy."
+doi: "https://doi.org/10.5281/zenodo.23458660"
 tags:
   - AI detection
-  - authorship
-  - Directed Authorship
-  - Vending Machine Assumption
-  - Chisel Fallacy
+  - Authorship
   - Intellectual Work Ledger
+  - Pangram
+  - Directed Authorship
 ---
 
 For most of writing's history, textual production and intellectual production were tightly enough coupled that one could stand in for the other. Producing coherent, structured prose required thinking, and thinking reliably produced prose. That coupling has weakened. The tools that generate fluent, structured text no longer require the intellectual work that once produced it. In some domains, this debate is already settled.
 
-The current manifestation of that breakdown is a tool called Pangram. In August 2026, Pangram's co-founder and CTO published a blog post arguing that AI detection works precisely because post-training constrains language models to consistent, detectable patterns (Emi, 2026). That same week Substack integrated the tool, giving any reader the ability to scan any post and receive a score indicating AI involvement. Writers called it a witch hunt (404 Media, 2026).
+The current manifestation of that breakdown is a tool called Pangram. In late July 2026, Substack integrated Pangram, giving any reader the ability to scan any post and receive a score indicating AI involvement. Writers called it a witch hunt (404 Media, 2026). Weeks later, Pangram's co-founder and CTO published a blog post arguing that AI detection works precisely because post-training constrains language models to consistent, detectable patterns (Emi, 2026).
 
 Both responses make sense from where each side is standing. The problem is that Pangram's score identifies something real — evidence of AI involvement in the production of the text — and then that score gets used to answer a different question: whether the author supplied the intellectual contribution behind it. A detector can be entirely correct on its own target — identifying statistical evidence of model involvement — and still be insufficient to settle whether the named author supplied the intellectual contribution. Treating one as a proxy for the other is a category error. This paper calls it the Chisel Fallacy.
 
@@ -48,11 +26,18 @@ The paper names the assumption that makes this error structurally tempting, show
 
 ## Two Things Getting Conflated
 
+
+> **Definition.** {#vending-machine-assumption}
+> The Vending Machine Assumption treats near-total delegation as representative of AI-assisted writing, making detected involvement appear sufficient to establish absent intellectual contribution.
+
+> **Definition.** {#directed-authorship}
+> Directed Authorship is a tool-agnostic workflow in which an author retains intellectual direction and responsibility for what an artifact claims and why, while delegating parts of its production.
+
 Consider what one-shot AI writing actually looks like. Someone opens a browser, types a request — "write a 500-word essay arguing that standardized testing improves educational outcomes" — and receives organized prose. The essay has a thesis, supporting points, and a conclusion. The process took ninety seconds. The person who produced this document has performed little or none of the intellectual work the finished artifact appears to represent. The intellectual decisions — what to argue, how to structure it, which evidence to select, whether the reasoning holds — were largely delegated along with the prose.
 
 This is the version of AI-assisted writing that most institutional concern is correctly aimed at. And it explains why textual AI detection feels intuitively sufficient: if your mental model is prompt → finished essay, then detecting AI involvement in the text looks almost equivalent to detecting that intellectual work was absent. This paper calls that mental model the Vending Machine Assumption — the belief that AI-assisted writing is this activity, and therefore that a score indicating AI involvement is evidence of absent intellectual contribution. It is the assumption that makes detector-based authorship judgments appear coherent. The assumption is not irrational — it reflects a mental model that makes sense for one way of using AI. AI-assisted work spans a broad agency gradient. The same category of tool use can range from near-total delegation to sustained human direction, judgment, and verification. The Vending Machine Assumption collapses that gradient by treating one endpoint as the category itself.
 
-## The Other Workflow
+### The Other Workflow
 
 Directed Authorship is not a new activity — it is a pattern that has existed across professional writing for as long as execution could be delegated. The definition here makes explicit what that pattern involves.
 
@@ -62,8 +47,8 @@ Directed Authorship is a workflow definition, not a verdict on any particular au
 
 What counts as lower-level work varies by domain. Fields Medal winner Terence Tao, writing on mathematics following the 2026 International Congress of Mathematicians, describes the emerging practice: automation handles computation and proof verification; humans determine what to prove and interpret what results mean (Tao, 2026). The structure holds across the domains this paper draws on:
 
-| Domain | Lower-level work (delegatable) | Upper-level work (authorship) |
-|---|---|---|
+| **Domain** | **Lower-level work (delegatable)** | **Upper-level work (authorship)** |
+|----|----|----|
 | Academic writing | Syntax, phrasing, spell check, formatting | Argument structure, evidence selection, causal inference, judgment |
 | Mathematics | Computation, equation solving, proof verification, symbolic manipulation | Determining what to prove, interpreting what results mean, mathematical intuition |
 | Software | Code syntax, boilerplate, compilation | System design, architecture, what the software should do |
@@ -90,6 +75,13 @@ The question the shelf was never asking was who formatted the instructions or ch
 
 ## Who Actually Holds the Chisel
 
+
+> **Definition.** {#chisel-fallacy}
+> The Chisel Fallacy occurs when evidence about an artifact's production takes the place of examining its intellectual merit or its author's intellectual contribution. A detector can be accurate while the inference drawn from its score is still the fallacy.
+
+> **Key idea.** {#artifact-and-author}
+> One question concerns what the work contributes. The other concerns what its author contributed.
+
 Delegating the execution of a task does not establish that intellectual contribution was absent. When execution is handled by someone else — a collaborator, a model, an apparatus — the question of who directed what remains open. Intellectual contribution can reside above direct execution. The two are separable, and their separation is not new.
 
 Recent philosophical work is arriving here independently. The Apt Curation Model, published in Philosophy & Technology in 2026, argues that authorship in AI-assisted work resides in higher-order decisions — structuring, evaluating, synthesizing — not in who produced the sentences (Rodrigues, 2026). The paper takes the next question seriously: if intellectual contribution does not map cleanly onto sentence production, what evidence can actually settle whether it was present?
@@ -111,6 +103,10 @@ What AI changed is not the logic of this arrangement but the resource requiremen
 The Vending Machine Assumption applies a standard to AI-assisted writing that publishing has never applied to editorial collaboration. A writer working with AI assistance is flagged for delegating lower-level work. A writer working with a professional editing team is not. The underlying delegation is the same. What changed is who can afford it and whether a tool can see it.
 
 ## Why the Pangram Score Answers the Wrong Question
+
+
+> **Evidence.** {#peerprism-evidence}
+> PeerPrism separates idea and text provenance across 20,690 peer reviews. Under hybrid conditions, including human-origin evaluative ideas rendered in AI-generated text, detector predictions diverged from the intellectual source.
 
 Pangram's own documentation shows what the chisel looks like from the inside.
 
@@ -134,6 +130,17 @@ Stankova's disclosed use is consistent with Directed Authorship: AI assisted wit
 
 Stankova's argument is contestable on its own terms. The diagnostics she used changed across the periods she compared; causal attribution is genuinely difficult; her definitions of readiness can be scrutinized. Those are substantive questions worth engaging. Whether AI participated in the text, whether that participation was appropriately disclosed, and whether the argument is sound are three different questions. A detector bears directly on the first. It does not settle the second or third.
 
+These are not the same question, and they require different kinds of evidence:
+
+| **Question** | **Right kind of evidence** |
+|----|----|
+| Was AI involved in the text? | Detector score |
+| Was the involvement disclosed? | Disclosure norms / author statement |
+| Is the argument sound? | Evaluating the argument itself |
+| Who supplied the intellectual contribution? | Intellectual Work Ledger |
+
+The Chisel Fallacy is using evidence for the first question to settle the fourth. The IWL is worth its cost precisely when the fourth question is what is actually being asked.
+
 The Commonwealth Short Story Prize encountered a version of the same problem. When AI allegations circulated against regional winner Jamir Nazir's story "The Serpent in the Grove," the Commonwealth Foundation did not use AI detection tools in its review. Its statement cited concerns about artistic ownership and consent surrounding unpublished work, while also noting that such tools may serve as useful indicators but "cannot provide conclusive evidence on their own" (Commonwealth Foundation, 2026; Brittle Paper, 2026). Instead the Foundation held detailed discussions with the regional winners and examined working drafts, timestamped documents, and notes before concluding that AI had not written the winning stories.
 
 The Foundation behaved as though textual evidence alone were insufficient to distinguish delegation from authorship: it inspected the development record instead.
@@ -144,7 +151,14 @@ A perfect detector of AI involvement would still not be a detector of intellectu
 
 ## When the Metric Becomes the Target
 
-When a metric becomes a target, it ceases to be a good metric. Goodhart observed this about monetary policy in 1975 (Goodhart, 1975). The mechanism is operating here.
+
+> **Evidence.** {#detector-incentive-evidence}
+> In a study of 642 published English abstracts, Pangram 3.2 flagged 64.4-80.1% of abstract-only refinements at a 0.50 threshold. After commercial humanization, over 96% of AI-labeled rewrites were reclassified.
+
+> **Implication.** {#knowledge-dismissal}
+> When a production flag becomes a reason to stop reading, useful knowledge can be dismissed before its evidence or reasoning receives examination.
+
+The relationship between policy targets and statistical measures is what Goodhart documented in 1975: once a measure is used as a policy target, it tends to lose the information value it had when observed independently (Goodhart, 1975). The mechanism is operating here.
 
 A 2026 study from the University of Notre Dame, presented at the ACM AI Leadership Summit, tested a proxy for guideline-compliant AI assistance — light editing of the kind many institutional policies broadly permit — and submitted the results to Pangram and GPTZero. Pangram flagged 64–80% of these lightly edited pieces. Then the researchers took fully AI-generated text, ran it through a commercial humanizer, and resubmitted. More than 96% escaped detection. The authors' conclusion: "Honest AI-editing results in a higher sanction risk than humanizer-assisted evasion" (Karr et al., 2026).
 
@@ -154,7 +168,9 @@ The market adapted almost immediately. A cottage industry of human specialists n
 
 When a detector score becomes a compliance target, the market optimizes against the score rather than the underlying intellectual behavior.
 
-The metric was also fragile before anyone tried to game it. The same study found that Pangram flag rates varied from 2.1% for chemistry abstracts to 26.6% for theology abstracts (Karr et al., 2026). Detector scores tracked stylistic features that are not unique to AI involvement. Once the score becomes consequential, Goodhart adds strategic optimization pressure on top of an already-confounded measurement.
+There is a consequence beyond Goodhart's Law: detector enforcement teaches authors that disclosure is the risky choice. Stankova disclosed her AI use and the disclosure became the story. A regime that flags honest editing at 64–80 percent while humanizer-assisted evasion passes at 96 percent is not incentivizing transparency — it is penalizing it.
+
+The metric was also fragile before anyone tried to game it. The same study found that Pangram flag rates varied from 2.1% for chemistry abstracts to 26.6% for theology abstracts (Karr et al., 2026). Detector scores tracked stylistic features that are not unique to AI involvement. Once the score becomes consequential, the optimization pressure compounds an already-confounded measurement.
 
 The result is a metric squeezed from both sides: natural confounding below, strategic evasion above. A high human score no longer uniquely identifies unaided authorship.
 
@@ -172,7 +188,7 @@ AI is moving the floor again. Tao, writing on mathematics following the 2026 Int
 
 In February 2025, Karpathy named a shift already underway: vibe coding — "forget that the code even exists" (Karpathy, 2025). By November 2025, Collins Dictionary named it Word of the Year (Collins Dictionary, 2025). By April 2026, Karpathy described the pattern as having shifted to "agentic engineering" — more deliberate oversight, same fundamental structure: developer above the syntax floor, AI handling execution (Cook, 2026).
 
-Programming increasingly accepts substantial AI-generated implementation as compatible with genuine professional contribution, while shifting evaluative weight toward specification, architecture, review, and orchestration. Microsoft and Google both reported over 30 percent of their production code AI-generated in 2025, presenting the figure to investors as a productivity metric rather than an authorship concern (TechCrunch, 2025). By February 2026, Cisco's president was explicit: "They should master orchestration and innovation, not syntax. I would rather our people are thinking about the next big thing, not syntax" (Euronews, 2026).
+Programming increasingly accepts substantial AI-generated implementation as compatible with genuine professional contribution, while shifting evaluative weight toward specification, architecture, review, and orchestration. By early 2025, Microsoft was reporting 20–30 percent of its production code AI-generated, with Google's CEO reporting well over 30 percent at the same period — both presenting the figures as productivity metrics rather than authorship concerns (TechCrunch, 2025). By February 2026, Cisco's president was explicit: "They should master orchestration and innovation, not syntax. I would rather our people are thinking about the next big thing, not syntax" (Euronews, 2026).
 
 Writing is navigating this same question, with a complication: writing has a tool — Pangram — that can see the execution layer, converting a debate that other fields worked through quietly into an institutional enforcement mechanism.
 
@@ -184,13 +200,24 @@ When the execution floor moves, evaluation has to move with it.
 
 ## A Better Standard
 
+
+> **Definition.** {#intellectual-work-ledger}
+> The Intellectual Work Ledger is a proposed framework linking a Development Ledger, Decision Record, Authorial Accountability, and Dependency/Proof Chain to make claims about intellectual contribution checkable.
+
+> **Counterpoint.** {#fabricated-development-records}
+> A system can generate an article, intermediate drafts, rejected alternatives, and retrospective commentary together. Their agreement can reflect a coherent generated history rather than an independent record.
+
 ### Process provenance and what it cannot do
 
 But process evidence is only the beginning. The institutional moves described above represent a genuine shift toward inspecting development rather than merely judging finished output. Working drafts, version histories, timestamps, and oral defenses can establish that a creation process occurred. They answer questions about process provenance: what happened, in what sequence, and through whose actions. But they do not necessarily answer the question this paper is most concerned with: does the claimant command the intellectual structure the artifact claims to represent?
 
 Emerging technical work already formalizes the first problem. A 2026 individual Internet-Draft titled Proof of Process proposed a cryptographic framework for making a continuous human authoring process tamper-evident through behavioral, temporal, and chained evidence (Condrey, 2026).¹ That is useful process provenance. It does not by itself establish why the argument has the structure it does, which alternatives were considered and rejected, what evidence bears on which claim, or what would happen to the conclusion if one of its premises failed.
 
+Process timestamps and the IWL address different axes and are stronger together: a timestamped development record anchors IWL entries in time, forcing a fabricator to construct plausible reasoning in real time rather than retrospectively — each axis closes gaps the other leaves open.
+
 That is a different axis of evidence.
+
+Most proposals for improving authorship verification try to detect the counterfeit better. The IWL is structurally different: it raises the cost of counterfeiting until the counterfeit approaches the cost of the genuine article.
 
 ### The Intellectual Work Ledger
 
@@ -205,6 +232,8 @@ The Intellectual Work Ledger does not attempt to prove that a human typed the ar
 The IWL is not four documents demonstrating that someone appeared to think. It is a multi-surface constraint architecture. A Development Ledger preserves the meaningful evolution of the work: discoveries, corrections, reversals, and the sequence in which later decisions became possible. A Decision Record preserves alternatives, rejections, and the reasons choices were made, exposing the evaluative landscape behind the final artifact. Authorial Accountability identifies the claimant who assumes responsibility for the reasoning and can be challenged on it. A Dependency and Proof Chain exposes how evidence, premises, decisions, and conclusions depend on one another.
 
 Each surface is useful independently. Together they constrain one another. A later decision cannot be freely rewritten if earlier evidence already constrained it. A rejected alternative has to make sense given what was known at the time. A claimed source must actually bear on the conclusion attributed to it. The IWL is designed to surface what the Vending Machine Assumption obscures — the upper-level intellectual work that may or may not be present behind any AI-assisted artifact.
+
+The IWL is not only a defense for authors practicing Directed Authorship. A one-shot vending-machine user who performed no intellectual work on the artifact cannot produce a genuine Development Ledger, cannot reconstruct actual decision points and their reasoning, and cannot survive unpredictable challenge on the intellectual process — because there was none. The IWL settles the authorship question for both workflows. It replaces detection not by being more sympathetic to AI-assisted authors but by asking a question that the right answer can actually answer.
 
 If you actually did the intellectual work, the IWL is largely a documentation task. You are recording decisions that already happened — what you found, why you changed direction, which source actually supported the claim you made from it. The record is straightforward because you are describing something that occurred.
 
@@ -222,6 +251,8 @@ Verification operates at two levels. The first asks whether the pieces exist: do
 
 ### The Fabrication Paradox
 
+The security property the IWL exploits has a name: costly signaling. Michael Spence demonstrated in 1973 that a signal is credible when it is cheaper for the type with the genuine property to produce it than for the type faking it — education works as a signal of ability because capable candidates bear lower costs completing it than incapable ones faking their way through (Spence, 1973). Zahavi's handicap principle applies the same logic in biology: the peacock's tail is an honest signal of health because only a genuinely healthy bird can afford to grow it (Zahavi, 1975). The signal is honest because the cost runs in the right direction. The IWL is the same machinery applied to authorship: if you did the intellectual work, assembling the trail is nearly free — you are describing what happened. If you did not, fabricating a plausible intellectual journey backwards — the dead ends, the revisions, the order things were figured out, the pressure tests that forced definition changes — approaches the cost of having the journey.
+
 What if the only reliable way to fake a record of intellectual work was to do the intellectual work?
 
 That is not a rhetorical question. It describes a real property a verification system can approach — one where the cheapest path through fabrication increasingly resembles performing the thing the fabricator was trying to avoid. This paper proposes calling it the Fabrication Paradox.
@@ -232,45 +263,93 @@ For that fabricated record to become convincing evidence of intellectual provena
 
 Two costs then begin to rise together. The first is a fabrication-cost gradient: as independently anchored constraints accumulate, the space of plausible false histories narrows. The second is an epistemic-cost gradient: establishing that the fabricated history deserves confidence increasingly requires reconstructing why the argument has the structure it does. The fabricator must recover not merely the nodes but the evidential, dependency, counterfactual, and evaluative relationships among them.
 
+These gradients couple: as the space of plausible false histories narrows, navigating it requires reconstructing more of the relational structure the genuine work produced — which is precisely the epistemic work the fabricator was trying to avoid.
+
+This is the consistency tax: the fabricator must satisfy cross-channel consistency simultaneously — timeline, diffs, decisions, dependencies, and real-time responses all constraining one another — and the cost is multiplicative rather than additive. Reality gives the honest researcher this consistency for free. Simulation requires reconstructing it.
+
 Recovering those relationships is itself epistemic work. The better the counterfeit of intellectual competence must become, the more the counterfeiter must acquire the competence being counterfeited.
 
 This is a proposed mechanism, not a theorem that fabrication is impossible or that fraudulent production must always cost more than honest work. The narrower claim is that stronger cross-consistency requirements and less predictable challenges progressively remove the cheapest forms of fabrication by forcing the counterfeit to reproduce more of the relational structure that gives genuine intellectual work its coherence.
+
+A fabricator who delegates the verification step faces a dilemma. If they trust the delegated check without personally confirming the ledger holds together, they cannot tell a sound record from a subtly broken one — and they are exposed the moment a challenge arrives that the delegated checker did not anticipate. If they actually confirm the ledger makes sense, they have performed the intellectual work the ledger claims to document. The only escape from both horns is to never be personally questioned. Authorial Accountability — the layer of the IWL that requires the named claimant to stand behind the reasoning under unpredictable scrutiny — is what forecloses that escape. Delegation of fabrication and delegation of verification both terminate at the point where a human has to answer.
+
+This includes AI-assisted fabrication: a system can generate constraint-satisfying ledger entries, but the named claimant still has to answer for them under scrutiny that is unpredictable in real time. The AI cannot anticipate what will be asked. The claimant, not the system, bears the accountability.
 
 Cryptographic proofs of knowledge provide the relevant analogy: producing a convincing transcript of expertise is not the same as possessing it — appropriately varied challenges are what make genuine possession inferable (Bellare & Goldreich, 1992).³ Bitcoin's proof-of-work supplies a related intuition: verification can be designed so that dishonest participation becomes progressively more costly (Nakamoto, 2008). An IWL borrows from both: challenge-based evidence of command from proof-of-knowledge, and adversarial cost-raising from proof-of-work.
 
 None of this eliminates the verification boundary. A sophisticated fabrication may survive. A coherent ledger cannot prove the exact private mental history of its claimant. The aim is narrower and more useful: raise the boundary. Make claims answer to independent evidence. Make decisions answer to alternatives. Make conclusions answer to their premises. Make the claimant answer to the structure that supposedly produced the work.
 
+The bar is economic, not cryptographic: the IWL deters the realistic threat — output passed off as sustained intellectual work — not an adversary with unlimited resources and no accountability requirement.
+
 The IWL does not make intellectual provenance certain. It makes it increasingly inspectable — and increasingly difficult to counterfeit without reconstructing the intellectual work itself.
 
-### This Paper's Own IWL
+## This Paper's Own IWL
 
-A standard for intellectual provenance should apply to the paper that proposes it. The excerpt below shows what that looks like in practice — not a summary of what happened, but a sample of the actual record in the format the IWL uses.
+A standard for intellectual provenance should apply to the paper that proposes it. The excerpt below shows what that looks like in practice — not a summary of what happened, but a sample of the actual record, with the fabrication cost made explicit for each entry.
 
-**Development Ledger — Selected Entries**
+### Development Ledger — Selected Entries
 
-| Session | Event | What changed | Why |
-|---|---|---|---|
-| S1 | Chisel Fallacy location revised | Moved from inside Pangram's architecture to downstream inference from its score | The paper is stronger when Pangram may be entirely correct and the fallacy still holds; the argument survives a hypothetically perfect detector |
-| S2 | Two SSRN sources dropped after failed verification | O'Keefe "The Forcing Function" and Lamba "The Verification Hill" — recommended by position 3 reviewer — removed | Both SSRN links returned other documents on independent search; removed rather than risk false citations |
-| S3 | Missing causal node identified — VMA coined | v1 distinguished two workflows but could not explain why critics feel detection is sufficient; Vending Machine Assumption named this antecedent | Closed the logical gap; made the Chisel Fallacy structurally inevitable rather than a random mistake |
+<!-- table-layout: responsive-records -->
 
-**Decision Record — Selected Entries**
+| **Phase** | **Event** | **What changed** | **Why it mattered** |
+|----|----|----|----|
+| v2 phase | VMA coined — missing causal antecedent identified | v1 distinguished two workflows but could not explain why critics feel detection is sufficient; Vending Machine Assumption named the antecedent | Closed the logical gap; made the Chisel Fallacy structurally inevitable rather than arbitrary |
+| v6 phase | Agency Gradient coined — upstream variable identified | AI-assisted work identified as spanning a broad spectrum of retained human agency; named as the empirical fact the VMA was implicitly ignoring; identified as path to a future paper not yet published | Named the missing upstream variable; VMA now framed as an error about the gradient rather than a free-standing belief |
 
-| Decision | What was rejected | Reason |
-|---|---|---|
-| Chisel Fallacy location | Pangram itself commits the fallacy | The paper's argument is stronger when Pangram can be correct and the fallacy still exists — it survives a perfect detector |
-| Stankova claim | "Stankova was doing Directed Authorship" | DA is a workflow definition; claiming it as a verdict makes the same inferential move the paper criticizes |
-| Closing claim | "The question answers itself" when syntax is AI and ideas are human | Presupposes the conclusion without demonstrating it; the narrow theorem is what the paper actually proved |
+#### Entry 1 — VMA coined
 
-One entry from the Decision Record carries a Discovery Context note — retrospective authorial commentary on how the decision was reached. This is not verification in itself; its evidentiary value depends on whether its specifics contact anchors that can be checked independently.
+> ***Author:** v1 exists as a discrete draft. This entry describes a reading event — noticing a specific gap in the argument — and the observation that named it. Near-zero documentation cost.*
+>
+> ***Fabricator:** Must construct a complete ~25-page v1 containing the full argument structure, all cases, all sources — but specifically and consistently missing the VMA throughout. Must produce a plausible account of the naming event. Must anchor this in inspectable document history that a reader could verify. Cost: producing the paper's entire prior state.*
 
-> **Discovery Context / Authorial Rationale — Decision Record, Entry 1 (Section 2 anchor example):** I was trying to prove — or reconstruct in the reader's head — that a piece of work can have intellectual value regardless of who put the syntax together. The core observation I kept seeing: once something gets bucketed as AI-assisted, the work itself gets completely ignored and it becomes entirely about AI usage. I had Bitcoin later in the paper as theoretical backing for how the Fabrication Paradox could function. During a read-through, the connection formed. The raw thought was something like: we literally do not know who Satoshi is, yet Bitcoin's white paper and blockchain technology are foundational. Nobody disputes it. Nobody cares who Satoshi is. It fit the thought experiment better and it was cleaner — no exceptions about disclosure norms the way ghostwriting has. Coming out of that section I wanted the reader to understand that intellectual value and syntax production are two separate things.
+#### Entry 2 — Agency Gradient coined
 
-What makes this note useful is not that it sounds authentic — a skilled fabricator could generate a plausible retrospective in minutes. What matters is whether its specifics contact checkable anchors: was Bitcoin already present in an earlier draft for a different reason? Did ghostwriting precede the Satoshi example in the development record? Does Section 2 of v1 use ghostwriting, and does v2 replace it with Satoshi? Does the proof-of-work function in Section 9 predate the Satoshi connection in Section 2? Each of these is a testable claim. The corroboration is the evidentiary work — not the fluency of the recollection.
+> ***Author:** Insight arrived during a review pass of a near-complete paper. Entry describes where it came from and what it opened up.*
+>
+> ***Fabricator:** Must explain why this concept arrived at v6 specifically — after the paper was considered structurally complete — rather than v1 or v3. Must account for the "future paper" observation, which requires knowing what the next investigation will be about. That information is not in the published paper.*
 
-The paper is its own test case, not its own proof. The development methodology — including use of separate LLM instances for cold precision review — is documented in the IWL's methodology note. The complete Intellectual Work Ledger is published alongside this paper. Whether the entries hold up under scrutiny is the test this section is proposing.
+### Decision Record — Selected Entries
+
+<!-- table-layout: responsive-records -->
+
+| **Decision** | **Rejected** | **Adopted** | **Reason** |
+|----|----|----|----|
+| Chisel Fallacy location | Pangram itself commits the fallacy | Fallacy occurs in downstream inference from Pangram's score | If the fallacy requires Pangram to be wrong, any technical improvement to Pangram weakens the paper. Moving the error downstream means Pangram can be entirely correct and the Chisel Fallacy still operates. Specific architectural judgment about the paper's own vulnerability. |
+| DA definition scope | "A mode of AI-assisted production in which the author delegates lower-level execution" | "Any mode of production in which intellectual direction is retained by the author while lower-level execution is delegated to any capable agent, human or otherwise" | The paper's primary illustration of DA is Brandon Sanderson — no AI involvement. The AI-specific definition excluded its own most important example. Pressure test: does the current definition include what Sanderson is doing? No. The concept was right, the words were wrong. |
+| Domain example quantity | Six domain examples: programming, mathematics, music, Yates, Xania Monet, Karpathy | Two primary cases: mathematics and programming | Each case should add a new constraint to the argument — a different mechanism or type of evidence — not restate the thesis in a new domain. Quantity was diluting rather than strengthening. The paper's own argumentative standard applied to its own structure. |
+
+#### Entry 1 — Chisel Fallacy location
+
+> *The reason column states the architectural judgment. The entry is its own demonstration.*
+
+#### Entry 2 — DA broadened to tool-agnostic
+
+> **Discovery Context / Authorial Rationale — DA definition scope:** *Throughout the earlier drafts, DA had been implied rather than clearly stated — a concept I was actively engaging in, but the definition had not caught up with what I actually meant. The AI-specific framing had crept in because the paper is nominally about AI writing, but DA as I understood it was never AI-specific. The definition clarification came from a simple pressure test. I looked at Sanderson and asked: does our current definition include what he is doing? The answer was no — "AI-assisted production" excluded him by definition. That was the problem. The concept was right but the words were wrong. Once that was clear, the definition wrote itself.*
+>
+> ***Author:** The AI-specific definition exists in v1–v3. Entry describes a pressure test and the criterion it applied. The Discovery Context note above describes the moment the revision became clear.*
+>
+> ***Fabricator:** Must produce five or six prior versions where DA is consistently AI-specific — while Sanderson appears as the primary publishing example in Section 5 throughout those same versions. Must hold that internal inconsistency deliberately across a version history. Must construct a Discovery Context note with the specific register of an instant recognition from a specific trigger, then ensure every anchor it contains checks out against the published paper.*
+
+#### Entry 3 — Domain examples six → two
+
+> ***Author:** The structural problem was visible in a v3 read-through. Entry records the criterion used to resolve it.*
+>
+> ***Fabricator:** Must know which six examples existed in v3 by name. Must know the dilution was diagnosed as a constraint issue specifically, not a length or word-count issue. Must know the criterion — "each case adds a new constraint" — which is stated nowhere in the published paper.*
+
+The entries above demonstrate the Fabrication Paradox concretely rather than in principle. Each contains information that is nowhere in the published artifact — what v1 lacked, which six examples v3 had by name, why the DA definition changed when it did and what specific example forced it. A fabricator working from the published paper alone is stranded. The real author has all of it because it is simply what happened. The entries are easy to produce if you were there and hard to produce if you weren't — not because of their length but because of what they contain. That is the IWL's actual verification property.
+
+The fabrication cost is not uniform. The VMA entry requires producing the paper's entire prior state. The DA entry requires holding an internal inconsistency across multiple version states and constructing a Discovery Context note whose register and specific trigger are hard to engineer deliberately. The six-to-two entry requires knowing a specific list and a specific criterion that appears nowhere in the published paper. Different entries surface different kinds of constraint. The consistency tax is visible across all of them: the fabricator must maintain consistency simultaneously across version states, decisions, Discovery Context notes, and responses under challenge — and that cost is multiplicative, not additive.
+
+The paper is its own test case, not its own proof. The complete Intellectual Work Ledger is published alongside this paper. Whether the entries hold up under scrutiny is the test this section is proposing.
+
+## Future Directions
+
+Two directions emerge from this paper. The first is the Agency Gradient as its own investigation: AI is a fundamentally open-ended tool with no social agreement on what "using AI" means, and that openness — the fact that the same model produces incomparable outputs depending on who operates it — is the upstream condition the Vending Machine Assumption has been collapsing. The second is ReTI (Researcher Timeline): a private-by-default researcher feed where a researcher commits moments of insight, source discoveries, and draft revisions as they happen — hash-chained, notary-attested, reversals included. The consistency tax observation suggests a design rule for ReTI: every new temporal channel should cost the honest researcher nothing and the fabricator compounding amounts. Timestamps are free for you, expensive to fake. Diffs are free for you, expensive to fake. ReTI is the temporal implementation of the same principle the IWL applies to content — and the unflattering commits you would delete are the strongest authenticity signals, because a fabricator writes a highlight reel. Both directions were created by the work this paper did.
 
 ## The Chisel and the Sculptor
+
+
+> **The detector flags the chisel. It is completely blind to the sculptor.**
 
 We almost never read to evaluate syntax. We read to encounter ideas, to test arguments, to follow reasoning to its conclusion.
 
@@ -278,78 +357,47 @@ The calculator does the arithmetic. The mathematician does the math. The develop
 
 Execution-layer evidence cannot by itself settle whether intellectual contribution was present. A detector that identifies AI involvement in syntax production has identified exactly what it was built to identify. What it cannot recover is whether the author retained intellectual responsibility for what the artifact claims and why. That is a different question. It requires different evidence.
 
-Pangram is a very sophisticated way of asking the wrong question.
+*Pangram is a very sophisticated way of asking the wrong question.*
 
-## Key Terms
-
-**Agency Gradient** — the spectrum of human intellectual involvement in AI-assisted work, ranging from near-total delegation at one end to sustained human direction, judgment, and verification at the other. The same tool, applied differently, can produce commodity output or substantive intellectual contribution.
-
-**Chisel Fallacy** — the error of judging intellectual work by evidence about its lower-level execution rather than evidence about what it claims and whether those claims hold. Occurs when execution-layer evidence is promoted into a verdict on intellectual contribution or validity.
-
-**Directed Authorship** — a mode of intellectual production in which the author retains responsibility for the artifact's argument structure, evidence, judgments, revisions, and final acceptance while delegating lower-level execution — syntax, phrasing, mechanical production — to any capable agent, human or otherwise. A workflow definition, not a verdict on any particular author's intellectual contribution.
-
-**Vending Machine Assumption** — the mistake of treating one endpoint of a broad agency gradient — near-total delegation — as representative of the whole category of AI-assisted work, and therefore of treating a score indicating AI involvement as evidence of absent intellectual contribution.
-
-**Intellectual Work Ledger (IWL)** — a four-layer constraint architecture — Development Ledger, Decision Record, Authorial Accountability, Dependency/Proof Chain — designed to make the intellectual work behind an artifact inspectable rather than merely asserting that it occurred.
-
-**Proof of Thought (PoT)** — the record an IWL produces; the inspectable document of intellectual provenance for a specific artifact.
-
-**Constraint Contact** — the verification property requiring that claimed reasoning repeatedly encounters things it did not freely generate. Two levels: node contact (does the source/artifact exist?) and relational contact (does the source actually support the claim?).
-
-**Fabrication Paradox** — the property of a sufficiently constrained verification system in which successful fabrication of intellectual provenance increasingly requires possessing the dependency structure, judgment, and explanatory competence the fabrication is intended to counterfeit. A proposed mechanism, not a theorem.
 
 ## Notes
 
-1. Condrey (2026). Proof of Process (PoP). Individual Internet-Draft draft-condrey-rats-pop. A proposed process-attestation architecture submitted as an individual contribution to the IETF; not an adopted IETF standard. [datatracker.ietf.org/doc/draft-condrey-rats-pop/00/](https://datatracker.ietf.org/doc/draft-condrey-rats-pop/00/)
-2. Queloz & Beckmann (2026). Why we care about understanding: Competence through predictive compression. arXiv:2609.04962. [arxiv.org/abs/2609.04962](https://arxiv.org/abs/2609.04962). See also: Mechanistic indicators of understanding in large language models. DOI: 10.1007/s11098-026-02513-1
-3. Bellare, M. & Goldreich, O. (1992). On defining proofs of knowledge. In Advances in Cryptology — CRYPTO '92. See also Boneh, D. & Shoup, V. A graduate course in applied cryptography. Stanford. [crypto.stanford.edu/~dabo/cryptobook/](https://crypto.stanford.edu/~dabo/cryptobook/)
+1. Condrey (2026). Proof of Process (PoP). Individual Internet-Draft draft-condrey-rats-pop. A proposed process-attestation architecture submitted as an individual contribution to the IETF; not an adopted IETF standard. https://datatracker.ietf.org/doc/draft-condrey-rats-pop/00/
+
+2. Queloz & Beckmann (2026). Why we care about understanding: Competence through predictive compression. arXiv:2609.04962. https://arxiv.org/abs/2609.04962. See also: Mechanistic indicators of understanding in large language models. DOI: 10.1007/s11098-026-02513-1
+
+3. Bellare, M. & Goldreich, O. (1992). On defining proofs of knowledge. In Advances in Cryptology — CRYPTO '92. See also Boneh, D. & Shoup, V. A graduate course in applied cryptography. Stanford. https://crypto.stanford.edu/~dabo/cryptobook/
 
 ## References
-
 1. 404 Media. (2026, July 28). Substackers say new AI detection tool is a "witch hunt." [404media.co/substackers-say-new-ai-detection-tool-is-a-witch-hunt/](https://www.404media.co/substackers-say-new-ai-detection-tool-is-a-witch-hunt/)
 2. Ahlstrom, P., & Dragonsteel Books. (2025, May 9). Behind the scenes: How Wind and Truth came to life. [dragonsteelbooks.com/blogs/the-cognitive-realm/behind-the-scenes-how-wind-and-truth-came-to-life](https://www.dragonsteelbooks.com/blogs/the-cognitive-realm/behind-the-scenes-how-wind-and-truth-came-to-life)
 3. Arvan, M., et al. (2026). PeerPrism: Disentangling idea and text provenance in peer review. Proceedings of the 49th International ACM SIGIR Conference. [doi.org/10.1145/3805712.3808602](https://doi.org/10.1145/3805712.3808602)
-4. Bellare, M., & Goldreich, O. (1992). On defining proofs of knowledge. In E. F. Brickell (Ed.), Advances in Cryptology — CRYPTO '92 (pp. 390–420). Springer.
+4. Bellare, M., & Goldreich, O. (1992). On defining proofs of knowledge. In E. F. Brickell (Ed.), Advances in Cryptology — CRYPTO '92 (pp. 390–420). Springer. [doi.org/10.1007/3-540-48071-4_28](https://doi.org/10.1007/3-540-48071-4_28)
 5. Boneh, D., & Shoup, V. (n.d.). A graduate course in applied cryptography. Stanford University. [crypto.stanford.edu/~dabo/cryptobook/](https://crypto.stanford.edu/~dabo/cryptobook/)
 6. Brittle Paper. (2026, June 26). Commonwealth Short Story Prize clears regional winners of AI use following month-long review. [brittlepaper.com/2026/06/commonwealth-short-story-prize-clears-regional-winners-of-ai-use-following-month-long-review/](https://brittlepaper.com/2026/06/commonwealth-short-story-prize-clears-regional-winners-of-ai-use-following-month-long-review/)
 7. CNN. (2026, September 9). OpenAI on Tuesday said its AI technology has cracked one of the Millennium Problems. [cnn.com/2026/09/09/business/openai-millennium-problems-navier-stokes-hnk](https://www.cnn.com/2026/09/09/business/openai-millennium-problems-navier-stokes-hnk)
 8. Collins Dictionary. (2025, November). Collins word of the year 2025. [collinsdictionary.com/us/woty](https://www.collinsdictionary.com/us/woty)
 9. Commonwealth Foundation. (2026). 2026 Commonwealth Short Story Prize update. [commonwealthfoundation.com/2026-cw-prize-update/](https://commonwealthfoundation.com/2026-cw-prize-update/)
-10. Condrey, D. (2026). Proof of Process (PoP) [Individual Internet-Draft draft-condrey-rats-pop]. IETF. [datatracker.ietf.org/doc/draft-condrey-rats-pop/00/](https://datatracker.ietf.org/doc/draft-condrey-rats-pop/00/)
+10. Condrey, D. (2026). Proof of Process (PoP) \[Individual Internet-Draft draft-condrey-rats-pop\]. IETF. [datatracker.ietf.org/doc/draft-condrey-rats-pop/00/](https://datatracker.ietf.org/doc/draft-condrey-rats-pop/00/)
 11. Cook, J. (2026, June 12). Is vibe coding already dead? Even Karpathy is moving on. Forbes. [forbes.com/sites/jodiecook/2026/06/12/is-vibe-coding-already-dead-even-karpathy-is-moving-on/](https://www.forbes.com/sites/jodiecook/2026/06/12/is-vibe-coding-already-dead-even-karpathy-is-moving-on/)
 12. Daily Californian. (2026, August). UC Berkeley professor admits to using AI in op-ed about student math preparedness. [dailycal.org](https://www.dailycal.org)
 13. Emi, B. (2026, August 20). No, LLMs don't just mimic human text. Pangram. [pangram.com/blog/no-llms-dont-just-mimic-human-text](https://www.pangram.com/blog/no-llms-dont-just-mimic-human-text)
 14. Euronews. (2026, February 11). Cisco president warns AI agents need "background checks" like human employees. [euronews.com/next/2026/02/11/cisco-president-warns-ai-agents-need-background-checks-like-human-employees](https://www.euronews.com/next/2026/02/11/cisco-president-warns-ai-agents-need-background-checks-like-human-employees)
-15. Fiverr. (n.d.). Craftysid: Humanize AI text for you [Commercial listing]. [fiverr.com/craftysid/humanize-ai-text-for-you](https://www.fiverr.com/craftysid/humanize-ai-text-for-you)
+15. Fiverr. (n.d.). Craftysid: Humanize AI text for you \[Commercial listing\]. [fiverr.com/craftysid/humanize-ai-text-for-you](https://www.fiverr.com/craftysid/humanize-ai-text-for-you)
 16. Goodhart, C. A. E. (1975). Problems of monetary management: The U.K. experience. In Papers in monetary economics (Vol. 1). Reserve Bank of Australia.
 17. Karr, J. A., Khvatskii, G., Hua, T., & Chawla, N. V. (2026). Why AI detection fails for academic integrity. arXiv:2608.11256. [arxiv.org/abs/2608.11256](https://arxiv.org/abs/2608.11256)
-18. Karpathy, A. (2025, February 2). [Post on vibe coding]. X. [x.com/karpathy/status/1886192184808149383](https://x.com/karpathy/status/1886192184808149383)
+18. Karpathy, A. (2025, February 2). \[Post on vibe coding\]. X. [x.com/karpathy/status/1886192184808149383](https://x.com/karpathy/status/1886192184808149383)
 19. Nakamoto, S. (2008). Bitcoin: A peer-to-peer electronic cash system. [bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf)
 20. Nature. (2026, September 8). OpenAI claims huge maths breakthrough on a famed 'Millennium Problem.' [nature.com/articles/d41586-026-02842-5](https://www.nature.com/articles/d41586-026-02842-5)
 21. Pangram. (n.d.a). How does Pangram work? [pangram.com/knowledge-hub/how-does-pangram-work](https://www.pangram.com/knowledge-hub/how-does-pangram-work)
 22. Pangram. (n.d.b). How it works. [pangram.com/research/how-it-works](https://www.pangram.com/research/how-it-works)
-23. Quanta Magazine. (2026, September 8). AI has solved one of math's $1 million Millennium Prize problems. [quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/](https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/)
+23. Quanta Magazine. (2026, September 8). AI has solved one of math's \$1 million Millennium Prize problems. [quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/](https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/)
 24. Queloz, M., & Beckmann, P. (2026). Why we care about understanding: Competence through predictive compression. arXiv:2609.04962. [arxiv.org/abs/2609.04962](https://arxiv.org/abs/2609.04962)
 25. Reinhart, A., Markey, B., Laudenbach, M., Pantusen, K., Yurko, R., Weinberg, G., & Brown, D. W. (2025). Do LLMs write like humans? Variation in grammatical and rhetorical styles. Proceedings of the National Academy of Sciences, 122(8), e2422455122. [doi.org/10.1073/pnas.2422455122](https://doi.org/10.1073/pnas.2422455122)
 26. Rodrigues, M. (2026). The apt curation model: Authorship and AI. Philosophy & Technology. [doi.org/10.1007/s13347-026-01038-z](https://doi.org/10.1007/s13347-026-01038-z)
-27. Tao, T. (2026). Mathematics in the age of AI. arXiv:2608.16753. [arxiv.org/abs/2608.16753](https://arxiv.org/abs/2608.16753)
-28. TechCrunch. (2025, April 30). Microsoft CEO says up to 30% of company's code was written by AI. [techcrunch.com/?p=3000949](https://techcrunch.com/?p=3000949)
-29. The Guardian. (2026, August 19). UC Berkeley professor used AI to write op-ed arguing students can't do maths. [theguardian.com/us-news/2026/aug/19/uc-berkeley-professor-ai](https://www.theguardian.com/us-news/2026/aug/19/uc-berkeley-professor-ai)
-30. UC Berkeley Research, Teaching, and Learning. (n.d.). Availability of Turnitin's artificial intelligence detection. [rtl.berkeley.edu/news/availability-turnitins-artificial-intelligence-detection](https://rtl.berkeley.edu/news/availability-turnitins-artificial-intelligence-detection)
-
-## IWL Significant Events — Draft v6
-
-Cumulative: events 1–7 (v1→v2), 8–15 (v2→v3), 16–22 (v3→v4), 23–26 (v4→v5), 27–36 (v5→v6).
-
-**v5 → v6 — 10 precision fixes, final development pass**
-
-27. **AGENCY GRADIENT INCORPORATED** (Section 2). "AI is a tool whose value is determined by the user" replaced with: "AI-assisted work spans a broad agency gradient. The same category of tool use can range from near-total delegation to sustained human direction, judgment, and verification. The Vending Machine Assumption collapses that gradient by treating one endpoint as the category itself." Effect: VMA now defined as a gradient-collapse error rather than a binary mistake; the concept is more precise and more defensible.
-28. **DOMAIN TABLE NARROWED TO THREE ROWS** (Section 2). Music, literary fiction, and scientific research removed. Academic writing, mathematics, and software retained — the three domains the paper actually uses as cases. Rationale: the other domains raised boundary questions the paper does not resolve; the narrower table maps to the paper's own argument.
-29. **STANKOVA CONTRADICTION REMOVED** (Section 6). "The argument — the diagnostic comparison, the inference about test-blind admissions — was hers" removed. Replaced with: "Her disclosed use says nothing by itself about who supplied the diagnostic comparison or causal inference. Those are precisely the intellectual questions a detector cannot settle." Rationale: the removed sentence reasserted what the preceding sentence carefully refused to infer; the paper was making the same substitution it criticizes.
-30. **COMMONWEALTH VMA IMPUTATION REMOVED** (Section 6). "The Foundation implicitly rejected the Vending Machine Assumption" removed. Replaced with: "The Foundation behaved as though textual evidence alone were insufficient to distinguish delegation from authorship: it inspected the development record instead." Rationale: describing behavior is defensible; assigning a mental model is not.
-31. **GOODHART VMA LINE SIMPLIFIED** (Section 7). "When the Vending Machine Assumption becomes institutional policy" replaced with: "When a detector score becomes a compliance target, the market optimizes against the score rather than the underlying intellectual behavior." Rationale: direct Goodhart application; VMA is not required to explain every detector deployment. "Regardless of AI involvement" → "not unique to AI involvement."
-32. **HISTORICAL INEVITABILITY LANGUAGE REMOVED** (Section 8). Removed: "In two of them, the question has already been answered," "Each time the resistance was the same," "Each time the expertise migrated upward anyway," "Karpathy had declared the era over," "The profession had already answered the question," "writing is still answering against it." Programming restated: "Programming increasingly accepts substantial AI-generated implementation as compatible with genuine professional contribution, while shifting evaluative weight toward specification, architecture, review, and orchestration." Berkeley pilot: "two-year pilot" → "pilot spanning Fall 2023 through Spring 2025."
-33. **IWL ASYMMETRY BOUNDED AS DESIGN INTENT** (Section 9). "That ease is not a flaw in the verification system. It is the verification system" replaced with: "The IWL is designed to exploit an asymmetry: genuine work can often be documented from decisions that already occurred, whereas fabrication must retrospectively construct and reconcile those decisions. That asymmetry is a design property of the IWL, not a proven theorem."
-34. **STANKOVA HYPOTHETICAL LABELED EXPLICITLY** (Section 9). Added: "Consider a deliberately hypothetical fabricated entry — not a claim about Stankova's actual process:" Daily Californian citation removed from within the hypothetical example. Rationale: the entry illustrates verification mechanics, not Stankova's actual decision history; the citation was being used to lend authority to an invented rationale.
-35. **SECTION 10 AUTHOR'S NOTE REFRAMED AROUND CORROBORATION** (Section 10). Replaced ease-of-production framing with corroboration framing: "What makes this note useful is not that it sounds authentic — a skilled fabricator could generate a plausible retrospective in minutes. What matters is whether its specifics contact checkable anchors." Reclassified as "Discovery Context / Authorial Rationale" per IWL feedback. Rationale: consistent with Fabrication Paradox — plausible narrative is cheap; corroboration with external anchors is what matters.
-36. **CLOSING DE-TRIUMPHED** (Closing). Removed: "These separations have been… settled — domain by domain," "In each case the resistance was the same… expertise migrated upward anyway," "The question that programming answered by April 2026 … writing is still answering against it." Replaced with: "These separations have been contested in domain after domain as each execution floor became automatable." Closing now built around narrow theorem: "Execution-layer evidence cannot by itself settle whether intellectual contribution was present." Glossary updated to include Agency Gradient.
+27. Spence, A. M. (1973). Job market signaling. Quarterly Journal of Economics, 87(3), 355–374. [doi.org/10.2307/1882010](https://doi.org/10.2307/1882010)
+28. Tao, T. (2026). Mathematics in the age of AI. arXiv:2608.16753. [arxiv.org/abs/2608.16753](https://arxiv.org/abs/2608.16753)
+29. TechCrunch. (2025, April 30). Microsoft CEO says up to 30% of company's code was written by AI. [techcrunch.com/?p=3000949](https://techcrunch.com/?p=3000949)
+30. The Guardian. (2026, August 19). UC Berkeley professor used AI to write op-ed arguing students can't do maths. [theguardian.com/us-news/2026/aug/19/uc-berkeley-professor-ai](https://www.theguardian.com/us-news/2026/aug/19/uc-berkeley-professor-ai)
+31. UC Berkeley Research, Teaching, and Learning. (n.d.). Availability of Turnitin's artificial intelligence detection. [rtl.berkeley.edu/news/availability-turnitins-artificial-intelligence-detection](https://rtl.berkeley.edu/news/availability-turnitins-artificial-intelligence-detection)
+32. Zahavi, A. (1975). Mate selection — a selection for a handicap. Journal of Theoretical Biology, 53(1), 205–214. [doi.org/10.1016/0022-5193(75)90111-3](https://doi.org/10.1016/0022-5193(75)90111-3)
