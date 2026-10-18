@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-18 — T23.0 / T23.0.1: Chisel canonical revision release candidate (staging accepted; production and Zenodo pending)
+
+Sealed R3 ticket T23.0 and corrective R1 ticket T23.0.1 (the two outside R3 pre-seal reviews were waived once by the Product Authority and were not performed). The Chisel manuscript v9 and IWL v4 replace the published v6/v2 files under unchanged ids, routes and PDF filename: `pubDate` 2026-09-22, `dateModified` 2026-10-18, reserved DOI 10.5281/zenodo.23458660 recorded (it does not resolve until the owner publishes the Zenodo record), IWL license CC BY-NC 4.0. The `iwl` schema gains an optional `dateModified`. The article's two four-column tables and the IWL's 13 tables of four or more columns use the existing `responsive-records` layout; `validate-desk-presentation.mjs` permits exactly those pages. `scripts/carry-over-pdfs.sh` gains a committed release expectation and a one-swap frozen-artifact path (`site/release-pdfs/`), so the approved website-built Chisel PDF (SHA-256 `1f68d9eec9a0d8412a7fefc4d2c42b17f340801fbbef438b671edbffaf4582f3`) can ship while the other four approved PDFs stay byte-identical; ordinary carry-over is unchanged. The accepted S6 closure report and evidence addendum are included. Staging was accepted by the Product Authority on 2026-10-18; production release and verification are pending, and Zenodo deposit/DOI parity is pending. The shared `FormattedDate` time-zone behavior is a recorded follow-up.
+
 ## 2026-10-16 — T22.0 production launch and indexing activation; S6 pending
 
 The accepted Desk manuscript/reading presentation (T20.0/T20.1) and simplified homepage (T21.0) were promoted through the product-only T22.0 release, first at `main @ cde8012` (Actions #112). Production source contains six entries, five scholarly papers plus one essay, and the published Chisel IWL. The staging-only TP2 governance history was not merged into main.

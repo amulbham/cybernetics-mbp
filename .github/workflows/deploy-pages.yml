@@ -90,9 +90,11 @@ jobs:
         # lines, the S2/S3 production hashes). Any mismatch or missing/unexpected
         # file fails the run before anything is deployed. The source is always
         # https://amulbham.com (see site/scripts/carry-over-pdfs.sh). Keep the
-        # variable on for every main deploy that does not change a manuscript
-        # (the indexing step AND the docs-only closure commit); turn it off, and
-        # refresh the manifest, before any content change.
+        # variable on for every main deploy, including one that revises a paper
+        # (T23.0): the revised PDF is a frozen, hash-named file in
+        # site/release-pdfs/ that the manifest line and the committed release
+        # expectation (site/release-pdfs/expected.txt) both name; the script
+        # installs at most one such file and the owner alone changes the manifest.
         if: github.ref_name == 'main' && vars.PDF_CARRY_OVER == 'true'
         env:
           PDF_MANIFEST: ${{ vars.PDF_MANIFEST }}

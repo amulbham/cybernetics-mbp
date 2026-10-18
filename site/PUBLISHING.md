@@ -34,7 +34,7 @@ Do not invent a second collection for a fourth format — `iwl` (below) is not t
 
 An Intellectual Work Ledger is a subordinate companion object, not a fourth research format. Frozen by T13.1, implemented by T13.2 (`planning/tickets/T13.1-iwl-outer-contract-decision.md`, `T13.2-iwl-outer-envelope-implementation.md`):
 
-1. Its own collection, `src/content/iwl/<slug>.md` — `parent` (typed `reference('research')`, required, exactly one, fails the build on a dangling reference), `title`, `publicationState: 'unpublished' | 'published'` (required, no default, never inferred), `pubDate` (required iff published). `.strict()` — no other field.
+1. Its own collection, `src/content/iwl/<slug>.md` — `parent` (typed `reference('research')`, required, exactly one, fails the build on a dangling reference), `title`, `publicationState: 'unpublished' | 'published'` (required, no default, never inferred), `pubDate` (required iff published), optional `dateModified` (the last substantive revision, shown as "Last updated"). `.strict()` — no other field.
 2. One IWL source per Article, across all publication states — enforced by `src/lib/iwl.ts`'s registry, the single function both the IWL route and Article-side navigation consume.
 3. Three real states: no source (ABSENT); source exists, `publicationState: unpublished` (exists privately, no public route, no link); source exists, `publicationState: published` (real page). A visitor can't and shouldn't be able to tell ABSENT and unpublished apart.
 4. Route derives from the parent, never authored: `/research/{category}/{slug}/iwl/` (`iwlPath()` in `research-routing.ts`).
@@ -49,7 +49,7 @@ Full field-level detail and the file map: `AGENTS.md`'s "IWL — the Intellectua
 
 Full procedure: `.claude/skills/content-manager/`. Full rationale: `AGENTS.md`'s Content section. Restated here only because these specific rules fail silently if forgotten:
 
-- `description` = full abstract (JSON-LD). `excerpt` ≤200 chars (meta + cards). Both required — no fallback if `excerpt` is missing.
+- `description` = JSON-LD only, not rendered; normally the abstract, or equal to `excerpt` when a paper has no abstract (do not invent one). `excerpt` ≤200 chars (meta + cards). Both required — no fallback if `excerpt` is missing.
 - Subtitle is frontmatter, never a `##` heading — a heading gets picked up by the TOC as a real section.
 - Papers: `(Author, Year)` / `Name (Year)` so the citation linker works. Essays/memos: manual first-mention external links instead.
 - Every `## References` entry is a verified real URL (a DOI where one exists). The one exception: a legitimate print, archival or reported source with no verified landing page may stay unlinked when the Product Authority approves it and the evidence file records it — never guess or fabricate a URL (Desk: 18 entries, `planning/audits/T20.0-desk-pilot-evidence.md`). Show each link as its own path — a DOI as `doi.org/10.…`, a web source as host/path — never a generic `[DOI]`/`[Source]`. Ordered list only, with no blank line between entries (a blank line makes the list loose and stops most author-year citations from linking) — the numbering is load-bearing, it's what `id="ref-N"` keys off.
@@ -57,6 +57,19 @@ Full procedure: `.claude/skills/content-manager/`. Full rationale: `AGENTS.md`'s
 - Do not hand-type a byline. The masthead is automatic from `consts.ts`.
 - Images live in the entry's own slug folder.
 - Citation routing is a three-layer decision (inline → `#ref-N` on-page, reference entry → real external URL, essay narrative cite → manual outbound link) — see `CONTENT-MODULES.md`'s Citation links → Routing subsection, not restated here.
+
+### Revising a published paper (T23.0 flow)
+
+A revision keeps the entry id, routes, PDF filename and original `pubDate`; the owner supplies canonical Markdown for the paper and, if present, its IWL.
+
+1. Hash the supplied files; record names and SHA-256. Compare against the published sources and stop for any unapproved scope.
+2. Normalize only what the approved decisions name (wrappers, heading levels, reference list contiguity and link labels, callout boundaries, explicit wording fixes). Canonical prose is preserved.
+3. Metadata: keep `pubDate`; set `dateModified` to the approved revision date (fixed through builds and promotion; cosmetic rebuilds never move it); `description` per the convention above; `doi` only a reserved or published DOI the owner confirms.
+4. IWL: strict frontmatter (`parent`, `title`, `publicationState`, `pubDate`, optional `dateModified`); body opaque, starting at its own first section; no duplicated title or byline.
+5. Build on `staging`; inspect the article, IWL, OG image and the website-built PDF; the Product Authority approves those exact PDF bytes.
+6. Freeze: commit the approved PDF as `site/release-pdfs/<sha256>.pdf` (and the retiring production PDF for rollback) with `site/release-pdfs/expected.txt`; the owner sets `PDF_MANIFEST` to the new five-line manifest; release as a product-only candidate off `main`. The other four PDFs are carried over from production byte for byte.
+7. Verify production with fresh downloads of all five PDFs. Then the owner downloads the production PDF, uploads that exact file to Zenodo, and parity (deposited hash equals production hash, DOI resolves) is checked separately; website acceptance never claims it earlier.
+8. No status-only deployment: closure evidence rides with the next real release.
 
 ## 4. Grammar
 
