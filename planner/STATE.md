@@ -1,8 +1,8 @@
 # Planner state — research website
 
 Snapshot updated: 2026-10-18.
-State: T22.0 S6 ACCEPTED WITH RECORDED FOLLOW-UPS; launch closure recorded. Chisel intake next.
-Primary intent: compare the latest canonical Chisel manuscript and companion IWL with their published sources, then bound the revision/publication flow.
+State: T22.0 S6 ACCEPTED WITH RECORDED FOLLOW-UPS; launch closure recorded. Chisel decisions approved; R3 draft next.
+Primary intent: draft a bounded Chisel v9 / IWL v4 revision contract, including safe selective PDF replacement and the website-first Zenodo handoff.
 
 ## Authority and decisions
 
@@ -11,11 +11,11 @@ Primary intent: compare the latest canonical Chisel manuscript and companion IWL
 - **PLANNER ACCEPTANCE, 2026-10-18:** S6 accepted with the recorded verification limitations. No further production deployment is required solely to stamp CLOSED. Final R3 report is appended to the canonical ticket path on this branch; its later promotion to main belongs with an authorized release.
 - **APPROVED sequencing:** Chisel canonical article plus IWL update and an evidence-earned reusable revision flow, then About simplification.
 - **Historical exception:** T22.0 alone had two outside R3 pre-seal reviews waived. Preserve that record; it does not authorize later exceptions.
-- No new manuscript/IWL implementation, DOI publication, variable/workflow change or production deployment is authorized by this intake.
+- Approved Chisel decisions are recorded in the checkpoint below. No seal, manuscript/IWL implementation, DOI publication, variable/workflow change or production deployment is authorized yet.
 
 ## Verified state and evidence limits
 
-- `main = 5bf8518f7cbba16a7a8a950b2abac2a42c3502a6`; `staging = b26267cfa619dd0ccbd63e4b39a7512b0d13521e`; Planner note base `72d8828d6c597bafeff3a049057c4683456c1da9`. Rechecked 2026-10-18; these are base snapshots, not this note's own commit SHA.
+- `main = 5bf8518f7cbba16a7a8a950b2abac2a42c3502a6`; `staging = b26267cfa619dd0ccbd63e4b39a7512b0d13521e`; Planner note base `f5e74c18cdfe58707e825056da3c1300673aaaaf`. Rechecked 2026-10-18; these are base snapshots, not this note's own commit SHA.
 - **VERIFIED:** main's tree `622e58be04b1ea1fc073e315c53d02810f95c1e7` exactly equals reviewed candidate `abb26e3`; main advanced from `384f034` with the exact 17-file docs-only diff.
 - **VERIFIED (GitHub):** production #119 / `39165606863` succeeded on `5bf8518`; all 14 job steps successful, including guard, carry-over, PDF validation, deploy and post-deploy PDF verify.
 - **EXECUTOR-REPORTED:** full direct After-S6 matrix passed: 23 redirects; five approved PDF hashes; Desk/Zenodo parity; six entries/IWL/OG/RSS/homepage; open intended production indexing, 13 sitemap URLs, exclusions and preview-host protections. The Planner did not independently repeat those live requests.
@@ -23,15 +23,19 @@ Primary intent: compare the latest canonical Chisel manuscript and companion IWL
 - **S5:** owner-confirmed Search Console setup complete; Google processing/crawling and Scholar inclusion remain UNVERIFIED external outcomes.
 - **PR #1:** closed without merge as superseded by the combined S6 release; branch and history retained. No second production push was made.
 
-## Chisel intake and next action
+## Chisel decisions and next action
 
-1. Obtain the Product Authority's exact canonical manuscript MD and companion IWL MD. No latest-version source has been inspected yet; do not substitute a guessed Library version.
-2. Published source baseline: Chisel is a Knowledge Work paper dated 2026-09-22, no DOI authored in current frontmatter; its IWL is published v2 and identifies manuscript v6. The current PDF is protected by the launch manifest. External deposit/version status is not inferred from absent DOI frontmatter.
-3. Compare content, title/identity, citations, frontmatter, original/modified dates, reader components, companion linkage and version history. Determine PDF/DOI/version implications and preservation of the other four approved PDFs before implementation.
-4. Derive the reusable revision checklist from this real delta; preserve OPAQUE V1 and avoid an automatic versioning system or pre-created downstream tickets. About follows Chisel.
-5. Promote the accepted S6 final report/addendum into main with the next appropriate approved docs/product release; do not deploy solely to flip state. Further release work still needs its normal seal and authorization.
+1. **VERIFIED:** supplied manuscript v9 and IWL v4 were inspected and hashed against the supplied files; current published sources are manuscript v6 / IWL v2. Exact source identities and normalization findings are in the new checkpoint.
+2. **APPROVED:** reserved DOI, no visible abstract, metadata description from the supplied excerpt, original publication dates retained, meaningful revisions recorded with dateModified, stable routes/IDs, new five-tag set, and CC BY-NC 4.0 for the IWL.
+3. **APPROVED:** bounded heading/reference/callout corrections; opaque IWL body with normal outer frontmatter and optional outer dateModified. Preserve canonical prose apart from the specifically approved corrections.
+4. **APPROVED flow:** website compiles the canonical PDF; freeze approved bytes, publish those bytes on the website, then the owner uploads the downloaded production PDF to Zenodo. DOI resolution and deposited-file parity are final gates, not prerequisites to website publication.
+5. **PROPOSED implementation, not sealed:** minimal selective PDF-release mechanism to use the frozen website-built Chisel artifact while preserving the other four PDFs and all-five manifest validation. Current carry-over would overwrite a newly built Chisel PDF. Exact artifact custody and manifest transition need a concrete contract proposal.
+6. Next: Claude drafts minimal Sprint 23 / T23.0 R3 contract and returns it for the usual two independent outside pre-seal reviews coordinated by the owner. Confirm numbering against fresh refs. No implementation or deploy yet. About follows Chisel.
+7. Selectively promote the accepted S6 final report/addendum with the next appropriate approved release; do not deploy solely to flip status. Prose-compiler feedback follows this decision handoff; no new compiler skill or tooling project is authorized.
 
 ## Pointers
+
+- `planner/checkpoints/2026-10-18-chisel-revision-decisions.md`: approved inputs, scope and release-flow decisions; next contract draft.
 
 - `planner/checkpoints/2026-10-18-s6-accepted-chisel-intake.md`: closure review, evidence provenance and queued canonical promotion.
 - `site/planning/tickets/T22.0-public-mvp-launch.md` on this branch: preserved original contract plus accepted R3 completion report.
