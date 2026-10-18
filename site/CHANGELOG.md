@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-18 — T23.0: Chisel canonical revision implemented on staging (not on production)
+
+Sealed R3 ticket T23.0 (seal `e1388da`; the two outside pre-seal reviews were waived once by the Product Authority and were not performed). The Chisel manuscript v9 and IWL v4 replace the published v6/v2 files under unchanged ids, routes and PDF filename; `pubDate` stays 2026-09-22 and `dateModified` is 2026-10-18; the reserved DOI 10.5281/zenodo.23458660 is recorded and does not resolve until the owner publishes the Zenodo record. The `iwl` schema gains an optional `dateModified`. `scripts/carry-over-pdfs.sh` gains the frozen-artifact path and the committed release expectation (`site/release-pdfs/`), so a revised paper's approved PDF can ship while the other four stay byte-identical; ordinary carry-over is unchanged. Staging only: no production deployment, no Zenodo action, and PDF custody files are added at the release gate.
+
 ## 2026-10-13 — T20.1: Desk reading polish accepted on staging
 
 Sealed R2 ticket T20.1 (seal `d77ac43`, implementation `68b8f5b`, Actions run 104) promoted five exact-text passages in the Desk into the existing Markdown components (Evidence, Definition anchored `primitive-discovery-capture`, Counterpoint, Key idea, pull quote), relabelled all 64 bibliography links with their own path (`doi.org/10…`; hrefs unchanged), and added an explicit `<!-- table-layout: responsive-records -->` opt-in to `rehype-table-wrap` for the Desk's three appendix tables (wrapped table from 1100px, labelled records below, Pagefind-ignored, print shows the table). Unmarked tables are byte-identical; the four existing PDFs are unchanged; citation inventory preserved (80 anchors, 62 linked entries / 64 hrefs, 18 approved unlinked, 92 canonical inline citations). Desk source SHA-256 `648737aa…bdb7c7`. Content-manager skill, AGENTS, PUBLISHING, CONTENT-MODULES and ROADMAP reconciled; new opt-in `scripts/validate-desk-presentation.mjs`.

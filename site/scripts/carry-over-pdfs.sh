@@ -20,6 +20,16 @@
 # from any source are accepted only if they match it — and no other path has an alternate source.
 # Once production serves the approved bytes, the Zenodo branch is never taken again.
 #
+# Revised papers (T23.0). A revised paper's PDF cannot come from production (production still
+# serves the old bytes), so `carry` may install ONE frozen, hash-named artifact per run from
+# site/release-pdfs/<sha256>.pdf — but only when ALL of these hold: the owner-set manifest line
+# for that path names that hash; the committed blob exists, hashes to its own name and is a PDF;
+# and the committed release expectation (site/release-pdfs/expected.txt, lines in manifest
+# format) names the same path and hash. `guard` and `carry` both fail closed when expected.txt
+# exists and PDF_MANIFEST does not contain every expectation line byte for byte, so a revised
+# article can only deploy under a manifest that names its approved PDF. A path whose production
+# copy already matches the manifest is never swapped (zero swaps on any later run).
+#
 # PDF_MANIFEST: exactly five lines in `sha256sum` format, e.g.
 #   <64 hex>  research/knowledge-work/<id>/<id>.pdf
 # Run from site/ (the workflow's working directory).
@@ -38,6 +48,21 @@ trap 'rm -rf "$work"' EXIT
 
 fail() { echo "carry-over-pdfs: $*" >&2; echo "::error title=carry-over-pdfs::$*"; exit 1; } # the ::error:: line shows the reason as a run annotation
 
+# Committed release expectation (T23.0): see the header. Absent file -> no check, unchanged behavior.
+here="$(cd "$(dirname "$0")" && pwd)"
+frozen_dir="$here/../release-pdfs"
+check_expectation() {
+  [ -f "$frozen_dir/expected.txt" ] || return 0
+  sed 's/\r$//' "$frozen_dir/expected.txt" | sed '/^[[:space:]]*$/d' > "$work/expected-release"
+  [ -s "$work/expected-release" ] || fail "release-pdfs/expected.txt exists but has no entries"
+  if grep -vqE '^[0-9a-f]{64}  research/[a-z0-9_./-]+\.pdf$' "$work/expected-release"; then fail "release-pdfs/expected.txt has a malformed line"; fi
+  printf '%s\n' "${PDF_MANIFEST:-}" | sed 's/\r$//' | sed '/^[[:space:]]*$/d' > "$work/manifest-for-expectation"
+  [ -s "$work/manifest-for-expectation" ] || fail "release-pdfs/expected.txt exists but PDF_MANIFEST is empty — a revised paper may not deploy without the manifest that names its approved PDF"
+  while read -r want rel; do
+    grep -qxF "$want  $rel" "$work/manifest-for-expectation" || fail "PDF_MANIFEST does not carry the release expectation for $rel (release-pdfs/expected.txt names $want) — the owner must set PDF_MANIFEST to the approved manifest before this release deploys"
+  done < "$work/expected-release"
+}
+
 # guard — runs first on every main deploy (see the workflow). Once a production manifest exists,
 # an ordinary deploy must not regenerate and replace the approved PDFs:
 #   no manifest                 -> pass (initial content release; nothing to protect yet)
@@ -48,6 +73,7 @@ fail() { echo "carry-over-pdfs: $*" >&2; echo "::error title=carry-over-pdfs::$*
 #       authorized (published files are immutable — publish a new version first).
 #   anything else               -> stop before anything is built or deployed.
 if [ "$mode" = "guard" ]; then
+  check_expectation # first: applies in every mode, including PDF_RELEASE=new-version
   manifest_text="${PDF_MANIFEST:-}"
   if [ -z "${manifest_text//[[:space:]]/}" ]; then echo "carry-over-pdfs guard: no production PDF manifest — initial/unprotected state, deploy allowed."; exit 0; fi
   if [ "${PDF_CARRY_OVER:-}" = "true" ]; then echo "carry-over-pdfs guard: manifest present and PDF_CARRY_OVER=true — the carry step will enforce it."; exit 0; fi
@@ -77,6 +103,8 @@ fetch() { # $1 = relative path, $2 = destination, $3 = optional absolute URL (th
 
 case "$mode" in
   carry)
+    check_expectation
+    swaps=0
     (cd "$dist" && find . -name '*.pdf' | sed 's#^\./##' | sort) > "$work/built"
     if ! diff -u "$work/expected" "$work/built" > "$work/diff"; then cat "$work/diff" >&2; fail "built PDF set differs from the manifest (missing or unexpected files)"; fi
     while read -r want rel; do
@@ -84,6 +112,18 @@ case "$mode" in
       if [ "$rel" = "$DESK_PATH" ] && [ "$(sha256sum "$dist/$rel" | cut -d' ' -f1)" != "$want" ]; then
         echo "production's $rel does not match the manifest — bootstrapping it from the pinned Zenodo deposit"
         fetch "$rel" "$dist/$rel" "$DESK_BOOTSTRAP_URL"
+      elif [ "$rel" != "$DESK_PATH" ] && [ "$(sha256sum "$dist/$rel" | cut -d' ' -f1)" != "$want" ]; then
+        # T23.0 frozen artifact: production's copy differs from the manifest, so the only acceptable
+        # source is the committed, hash-named blob that the release expectation also names.
+        [ -s "$work/expected-release" ] && grep -qxF "$want  $rel" "$work/expected-release" || fail "production's $rel does not match the manifest and no committed release expectation (release-pdfs/expected.txt) names $want for it"
+        blob="$frozen_dir/$want.pdf"
+        [ -f "$blob" ] || fail "production's $rel does not match the manifest and release-pdfs/$want.pdf is not committed"
+        [ "$(sha256sum "$blob" | cut -d' ' -f1)" = "$want" ] || fail "release-pdfs/$want.pdf does not hash to its own name"
+        [ "$(head -c 5 "$blob")" = "%PDF-" ] || fail "release-pdfs/$want.pdf is not a PDF"
+        swaps=$((swaps + 1))
+        [ "$swaps" -le 1 ] || fail "more than one path needs a frozen artifact — a release may swap exactly one PDF"
+        cp "$blob" "$dist/$rel"
+        echo "installed frozen artifact release-pdfs/$want.pdf as $rel"
       fi
       echo "carried over $rel"
     done < "$work/manifest"
@@ -91,7 +131,7 @@ case "$mode" in
       cat "$work/carry.log" >&2
       fail "a carried-over PDF does not match the approved manifest: $(grep -v ': OK$' "$work/carry.log" | tr '\n' ' ')"
     fi
-    echo "carry-over-pdfs: $EXPECTED_COUNT PDFs carried over and verified against the manifest."
+    echo "carry-over-pdfs: $EXPECTED_COUNT PDFs carried over and verified against the manifest ($swaps frozen-artifact swap(s))."
     ;;
   verify)
     # Right after the upload the edge can briefly serve the previous deployment: retry before failing.

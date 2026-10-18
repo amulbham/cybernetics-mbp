@@ -69,9 +69,9 @@ B — Production Ready corpus + front door
     coordinated with the site release
     THEN Home / About redesign (separate specifications)
     THEN remaining launch-corpus editorial readiness
-    DEFERRED editorial work: the Chisel paper (older Draft v6 IWL
-    development-log appendix and manuscript identity; IWL editorial
-    mismatches under "Polish, not urgent")
+    Chisel canonical revision (manuscript v9, IWL v4): T23.0, sealed
+    2026-10-18; staging first, production and the Zenodo deposit are
+    separate later gates (see planning/tickets/T23.0-*.md)
     CONTENT / READER / SCHOLARLY checks
     editorial refinement
 
@@ -114,7 +114,7 @@ richer IWL visualization
 
 ## Polish, not urgent
 
-- **Chisel IWL editorial mismatches, carried for the later content / Production Ready pass.** The Layer 1 intro says three Discovery Context notes; four are published. The 4C introductory vocabulary does not match the authored relation cells (`COLLAPSES` in the list, `COLLAPSES_TO` in the cell, plus cell verbs the list does not name). Recorded, not corrected. Not inner schema.
+- **Chisel IWL editorial mismatches, carried for the later content / Production Ready pass (the Layer 1 count part closed by T23.0).** The Layer 1 count was corrected in IWL v4 (T23.0). The 4C introductory vocabulary does not match the authored relation cells (`COLLAPSES` in the list, `COLLAPSES_TO` in the cell, plus cell verbs the list does not name). Recorded, not corrected. Not inner schema.
 
 - **Content-detail pass** (next editorial sprint, flagged while writing `PUBLISHING.md` 2026-08-26): the Invariants paper's §4 pull-quote and Counterpoint currently sit stacked right next to each other; the frontier essay's "Frontier is the floor" Counterpoint and Key idea read as a cluster rather than two separated turning points. Neither is wrong, both are worth a second look once there's time for a pure editorial pass rather than a placement sprint. While at it: check across all three earlier published pieces for any restated sentence that now exists twice at full length instead of as a genuine restatement. (The sub-item this once carried — comparing Three SOS's and Invariants' near-identical "About the Author" bios for an unintentional duplicate — is resolved by construction: Sprint 10 deleted both hand-authored bios in favor of one generated `AUTHOR.bio`, so there's nothing left to compare.)
 - **6.1b — quiet header-utility polish.** Flagged as a real judgment call during Sprint 6.1's own implementation (the search-control's active-state "border cue" interpretation, and the brand-text hide-vs-nowrap decision at mobile) but never scheduled as its own sprint. Revisit only if either reads wrong in practice, not proactively.

@@ -30,6 +30,7 @@ interface Heading {
 interface Props {
 	title: string;
 	pubDate: Date;
+	dateModified?: Date;
 	parentTitle: string;
 	parentUrl: string;
 	parentCategoryLabel: string;
@@ -38,7 +39,7 @@ interface Props {
 	minutesRead?: number;
 }
 
-const { title, pubDate, parentTitle, parentUrl, parentCategoryLabel, parentCategoryUrl, headings, minutesRead } =
+const { title, pubDate, dateModified, parentTitle, parentUrl, parentCategoryLabel, parentCategoryUrl, headings, minutesRead } =
 	Astro.props;
 
 // Ordinary, truthful, minimal description — never a field authored on the
@@ -60,7 +61,7 @@ const breadcrumbItems = [
 	</head>
 
 	<body>
-		<ArticleShell title={title} pubDate={pubDate} minutesRead={minutesRead}>
+		<ArticleShell title={title} pubDate={pubDate} updatedDate={dateModified} minutesRead={minutesRead}>
 			<Fragment slot="before-title">
 				<Breadcrumbs items={breadcrumbItems} />
 			</Fragment>

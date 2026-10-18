@@ -38,8 +38,9 @@ const research = defineCollection({
 				pillar: z.never({ message: 'pillar is retired — use category' }).optional(),
 				pubDate: z.coerce.date(),
 				dateModified: z.coerce.date().optional(),
-				// Full abstract — shown as the JSON-LD `description` (schema.org has no
-				// length concern) and rendered on the page itself. NOT used for the
+				// Used only as the JSON-LD `description` (schema.org has no length
+				// concern); it is not rendered on the page. Normally the abstract; a paper
+				// with no abstract may set it equal to `excerpt` (T23.0). NOT used for the
 				// <meta name="description"> tag or any card/listing blurb — that's
 				// `excerpt`, kept short on purpose. See AGENTS.md.
 				description: z.string(),
@@ -145,6 +146,9 @@ const iwl = defineCollection({
 				// three-state presence/publication model (T13.1 D2).
 				publicationState: z.enum(['unpublished', 'published']),
 				pubDate: z.coerce.date().optional(),
+				// Optional date of the last substantive revision (T23.0), forwarded to
+				// ArticleShell as "Last updated". The IWL body stays opaque; absent = no line.
+				dateModified: z.coerce.date().optional(),
 			})
 			.strict()
 			.refine((data) => data.publicationState !== 'published' || !!data.pubDate, {
