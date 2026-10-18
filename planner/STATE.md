@@ -9,7 +9,8 @@ State: Chisel v9 / IWL v4 deployed; production workflow/PDF preservation verifie
 - APPROVED: approved working context on non-deploying planner/context; promote selected verified/accepted conclusions to canonical docs through authorized work. Never wholesale merge staging or planner/context into main.
 - APPROVED, 2026-10-18: owner handles Chisel's Zenodo upload, deposited-file checks and DOI publication/resolution. Do not perform a second deposited-PDF download/hash check or wait on an assistant-operated Zenodo gate.
 - Owner-managed is not independently verified. Record any later owner confirmation as owner-reported; do not claim deposited parity or DOI resolution today.
-- APPROVED next session: resume from the publishing-process findings, improve the existing-article update flow and new-article submission flow; then likely About, shared author bio/byline and homepage content. Exact changes require the normal prospective authorization.
+- APPROVED wrap-up direction, 2026-10-18: organize a small publishing-workflow sprint using the existing sprint/ticket formats. Scope targeted repo checks and optimizations needed for two flows: update an existing article and publish a new article. Reuse this session’s audit; avoid a broad repository-optimization program. Exact changes still require normal prospective authorization.
+- Content follow-up: About page and homepage copy are a separate bounded batch, potentially next session as the owner prefers. Keep shared author bio/byline changes explicitly separate until their printed-PDF implications are decided; do not make web-only copy depend on regenerating PDFs.
 - Requested today: session checkpoint, initial process recommendations and documentation sweep. No new runtime change, cache purge, variable change, production push or deployment authorized by that request.
 
 ## Verified repository and release state
@@ -35,11 +36,11 @@ State: Chisel v9 / IWL v4 deployed; production workflow/PDF preservation verifie
 ## Next session — bounded starting point
 
 1. Boot from current main HANDOFF.md, then this STATE and the new checkpoint/audit. Main's HANDOFF still carries pre-S6/old-Chisel snapshot claims; use these notes for later chronology and recheck current GitHub facts.
-2. Start with the existing source/docs audit, not another discovery sprint. Agree the two short operational flows and risk-proportionate checkpoints; select the smallest useful implementation delta.
+2. Start with the existing source/docs audit and a concise mini-sprint contract. Use canonical PLANNING/templates: delta scope, acceptance checks, validation, stop conditions, authorization gates and risk caps. Confirm numbering next session; draft only the next evidence-earned ticket, not an advance queue. Agree the two short operational flows and select the smallest useful implementation delta.
 3. Confirm code limits: five-PDF constant; origin-404 blocks new PDF bootstrap; Desk special-case bypasses generic frozen replacement. Existing Chisel update succeeded; general update/new-paper support is not complete.
 4. Prioritize intake/normalization preflight, table-validator reuse, manifest-readiness confirmation before push and one canonical runbook with two branches. Recommendations are PROPOSED, not implemented or sealed.
 5. Before shared author/byline edits, decide current-HTML vs immutable published-PDF identity treatment: AUTHOR.bio and masthead are deliberately printed. Preserve published PDF bytes unless separately authorizing versioned artifact changes.
-6. Then batch approved About/home/author copy against the real shared owners. Do not draft downstream tickets in advance or start competing primary implementations.
+6. Batch approved About/home copy against the real shared owners; the owner may prioritize this web-only batch next session. Include author bio/byline only after the PDF identity decision. Do not draft downstream tickets in advance or start competing primary implementations.
 
 ## Pointers
 
