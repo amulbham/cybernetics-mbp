@@ -1,45 +1,50 @@
 # Planner state — research website
 
-Snapshot updated: 2026-10-18.
-State: T22.0 S6 ACCEPTED WITH RECORDED FOLLOW-UPS; launch closure recorded. T23.0 rev 2 conditionally accepted for seal, implementation and staging; awaiting Executor evidence.
-Primary intent: implement and verify Chisel v9 / IWL v4 on staging, then review the exact PDF and production candidate before separately authorizing promotion.
+Snapshot: 2026-10-18, America/Los_Angeles. Read current main separately from this notes branch.
+State: Chisel v9 / IWL v4 deployed; production workflow/PDF preservation verified; G5 matrix Executor-reported. Publishing-process improvement is the next primary intent.
 
-## Authority and decisions
+## Authority and current direction
 
-- **APPROVED:** repo-backed Planner workspace; approved working notes on non-deploying `planner/context`; promote only verified/accepted conclusions into canonical paths through scoped release work.
-- **RELEASE EXECUTED:** Product Authority's conditional S6 go was given to Claude Code; the Executor promoted `5bf8518` and returned the After-S6 report. Product Authority requested moving to the next work after that report.
-- **PLANNER ACCEPTANCE, 2026-10-18:** S6 accepted with the recorded verification limitations. No further production deployment is required solely to stamp CLOSED. Final R3 report is appended to the canonical ticket path on this branch; its later promotion to main belongs with an authorized release.
-- **APPROVED sequencing:** Chisel canonical article plus IWL update and an evidence-earned reusable revision flow, then About simplification.
-- **Historical exception:** T22.0 had two outside R3 pre-seal reviews waived. T23.0 now has its own separately authorized one-ticket waiver; neither changes the default R3 rule.
-- **AUTHORIZED, T23.0 only:** verify reported rev 2 hashes and bounded changes, record the outside-review waiver, seal, implement, test and deploy to staging. Workflow documentation comments only may change; executable workflow changes, variable changes, production promotion and Zenodo publication remain unauthorized.
+- Product Authority: Amul. Planner/reviewer: this chat. Executor: Claude Code. Executor does not orchestrate reviewers.
+- APPROVED: approved working context on non-deploying planner/context; promote selected verified/accepted conclusions to canonical docs through authorized work. Never wholesale merge staging or planner/context into main.
+- APPROVED, 2026-10-18: owner handles Chisel's Zenodo upload, deposited-file checks and DOI publication/resolution. Do not perform a second deposited-PDF download/hash check or wait on an assistant-operated Zenodo gate.
+- Owner-managed is not independently verified. Record any later owner confirmation as owner-reported; do not claim deposited parity or DOI resolution today.
+- APPROVED next session: resume from the publishing-process findings, improve the existing-article update flow and new-article submission flow; then likely About, shared author bio/byline and homepage content. Exact changes require the normal prospective authorization.
+- Requested today: session checkpoint, initial process recommendations and documentation sweep. No new runtime change, cache purge, variable change, production push or deployment authorized by that request.
 
-## Verified state and evidence limits
+## Verified repository and release state
 
-- `main = 5bf8518f7cbba16a7a8a950b2abac2a42c3502a6`; `staging = b26267cfa619dd0ccbd63e4b39a7512b0d13521e`; Planner note base `f4b460ba45c7b234c22a942befadad0d5998433f`. Rechecked 2026-10-18; these are base snapshots, not this note's own commit SHA.
-- **VERIFIED:** main's tree `622e58be04b1ea1fc073e315c53d02810f95c1e7` exactly equals reviewed candidate `abb26e3`; main advanced from `384f034` with the exact 17-file docs-only diff.
-- **VERIFIED (GitHub):** production #119 / `39165606863` succeeded on `5bf8518`; all 14 job steps successful, including guard, carry-over, PDF validation, deploy and post-deploy PDF verify.
-- **EXECUTOR-REPORTED:** full direct After-S6 matrix passed: 23 redirects; five approved PDF hashes; Desk/Zenodo parity; six entries/IWL/OG/RSS/homepage; open intended production indexing, 13 sitemap URLs, exclusions and preview-host protections. The Planner did not independently repeat those live requests.
-- Cloudflare deployment ID and private `PDF_RELEASE` unset state were not read. SHA-linked workflow, changed About build stamp and the live matrix support deployment correspondence. Carry-over ran and all hashes were preserved; do not claim private settings were independently inspected. Confirm normal `PDF_RELEASE` state in the next authorized release preflight.
-- **S5:** owner-confirmed Search Console setup complete; Google processing/crawling and Scholar inclusion remain UNVERIFIED external outcomes.
-- **PR #1:** closed without merge as superseded by the combined S6 release; branch and history retained. No second production push was made.
+- main `1878c269ef837ce5abe203d742cdc85e3e14ebc0`; staging `dd475ef5b0580bde875cc47e0ec6be94e52b4319`; Planner parent `b58ffb5c1142c48c6bc53f38816f0d54e9343b3a`. Fresh fetch/GitHub checks 2026-10-18. No open PRs at this check.
+- VERIFIED: run #122 / `39175614360`, attempt 2, job `117818404757`, successful on main's exact SHA. Guard/build/PDF generation/carry/validation/deploy/post-deploy verify all passed.
+- VERIFIED step logs: exactly one frozen-artifact swap; all five live PDF hashes match the manifest after deploy, attempt 1. Cloudflare logged deployment URL `https://d6d89fa0.cybernetics-mbp-site.pages.dev` (not a separately queried dashboard deployment id).
+- Attempt 1 failed at guard with stale manifest expectation, before build/deploy. Planner triggered the authorized same-SHA retry through GitHub after the owner requested it; no new code push was needed.
+- VERIFIED source: manuscript v9, IWL v4, pubDate 2026-09-22, dateModified 2026-10-18, reserved DOI `10.5281/zenodo.23458660`; stable routes; CC BY-NC 4.0; two article and thirteen IWL responsive-records opt-ins; schema has optional outer IWL dateModified.
+- Approved production Chisel PDF: SHA-256 `1f68d9eec9a0d8412a7fefc4d2c42b17f340801fbbef438b671edbffaf4582f3`, 289,922 bytes, 23 pages. Size/pages and visual inspection are Executor-reported; CI independently confirmed live hash agreement. Four other PDFs retained approved hashes.
+- EXECUTOR-REPORTED G5: 26 checks pass; 23 redirects, 13 indexable canonical sitemap URLs, 40 tag pages, 6 RSS items, metadata, responsive layout and host/indexing protections. Planner did not repeat the full live-host matrix.
+- Follow-up: two removed tag URLs still serve cached noindex 200s without cache busting; cache-busted requests return 404 (Executor report). Do not claim bare-URL E2 is satisfied. Cache expiry/purge and recheck are separate; no purge was authorized or performed here.
+- Zenodo/DOI are owner-managed and not independently verified. Screen-reader/forced-colors behavior and Google/Scholar outcomes remain unverified.
+- T22.0 S6 was accepted and its two closure documents were selectively promoted in main's T23 candidate. PR #1 remains closed without merge, superseded.
 
-## Chisel decisions and next action
+## Closure and evidence handling
 
-1. **VERIFIED:** supplied manuscript v9 and IWL v4 were inspected and hashed against the supplied files; current published sources are manuscript v6 / IWL v2. Exact source identities and normalization findings are in the new checkpoint.
-2. **APPROVED:** reserved DOI, no visible abstract, metadata description from the supplied excerpt, original publication dates retained, meaningful revisions recorded with dateModified, stable routes/IDs, new five-tag set, and CC BY-NC 4.0 for the IWL.
-3. **APPROVED:** bounded heading/reference/callout corrections; opaque IWL body with normal outer frontmatter and optional outer dateModified. Preserve canonical prose apart from the specifically approved corrections.
-4. **APPROVED flow:** website compiles the canonical PDF; freeze approved bytes, publish those bytes on the website, then the owner uploads the downloaded production PDF to Zenodo. DOI resolution and deposited-file parity are final gates, not prerequisites to website publication.
-5. **ACCEPTED DESIGN, implementation UNVERIFIED:** commit content-addressed new/retiring PDF blobs and a Chisel path/hash expectation; require expectation and manifest agreement before build/deploy and in carry. Preserve the other four PDFs and all-five validation. Old-manifest/v9 candidate must fail; initial transition swaps one, matching reruns swap zero. The rev 2 report addresses Planner findings; exact revised draft bytes were not independently available to the Planner.
-6. Next: await Executor seal/implementation SHAs, staging workflow and focused evidence, article/IWL URLs, and exact staging PDF plus hash/size/page count. Owner says work is running; seal, code, tests and deployment have not yet been independently inspected. Review staging and frozen PDF before any separate production authorization. About follows Chisel.
-7. Selectively promote the accepted S6 final report/addendum with the next appropriate approved release; do not deploy solely to flip status. Prose-compiler feedback remains a follow-up; no new compiler skill or tooling project is authorized.
+- Runtime website work is delivered; remaining tag-cache, documentary and owner-operated deposit items are explicit follow-ups, not authorization for another deployment. No unconditional claim that every T23 criterion is satisfied.
+- Executor reports final G5 evidence at local-only staging commit `36ed554`; source/log not available on GitHub yet. Earlier local evidence commits include dc4b55f. Do not invent their contents or push staging merely to publish them.
+- On the next appropriate authorized release: selectively import the actual final evidence; append factual completion/report records under the repository's caps; update active current-state docs; append a new CHANGELOG release entry. Preserve seals and earlier history.
+- Normal R3 requirements remain. T22 and T23 had separately recorded one-ticket waivers; T23.0.1 was a bounded corrective R1. No blanket review waiver or new planning protocol was adopted.
+
+## Next session — bounded starting point
+
+1. Boot from current main HANDOFF.md, then this STATE and the new checkpoint/audit. Main's HANDOFF still carries pre-S6/old-Chisel snapshot claims; use these notes for later chronology and recheck current GitHub facts.
+2. Start with the existing source/docs audit, not another discovery sprint. Agree the two short operational flows and risk-proportionate checkpoints; select the smallest useful implementation delta.
+3. Confirm code limits: five-PDF constant; origin-404 blocks new PDF bootstrap; Desk special-case bypasses generic frozen replacement. Existing Chisel update succeeded; general update/new-paper support is not complete.
+4. Prioritize intake/normalization preflight, table-validator reuse, manifest-readiness confirmation before push and one canonical runbook with two branches. Recommendations are PROPOSED, not implemented or sealed.
+5. Before shared author/byline edits, decide current-HTML vs immutable published-PDF identity treatment: AUTHOR.bio and masthead are deliberately printed. Preserve published PDF bytes unless separately authorizing versioned artifact changes.
+6. Then batch approved About/home/author copy against the real shared owners. Do not draft downstream tickets in advance or start competing primary implementations.
 
 ## Pointers
 
-- `planner/checkpoints/2026-10-18-t23-staging-authorization.md`: rev 2 disposition, one-ticket waiver, staging authorization and checkpoint procedure.
-
-- `planner/checkpoints/2026-10-18-chisel-revision-decisions.md`: approved inputs, scope and release-flow decisions; next contract draft.
-
-- `planner/checkpoints/2026-10-18-s6-accepted-chisel-intake.md`: closure review, evidence provenance and queued canonical promotion.
-- `site/planning/tickets/T22.0-public-mvp-launch.md` on this branch: preserved original contract plus accepted R3 completion report.
-- `site/planning/audits/T22.0-public-mvp-launch-evidence.md` on main: earlier preparation evidence and exact release matrix pointer.
-- [Run #119](https://github.com/amulbham/cybernetics-mbp/actions/runs/39165606863); [closed PR #1](https://github.com/amulbham/cybernetics-mbp/pull/1).
+- `planner/checkpoints/2026-10-18-chisel-shipped-process-handoff.md`: session chronology, approvals, two-hour lesson, next intent.
+- `planner/audits/2026-10-18-publishing-flow-doc-sweep.md`: exact current-source findings, process proposals and proposed documentation targets.
+- `planner/checkpoints/2026-10-18-chisel-revision-decisions.md`: source hashes and approved normalization decisions.
+- main `site/planning/tickets/T23.0-chisel-canonical-revision.md`, `T23.0.1-chisel-responsive-records-opt-in.md`; current main has staging/candidate evidence only, final G5 supplement remains local to Executor.
+- Run #122: https://github.com/amulbham/cybernetics-mbp/actions/runs/39175614360 .

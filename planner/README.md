@@ -22,13 +22,13 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 
 - **`main`** is the source and deploy branch for the live site; a push triggers a full Cloudflare publication pipeline. **`staging`** also deploys. Do not use either for routine Planner checkpoints.
 - **`planner/context`** is the long-lived working-memory branch. Commit `planner/STATE.md` and `planner/checkpoints/` there when useful. It does **not** trigger the configured site workflow, which listens to `main` and `staging` only.
-- **`docs/launch-handoff-2026-10-16`** is the initial release-documentation candidate and draft PR #1. It includes this workspace setup before the first merge to `main`. Don't confuse its content with a completed T22.0 S6 release.
+- **`docs/launch-handoff-2026-10-16`** is the historical initial release-documentation branch. PR #1 was closed without merge as superseded by the combined S6 release at `main @ 5bf8518`; its branch/history are retained. Read current main for deployed source.
 - No automatic whole-branch promotion from `planner/context` to `main`. Promote selected verified/approved changes deliberately into canonical files as a scoped PR/ticket. Don't merge `staging` wholesale into `main`.
 - A later release may leave `planner/context` behind `main` for code. Read live `main` separately, and periodically reconcile only documentation pointers. A branch name is not a proof of freshness.
 
 ## Boot procedure for every fresh Planner chat
 
-1. Open root `HANDOFF.md` on current `main`; **until PR #1 merges**, read `HANDOFF.md` on `docs/launch-handoff-2026-10-16`. Use `planner/README.md` and **`planner/STATE.md` from `planner/context`** for latest working context.
+1. Open root `HANDOFF.md` on current `main` as an orientation snapshot. Use `planner/README.md` and **`planner/STATE.md` from `planner/context`**, plus its latest relevant checkpoint, for later working context. PR #1 is closed/superseded; do not wait for it to merge or default to its historical branch. Recheck main before treating a snapshot as deployed truth.
 2. Check remote heads for `main`, `staging`, `planner/context`; recent deploy runs and open relevant PRs. Distinguish reported production checks from independently examined ones.
 3. Read `site/ROADMAP.md`, `site/AGENTS.md`, `site/PLANNING.md`, `site/PUBLISHING.md` and the relevant ticket/code from the branch where each actually exists. Retrieve **only relevant** dated checkpoints; no need to ingest the entire archive.
 4. Summarize in five short categories: verified state, Product Authority approvals, unresolved/unverified claims, current objective, proposed next action. Ask one question only if a decision is essential.
