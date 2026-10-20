@@ -50,3 +50,17 @@ A copy rewrite, shared component change, metadata change or styling redesign bec
 
 ## Canonical documentation targets
 This sprint contract, T24.0 and scoped ROADMAP/CHANGELOG entries. No broad documentation reconciliation.
+
+## Prospective T24.1 extension — approved 2026-10-20
+
+T24.0's original contract, scope and acceptance remain historical. For T24.1 only, the Product Authority approves the replacement heading, selected page-specific metadata, About hierarchy and Methodology in planner/assets/T24.1-approved-content.md @ ac1f9a0fa989e26937b73479f2971a3acad246be. This extends the original metadata/layout/CSS constraints prospectively; it does not rewrite T24.0 or claim its original H1 reached production.
+
+- T24.1 permits modest token-based CSS inside about.astro and the specified two-page metadata changes. Shared identity/constants, global styling, article/IWL sources, PDF artifacts and deployment variables remain unchanged.
+- Outside review returned no findings per the Product Authority. Executor may seal, implement and verify staging only; production candidate/preparation and promotion remain separately gated.
+- T24.1 is the current implementation unit. One focused acceptance packet covers approved asset fidelity, About hierarchy and links, metadata ownership, responsive/keyboard behavior and successful staging CI.
+
+| Ticket | Mode | Purpose | Depends on | Gate |
+|---|---|---|---|---|
+| T24.1 | IMPLEMENTATION (R1) | Apply approved homepage/About refinement | T24.0 staging e292703; approved content ac1f9a0; prospective seal | Staging acceptance; later separate main-based candidate and production authorization |
+
+Current exit target: the final combined T24.0/T24.1 page result. Earlier copy choices explicitly superseded by T24.1 are not production requirements; unchanged publication/identity protections remain.
