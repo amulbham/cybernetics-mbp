@@ -2,6 +2,10 @@
 
 Human-readable history of what shipped, in order, and why. Append new entries at the top. This is project history — never edit or delete a past entry to reflect a later change; add a new entry instead.
 
+## 2026-10-20 — T24.0: approved homepage heading, homepage blurb and About introduction (staging; production pending)
+
+Sealed R1 ticket T24.0 (Sprint 24; the reviewed contract was sealed prospectively on the Product Authority's authorization; the review was user-supplied and external, reviewer identity not supplied). The three approved copy blocks are installed verbatim in `src/pages/index.astro` (H1 and the visible `.positioning` blurb, authored locally; `SITE_DESCRIPTION`, page metadata and structured data unchanged) and `src/pages/about.astro` (the introduction as three `.lead` paragraphs; H1 "Amul Bham" and the remaining sections unchanged). No shared author identity, CSS, pipeline, variable, indexing or publication-artifact change. Verified on the staging deployment; production release and verification are pending.
+
 ## 2026-10-18 — T23.0.1: Chisel tables use the responsive-records layout (staging; not on production)
 
 Sealed R1 corrective ticket T23.0.1 (lightweight treatment authorized by the Product Authority; no outside reviewer ran). The two four-column tables in the Chisel article and the 13 IWL tables of four or more columns now carry the existing `responsive-records` opt-in, so they read as labelled records below 1100 px and as tables above; table content is unchanged. `scripts/validate-desk-presentation.mjs` now permits exactly those two further pages with pinned counts and still fails any other opt-in. The carry-over script header and two documentation statements that said no other path has an alternate source, or that the layout is Desk-only, were reconciled. The shared `FormattedDate` time-zone behavior is recorded as a follow-up, not changed. Staging only.
