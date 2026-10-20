@@ -11,6 +11,7 @@ Status: **APPROVED** by the Product Authority, 2026-10-18. Scope: the `amulbham/
 | Root `HANDOFF.md` | Durable entry point: release snapshot, provenance, repo map, branch pointers | Refresh at meaningful milestones; deployed truth must be rechecked |
 | `planner/STATE.md` | Short, mutable active Planner state (objective, approvals, blockers, next action) | Update on `planner/context`; ideally under 150 lines |
 | `planner/checkpoints/YYYY-MM-DD-topic.md` | Selected discussion/decision snapshots, assumptions, rejected options and rationale | Append new checkpoint, don't silently rewrite old conclusions |
+| `planner/assets/` | Occasional explicitly approved verbatim copy/content packets for an upcoming ticket | Source editorial decisions to reference; **not** a sealed executor authorization |
 | `site/ROADMAP.md` | Current and deferred product work | Canonical after approved promotion |
 | `site/PLANNING.md`, `site/planning/` | Formal risk process, prospective seals, sprint/ticket contracts, evidence and closure | Never overridden by a Planner checkpoint |
 | `site/AGENTS.md`, `site/PUBLISHING.md`, code, deployed artifacts | Current technical and publishing behavior | Canonical within their respective scopes |
