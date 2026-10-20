@@ -8,7 +8,7 @@ import { personIdentity } from '../lib/structured-data';
 
 const pageTitle = `About — ${SITE_TITLE}`;
 const pageDescription =
-	'Systems researcher working at the intersection of AI infrastructure, technical SEO architecture, and policy rules engines.';
+	'From LLM memory failures to cognitive architecture and an unexpected convergence with cybernetics—explore the research journey of Amul Bham.';
 
 // Sprint 11.1 — mainEntity is the canonical Person core (src/lib/structured-data.ts)
 // plus this page's own contextual enrichment (jobTitle/knowsAbout), which
@@ -48,7 +48,7 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 				padding: 3em 1em;
 			}
 			.about-header {
-				margin-bottom: 2.5em;
+				margin-bottom: 1.5em;
 				text-align: left;
 			}
 			.eyebrow {
@@ -89,26 +89,43 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 				color: var(--text-secondary);
 				line-height: 1.5;
 			}
-			.credentials-list {
+			.prose > h2:first-child {
+				margin-top: 0;
+			}
+			.profile-links {
 				list-style: none;
 				padding: 0;
-				margin: 1.5em 0;
+				margin: 0.75em 0 1.65em;
 				display: flex;
-				flex-direction: column;
-				gap: 0.75em;
+				flex-wrap: wrap;
+				gap: 0.6em;
 			}
-			.credentials-list li {
-				font-size: 0.95em;
-				display: flex;
+			.profile-links a {
+				display: inline-flex;
+				flex-wrap: wrap;
 				align-items: baseline;
-				gap: 0.5em;
+				column-gap: 0.6em;
+				min-height: 44px;
+				box-sizing: border-box;
+				padding: 0.55em 0.9em;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-md);
+				background-color: var(--bg-subtle);
+				text-decoration: none;
+				font-size: 0.95em;
 			}
-			.credentials-list strong {
+			.profile-links a:hover {
+				border-color: var(--accent);
+			}
+			.profile-links a:focus-visible {
+				outline: 2px solid var(--accent);
+				outline-offset: 2px;
+			}
+			.profile-links .link-name {
 				font-family: var(--font-mono);
 				font-size: var(--text-xs);
 				text-transform: uppercase;
 				color: var(--text-secondary);
-				min-width: 110px;
 			}
 		</style>
 	</head>
@@ -119,12 +136,56 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 				<p class="eyebrow">Researcher Profile</p>
 				<h1>Amul Bham</h1>
 				<p class="lead">
-					Independent systems researcher and engineer investigating how AI infrastructure,
-					information retrieval, and deterministic policy systems converge in production.
+					The question started simply: why does an LLM lose the thread? Not randomly — structurally.
+					The failures clustered in consistent ways, and consistent failures have consistent causes.
 				</p>
 			</div>
 
 			<section class="prose">
+				<h2>Profiles & Contact</h2>
+				<ul class="profile-links">
+					<li>
+						<a href={SOCIAL_LINKS.orcid} target="_blank" rel="noopener noreferrer">
+							<span class="link-name">ORCID</span> <span>0009-0009-7660-4031</span>
+						</a>
+					</li>
+					<li>
+						<a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
+							<span class="link-name">LinkedIn</span> <span>linkedin.com/in/amul-bham</span>
+						</a>
+					</li>
+					<li>
+						<a href={SOCIAL_LINKS.substack} target="_blank" rel="noopener noreferrer">
+							<span class="link-name">Substack</span> <span>amulbham.substack.com</span>
+						</a>
+					</li>
+					<li>
+						<a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">
+							<span class="link-name">GitHub</span> <span>github.com/amulbham</span>
+						</a>
+					</li>
+					<li>
+						<a href="mailto:amul.bham@gmail.com">
+							<span class="link-name">Email</span> <span>amul.bham@gmail.com</span>
+						</a>
+					</li>
+				</ul>
+
+				<h2>Background</h2>
+				<p>
+					I spent a decade in enterprise SEO, most recently as Principal SEO Manager at Skechers,
+					building and integrating AI systems into business processes at scale. I knew what it looked
+					like when a tool failed for surface reasons and when it failed for structural ones.
+				</p>
+				<p>
+					What I found underneath the memory problem wasn't a missing feature. It was a missing
+					architecture. Building it — what became the Mission Brief Protocol and the Cognitive Physics
+					Series — led somewhere I didn't plan: a set of invariant conditions that converge with work
+					in cybernetics dating to the 1950s. I didn't build on that literature. I found the same
+					structure from a different angle. That form of convergence is part of the evidence. I left
+					corporate work in early 2026 to research full time.
+				</p>
+
 				<h2>Research Focus</h2>
 				<p>
 					My work explores systems where published rules, economic incentives, and computational
@@ -145,41 +206,18 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 
 				<h2>Methodology</h2>
 				<p>
-					All research papers published here prioritize reproducible systems models, empirical
-					data, and explicit formal protocols over speculative commentary.
+					My research doesn't begin with a topic. It begins with something noticed: a gap between what
+					a system says it does and what it actually does, a constraint appearing twice under
+					different names, or a mechanism that seems obvious once you see it and invisible before. The
+					question forms around the observation, not the other way around.
 				</p>
-
-				<h2>Verified Credentials & Channels</h2>
-				<ul class="credentials-list">
-					<li>
-						<strong>ORCID</strong>
-						<a href={SOCIAL_LINKS.orcid} target="_blank" rel="noopener noreferrer">
-							0009-0009-7660-4031
-						</a>
-					</li>
-					<li>
-						<strong>LinkedIn</strong>
-						<a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
-							linkedin.com/in/amul-bham
-						</a>
-					</li>
-					<li>
-						<strong>Substack</strong>
-						<a href={SOCIAL_LINKS.substack} target="_blank" rel="noopener noreferrer">
-							amulbham.substack.com
-						</a>
-					</li>
-					<li>
-						<strong>GitHub</strong>
-						<a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">
-							github.com/amulbham
-						</a>
-					</li>
-					<li>
-						<strong>Correspondence</strong>
-						<a href="mailto:amul.bham@gmail.com">amul.bham@gmail.com</a>
-					</li>
-				</ul>
+				<p>
+					From there, I work from first principles. Rather than starting with an inherited framework,
+					I derive the underlying structure independently, then compare it with established work. When
+					that process converges with ideas developed across seven decades of cybernetics research,
+					the convergence becomes evidence worth examining. It doesn't replace the argument. It gives
+					us another reason to investigate the structure.
+				</p>
 			</section>
 		</main>
 		<Footer />
