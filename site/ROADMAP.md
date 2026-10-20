@@ -20,7 +20,8 @@ This section supersedes the earlier pre-launch direction. Production source and 
 1. T22.0 S6 was released at `main @ 5bf8518` and accepted by the Planner and Product Authority on 2026-10-18 (limits recorded in its report). The accepted final report and evidence addendum are promoted with the T23.0 release rather than by a status-only deployment.
 2. Follow Search Console indexing and sitemap processing over time, logging concrete errors or discoveries if they appear; S5 setup/submission is owner-reported done and need not be repeated.
 3. **Chisel canonical revision — T23.0 / T23.0.1** (sealed 2026-10-18; the two outside R3 pre-seal reviews were waived once and not performed): manuscript v9 and IWL v4 under unchanged ids and routes, with the frozen-artifact PDF path (`site/release-pdfs/`, flow in `PUBLISHING.md` "Revising a published paper"). Staging accepted 2026-10-18; this release candidate is prepared and **production release is pending**; **Zenodo deposit, DOI resolution and parity are pending** (owner-operated). Evidence: `planning/audits/T23.0-chisel-revision-evidence.md`. About simplification follows Chisel. Preserve publication history and historic closed tickets.
-4. Investigate historical Invariants DOI-file mismatch if version parity becomes important; screen-reader verification and `FormattedDate` local-time formatting are known non-launch-blocking follow-ups.
+4. **Sprint 24 — homepage and About refresh (T24.0 / T24.1)**: accepted on staging 2026-10-20; the cumulative two-page production candidate is prepared and **production release and verification are pending** the Product Authority's separate authorization. About simplification beyond this ticket and shared author-bio work remain separate.
+5. Investigate historical Invariants DOI-file mismatch if version parity becomes important; screen-reader verification and `FormattedDate` local-time formatting are known non-launch-blocking follow-ups.
 
 ### Deferred product direction
 
