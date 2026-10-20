@@ -1,12 +1,13 @@
 # Planner state — research website
 
 **Snapshot:** 2026-10-20 (America/Los_Angeles). Read current production and staging independently; this branch is working context, not a release.
-**Primary intent:** T24.1 homepage / About editorial refinement. **Final content APPROVED and saved; new implementation ticket not yet drafted or sealed.** Production T24.0 copy is not authorized.
+**Primary intent:** T24.1 homepage / About editorial refinement. **Content and T24.1 ticket APPROVED; Product Authority reports outside review with no findings. Executor is authorized to seal, implement and verify staging only; no T24.1 runtime execution has occurred in this Planner step.** Production T24.0 copy is not authorized.
 
 ## Authority / workflow
 - Product Authority: site owner; ChatGPT: Planner/reviewer; Claude Code: Executor. Executor does not independently orchestrate reviewers. Current work follows `site/PLANNING.md` seal-before-execution, staging review and separate exact-candidate production approval.
 - `planner/context` = non-deploying working memory. Promote reviewed results selectively into canonical docs/code. Never merge `planner/context` or divergent `staging` wholesale into `main`.
 - **APPROVED 2026-10-20:** H1, metadata, About layout hierarchy and Methodology copy for T24.1, exactly as stored in `planner/assets/T24.1-approved-content.md`. The rationale and decision supersession are in `planner/checkpoints/2026-10-20-t24-1-editorial-lock.md`. Approval of copy **does not** authorize implementation or production deploy.
+- **SUBSEQUENT AUTHORIZATION, 2026-10-20:** owner approved the reviewed delta-only T24.1 ticket and requested coder handoff after reporting no reviewer findings. Executor may prospectively seal, implement, validate and deploy staging. Main-based candidate preparation, main push and variable changes remain unauthorized.
 
 ## Freshly checked GitHub facts
 - **VERIFIED:** `main = 1878c269ef837ce5abe203d742cdc85e3e14ebc0` (production); `staging = e292703b746c86fe57aa0df1f7f2b577829e89e4` (T24.0 implementation), heads checked 2026-10-20.
@@ -24,13 +25,15 @@
 - `SITE_TITLE`, Person/author identity, shared author bio/printed PDFs remain unchanged. Homepage meta and `WebSite.description` currently share `SITE_DESCRIPTION`: intentionally reconcile page-only metadata without modifying unrelated consumers; preserve About ProfilePage identity. Responsive adjustments should be page-local only.
 
 ## Next gates
-1. **Planner:** draft a delta-only, probably R1 **T24.1** ticket, scoped to `index.astro`, `about.astro`, authorized page-local CSS, specific homepage/About metadata changes and focused mobile/desktop/theme testing. Audit current heads and `SITE_DESCRIPTION` consumers. Record that T24.0 H1 is superseded *prospectively*, not that the original seal changed.
-2. **Product Authority:** review and separately approve ticket seal/execution/staging push. The content is already approved; avoid reopening the wording without new evidence.
-3. **Executor:** implement on verified staging after seal, run local checks and confirm successful staging workflow. Return staging screenshots/checks and a <=25-line R1 completion report. Stop on unexpected shared metadata, source, or component impact.
-4. **Product Authority:** accept staging, then authorize a main-based, product-only candidate and production deploy separately. Keep indexing open and existing five-PDF artifact preservation; recheck relevant production identity hashes.
-5. **Later:** after verified publication, promote durable result to `site/ROADMAP.md` / `site/CHANGELOG.md`; preserve dated Planner checkpoints and no status-only redeploys.
+1. **Executor:** retrieve site/planning/tickets/T24.1-homepage-about-refinement.md and the updated Sprint 24 contract from this approved Planner packet; read the pinned content asset. Recheck current refs, preserve existing local work, seal prospectively and implement on staging. Do not merge planner/context or use its executable code as the baseline.
+2. **Staging verification:** existing build/CI plus the ticket's focused metadata, copy, hierarchy, responsive and keyboard/link checks. Return one <=25-line R1 report, exact commits/run/page URLs and screenshots. No new synthetic suite or publication audit.
+3. **Planner/Product Authority:** accept staging; only then separately authorize a main-based product candidate containing the final cumulative T24.0/T24.1 two-page result.
+4. **Production:** exact-candidate approval before push. Preserve indexing settings and five approved PDFs; no redundant Zenodo check.
+5. **Records:** append actual verified outcomes without rewriting T24.0. No status-only deployment; publication-workflow improvements remain separate.
 
 ## Essential sources
+- `site/planning/tickets/T24.1-homepage-about-refinement.md` on planner/context — approved, awaiting Executor seal; staging-only authorization
+- `planner/checkpoints/2026-10-20-t24-1-coder-handoff.md` — review disposition and handoff authority
 - `planner/assets/T24.1-approved-content.md` — **approved literal copy and UX contract**
 - `planner/checkpoints/2026-10-20-t24-1-editorial-lock.md` — decision rationale and status
 - `planner/checkpoints/2026-10-20-homepage-about-copy-review.md` — prior T24.0 reviewed packet (historical)
