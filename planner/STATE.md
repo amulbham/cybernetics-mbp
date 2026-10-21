@@ -1,14 +1,14 @@
 # Planner state — research website
 
 Snapshot: 2026-10-21 (America/Los_Angeles).
-Primary intent: T25.1 review returned for one narrow factual/authority correction pass.
+Primary intent: T25.1 corrected and accepted at Planner review; owner acceptance pending. Next planning unit: publish-ready manuscript contract.
 
 ## Resume
 Use the [review/task entry](../site/planning/audits/sprint-25/README.md).
-Next gate: Executor addresses [T25.1 Planner findings](../site/planning/audits/sprint-25/T25.1-planner-review.md) within the existing sealed paths, then returns the corrected commit for acceptance.
+Next gate: Product Authority accepts the [owner guide](../site/OPERATOR-GUIDE.md) and entry documents. [Planner focused recheck](../site/planning/audits/sprint-25/T25.1-planner-review.md) accepts correction 74624d2; selective main promotion remains separate.
 
 ## Current decisions and evidence
-- T25.1 implementation @ 216e9830e6ba93f300c542583e14e063ccdfa916 matches the five-file scope; guide is 622 words and sealed contract unchanged. Planner review requires deployment/evidence wording and authorization-currentness corrections; no new scope or seal.
+- T25.1 correction @ 74624d2240bd86fae4a0b9b1a6cdb7b74b51ea4a resolves R1–R3 within the existing scope; Planner ACCEPT. Fresh-session usability is not claimed.
 - [Audit report](../site/planning/audits/sprint-25/T25.0-current-state-audit.md) committed by Executor at 4bb4f6f866f3a5883748ea659da5672113559be7.
 - [Planner review](../site/planning/audits/sprint-25/T25.0-planner-review.md): ACCEPT WITH FOLLOW-UP; independently verified report-only commit, 26 IDs and key source claims.
 - Product Authority accepted T25.0 and approved T25.1 on 2026-10-21. T25.1 is sealed for its five Markdown paths; broader canonical corrections/promotion remain separate.
