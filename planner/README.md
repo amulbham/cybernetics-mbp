@@ -8,7 +8,7 @@ Status: **APPROVED** by the Product Authority, 2026-10-18. Scope: the `amulbham/
 
 | Surface | Owns | Treatment |
 |---|---|---|
-| Root `HANDOFF.md` | Durable entry point: release snapshot, provenance, repo map, branch pointers | Refresh at meaningful milestones; deployed truth must be rechecked |
+| Root `HANDOFF.md` | Stable orientation: where facts live, how to check release state, provenance links | No release inventories or hashes; change only when the structure changes. Deployed truth is rechecked, never read from it |
 | `planner/STATE.md` | Short, mutable active Planner state (objective, approvals, blockers, next action) | Update on `planner/context`; ideally under 150 lines |
 | `planner/checkpoints/YYYY-MM-DD-topic.md` | Selected discussion/decision snapshots, assumptions, rejected options and rationale | Append new checkpoint, don't silently rewrite old conclusions |
 | `planner/assets/` | Occasional explicitly approved verbatim copy/content packets for an upcoming ticket | Source editorial decisions to reference; **not** a sealed executor authorization |
@@ -21,15 +21,15 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 
 ## Branch strategy — avoid involuntary production deployment
 
-- **`main`** is the source and deploy branch for the live site; a push triggers a full Cloudflare publication pipeline. **`staging`** also deploys. Do not use either for routine Planner checkpoints.
-- **`planner/context`** is the long-lived working-memory branch. Commit `planner/STATE.md` and `planner/checkpoints/` there when useful. It does **not** trigger the configured site workflow, which listens to `main` and `staging` only.
+- **`main`** is the source and deploy branch for the live site; a push, a manual run of the deploy workflow, or a re-run triggers the full publication pipeline, and only a successful run puts a commit live. **`staging`** also deploys. Do not use either for routine Planner checkpoints.
+- **`planner/context`** is the long-lived working-memory branch. Commit `planner/STATE.md` and `planner/checkpoints/` there when useful. It does **not** trigger the configured site workflow, whose push trigger covers `main` and `staging` only (a manual run is a separate, approval-gated action; see the owner guide).
 - **`docs/launch-handoff-2026-10-16`** is the historical initial release-documentation branch. PR #1 was closed without merge as superseded by the combined S6 release at `main @ 5bf8518`; its branch/history are retained. Read current main for deployed source.
 - No automatic whole-branch promotion from `planner/context` to `main`. Promote selected verified/approved changes deliberately into canonical files as a scoped PR/ticket. Don't merge `staging` wholesale into `main`.
 - A later release may leave `planner/context` behind `main` for code. Read live `main` separately, and periodically reconcile only documentation pointers. A branch name is not a proof of freshness.
 
 ## Boot procedure for every fresh Planner chat
 
-1. Open root `HANDOFF.md` on current `main` as an orientation snapshot. Use `planner/README.md` and **`planner/STATE.md` from `planner/context`**, plus its latest relevant checkpoint, for later working context. PR #1 is closed/superseded; do not wait for it to merge or default to its historical branch. Recheck main before treating a snapshot as deployed truth.
+1. Read **`planner/STATE.md` from `planner/context`** first (current objective and next gate), then root `HANDOFF.md` for the map of where facts live, and the latest relevant checkpoint. `main` may still hold an older `HANDOFF.md` until a selective promotion is approved; STATE and `planner/context` win on working state. PR #1 is closed/superseded. Recheck main before treating any snapshot as deployed truth.
 2. Check remote heads for `main`, `staging`, `planner/context`; recent deploy runs and open relevant PRs. Distinguish reported production checks from independently examined ones.
 3. Read `site/ROADMAP.md`, `site/AGENTS.md`, `site/PLANNING.md`, `site/PUBLISHING.md` and the relevant ticket/code from the branch where each actually exists. Retrieve **only relevant** dated checkpoints; no need to ingest the entire archive.
 4. Summarize in five short categories: verified state, Product Authority approvals, unresolved/unverified claims, current objective, proposed next action. Ask one question only if a decision is essential.
@@ -54,7 +54,7 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 ## Sprint 25 planning and review pilot — 2026-10-21
 
 Product Authority approved trying repository-mediated handoffs. Role authority remains in site/PLANNING.md §2.
-The [review entry point](../site/planning/audits/sprint-25/README.md) contains task retrieval, review submission and role prompts.
+The [review entry point](../site/planning/audits/sprint-25/README.md) is the one owner of task retrieval, review submission and role prompts. The owner's plain-language Git and deployment summary is [`site/OPERATOR-GUIDE.md`](../site/OPERATOR-GUIDE.md).
 The [sprint plan](../site/planning/sprints/sprint-25-workflow-consolidation.md) owns proposed work sequence; STATE points to the current gate.
 For this pilot, update related artifacts and STATE in a coherent milestone commit after checking branch freshness.
 No additional execution authority follows from this adapter.
