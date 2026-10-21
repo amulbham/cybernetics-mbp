@@ -42,7 +42,7 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 - Mark claims **VERIFIED** (evidence inspected), **APPROVED** (Product Authority decision), **PROPOSED** (not authorized), **UNVERIFIED** (report/claim not independently established), or **SUPERSEDED** (later evidence/decision). A decision may be APPROVED while implementation remains UNVERIFIED.
 - Write working updates to `planner/context` only. Treat checkpoint files as dated snapshots; explain later corrections in a new dated checkpoint or explicit addendum. `STATE.md` is the intentionally mutable summary.
 - Promote only earned truth to its **canonical home** after verification and Product Authority approval; preserve source references back to checkpoint/ticket/commit. If closure requires an implementation ticket, obey seal-before-execution. Keep source policy and runtime behavior out of `planner/STATE.md`.
-- Store **no secrets, credentials, private account content, personal health or financial details**, or full private chat logs in this public Git repository.
+- Store **no secrets, credentials, private account content, personal health or financial details**, or full private chat logs in this Git repository.
 
 ## End-of-session checklist
 
@@ -50,3 +50,16 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 - Is a new checkpoint warranted to preserve hard-to-recreate reasoning?
 - Did an approved, verified finding need promotion to `site/ROADMAP.md`, `site/AGENTS.md`, `site/CHANGELOG.md`, a ticket, or code?
 - Can a fresh chat resume with a short boot prompt and `HANDOFF.md` + `planner/STATE.md` without consulting this conversation?
+
+## Sprint 25 planning and review pilot — 2026-10-21
+
+Product Authority approved trying this repository-mediated planning handoff. It supplements working-note practice; site/PLANNING.md remains the execution authority.
+- [Active Sprint 25 plan](../site/planning/sprints/sprint-25-workflow-consolidation.md) owns full proposed scope, sequence and gates; STATE holds only the current position and links.
+- [Review entry](../site/planning/audits/sprint-25/README.md) owns the pilot's submission instructions and role-specific prompts. It records no completed reviews by itself.
+- [Planning checkpoint](checkpoints/2026-10-21-sprint-25-planning-model.md) preserves the approved direction and unresolved implementation choices.
+- Plan sprint work packages upfront; create later detailed tickets only after evidence earns scope.
+- Resolve a review target to its exact commit; preserve attributed findings and record dispositions without implying approval of later unread revisions.
+- Reviewer write authority is explicit. Small review PRs target planner/context; read-only feedback can be imported after owner authorization.
+- A ticket plus required references is the Executor's context packet. Role assignment, branch and allowed paths define scope; folders do not enforce access.
+- At a milestone update changed assets/checkpoint, then STATE last, and commit one coherent bundle after checking for concurrent branch changes.
+- The immediate pilot is a fresh session reading repository links and identifying objective, authority, unknowns and next gate. Record evidence and limits rather than claiming model equivalence.
