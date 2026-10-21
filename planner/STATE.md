@@ -1,14 +1,14 @@
 # Planner state — research website
 
 Snapshot: 2026-10-21 (America/Los_Angeles).
-Primary intent: Sprint 25 plan review reconciliation. Revision 2 saved for prospective authorization; T25.0 remains DRAFT.
+Primary intent: hand off the sealed T25.0 R0 audit to a fresh Executor session. Audit execution is authorized; results pending.
 
 ## Resume
 Use the [review/task entry point](../site/planning/audits/sprint-25/README.md).
-Next gate: Product Authority considers [T25.0 revision 2](../site/planning/tickets/T25.0-workflow-consolidation-audit.md) for approval/seal; do not execute from draft status.
+Next gate: Executor completes [sealed T25.0](../site/planning/tickets/T25.0-workflow-consolidation-audit.md) and returns its report-only commit for Planner/Product Authority acceptance.
 
 ## Current decisions and evidence
-- [Sprint plan](../site/planning/sprints/sprint-25-workflow-consolidation.md): proposed full-sprint direction, with later packages earned by audit.
+- [Sprint plan](../site/planning/sprints/sprint-25-workflow-consolidation.md): initial audit authorized; later packages are proposed and earned by audit.
 - [Planner disposition](../site/planning/audits/sprint-25/review-disposition-2026-10-21.md): both Grok REQUIRED findings incorporated; OPTIONAL decisions recorded.
 - Grok assessed 5807038, not revision 2. [PR #2](https://github.com/amulbham/cybernetics-mbp/pull/2) is a verified single-review-file submission and remains open/unmerged as last checked.
 - Approved direction and prior alternatives remain in the [immutable planning checkpoint](checkpoints/2026-10-21-sprint-25-planning-model.md); the disposition explains subsequent corrections.

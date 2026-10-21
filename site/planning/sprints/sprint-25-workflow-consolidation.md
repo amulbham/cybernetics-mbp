@@ -1,6 +1,6 @@
 # Sprint 25 — Workflow consolidation
 
-Status: PROPOSED — revision 2, not sealed
+Status: AUDITING — T25.0 authorized; execution results pending; later packages remain proposed
 Risk ceiling: R2 proposed; first audit R0; deployment/publication extensions require separate scope
 Branch: planner/context for planning and audit; implementation branch set per approved ticket
 Depends on: accepted T24.0 + T24.1 release, main @ 9697dbc7310c480d4b6349104e9504107e4341a2
@@ -38,11 +38,11 @@ T25.0 earns the package boundaries and feasibility; later work requires its own 
 - Shared biography/publication-time artifact policy changes without a separate owner decision.
 
 ## Ticket sequence
-Only T25.0 has a detailed draft. Remaining rows are provisional packages, not reserved ticket numbers.
+Only T25.0 is sealed for execution. Remaining rows are provisional packages, not reserved ticket numbers.
 
 | Ticket / package | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| [T25.0 draft](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Reconcile existing findings and earn the smallest contracts | Plan review and owner authorization | Planner/owner accept findings |
+| [T25.0 sealed audit](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Reconcile existing findings and earn the smallest contracts | Revision 2 accepted and T25.0 sealed 2026-10-21 | Planner/owner accept findings |
 | Continuity, roles and documentation ownership | DECISION | Finalize resume/checkpoint/promotion practice and current-state correction list | T25.0 | Fresh-session evidence and acceptance |
 | Publish-ready manuscript contract | DECISION | Final MD interface, editorial guide, portable handoff and worked example | T25.0 | Owner approves contract |
 | Manuscript validation, if earned | VALIDATION | Enforce gaps that existing checks do not cover | Approved contract | Risk-appropriate proof |
