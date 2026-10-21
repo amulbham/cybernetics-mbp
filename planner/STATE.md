@@ -1,21 +1,24 @@
 # Planner state — research website
 
 Snapshot: 2026-10-21 (America/Los_Angeles).
-Primary intent: hand off the sealed T25.0 R0 audit to a fresh Executor session. Audit execution is authorized; results pending.
+Primary intent: T25.0 report review and next bounded documentation packet.
 
 ## Resume
-Use the [review/task entry point](../site/planning/audits/sprint-25/README.md).
-Next gate: Executor completes [sealed T25.0](../site/planning/tickets/T25.0-workflow-consolidation-audit.md) and returns its report-only commit for Planner/Product Authority acceptance.
+Use the [review/task entry](../site/planning/audits/sprint-25/README.md).
+Next gate: Product Authority accepts the audit and considers [T25.1 draft](../site/planning/tickets/T25.1-continuity-and-owner-guide.md); it is not sealed or authorized.
 
 ## Current decisions and evidence
-- [Sprint plan](../site/planning/sprints/sprint-25-workflow-consolidation.md): initial audit authorized; later packages are proposed and earned by audit.
-- [Planner disposition](../site/planning/audits/sprint-25/review-disposition-2026-10-21.md): both Grok REQUIRED findings incorporated; OPTIONAL decisions recorded.
-- Grok assessed 5807038, not revision 2. [PR #2](https://github.com/amulbham/cybernetics-mbp/pull/2) is a verified single-review-file submission and remains open/unmerged as last checked.
-- Approved direction and prior alternatives remain in the [immutable planning checkpoint](checkpoints/2026-10-21-sprint-25-planning-model.md); the disposition explains subsequent corrections.
-- Role/branch authority: [Planner README](README.md) and its canonical protocol references.
+- [Audit report](../site/planning/audits/sprint-25/T25.0-current-state-audit.md) committed by Executor at 4bb4f6f866f3a5883748ea659da5672113559be7.
+- [Planner review](../site/planning/audits/sprint-25/T25.0-planner-review.md): ACCEPT WITH FOLLOW-UP; independently verified report-only commit, 26 IDs and key source claims.
+- T25.1 proposes stable entry points and site/OPERATOR-GUIDE.md on planner/context; broader canonical corrections/promotion remain separate.
+- [Sprint plan](../site/planning/sprints/sprint-25-workflow-consolidation.md) owns proposed work order; no later manuscript/validator/release implementation is authorized.
+- [Grok disposition](../site/planning/audits/sprint-25/review-disposition-2026-10-21.md) and [decision checkpoint](checkpoints/2026-10-21-sprint-25-planning-model.md) retain prior rationale.
+- Role/branch authority: [Planner README](README.md) and its canonical references.
 
-## Production and continuity
-- Main 9697dbc7310c480d4b6349104e9504107e4341a2; staging 043e351f00f6834a053847209caca4749941e91d, checked 2026-10-21.
-- T24.0/T24.1 accepted; [release checkpoint](checkpoints/2026-10-20-t24-release-workflow-next.md) owns evidence/provenance and documentary lag.
-- [Inventory](../site/planning/audits/sprint-25/optimization-inventory.md) owns candidate issues; no efficiency gain or generalized publishing support is claimed.
-- Chisel external Zenodo/DOI completion remains owner-managed/unverified here.
+## Production and limits
+- Main 9697dbc7310c480d4b6349104e9504107e4341a2; staging 043e351f00f6834a053847209caca4749941e91d, freshly checked 2026-10-21.
+- T24 accepted; [release checkpoint](checkpoints/2026-10-20-t24-release-workflow-next.md) owns evidence and documentary lag.
+- Audit session authenticated run/log reads and report push worked; settings reads/full cloud PDF build remain unverified.
+- A prior run is historical evidence, not proof of current variables. New-paper/Desk mechanisms are needed before those releases, not before drafting guides/examples.
+- Fresh Executor recovery is one reported data point; general Planner recovery, model equivalence and measured time savings are unverified.
+- Chisel external Zenodo/DOI completion remains owner-managed/unverified.
