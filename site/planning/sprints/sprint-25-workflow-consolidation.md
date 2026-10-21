@@ -1,6 +1,6 @@
 # Sprint 25 — Workflow consolidation
 
-Status: EXECUTING — T25.0 accepted; T25.1 authorized; later packages remain proposed
+Status: EXECUTING — T25.0 and T25.1 closed; next unit is manuscript-contract scoping; later execution remains proposed
 Risk ceiling: R2 proposed; first audit R0; deployment/publication extensions require separate scope
 Branch: planner/context for planning and audit; implementation branch set per approved ticket
 Depends on: accepted T24.0 + T24.1 release, main @ 9697dbc7310c480d4b6349104e9504107e4341a2
@@ -38,16 +38,18 @@ T25.0 earns the package boundaries and feasibility; later work requires its own 
 - Shared biography/publication-time artifact policy changes without a separate owner decision.
 
 ## Ticket sequence
-T25.0 is closed. T25.1 is the next sealed package. Remaining rows are provisional packages, not reserved ticket numbers.
+T25.0 and T25.1 are closed. Next: scope the publish-ready manuscript contract as T25.2; no T25.2 contract has been created or sealed yet. Remaining rows are provisional packages, not reserved ticket numbers.
 
 | Ticket / package | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
 | [T25.0 sealed audit](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Report delivered at 4bb4f6f; [Planner review](../audits/sprint-25/T25.0-planner-review.md) | Sealed 2026-10-21 | Accepted by Planner and owner |
-| [T25.1 sealed packet](../tickets/T25.1-continuity-and-owner-guide.md) | DECISION | Stable entry points and the owner's one-page Git/cloud guide on planner/context | T25.0 acceptance | Owner/Planner acceptance; main promotion separate |
+| [T25.1 closed packet](../tickets/T25.1-continuity-and-owner-guide.md) | DECISION | Stable entry points and the owner's one-page Git/cloud guide on planner/context | T25.0 acceptance | Accepted at 74624d2; main promotion separate |
 | Publish-ready manuscript contract | DECISION | Final MD interface, editorial guide, portable handoff and worked example | T25.0 | Owner approves contract |
+| Fresh-session continuity demonstration | VALIDATION | Test a new Planner using the new entry path, with actual evidence and limits | T25.1 | Record recovery; do not equate review exchange with full SPM validation |
 | Manuscript validation, if earned | VALIDATION | Enforce gaps that existing checks do not cover | Approved contract | Risk-appropriate proof |
 | Release evidence and operator handoff | DECISION | Authenticated evidence retrieval and exact-SHA release packet | T25.0 | Capability demonstrated |
 | Existing-update and new-entry runbooks | DECISION | Supported cases, prerequisites and limitations | Contract and release handoff | Flow walkthroughs accepted |
+| Canonical documentation reconciliation and selective promotion | DECISION | Reconcile ROADMAP/CHANGELOG/AGENTS/PUBLISHING/skill and promote accepted notes/guide through an approved batch | Accepted packages | Current claims agree; no rewrite of history or status-only deploy |
 | Technical extensions, if needed | — | Scope independently risky pipeline work separately | Tested limitation | New owner decision |
 
 Adjacent low-risk documentation packages may share a ticket where inherited policy supports it.
@@ -95,3 +97,9 @@ T25.0 report @ 4bb4f6f is accepted with follow-up at Planner review and accepted
 [Planner qualifications](../audits/sprint-25/T25.0-planner-review.md) preserve historical/current settings distinctions, workflow_dispatch, and branch artifact custody.
 A new-paper mechanism is needed before a real new scholarly publication, not before the non-published example or this documentation work.
 Broader current-state corrections in ROADMAP/AGENTS/PUBLISHING/skill and CHANGELOG remain candidates for a later approved canonical batch.
+
+## T25.1 acceptance and remaining coverage — 2026-10-21
+Product Authority accepted the corrected guide and entry documents as the initial usable baseline. [Progress checkpoint](../../../planner/checkpoints/2026-10-21-sprint-25-progress-and-remaining-scope.md) maps the remaining owner goals.
+Notes-only improvements are not promoted to main. Authenticated run/log reading and notes-branch push worked; settings reads were blocked in the tested session and full cloud PDF build remains untested.
+The manuscript contract, primitive guide/example, portable prose-agent input, Executor instruction reconciliation, missing validation, both publishing flows, release preflight/evidence and canonical-document correction batch remain in scope for earned packages.
+Branch/governance reconciliation is an explicit decision if needed, not automatic TP2 promotion. Generalized new-paper/Desk artifacts remain separately authorized R3 work before those publications.
