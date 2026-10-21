@@ -19,7 +19,7 @@ Independent research publishing site for [Amul Bham](https://amulbham.com), buil
 - [`site/design-system/`](site/design-system/) — visual rules.
 
 ## Branches and release safety
-`main` is the source of [production](https://amulbham.com), and a successful workflow run is what puts it live; `staging` deploys a blocked-from-indexing Pages preview. A push to either branch, a manual **Run workflow**, or a re-run deploys. **Do not wholesale merge staging into main**; histories include unrelated TP2 governance work. Use approved, scoped promotions and verify live deploys. Check `PDF_MANIFEST`, `PDF_CARRY_OVER`, and `SITE_INDEXING` before authorizing any production deployment action.
+`main` is the source of [production](https://amulbham.com), and the workflow's Cloudflare upload step is what puts it live (later checks can still fail); `staging` deploys a blocked-from-indexing Pages preview. A push to either branch, a manual **Run workflow**, or a re-run deploys. **Do not wholesale merge staging into main**; histories include unrelated TP2 governance work. Use approved, scoped promotions and verify live deploys. Check `PDF_MANIFEST`, `PDF_CARRY_OVER`, and `SITE_INDEXING` before authorizing any production deployment action.
 
 ## Local verification
 ```sh

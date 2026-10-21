@@ -24,7 +24,7 @@ Product Authority (Amul) decides scope, editorial content, publication, indexing
 | Active and deferred work, history | `site/ROADMAP.md`, `site/CHANGELOG.md` (check against Actions before trusting) |
 
 ## Checking release state
-- `main` is the production **source**, not proof of what is live. Open the [Deploy Pages runs](https://github.com/amulbham/cybernetics-mbp/actions/workflows/deploy-pages.yml) and find the run for `main`'s latest commit. Live is that commit only if the run succeeded through the Cloudflare deploy step; otherwise production may still be on an earlier deployment.
+- `main` is the production **source**, not proof of what is live. Open the [Deploy Pages runs](https://github.com/amulbham/cybernetics-mbp/actions/workflows/deploy-pages.yml) and find the run for `main`'s latest commit. That commit is live once the run's Cloudflare deploy step succeeded. If the run failed earlier, production may still be on an earlier deployment; if it failed afterward, the upload may already have happened, so a red run alone does not show nothing deployed.
 - Deployment actions: a push to `main` or `staging` (including a merge into either), a manual **Run workflow**, and a re-run of a past run. Pushing any other branch does not deploy.
 - Repository variables (`PDF_MANIFEST`, `PDF_CARRY_OVER`, `PDF_RELEASE`, `SITE_INDEXING`) are owner settings that not every session can read. A past run's log shows the values that run used, not today's. See the indexing and PDF sections of `site/AGENTS.md`.
 - Do not wholesale merge `staging` into `main`; promote scoped, verified changes.
@@ -35,4 +35,4 @@ Product Authority (Amul) decides scope, editorial content, publication, indexing
 - Workflow audit: [publishing-flow sweep](planner/audits/2026-10-18-publishing-flow-doc-sweep.md), [T25.0 audit](site/planning/audits/sprint-25/T25.0-current-state-audit.md), [Planner review](site/planning/audits/sprint-25/T25.0-planner-review.md).
 
 ## Owner-managed and unverified here
-Zenodo deposits and DOI completion (including Chisel), Google Search Console and any search-engine inclusion. Treat them as the owner's to confirm; this repository records no independent verification.
+Zenodo deposits and DOI completion, Google Search Console and search-engine inclusion are the owner's to confirm. The linked launch and Chisel evidence records which results were verified and which were owner-confirmed; do not recheck deposits unless asked. Current Chisel Zenodo/DOI completion is not established here.

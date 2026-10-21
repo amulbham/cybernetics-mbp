@@ -21,7 +21,7 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 
 ## Branch strategy — avoid involuntary production deployment
 
-- **`main`** is the source and deploy branch for the live site; a push, a manual run of the deploy workflow, or a re-run triggers the full publication pipeline, and only a successful run puts a commit live. **`staging`** also deploys. Do not use either for routine Planner checkpoints.
+- **`main`** is the source and deploy branch for the live site; a push, a manual run of the deploy workflow, or a re-run triggers the full publication pipeline. A commit is live once the run's Cloudflare upload step succeeds; later checks can still fail, so a red run is not proof that nothing deployed. **`staging`** also deploys. Do not use either for routine Planner checkpoints.
 - **`planner/context`** is the long-lived working-memory branch. Commit `planner/STATE.md` and `planner/checkpoints/` there when useful. It does **not** trigger the configured site workflow, whose push trigger covers `main` and `staging` only (a manual run is a separate, approval-gated action; see the owner guide).
 - **`docs/launch-handoff-2026-10-16`** is the historical initial release-documentation branch. PR #1 was closed without merge as superseded by the combined S6 release at `main @ 5bf8518`; its branch/history are retained. Read current main for deployed source.
 - No automatic whole-branch promotion from `planner/context` to `main`. Promote selected verified/approved changes deliberately into canonical files as a scoped PR/ticket. Don't merge `staging` wholesale into `main`.
