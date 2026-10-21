@@ -53,13 +53,8 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 
 ## Sprint 25 planning and review pilot — 2026-10-21
 
-Product Authority approved trying this repository-mediated planning handoff. It supplements working-note practice; site/PLANNING.md remains the execution authority.
-- [Active Sprint 25 plan](../site/planning/sprints/sprint-25-workflow-consolidation.md) owns full proposed scope, sequence and gates; STATE holds only the current position and links.
-- [Review entry](../site/planning/audits/sprint-25/README.md) owns the pilot's submission instructions and role-specific prompts. It records no completed reviews by itself.
-- [Planning checkpoint](checkpoints/2026-10-21-sprint-25-planning-model.md) preserves the approved direction and unresolved implementation choices.
-- Plan sprint work packages upfront; create later detailed tickets only after evidence earns scope.
-- Resolve a review target to its exact commit; preserve attributed findings and record dispositions without implying approval of later unread revisions.
-- Reviewer write authority is explicit. Small review PRs target planner/context; read-only feedback can be imported after owner authorization.
-- A ticket plus required references is the Executor's context packet. Role assignment, branch and allowed paths define scope; folders do not enforce access.
-- At a milestone update changed assets/checkpoint, then STATE last, and commit one coherent bundle after checking for concurrent branch changes.
-- The immediate pilot is a fresh session reading repository links and identifying objective, authority, unknowns and next gate. Record evidence and limits rather than claiming model equivalence.
+Product Authority approved trying repository-mediated handoffs. Role authority remains in site/PLANNING.md §2.
+The [review entry point](../site/planning/audits/sprint-25/README.md) contains task retrieval, review submission and role prompts.
+The [sprint plan](../site/planning/sprints/sprint-25-workflow-consolidation.md) owns proposed work sequence; STATE points to the current gate.
+For this pilot, update related artifacts and STATE in a coherent milestone commit after checking branch freshness.
+No additional execution authority follows from this adapter.

@@ -40,6 +40,6 @@ Prospective seals, risk-proportional review, staging acceptance, explicit produc
 Existing CI guard/carry/live verification worked in run #126; operator friction is not evidence that these protections should be removed.
 
 ## Audit output
-T25.0 should give each issue a current disposition: confirmed / resolved / unsupported / deferred, with inspected revision and evidence.
+T25.0 should give each issue a current disposition: confirmed / resolved / unsupported — needs capture / deferred, with available inspected evidence and explicit gaps. OBSERVED items need not become verified baselines or contract requirements.
 Group adjacent low-risk corrections; separate deployment/publication mechanisms with independent risk.
 Do not recreate the earlier sweep or turn every inventory row into a ticket.

@@ -1,98 +1,91 @@
 # Sprint 25 — Workflow consolidation
 
-Status: PROPOSED — review draft, not sealed
-Risk ceiling: R2 proposed; current planning packet and first audit are R0
+Status: PROPOSED — revision 2, not sealed
+Risk ceiling: R2 proposed; first audit R0; deployment/publication extensions require separate scope
 Branch: planner/context for planning and audit; implementation branch set per approved ticket
 Depends on: accepted T24.0 + T24.1 release, main @ 9697dbc7310c480d4b6349104e9504107e4341a2
-Unlocks: portable planning/review handoffs and predictable manuscript intake
-Planning authority: Product Authority approved saving this plan and trying the GitHub handoff on 2026-10-21; execution remains separately gated.
+Unlocks: portable role handoffs and predictable manuscript intake
 
 ## Core question
-How can a new Planner, reviewer or Executor resume and deliver a bounded website change with fewer repeated editorial, evidence and documentation handoffs?
+How can a new Planner, reviewer or Executor resume and deliver a bounded website change with fewer editorial, evidence and documentation handoffs?
 
 ## Outcome
-A maintained manuscript input contract, a usable SPM-based continuity procedure, an attributed review exchange, and distinct existing-entry/new-entry runbooks grounded in the actual release capabilities.
+Proposed sprint direction: a maintained manuscript input contract, an SPM continuity procedure, attributed review exchange, and separate existing-entry/new-entry runbooks grounded in actual capabilities.
+T25.0 earns the package boundaries and feasibility; later work requires its own prospective authorization.
 
 ## Inherited truths
-- Inherits: site/PLANNING.md @ 9697dbc7310c480d4b6349104e9504107e4341a2, especially §§3, 7 and 13.
-- Latest release acceptance and evidence provenance: [T24 checkpoint](../../../planner/checkpoints/2026-10-20-t24-release-workflow-next.md).
-- Working-memory substrate: [Planner README](../../../planner/README.md); actual source is read separately from current main/staging.
-- Baseline findings: [Oct 18 sweep](../../../planner/audits/2026-10-18-publishing-flow-doc-sweep.md); dated findings require current-source reconciliation.
+- Inherits: site/PLANNING.md @ 9697dbc7310c480d4b6349104e9504107e4341a2 — roles, source ownership, gates and proportionality.
+- [Planner README](../../../planner/README.md) owns branch separation and continuity practice.
+- [T24 checkpoint](../../../planner/checkpoints/2026-10-20-t24-release-workflow-next.md) records release acceptance and evidence provenance.
+- [Decision checkpoint](../../../planner/checkpoints/2026-10-21-sprint-25-planning-model.md) records the owner's agreed planning direction.
 
 ## Hypotheses to test
-- A single publish-ready manuscript contract removes recurring editorial decisions from upload.
-- State plus a relevant checkpoint and linked assets is sufficient for fresh-session orientation.
-- Exact-revision reviews and linked evidence reduce chat copying and repeated verification.
-- Existing CI protections can support simpler operator handoffs without a PDF-pipeline rewrite.
-- The [optimization inventory](../audits/sprint-25/optimization-inventory.md) is a candidate list, not a commitment to fix every row.
+- Final authored Markdown removes upload-time editorial decisions.
+- State plus relevant checkpoint/assets is sufficient for fresh-session recovery.
+- Exact-revision reviews and linked CI evidence reduce reconstruction and repeated checks.
+- Supported content runbooks can be clarified without first rewriting the PDF pipeline.
+- The [inventory](../audits/sprint-25/optimization-inventory.md) is a candidate list, not a commitment to fix each row.
 
 ## Hard constraints
-- Product Authority selects reviewers and authorizes scope, staging acceptance and production.
-- Planner proposes and reconciles; reviewer assesses the assigned revision; Executor implements only authorized work. No agent launches other reviewers without explicit instruction.
-- Plan the complete sprint as work packages; draft later executable tickets only after predecessor evidence earns their shape.
-- Approved editorial direction is distinct from verified implementation; review feedback is distinct from authorization.
-- Maintain PDF preservation, stable publication identity and current production/preview indexing policy.
-- Working notes and reviews use planner/context; never wholesale merge planner/context or divergent staging into main.
-- Record post-release evidence without a deploy solely to flip status wording.
-- The owner manages Chisel's external Zenodo deposit and DOI checks.
+- Proposed packages do not grant execution authority; later detailed tickets follow T25.0 evidence.
+- One canonical manuscript contract; CONTENT-MODULES continues to own renderer grammar.
+- Larger new-paper/Desk/PDF mechanisms remain separately scoped when current capability is insufficient.
 
 ## Explicit exclusions
-- Publishing or rewriting FAFSA, Cognition as an SoS, or any other manuscript in this planning unit.
-- New primitive types, primitive visual redesign, a CMS, new memory machinery, or reviewer orchestration.
-- Generalized new-paper bootstrap, Desk artifact replacement, PDF reproducibility, or generation optimization implementation.
-- Shared biography/publication-time PDF policy changes without a separate owner decision.
-- Indexing, credentials, repository variables, deployment mechanics or production changes under audit authority.
+- Publication or editorial revision of FAFSA, Cognition as an SoS or another manuscript.
+- Primitive redesign/new types, CMS, new memory machinery, automated reviewer orchestration.
+- Generalized artifact bootstrap, PDF reproducibility or generation optimization implementation.
+- Shared biography/publication-time artifact policy changes without a separate owner decision.
 
 ## Ticket sequence
-Only T25.0 has a detailed draft. The remaining rows are provisional work packages, not reserved ticket numbers or implementation permission.
+Only T25.0 has a detailed draft. Remaining rows are provisional packages, not reserved ticket numbers.
 
 | Ticket / package | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| [T25.0 draft](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Reconcile the existing sweep and inventory; earn the smallest next contracts | Sprint-plan review and owner authorization | Accept findings and proposed scope |
-| Continuity, roles and documentation ownership | DECISION | Finalize resume/checkpoint/promotion rules, review exchange and current-state reconciliation | T25.0 findings | Fresh-session recovery and owner acceptance |
-| Publish-ready manuscript contract | DECISION | Specify final MD, editorial ownership, guide and worked example | T25.0 grammar/validation evidence | Owner approves portable prose-agent contract |
-| Manuscript validation, if earned | VALIDATION | Enforce input integrity that current checks do not cover | Approved contract and identified gaps | Risk-appropriate contract and negative cases |
-| Release evidence and operator handoff | DECISION | Establish authenticated evidence retrieval and exact-SHA release packet | T25.0 access/CI findings | Capability demonstrated; no credential disclosure |
-| Update-existing and publish-new runbooks | DECISION | Document supported cases and explicit technical limitations | Accepted contract and release handoff | Walkthrough of each flow |
-| Technical extensions, if needed | — | Scope independently risky pipeline work for a later sprint or explicit scope amendment | Tested limitations | Separate Product Authority decision |
+| [T25.0 draft](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Reconcile existing findings and earn the smallest contracts | Plan review and owner authorization | Planner/owner accept findings |
+| Continuity, roles and documentation ownership | DECISION | Finalize resume/checkpoint/promotion practice and current-state correction list | T25.0 | Fresh-session evidence and acceptance |
+| Publish-ready manuscript contract | DECISION | Final MD interface, editorial guide, portable handoff and worked example | T25.0 | Owner approves contract |
+| Manuscript validation, if earned | VALIDATION | Enforce gaps that existing checks do not cover | Approved contract | Risk-appropriate proof |
+| Release evidence and operator handoff | DECISION | Authenticated evidence retrieval and exact-SHA release packet | T25.0 | Capability demonstrated |
+| Existing-update and new-entry runbooks | DECISION | Supported cases, prerequisites and limitations | Contract and release handoff | Flow walkthroughs accepted |
+| Technical extensions, if needed | — | Scope independently risky pipeline work separately | Tested limitation | New owner decision |
 
-Adjacent low-risk documentation packages may share a ticket where §7 supports it. They need not become one ticket each.
+Adjacent low-risk documentation packages may share a ticket where inherited policy supports it.
 
 ## Sprint-level acceptance criteria
-1. A fresh role-assigned session recovers objective, current authoritative documents, approvals, unresolved evidence and next gate from repository links; record actual recovery evidence and its limits.
-2. One sprint plan carries scope, work order and dependencies; STATE links to it rather than reproducing its requirements.
-3. A reviewer can identify an exact revision, submit attributed findings in the designated folder, and have their disposition traced to the contract.
-4. An Executor can retrieve one bounded ticket and required references without inheriting permission from surrounding proposals.
-5. A canonical manuscript contract covers supported metadata, prose/primitive/emphasis boundaries, citations, optional IWL and permitted mechanical integration. No upload-time editorial selection.
-6. A portable prose-agent handoff and bounded FAFSA example demonstrate the existing grammar; a representative next-paper sample tests usability without requiring that paper's completion.
-7. Existing-update and new-entry runbooks distinguish paper/essay/memo and IWL-only cases; unsupported PDF cases remain explicit limitations.
-8. Source-of-truth ownership and affected stale instructions are reconciled through the approved documentation batch, preserving history and review provenance.
-9. Retained CI evidence is reused appropriately; any claimed efficiency improvement identifies the observed steps or handoffs removed. No invented time savings.
+These are proposed full-sprint targets, subject to T25.0 evidence and owner-approved scope refinement; they are not commitments granted by this packet.
+1. A fresh session identifies the current objective, authority, unknowns and next gate from repository links; record evidence and limits.
+2. A reviewer submits attributed findings against an exact revision; Planner disposition and Executor handoff are traceable.
+3. Sprint plan owns work sequence, STATE points to the current position, and affected canonical instructions agree.
+4. A maintained manuscript contract covers supported metadata, primitive/emphasis boundaries, citations, optional IWL and allowed integration; editorial decisions stay upstream.
+5. A bounded FAFSA example and representative next-paper sample test the portable prose-agent handoff without requiring publication.
+6. Two runbooks distinguish paper/essay/memo/IWL-only cases and explicitly retain unsupported artifact cases.
+7. Existing evidence is reused with its revision/layer; any efficiency claim names observed steps removed without inventing time savings.
+
+The immediate handoff pilot is narrower: an exact-revision review plus an actual fresh-session recovery. The review submission is verified; fresh-session recovery remains unverified.
 
 ## Validation plan
-- T25.0 uses source inspection, existing evidence and Markdown/diff checks; no build or deployment for the audit.
-- Pilot a repository-only resume and exact-revision review using [the review entry point](../audits/sprint-25/README.md); user chooses the independent session.
-- For the later manuscript contract, compare source primitive bodies, emphasis, order, boundaries, anchors and citations with compiled output; test missing/unknown/empty cases according to the earned validator scope.
-- Preserve existing PDF rendering/identity checks when actual publication work occurs; PDF redesign and new artifact mechanisms remain separate.
-- Reuse existing CI results with their SHA, layer and assertion; do not repeat unchanged checks without a reason.
+- T25.0: current-source inspection, existing evidence and document/diff checks, without build or deployment.
+- Use the [review entry point](../audits/sprint-25/README.md) for the owner-selected session; record what was actually demonstrated.
+- Later validation scope derives from source/body/emphasis/order/anchor/citation fidelity and actual missing checks.
+- Existing PDF rendering/preservation checks continue to apply when publication work occurs.
 
 ## Stop conditions
-- A proposed simplification weakens an existing safety gate or changes canonical authority.
-- Supporting a runbook requires unimplemented deployment/publication behavior.
-- Access requires owner-managed credentials or permissions; report capability needs without configuring them.
-- Risk rises to R3, executable deployment changes are needed, or unrelated runtime/editorial work enters scope.
-- A new branch head conflicts with planned writes; re-read and reconcile rather than force.
+Return for a scope decision if a runbook requires unsupported technical behavior, required access is unavailable, or work exceeds the proposed R2 ceiling.
+Inherited stop conditions apply by reference.
 
 ## Exit state
-The accepted operating process and two content flows are documented and demonstrated, with agreed canonical corrections promoted under proper authority.
-Unimplemented pipeline extensions remain tracked limitations; do not declare universal publishing support.
-No extra production deployment is required merely to record sprint closure.
+Accepted operating procedures and content flows are demonstrated, and agreed canonical corrections reach their proper homes through authorized work.
+Technical extensions remain explicit limitations until implemented; no extra deploy merely to record closure.
 
 ## Canonical documentation targets
-- planner/README.md: website-specific continuity and role entry; planner/STATE.md: resume pointer; checkpoints: milestone rationale.
-- HANDOFF.md: stable orientation and current branch pointers, with reduced volatile release detail.
-- site/ROADMAP.md: active/deferred index; site/CHANGELOG.md: append verified outcomes.
-- site/PUBLISHING.md: flow semantics; site/CONTENT-MODULES.md: grammar; site/AGENTS.md: operational rules.
-- Proposed site/MANUSCRIPT-CONTRACT.md: maintained prose-agent input contract and guide; exact placement settled after audit.
-- .claude/skills/content-manager/SKILL.md: concise execution adapter, including removal of upload-time primitive selection.
-- site/PLANNING.md/templates: only an earned, separately approved process delta; current policy governs until amended.
+- Planner README/STATE/checkpoints: procedure, resume pointer and rationale respectively.
+- HANDOFF: orientation; ROADMAP: active/deferred index; CHANGELOG: verified history.
+- PUBLISHING: flows; CONTENT-MODULES: grammar; AGENTS: operations; content-manager skill: concise adapter.
+- Proposed site/MANUSCRIPT-CONTRACT.md: maintained input interface/editorial guide; exact placement follows audit.
+- PLANNING/templates only if an evidence-earned process amendment is separately approved.
+
+## Review disposition
+[Grok's original review](https://github.com/amulbham/cybernetics-mbp/blob/ff45b4f23fd057e7fc4ba9c1017aa64a534f3e36/site/planning/audits/sprint-25/sprint-plan-review-grok-2026-10-21.md) assessed revision 1 @ 5807038.
+[Planner disposition](../audits/sprint-25/review-disposition-2026-10-21.md) records both REQUIRED corrections and the OPTIONAL decisions.
+Revision 2 has not received a separate Grok approval. No independent reviewer is invoked automatically.
