@@ -1,16 +1,16 @@
 # Planner state — research website
 
 Snapshot: 2026-10-21 (America/Los_Angeles).
-Primary intent: T25.0 report review and next bounded documentation packet.
+Primary intent: execute sealed T25.1 continuity entry points and owner guide on planner/context.
 
 ## Resume
 Use the [review/task entry](../site/planning/audits/sprint-25/README.md).
-Next gate: Product Authority accepts the audit and considers [T25.1 draft](../site/planning/tickets/T25.1-continuity-and-owner-guide.md); it is not sealed or authorized.
+Next gate: Executor returns [sealed T25.1](../site/planning/tickets/T25.1-continuity-and-owner-guide.md) documents and guide for Planner/Product Authority acceptance.
 
 ## Current decisions and evidence
 - [Audit report](../site/planning/audits/sprint-25/T25.0-current-state-audit.md) committed by Executor at 4bb4f6f866f3a5883748ea659da5672113559be7.
 - [Planner review](../site/planning/audits/sprint-25/T25.0-planner-review.md): ACCEPT WITH FOLLOW-UP; independently verified report-only commit, 26 IDs and key source claims.
-- T25.1 proposes stable entry points and site/OPERATOR-GUIDE.md on planner/context; broader canonical corrections/promotion remain separate.
+- Product Authority accepted T25.0 and approved T25.1 on 2026-10-21. T25.1 is sealed for its five Markdown paths; broader canonical corrections/promotion remain separate.
 - [Sprint plan](../site/planning/sprints/sprint-25-workflow-consolidation.md) owns proposed work order; no later manuscript/validator/release implementation is authorized.
 - [Grok disposition](../site/planning/audits/sprint-25/review-disposition-2026-10-21.md) and [decision checkpoint](checkpoints/2026-10-21-sprint-25-planning-model.md) retain prior rationale.
 - Role/branch authority: [Planner README](README.md) and its canonical references.

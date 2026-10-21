@@ -1,6 +1,6 @@
 # Sprint 25 — Workflow consolidation
 
-Status: AUDITING — T25.0 reported and Planner-reviewed; owner acceptance pending; T25.1 drafted
+Status: EXECUTING — T25.0 accepted; T25.1 authorized; later packages remain proposed
 Risk ceiling: R2 proposed; first audit R0; deployment/publication extensions require separate scope
 Branch: planner/context for planning and audit; implementation branch set per approved ticket
 Depends on: accepted T24.0 + T24.1 release, main @ 9697dbc7310c480d4b6349104e9504107e4341a2
@@ -38,12 +38,12 @@ T25.0 earns the package boundaries and feasibility; later work requires its own 
 - Shared biography/publication-time artifact policy changes without a separate owner decision.
 
 ## Ticket sequence
-T25.0 is sealed and its report is Planner-reviewed. T25.1 is the next evidence-earned draft. Remaining rows are provisional packages, not reserved ticket numbers.
+T25.0 is closed. T25.1 is the next sealed package. Remaining rows are provisional packages, not reserved ticket numbers.
 
 | Ticket / package | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
-| [T25.0 sealed audit](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Report delivered at 4bb4f6f; [Planner review](../audits/sprint-25/T25.0-planner-review.md) | Sealed 2026-10-21 | Owner acceptance |
-| [T25.1 draft](../tickets/T25.1-continuity-and-owner-guide.md) | DECISION | Stable entry points and the owner's one-page Git/cloud guide on planner/context | T25.0 acceptance | Owner/Planner acceptance; main promotion separate |
+| [T25.0 sealed audit](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Report delivered at 4bb4f6f; [Planner review](../audits/sprint-25/T25.0-planner-review.md) | Sealed 2026-10-21 | Accepted by Planner and owner |
+| [T25.1 sealed packet](../tickets/T25.1-continuity-and-owner-guide.md) | DECISION | Stable entry points and the owner's one-page Git/cloud guide on planner/context | T25.0 acceptance | Owner/Planner acceptance; main promotion separate |
 | Publish-ready manuscript contract | DECISION | Final MD interface, editorial guide, portable handoff and worked example | T25.0 | Owner approves contract |
 | Manuscript validation, if earned | VALIDATION | Enforce gaps that existing checks do not cover | Approved contract | Risk-appropriate proof |
 | Release evidence and operator handoff | DECISION | Authenticated evidence retrieval and exact-SHA release packet | T25.0 | Capability demonstrated |
@@ -91,7 +91,7 @@ Technical extensions remain explicit limitations until implemented; no extra dep
 Revision 2 has not received a separate Grok approval. No independent reviewer is invoked automatically.
 
 ## Audit outcome and next scope
-T25.0 report @ 4bb4f6f is accepted with follow-up at Planner review; owner acceptance pending.
+T25.0 report @ 4bb4f6f is accepted with follow-up at Planner review and accepted by Product Authority on 2026-10-21.
 [Planner qualifications](../audits/sprint-25/T25.0-planner-review.md) preserve historical/current settings distinctions, workflow_dispatch, and branch artifact custody.
 A new-paper mechanism is needed before a real new scholarly publication, not before the non-published example or this documentation work.
 Broader current-state corrections in ROADMAP/AGENTS/PUBLISHING/skill and CHANGELOG remain candidates for a later approved canonical batch.
