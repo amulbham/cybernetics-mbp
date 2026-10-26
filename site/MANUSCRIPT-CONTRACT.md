@@ -1,6 +1,6 @@
 # Manuscript Intake Contract — Editorial Package to Website Source
 
-**Version:** v0.1 · **Status:** DRAFT FOR PRE-SEAL REVIEW — not yet an accepted production standard  
+**Version:** v0.2 · **Status:** CORRECTED DRAFT FOR SEAL REVIEW — not yet an accepted production standard  
 **Scope:** New and revised research entries in `site/src/content/research/`, all `format` values  
 **Website grammar inspected:** `amulbham/cybernetics-mbp @ 9697dbc7310c480d4b6349104e9504107e4341a2`  
 **Research authoring guide inspected:** `amulbham/amulbham-research @ bec57c4d05aa41e1fcf9d261251b9ae72322c94a`, root `MANUSCRIPT-AUTHORING.md` v0.2 (still a draft globally; usable for the accepted Lab Bubble pilot)  
@@ -81,10 +81,10 @@ Headings, References, tables, figures, pull-quotes and GFM alerts follow `CONTEN
 
 ## 5. Citations and references: preserve the chosen voice
 
-- Paper author-year form `(Author, Year)` / `Name (Year)` routes to on-page `#ref-N` when uniquely matched; unknown names fail closed, not filled by inference.
+- Paper author-year form `(Author, Year)` / `Name (Year)` routes to on-page `#ref-N` **only when uniquely matched**. The current citation plugin leaves unmatched or ambiguous citations **unlinked as plain text**; it does **not** fail the build. The intake reviewer must separately identify/report unresolved citation matches and obtain correction or an explicit author decision—never guess at a target or claim automatic rejection.
 - Essays/memos commonly use manual first-mention source links. **Lab Bubble explicitly authors `[[N]](URL)` outbound citation links.** These already make the cited claims clickable; the site's author-year linker does **not** convert them. **Preserve exactly for the pilot unless the author separately approves a new citation presentation**. This is a scoped author choice, not a new universal essay syntax.
 - `## References` must be followed by a **single contiguous ordered list with no blank lines between individual entries**, so the site can generate stable `#ref-N` targets. The bibliography must cite real, verified sources; never invent a landing page.
-- Use meaningful outward link labels (DOI host/path, real host/path or descriptive linked source title). Avoid opaque generic `[DOI]`/`[Source]` labels; where a legacy manuscript uses `doi:10.…` a label-only normalization is a separate visible author-reviewed projection, never a silent citation rewrite.
+- **Inherit `PUBLISHING.md`'s display rule:** show each reference URL as its own path—`doi.org/10.…` for a DOI, or the actual host/path for a web source; never generic `[DOI]` or `[Source]`. A descriptive linked source title is **not** a generally permitted replacement for this rule. **Lab Bubble currently has linked article titles and some `doi:10.…` labels**: preserve its accepted research-source bytes, but **before website release** obtain an explicit, bounded author approval either to normalize *display labels only* in the website projection or to document an exception for this work. Neither option is already approved. Broadly allowing linked titles would be a separate policy change requiring authorization and `PUBLISHING.md` reconciliation; do not change policy through this contract.
 - Fidelity checks compare reference numbering, URL destinations, citation count/coverage, Evidence block links and rendered clickable targets. Report broken or unverified links.
 
 ## 6. Outputs, verification layers and failure ownership
