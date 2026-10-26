@@ -1,6 +1,6 @@
 # Sprint 25 — Workflow consolidation
 
-Status: EXECUTING — T25.0 and T25.1 closed; next unit is manuscript-contract scoping; later execution remains proposed
+Status: EXECUTING — T25.0 and T25.1 CLOSED; T25.2 pre-seal corrections accepted and Product Authority approved a prospective seal (2026-10-26). Later tickets remain proposed
 Risk ceiling: R2 proposed; first audit R0; deployment/publication extensions require separate scope
 Branch: planner/context for planning and audit; implementation branch set per approved ticket
 Depends on: accepted T24.0 + T24.1 release, main @ 9697dbc7310c480d4b6349104e9504107e4341a2
@@ -37,14 +37,18 @@ T25.0 earns the package boundaries and feasibility; later work requires its own 
 - Generalized artifact bootstrap, PDF reproducibility or generation optimization implementation.
 - Shared biography/publication-time artifact policy changes without a separate owner decision.
 
+## Scope extension — separate Lab Bubble live pilot
+
+Product Authority subsequently added *The Lab Bubble* as a third, live new-entry pilot alongside the originally planned FAFSA/Chisel **nonpublishing** test cases. The paper's V2.6.3 editorial treatment is accepted in `amulbham-research`, but this creates **no permission inside T25.2** to publish or deploy it. A separately scoped, prospectively sealed new-entry website ticket and exact metadata/release gates are required. The original sprint exclusions continue to bind the documentation and guide tickets; this paragraph records the later, independent publication direction rather than retroactively widening their scope.
+
 ## Ticket sequence
-T25.0 and T25.1 are closed. Next: scope the publish-ready manuscript contract as T25.2; no T25.2 contract has been created or sealed yet. Remaining rows are provisional packages, not reserved ticket numbers.
+T25.0 and T25.1 are closed. T25.2's [draft contract](../../MANUSCRIPT-CONTRACT.md) and [corrected R1 ticket](../tickets/T25.2-publish-ready-manuscript-contract.md) are ready for the **distinct seal commit** following owner approval on 2026-10-26. Its next gate is docs-only Executor execution and independent Planner acceptance. Remaining rows are provisional packages, not reserved ticket numbers.
 
 | Ticket / package | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
 | [T25.0 sealed audit](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Report delivered at 4bb4f6f; [Planner review](../audits/sprint-25/T25.0-planner-review.md) | Sealed 2026-10-21 | Accepted by Planner and owner |
 | [T25.1 closed packet](../tickets/T25.1-continuity-and-owner-guide.md) | DECISION | Stable entry points and the owner's one-page Git/cloud guide on planner/context | T25.0 acceptance | Accepted at 74624d2; main promotion separate |
-| Publish-ready manuscript contract | DECISION | Final MD interface, editorial guide, portable handoff and worked example | T25.0 | Owner approves contract |
+| [T25.2 manuscript contract](../tickets/T25.2-publish-ready-manuscript-contract.md) | DECISION / R1 | Final MD interface, upstream authoring-guide handoff and skill reconciliation (docs-only) | T25.0/T25.1 and authoring design | Seal approved 2026-10-26; executor execution, review and acceptance pending |
 | Fresh-session continuity demonstration | VALIDATION | Test a new Planner using the new entry path, with actual evidence and limits | T25.1 | Record recovery; do not equate review exchange with full SPM validation |
 | Manuscript validation, if earned | VALIDATION | Enforce gaps that existing checks do not cover | Approved contract | Risk-appropriate proof |
 | Release evidence and operator handoff | DECISION | Authenticated evidence retrieval and exact-SHA release packet | T25.0 | Capability demonstrated |
