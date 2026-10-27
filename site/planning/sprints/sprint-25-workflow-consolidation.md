@@ -1,6 +1,6 @@
 # Sprint 25 — Workflow consolidation
 
-Status: EXECUTING — T25.0/T25.1 CLOSED; T25.2 SEALED on `planner/context` (2026-10-26), docs-only Executor execution pending; subsequent tickets remain proposed
+Status: EXECUTING — T25.0/T25.1 CLOSED; T25.2 docs-only delivered and Planner ACCEPT WITH FOLLOW-UP (2026-10-27) on `planner/context`; later validation/runbook/publication work is separately proposed
 Risk ceiling: R2 proposed; first audit R0; deployment/publication extensions require separate scope
 Branch: planner/context for planning and audit; implementation branch set per approved ticket
 Depends on: accepted T24.0 + T24.1 release, main @ 9697dbc7310c480d4b6349104e9504107e4341a2
@@ -42,13 +42,13 @@ T25.0 earns the package boundaries and feasibility; later work requires its own 
 Product Authority subsequently added *The Lab Bubble* as a third, live new-entry pilot alongside the originally planned FAFSA/Chisel **nonpublishing** test cases. The paper's V2.6.3 editorial treatment is accepted in `amulbham-research`, but this creates **no permission inside T25.2** to publish or deploy it. A separately scoped, prospectively sealed new-entry website ticket and exact metadata/release gates are required. The original sprint exclusions continue to bind the documentation and guide tickets; this paragraph records the later, independent publication direction rather than retroactively widening their scope.
 
 ## Ticket sequence
-T25.0 and T25.1 are closed. T25.2's [proposed contract](../../MANUSCRIPT-CONTRACT.md) and [sealed R1 ticket](../tickets/T25.2-publish-ready-manuscript-contract.md) received Product Authority approval on 2026-10-26 and were prospectively sealed on `planner/context` without implementation. Next gate: docs-only Executor execution, completion report and independent Planner review. Remaining rows are provisional packages, not reserved ticket numbers.
+T25.0/T25.1 are closed. T25.2 [contract](../../MANUSCRIPT-CONTRACT.md) v1.0 and [sealed R1 ticket/completion record](../tickets/T25.2-publish-ready-manuscript-contract.md) were executed at `c1fad33`, corrected narrowly at `5e85af7`, then [Planner-accepted with follow-ups](../audits/sprint-25/T25.2-planner-review.md) on 2026-10-27. Notes-branch delivery is complete, but selective promotion to production docs, fresh-agent validation and remaining packages are separate. Remaining rows are provisional packages, not reserved ticket numbers.
 
 | Ticket / package | Mode | Purpose | Depends on | Gate |
 |---|---|---|---|---|
 | [T25.0 sealed audit](../tickets/T25.0-workflow-consolidation-audit.md) | AUDIT | Report delivered at 4bb4f6f; [Planner review](../audits/sprint-25/T25.0-planner-review.md) | Sealed 2026-10-21 | Accepted by Planner and owner |
 | [T25.1 closed packet](../tickets/T25.1-continuity-and-owner-guide.md) | DECISION | Stable entry points and the owner's one-page Git/cloud guide on planner/context | T25.0 acceptance | Accepted at 74624d2; main promotion separate |
-| [T25.2 manuscript contract](../tickets/T25.2-publish-ready-manuscript-contract.md) | DECISION / R1 | Final MD interface, upstream authoring-guide handoff and skill reconciliation (docs-only) | T25.0/T25.1 and authoring design | SEALED 2026-10-26; Executor execution, review and acceptance pending |
+| [T25.2 manuscript contract](../tickets/T25.2-publish-ready-manuscript-contract.md) | DECISION / R1 | Final MD interface, upstream authoring-guide handoff and skill reconciliation (docs-only) | T25.0/T25.1 and authoring design | Planner ACCEPT WITH FOLLOW-UP 2026-10-27 @ `5e85af7`; notes-branch complete; production promotion deferred |
 | Fresh-session continuity demonstration | VALIDATION | Test a new Planner using the new entry path, with actual evidence and limits | T25.1 | Record recovery; do not equate review exchange with full SPM validation |
 | Manuscript validation, if earned | VALIDATION | Enforce gaps that existing checks do not cover | Approved contract | Risk-appropriate proof |
 | Release evidence and operator handoff | DECISION | Authenticated evidence retrieval and exact-SHA release packet | T25.0 | Capability demonstrated |
