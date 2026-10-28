@@ -1,0 +1,4 @@
+- **BLOCKER** — PLAN.md:5–8 describes an obsolete starting state: current HANDOFF.md already contains STATE/workflow pointers and none of the alleged PR #1, deployment-hash, or “Next actions” defects; rebase the plan on inspected bytes before authorizing edits.
+- **REQUIRED** — Acceptance criterion 1 inherits README’s “no … hashes” rule, but HANDOFF.md:4 retains historical hash `2a50965`; explicitly resolve this mismatch, since criterion 2 alone permits historical hashes.
+- **REQUIRED** — Define the execution branch, immutable starting revision, diff baseline, and commit/push boundary; the current branch is `pilot/multi-agent-handoff-refresh`, and the untracked PLAN.md makes “only HANDOFF.md changed” ambiguous unless planning artifacts are explicitly excluded.
+- **OPTIONAL** — Define “under 60 changed lines” as additions plus deletions against the named baseline so acceptance criterion 4 has a reproducible measurement.
