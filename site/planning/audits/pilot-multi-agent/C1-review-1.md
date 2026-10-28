@@ -1,0 +1,8 @@
+- **REQUIRED** — Pin the manuscript contract to `06468a8382501d40b7de7464b047677ca839d3df` and pin the audit/routing inputs; checkout-dependent files and a moving remote ref contradict “by exact revision” and prevent reproducible review.
+- **REQUIRED** — Preserve F23’s owner-decision gate explicitly; “unless an editorial reason is given” weakens the approved byte-preservation precedent by allowing an agent’s rationale to substitute for an owner choice.
+- **REQUIRED** — Reconcile the stop rule with mandatory five-file completion; returning an author question currently leaves an execution unable to satisfy “Done when.”
+- **REQUIRED** — Specify whether the candidate contains the full source including frontmatter and where its proposal label belongs; “article body,” preserved frontmatter, and a leading proposal heading imply incompatible file structures.
+- **REQUIRED** — Extend acceptance checks to all substantive and presentational differences, explicit no-change dispositions, and deferred owner decisions; file existence and anchored change rows do not establish the checkpoint’s required holistic accounting.
+- **REQUIRED** — Replace the broad “pilot folder” status allowance with exact authorized paths and a recorded initial status; the current check could accept unrelated pilot changes or reject pre-existing workspace changes.
+- **REQUIRED** — Include the checkpoint’s mandatory six-part end-of-task chat recap; the packet omits the required scope classification, evidence limits, sequence position, and next authority gate.
+- **OPTIONAL** — Allow justified exceptions to the 80-line decisions-table cap; the arbitrary limit could crowd out the complete anchored rationale required for a whole-article and ledger review.
