@@ -4,7 +4,19 @@ Things flagged during past work but deliberately not done yet, plus open questio
 
 Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Operating protocol: `PLANNING.md` (§13 adds a 2026-09-22 process-efficiency calibration — delta-only contracts, length caps, risk-based commit choreography — prospective only, does not touch any sealed or closed ticket). This file stays the short current-work index — it does not duplicate ticket acceptance criteria or the full program plan.
 
-## Current status — public MVP launched (2026-10-16)
+## Current priorities — Sprint 25 closed; Lab Bubble intake next (2026-10-29)
+
+**Current Planner-side work index, not publication authority.** [Sprint 25 closure](planning/sprints/sprint-25-workflow-consolidation.md) accepted author-controlled manuscript/primitives/SPM handoff, six-article + Chisel-IWL audit, and **Chisel update through closed-indexing staging only**. Source SHA `412f1de2`, [Actions run 40931823811](https://github.com/amulbham/cybernetics-mbp/actions/runs/40931823811) succeeded, and [deployed-PDF review](planning/audits/sprint-25/T25.5-chisel-staging-intake.md) is recorded. **Chisel's revised edition is NOT on production**. Zenodo DOI/version custody, exact frozen PDF/manifest/carry-over remain separate release gates.
+
+**Next primary work: Sprint 26 — The Lab Bubble**, a *new essay* (no DOI or scholarly PDF). First recover the current approved research manuscript/SPM and verify the exact `pubDate`, `description`/`excerpt` and twenty-reference display-label/exception decisions; earlier source fixtures were not publication-ready. Scope, owner editorial approvals and publication authority still need a specific contract. [Current Planner STATE](../planner/STATE.md) owns the next gate.
+
+**Later, flexible, no dates:** Invariants of SoS existing-paper remediation and SPM recovery (tentative Sprint 27); a new scholarly paper (tentative Sprint 28, PDF/DOI/fifth-to-sixth pipeline constraints); FAFSA v2.4, Desk, Frontier, Three SOS and other backlog as prioritized. Best-effort SPM history, no invented data or primitive quotas. **Separate tracked follow-up:** Chisel DOI/Zenodo + protected PDF production release and selective promotion of notes-branch publishing/operator guidance to `main` (any `main` push automatically deploys).
+
+The October 16 snapshot below remains historical evidence; its “Immediate next work” is *not* the active queue as of October 29.
+
+---
+
+## Historical public-MVP snapshot — 2026-10-16
 
 **The earlier pre-launch direction below is superseded by this verified launch snapshot.** Full historical Sprint 12–19 evidence remains in `CHANGELOG.md`, the corresponding `planning/sprints/` and `planning/audits/` files, and `HANDOFF.md`.
 
