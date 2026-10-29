@@ -257,6 +257,14 @@ If not, prefer the simpler path.
 
 Evidence depth follows the risk classes in §5 — apply only the minimum evidence required by the actual risk. Reference established validators and procedures when they already provide the required proof; do not reproduce higher-risk validation merely because an earlier ticket used it.
 
+### Approval-by-exception and stage authority — prospective, 2026-10-29
+
+**Intent:** fewer interrupts and faster author-controlled publishing, not less evidence or an unconditional license to deploy. At the initial Product Authority scope/seal decision, explicitly classify the actions the Executor may complete **without another approval**: fixed-file/source changes, ordinary local checks and within-scope fixes, isolated candidate push, and, **when the ticket expressly says so**, a normal fast-forward to **closed-indexing staging** followed by automatic preview deployment and verification. A pre-authorized staging push must have an explicit source/branch lease, file/risk bounds, PASS/stop conditions and revert policy; if any fail, STOP rather than assuming permission. A separate owner stage-push go is needed **only when the sealed contract requires one**. Preserve independent verification appropriate to the risk; an approved validator/CI report can replace redundant manual review, not the acceptance evidence itself.
+
+**Reserve owner decisions for exceptions:** new substantive authorial/semantic changes, public identity/route/privacy/indexing changes, unexpected source or staging drift, unresolved DOI/deposit/frozen-PDF custody, major scope/risk increase, destructive rollback, and **production publication**. Never infer production authorization from manuscript approval, seal, staging success or a previous release. Maintain the separate scholarly-PDF/DOI release and exact-byte approvals where applicable. An automatic staging deploy is still a deployment and must be named prospectively.
+
+**No approval/process creep:** do not ask for a second approval of already frozen content, routine steps already permitted by a sealed ticket, a preauthorized closed staging preview, or corrections covered by existing tests. Do not open extra tickets/checkpoints or repeat full reviews solely to acknowledge PASS results. Use one focused R3 review where it adds independent proof; re-review only new BLOCKER/REQUIRED corrections. Let nonblocking editorial suggestions become backlog. Record who approved what, the immutable branch/source revision, observed PASS/BLOCKED status, and the exact next *exception* gate. **This policy applies only to new or prospectively amended tickets; it never retroactively relaxes a prior seal (e.g., T25.5's separate stage-push approval).**
+
 ---
 
 ## 8. Sprint contract

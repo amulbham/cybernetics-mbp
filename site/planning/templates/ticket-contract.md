@@ -93,7 +93,7 @@ Cite an established verification bundle/command where one already exists and is 
 - Stale language to search for.
 
 ## Git and deployment boundary
-- Commit/push/merge/deploy authority.
+- Commit/push/merge/deploy authority, including **one explicit staging authorization mode**: (a) closed-indexing staging fast-forward/deploy **preauthorized by this seal** once named checks/HEAD lease PASS, or (b) **separate Product Authority approval of the exact candidate SHA before staging push**. State allowed branch/source paths, stop and restoring-push authority. Never assume either mode; production remains separately approved. See `PLANNING.md` §7 approval-by-exception.
 - Commit choreography by risk/mode — `PLANNING.md` §13; state only the ticket-specific deviation, if any.
 - Required staging or production verification.
 
