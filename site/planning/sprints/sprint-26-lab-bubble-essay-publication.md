@@ -15,6 +15,21 @@ Can we publish the author-approved **The Lab Bubble** as `format: essay`, `categ
 - Nine narrative sections, seven approved callouts (2 Definition, 2 Key idea, 1 Evidence, 1 Counterpoint, 1 Implication), 20 contiguous references and 23 explicit `[[N]](URL)` citations. Preserve all author-owned prose, anchors, emphasis and URLs.
 - Website `staging @ 412f1de2bfd81e43f0419aff35da50b0f356b72a` has **no** Lab Bubble research entry; intended `/research/ai-systems/the-lab-bubble/` still needs collision/route-history checks at intake. Production `main @ 9697dbc7310c480d4b6349104e9504107e4341a2`.
 
+## Article starting-state audit — 2026-10-29, read-only baseline
+
+| Dimension | Status | Verified evidence / scoped next action |
+| --- | --- | --- |
+| Canonical manuscript and editorial status | **READY** | Research `STATE.md`, V2.6.3 approved `assets/manuscript.md` `a17d9124` @ pinned research `7be299fa`; preserve exact prose/markup, no new editorial rewrite |
+| SPM and provenance | **READY** | Existing `papers/the-lab-bubble/` has `STATE.md`, approved source, checkpoints, IWL-005, review and source-reconciliation records; **do not create a second workspace or invented history** |
+| Primitives / reading treatment | **READY** | Seven author-approved unique anchors, two Definition, two Key idea, one Evidence, one Counterpoint, one Implication; no selection/rewrite/quantity quota task |
+| References and links | **WORK NEEDED / OWNER DECISION** | 20 sequential references, 23 explicit outbound `[[N]](URL)` citations; targeted live link/claim checks before publication, plus grouped decision for linked-title/DOI display labels; no change to substantive citation targets without author approval |
+| Metadata and publication identity | **OWNER DECISION** | Title, `format: essay`, `category: ai-systems` approved; exact `pubDate`, identical proposed excerpt/description pending final explicit selection; no abstract, DOI or scholarly PDF |
+| Website source and rendered route | **WORK NEEDED** | No Lab Bubble entry under staging research directory; need collision/route-history check, authorized body projection and exact-body hash, new route (`pdf:false`), staging build/mobile/source QA then live site verification |
+| Scholarly PDF/DOI/Zenodo | **NOT APPLICABLE to this essay** | Existing five frozen scholarly PDFs **must remain untouched**; no new-PDF/DOI/deposit task or sixth-PDF infrastructure scope |
+| Production publication | **NOT YET SHIPPED** | No Lab Bubble `main` release; separate release decision **within Sprint 26** after approved closed staging and evidence; only verified live `main` deployment satisfies this content sprint |
+
+**Audit-derived minimal plan:** resolve one author metadata/reference cluster → one sealed bounded essay-intake ticket (prefer preauthorized **closed staging**) → staging evidence and independent acceptance → one separately approved **production RELEASE inside Sprint 26** → verify public article and five-PDF preservation → close and update canonical docs/CHANGELOG/ROADMAP. No new SPM, prose rewrite, primitives election, IWL publication, DOI/PDF build extension or redundant audit ticket is warranted by this baseline. The initial source/presentation audit is **static**; render/mobile and full fresh-link verification remain work, not PASS claims.
+
 ## Clustered author decisions — OPEN (resolve together, once)
 1. Exact first-publication `pubDate` **PENDING**: the source masthead says only October 2026; don't invent a day.
 2. Exact `excerpt` and `description` **PENDING author approval**; proposal for both: “How inference budgets, model choice, and learning histories shape AI workflows—and why internal product intuition needs testing under customer conditions.”
@@ -30,7 +45,7 @@ Can we publish the author-approved **The Lab Bubble** as `format: essay`, `categ
 ## Provisional execution sequence — NOT created or sealed tickets
 - **Reality/metadata intake:** this draft plus the verified SPM/source and site inventory; cluster remaining author choices and perform targeted current-source/link checks.
 - **Bounded implementation candidate:** after metadata signoff, produce risk-classified exact-source site ticket for new essay, one pre-seal independent review, and proposed preauthorized isolated-candidate→closed-staging flow. Stage/render QA includes seven unique aside IDs, 20 references/23 outbound citations, TOC, metadata, OG, search/robots, first route-history and mobile.
-- **Independent production gate:** after staging evidence, separately approve selective `main` release, verify actual live article/indexing and unmodified five production scholarly PDFs. Failures mean BLOCKED, never publication.
+- **Independent production gate, within Sprint 26:** after staging evidence, separately approve a bounded `main` RELEASE ticket, verify actual live article/indexing and unmodified five production scholarly PDFs, and only then close this content sprint. This is a distinct authorization **not a separate sprint**. Failures mean BLOCKED, never publication.
 
 ## Sprint-level acceptance criteria, validation and exit
 Author-approved public metadata and source fidelity; trusted Astro/schema/links/semantics/indexing builds PASS; no leaks, collisions, unintended scholarly PDF/DOI/Highwire; staging site content and mobile readability checked; exact live production output independently verified with article routing, citations, social/metadata and five untouched frozen PDFs. Record observed versus reported evidence, and append shipped outcome to CHANGELOG and remove superseded priority from ROADMAP. **Only a verified live new essay closes Sprint 26.**

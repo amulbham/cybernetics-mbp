@@ -24,6 +24,11 @@ The capability or verified decision that should exist at exit.
 ## Inherited truths
 - Only facts already verified in code, artifacts, or prior frozen contracts.
 
+## Article starting-state audit (content sprints only)
+- Pin current research source and website branch/route; identify the article's actual editorial approval and production state.
+- Compact matrix: **manuscript/author approvals; SPM/STATE/provenance; primitives; citations/references; metadata/format; website route/render; scholarly PDF/DOI/version if applicable**. For each, mark READY / WORK NEEDED / OWNER DECISION / NOT APPLICABLE / UNVERIFIED, evidence ref, and minimum next action.
+- Derive the ticket sequence and specific **production-publication exit** from this baseline; omit unneeded work. Use the sprint file itself rather than a second audit artifact unless findings warrant one. For foundation/audit-only sprints, write "not applicable" and use the explicitly approved narrower exit.
+
 ## Hypotheses to test
 - Plausible ideas that are not yet requirements.
 

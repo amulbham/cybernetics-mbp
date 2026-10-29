@@ -195,6 +195,17 @@ PROPOSED
 7. **Closure freeze** — migrate surviving truths to canonical docs/validators and remove stale present-tense claims.
 8. **Production promotion** — merge only after acceptance; verify production independently of workflow success.
 
+### Content-centered sprints — article-first audit and publication exit (2026-10-29)
+
+For **one-primary-content-outcome** sprints, perform a **brief article starting-state audit before freezing the task sequence**. Record, with pinned source/branch evidence, the manuscript's editorial/author approval status, existing research `STATE.md`/SPM/provenance (and honest missing history), author-selected primitives (including valid zero), references/links, website existence/metadata, article versus essay format, PDF/DOI/version custody if scholarly, and deployed/tested versus merely proposed state. For each gap, mark **READY / WORK NEEDED / OWNER DECISION / NOT APPLICABLE / UNVERIFIED**, name a minimal action and owner, and plan only the work actually needed. Put the compact matrix **inside the sprint contract** unless independent technical findings warrant a separate audit report. An existing authoritative research SPM or approved manuscript is inherited, not recreated.
+
+After the audit, set the specific paper's sprint acceptance criteria and needed workstreams; **do not require primitive selection, SPM setup, a new IWL, editorial revision, a PDF, or a release correction unless the audit establishes the need**. Preserve author control, existing no-primitive decisions and nonfabricated historical records. The planned result, evidence gates and release identity must all remain traceable.
+
+For a **content publication sprint**, the normal finish line is **production-verified publication/update of its target article**, not merely a successful staging build. Staging is an intermediate validation milestone. A **separately scoped RELEASE ticket/owner approval** may follow staging acceptance **within the same sprint**; do not add an extra release *sprint* or approval cycle solely for chronology. Public indexing, DOI/Zenodo, frozen PDFs, and live identity retain their specific safeguards. A **foundation/audit-only sprint** can legitimately close without production **only when its owner-approved contract explicitly defines that narrower outcome** (Sprint 25). If a content release is blocked, record **BLOCKED / production not shipped** until the owner prospectively changes scope; never silently count staging as its original publication exit.
+
+### Proportional approval flow for content sprints
+Use **one clustered owner signoff** on manuscript/metadata/meaningful editorial choices before implementation, one risk-appropriate sealed intake authorizing routine work and **closed staging when safe**, then evidence-based handoff into an **explicitly approved production RELEASE**. Corrections covered by a seal's bounds and standard validators need no additional owner round. Stop for material semantic changes, source drift, public identity/indexing, protected PDF/DOI decisions, or unexpected failures. Do not open extra audit tickets/checkpoints just to formalize the normal starting-state inventory.
+
 The two freezes serve different purposes:
 
 - **Contract freeze** authorizes what implementation may do.
