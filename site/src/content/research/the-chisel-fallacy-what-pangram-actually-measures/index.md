@@ -4,7 +4,7 @@ subtitle: "Pangram Is a Very Sophisticated Way of Asking the Wrong Question"
 format: paper
 category: knowledge-work
 pubDate: 2026-09-22
-dateModified: 2026-10-18
+dateModified: 2026-10-28
 description: "A detector can be accurate while the inference drawn from its score is still the fallacy."
 excerpt: "A detector can be accurate while the inference drawn from its score is still the fallacy."
 doi: "https://doi.org/10.5281/zenodo.23458660"
@@ -27,21 +27,21 @@ The paper names the assumption that makes this error structurally tempting, show
 ## Two Things Getting Conflated
 
 
-> **Definition.** {#vending-machine-assumption}
-> The Vending Machine Assumption treats near-total delegation as representative of AI-assisted writing, making detected involvement appear sufficient to establish absent intellectual contribution.
-
-> **Definition.** {#directed-authorship}
-> Directed Authorship is a tool-agnostic workflow in which an author retains intellectual direction and responsibility for what an artifact claims and why, while delegating parts of its production.
-
 Consider what one-shot AI writing actually looks like. Someone opens a browser, types a request — "write a 500-word essay arguing that standardized testing improves educational outcomes" — and receives organized prose. The essay has a thesis, supporting points, and a conclusion. The process took ninety seconds. The person who produced this document has performed little or none of the intellectual work the finished artifact appears to represent. The intellectual decisions — what to argue, how to structure it, which evidence to select, whether the reasoning holds — were largely delegated along with the prose.
 
 This is the version of AI-assisted writing that most institutional concern is correctly aimed at. And it explains why textual AI detection feels intuitively sufficient: if your mental model is prompt → finished essay, then detecting AI involvement in the text looks almost equivalent to detecting that intellectual work was absent. This paper calls that mental model the Vending Machine Assumption — the belief that AI-assisted writing is this activity, and therefore that a score indicating AI involvement is evidence of absent intellectual contribution. It is the assumption that makes detector-based authorship judgments appear coherent. The assumption is not irrational — it reflects a mental model that makes sense for one way of using AI. AI-assisted work spans a broad agency gradient. The same category of tool use can range from near-total delegation to sustained human direction, judgment, and verification. The Vending Machine Assumption collapses that gradient by treating one endpoint as the category itself.
+
+> **Definition.** {#vending-machine-assumption}
+> The Vending Machine Assumption treats near-total delegation as representative of AI-assisted writing, making detected involvement appear sufficient to establish absent intellectual contribution.
 
 ### The Other Workflow
 
 Directed Authorship is not a new activity — it is a pattern that has existed across professional writing for as long as execution could be delegated. The definition here makes explicit what that pattern involves.
 
 There is a different mode of AI-assisted writing, and this paper calls it Directed Authorship. In this mode the author retains intellectual responsibility for what the artifact claims and why. The author determines the argument's structure, evaluates which evidence matters, decides what the work needs to establish, and takes responsibility for whether the resulting reasoning holds. The model or collaborator handles the lower-level work: syntax, phrasing, spell-checking, formatting — what the programming profession, which has already navigated this split, calls syntax rather than orchestration. The author concentrates on the upper-level work: argument structure, evidence evaluation, reasoning, judgment. Directed Authorship is not specific to AI — it describes any mode of production in which intellectual direction is retained by the author while lower-level execution is delegated to any capable agent, human or otherwise.
+
+> **Definition.** {#directed-authorship}
+> Directed Authorship is a tool-agnostic workflow in which an author retains intellectual direction and responsibility for what an artifact claims and why, while delegating parts of its production.
 
 Directed Authorship is a workflow definition, not a verdict on any particular author's intellectual contribution. Whether a specific author using this mode actually retained the command and responsibility it describes is exactly the question that requires inspection — and that a detection score cannot answer. A detector can identify evidence of AI involvement somewhere along the agency gradient. It cannot, from that evidence alone, locate the intellectual workflow on it.
 
@@ -55,7 +55,7 @@ What counts as lower-level work varies by domain. Fields Medal winner Terence Ta
 
 A useful test: can this task be performed correctly without knowing what the artifact is trying to establish? If yes — formatting, spell checking, syntax — it belongs in the left column. If no — which comparison period to use, whether the inference holds, what the argument requires — it belongs in the right. The line moves depending on domain and context. The structure does not.
 
-A detector identifies statistical evidence associated with AI involvement in the text. Research confirms that AI-assisted editing — even the guideline-compliant kind — produces detection flags at high rates (Karr et al., 2026). But the score does not establish which intellectual workflow produced the text. Under the Vending Machine Assumption, a high score appears to settle the question. Once Directed Authorship exists as a workflow, the score is insufficient to settle it.
+A detector identifies statistical evidence associated with AI involvement in the text. A controlled study found high detector flag rates for generative abstract refinements used as a proxy for permitted AI assistance; it did not establish policy compliance in individual cases (Karr et al., 2026). But the score does not establish which intellectual workflow produced the text. Under the Vending Machine Assumption, a high score appears to settle the question. Once Directed Authorship exists as a workflow, the score is insufficient to settle it.
 
 What a detector score cannot recover is which intellectual workflow produced the text — and that is exactly the question that requires a different standard.
 
@@ -105,9 +105,6 @@ The Vending Machine Assumption applies a standard to AI-assisted writing that pu
 ## Why the Pangram Score Answers the Wrong Question
 
 
-> **Evidence.** {#peerprism-evidence}
-> PeerPrism separates idea and text provenance across 20,690 peer reviews. Under hybrid conditions, including human-origin evaluative ideas rendered in AI-generated text, detector predictions diverged from the intellectual source.
-
 Pangram's own documentation shows what the chisel looks like from the inside.
 
 ### What the detector reads
@@ -118,7 +115,12 @@ Separate research confirms that measurable linguistic regularities in LLM-genera
 
 ### What it gets asked to settle
 
-The problem is not detection. It is what the detection is asked to settle. PeerPrism — a 2026 benchmark of 20,690 peer reviews presented at SIGIR — was explicitly designed to separate idea origin from text origin, including cases where human-origin ideas were rendered entirely in AI-assisted text. Its authors found that detector predictions diverge sharply under hybrid conditions and conclude that current detection methods conflate surface realization with intellectual contribution (Arvan et al., 2026). Once idea provenance and text provenance diverge, a detector of the second cannot settle the first.
+The problem is not detection. It is what the detection is asked to settle. PeerPrism tests that distinction by separating idea provenance from text provenance.
+
+> **Evidence.** {#peerprism-evidence}
+> PeerPrism, a 2026 SIGIR benchmark of 20,690 peer reviews, separates idea and text provenance, including human-origin evaluative ideas rendered in AI-generated text. Under hybrid conditions, detector predictions diverged from the intellectual source; its authors conclude that current detection methods conflate surface realization with intellectual contribution (Sadeghian et al., 2026).
+
+Once idea provenance and text provenance diverge, a detector of the second cannot settle the first.
 
 The Chisel Fallacy occurs not inside the detector but one step later. Pangram may answer its own question correctly. That answer is still the wrong evidence for a different question: who supplied the upper-level intellectual contribution.
 
@@ -152,15 +154,14 @@ A perfect detector of AI involvement would still not be a detector of intellectu
 ## When the Metric Becomes the Target
 
 
-> **Evidence.** {#detector-incentive-evidence}
-> In a study of 642 published English abstracts, Pangram 3.2 flagged 64.4-80.1% of abstract-only refinements at a 0.50 threshold. After commercial humanization, over 96% of AI-labeled rewrites were reclassified.
-
-> **Implication.** {#knowledge-dismissal}
-> When a production flag becomes a reason to stop reading, useful knowledge can be dismissed before its evidence or reasoning receives examination.
-
 The relationship between policy targets and statistical measures is what Goodhart documented in 1975: once a measure is used as a policy target, it tends to lose the information value it had when observed independently (Goodhart, 1975). The mechanism is operating here.
 
-A 2026 study from the University of Notre Dame, presented at the ACM AI Leadership Summit, tested a proxy for guideline-compliant AI assistance — light editing of the kind many institutional policies broadly permit — and submitted the results to Pangram and GPTZero. Pangram flagged 64–80% of these lightly edited pieces. Then the researchers took fully AI-generated text, ran it through a commercial humanizer, and resubmitted. More than 96% escaped detection. The authors' conclusion: "Honest AI-editing results in a higher sanction risk than humanizer-assisted evasion" (Karr et al., 2026).
+A 2026 study from the University of Notre Dame, presented at the ACM AI Leadership Summit, tested AI-assisted abstract refinement as a proxy for assistance that some academic policies permit. Its “refine (abstract only)” condition used Gemini 3 Flash to rewrite existing abstracts, not merely to correct grammar. The researchers scored those and other rewrite conditions using Pangram and GPTZero, then tested how a commercial humanizer changed detection on proxy AI-labeled outputs.
+
+> **Evidence.** {#detector-incentive-evidence}
+> Using 642 published English abstracts as source material, Karr et al. generated “refine (abstract only)” rewrites with Gemini 3 Flash. At a 0.50 threshold, Pangram 3.2 flagged 64.4% of refinements based on 2013–15 originals and 80.1% based on 2023–25 originals. In the separate Undetectable AI humanization test, fewer than 4% of proxy AI-labeled rewrites remained flagged (Karr et al., 2026).
+
+The authors' conclusion: "Honest AI-editing results in a higher sanction risk than humanizer-assisted evasion" (Karr et al., 2026).
 
 ### The Market's Response
 
@@ -168,11 +169,14 @@ The market adapted almost immediately. A cottage industry of human specialists n
 
 When a detector score becomes a compliance target, the market optimizes against the score rather than the underlying intellectual behavior.
 
-There is a consequence beyond Goodhart's Law: detector enforcement teaches authors that disclosure is the risky choice. Stankova disclosed her AI use and the disclosure became the story. A regime that flags honest editing at 64–80 percent while humanizer-assisted evasion passes at 96 percent is not incentivizing transparency — it is penalizing it.
+There is a consequence beyond Goodhart's Law: detector enforcement teaches authors that disclosure is the risky choice. Stankova disclosed her AI use and the disclosure became the story. In the study's controlled conditions, generative refinements were flagged at roughly 64–80 percent, while more than 96 percent of humanized proxy AI-labeled rewrites escaped the flag. Those results do not measure every form of honest editing, but they illustrate how score-based enforcement can penalize disclosed assistance without reliably excluding evasive rewriting.
 
 The metric was also fragile before anyone tried to game it. The same study found that Pangram flag rates varied from 2.1% for chemistry abstracts to 26.6% for theology abstracts (Karr et al., 2026). Detector scores tracked stylistic features that are not unique to AI involvement. Once the score becomes consequential, the optimization pressure compounds an already-confounded measurement.
 
 The result is a metric squeezed from both sides: natural confounding below, strategic evasion above. A high human score no longer uniquely identifies unaided authorship.
+
+> **Implication.** {#knowledge-dismissal}
+> When a production flag becomes a reason to stop reading, useful knowledge can be dismissed before its evidence or reasoning receives examination.
 
 ## The Floor Is Already Moving
 
@@ -204,9 +208,6 @@ When the execution floor moves, evaluation has to move with it.
 > **Definition.** {#intellectual-work-ledger}
 > The Intellectual Work Ledger is a proposed framework linking a Development Ledger, Decision Record, Authorial Accountability, and Dependency/Proof Chain to make claims about intellectual contribution checkable.
 
-> **Counterpoint.** {#fabricated-development-records}
-> A system can generate an article, intermediate drafts, rejected alternatives, and retrospective commentary together. Their agreement can reflect a coherent generated history rather than an independent record.
-
 ### Process provenance and what it cannot do
 
 But process evidence is only the beginning. The institutional moves described above represent a genuine shift toward inspecting development rather than merely judging finished output. Working drafts, version histories, timestamps, and oral defenses can establish that a creation process occurred. They answer questions about process provenance: what happened, in what sequence, and through whose actions. But they do not necessarily answer the question this paper is most concerned with: does the claimant command the intellectual structure the artifact claims to represent?
@@ -217,7 +218,7 @@ Process timestamps and the IWL address different axes and are stronger together:
 
 That is a different axis of evidence.
 
-Most proposals for improving authorship verification try to detect the counterfeit better. The IWL is structurally different: it raises the cost of counterfeiting until the counterfeit approaches the cost of the genuine article.
+Most proposals for improving authorship verification try to detect the counterfeit better. The IWL takes a different approach: it seeks to raise the cost of producing and defending a convincing counterfeit through independently checkable records and challenges.
 
 ### The Intellectual Work Ledger
 
@@ -233,7 +234,7 @@ The IWL is not four documents demonstrating that someone appeared to think. It i
 
 Each surface is useful independently. Together they constrain one another. A later decision cannot be freely rewritten if earlier evidence already constrained it. A rejected alternative has to make sense given what was known at the time. A claimed source must actually bear on the conclusion attributed to it. The IWL is designed to surface what the Vending Machine Assumption obscures — the upper-level intellectual work that may or may not be present behind any AI-assisted artifact.
 
-The IWL is not only a defense for authors practicing Directed Authorship. A one-shot vending-machine user who performed no intellectual work on the artifact cannot produce a genuine Development Ledger, cannot reconstruct actual decision points and their reasoning, and cannot survive unpredictable challenge on the intellectual process — because there was none. The IWL settles the authorship question for both workflows. It replaces detection not by being more sympathetic to AI-assisted authors but by asking a question that the right answer can actually answer.
+The IWL is not only a proposed defense for authors practicing Directed Authorship. Someone who delegated the substantive intellectual work could assemble a plausible retrospective ledger, but that record would not automatically correspond to actual decisions they made. Source checks, draft history and challenges to the reasoning may expose the mismatch. The IWL does not settle authorship by itself: it makes claims about intellectual contribution inspectable through evidence that a detector score cannot supply.
 
 If you actually did the intellectual work, the IWL is largely a documentation task. You are recording decisions that already happened — what you found, why you changed direction, which source actually supported the claim you made from it. The record is straightforward because you are describing something that occurred.
 
@@ -251,11 +252,14 @@ Verification operates at two levels. The first asks whether the pieces exist: do
 
 ### The Fabrication Paradox
 
-The security property the IWL exploits has a name: costly signaling. Michael Spence demonstrated in 1973 that a signal is credible when it is cheaper for the type with the genuine property to produce it than for the type faking it — education works as a signal of ability because capable candidates bear lower costs completing it than incapable ones faking their way through (Spence, 1973). Zahavi's handicap principle applies the same logic in biology: the peacock's tail is an honest signal of health because only a genuinely healthy bird can afford to grow it (Zahavi, 1975). The signal is honest because the cost runs in the right direction. The IWL is the same machinery applied to authorship: if you did the intellectual work, assembling the trail is nearly free — you are describing what happened. If you did not, fabricating a plausible intellectual journey backwards — the dead ends, the revisions, the order things were figured out, the pressure tests that forced definition changes — approaches the cost of having the journey.
+> **Counterpoint.** {#fabricated-development-records}
+> A system can generate an article, intermediate drafts, rejected alternatives, and retrospective commentary together. Their agreement can reflect a coherent generated history rather than an independent record.
+
+The security property the IWL exploits has a name: costly signaling. Michael Spence demonstrated in 1973 that a signal is credible when it is cheaper for the type with the genuine property to produce it than for the type faking it — education works as a signal of ability because capable candidates bear lower costs completing it than incapable ones faking their way through (Spence, 1973). Zahavi's handicap principle applies the same logic in biology: the peacock's tail is an honest signal of health because only a genuinely healthy bird can afford to grow it (Zahavi, 1975). The signal is honest because the cost runs in the right direction. The IWL proposes to apply that costly-signaling logic to authorship: someone with an actual decision history may document and defend it more readily than someone inventing a false one. Whether the comparative cost remains favorable under sophisticated AI assistance and independently varied challenges is a testable property of the proposed IWL design, not an established result.
 
 What if the only reliable way to fake a record of intellectual work was to do the intellectual work?
 
-That is not a rhetorical question. It describes a real property a verification system can approach — one where the cheapest path through fabrication increasingly resembles performing the thing the fabricator was trying to avoid. This paper proposes calling it the Fabrication Paradox.
+That is not merely a rhetorical question. It identifies a proposed target for verification design: making a convincing fabrication require progressively more of the intellectual command the fabrication purports to document. This paper calls that proposed mechanism the Fabrication Paradox.
 
 A generative system can cheaply produce a ledger, a decision history, rejected alternatives, and a proof chain. That is not the objection to overcome. It is the starting condition. The question is what happens as the verification gets more demanding.
 
@@ -265,15 +269,15 @@ Two costs then begin to rise together. The first is a fabrication-cost gradient:
 
 These gradients couple: as the space of plausible false histories narrows, navigating it requires reconstructing more of the relational structure the genuine work produced — which is precisely the epistemic work the fabricator was trying to avoid.
 
-This is the consistency tax: the fabricator must satisfy cross-channel consistency simultaneously — timeline, diffs, decisions, dependencies, and real-time responses all constraining one another — and the cost is multiplicative rather than additive. Reality gives the honest researcher this consistency for free. Simulation requires reconstructing it.
+This is the proposed consistency tax: a fabricator must reconcile multiple interacting constraints — timeline, diffs, decisions, dependencies and real-time responses. Their interaction may compound fabrication effort rather than merely add independent checks, but a multiplicative scaling law has not been established. Genuine documentation also takes effort; the hypothesis is that a real decision history can be easier to document and defend than a fabricated one.
 
 Recovering those relationships is itself epistemic work. The better the counterfeit of intellectual competence must become, the more the counterfeiter must acquire the competence being counterfeited.
 
 This is a proposed mechanism, not a theorem that fabrication is impossible or that fraudulent production must always cost more than honest work. The narrower claim is that stronger cross-consistency requirements and less predictable challenges progressively remove the cheapest forms of fabrication by forcing the counterfeit to reproduce more of the relational structure that gives genuine intellectual work its coherence.
 
-A fabricator who delegates the verification step faces a dilemma. If they trust the delegated check without personally confirming the ledger holds together, they cannot tell a sound record from a subtly broken one — and they are exposed the moment a challenge arrives that the delegated checker did not anticipate. If they actually confirm the ledger makes sense, they have performed the intellectual work the ledger claims to document. The only escape from both horns is to never be personally questioned. Authorial Accountability — the layer of the IWL that requires the named claimant to stand behind the reasoning under unpredictable scrutiny — is what forecloses that escape. Delegation of fabrication and delegation of verification both terminate at the point where a human has to answer.
+A fabricator who delegates the verification step faces a dilemma. If they trust the delegated check without personally confirming the ledger holds together, they cannot tell a sound record from a subtly broken one — and they are exposed the moment a challenge arrives that the delegated checker did not anticipate. If they actually confirm the ledger makes sense, they have performed the intellectual work the ledger claims to document. One way to reduce that pressure is to avoid being personally questioned. Authorial Accountability — the IWL layer requiring the named claimant to explain the reasoning under varied scrutiny — is intended to close that loophole, but it cannot guarantee detection of an informed or well-assisted fabricator. Delegation still leaves the claimant accountable for answers under challenge.
 
-This includes AI-assisted fabrication: a system can generate constraint-satisfying ledger entries, but the named claimant still has to answer for them under scrutiny that is unpredictable in real time. The AI cannot anticipate what will be asked. The claimant, not the system, bears the accountability.
+This includes AI-assisted fabrication: a system may generate apparently consistent ledger entries or assist with rehearsing answers. Varied, independently anchored questions can still test the claimant's command of the reasoning, but unpredictability alone is not proof of genuine authorship. The claimant, not the system, bears responsibility for the answers.
 
 Cryptographic proofs of knowledge provide the relevant analogy: producing a convincing transcript of expertise is not the same as possessing it — appropriately varied challenges are what make genuine possession inferable (Bellare & Goldreich, 1992).³ Bitcoin's proof-of-work supplies a related intuition: verification can be designed so that dishonest participation becomes progressively more costly (Nakamoto, 2008). An IWL borrows from both: challenge-based evidence of command from proof-of-knowledge, and adversarial cost-raising from proof-of-work.
 
@@ -285,7 +289,7 @@ The IWL does not make intellectual provenance certain. It makes it increasingly 
 
 ## This Paper's Own IWL
 
-A standard for intellectual provenance should apply to the paper that proposes it. The excerpt below shows what that looks like in practice — not a summary of what happened, but a sample of the actual record, with the fabrication cost made explicit for each entry.
+A standard for intellectual provenance should apply to the paper that proposes it. The selections below adapt entries from the companion Intellectual Work Ledger v4. Table wording is condensed or expanded for this article, and the accompanying Author/Fabricator commentary makes the proposed fabrication cost explicit. These selections, including the Discovery Context passage, are not verbatim transcriptions of the ledger; consult the companion for its wording of record.
 
 ### Development Ledger — Selected Entries
 
@@ -336,15 +340,15 @@ A standard for intellectual provenance should apply to the paper that proposes i
 >
 > ***Fabricator:** Must know which six examples existed in v3 by name. Must know the dilution was diagnosed as a constraint issue specifically, not a length or word-count issue. Must know the criterion — "each case adds a new constraint" — which is stated nowhere in the published paper.*
 
-The entries above demonstrate the Fabrication Paradox concretely rather than in principle. Each contains information that is nowhere in the published artifact — what v1 lacked, which six examples v3 had by name, why the DA definition changed when it did and what specific example forced it. A fabricator working from the published paper alone is stranded. The real author has all of it because it is simply what happened. The entries are easy to produce if you were there and hard to produce if you weren't — not because of their length but because of what they contain. That is the IWL's actual verification property.
+The entries above illustrate the Fabrication Paradox's intended test rather than prove its reliability. Each contains information not supplied by the finished paper — what v1 lacked, which six examples v3 had by name, why the DA definition changed and what example triggered the revision. A fabricator restricted to the published text lacks those details; a genuine participant may be able to substantiate them against drafts and independent anchors. The proposed verification property lies in checking that contact, not in accepting the specificity of a retrospective story on its own.
 
-The fabrication cost is not uniform. The VMA entry requires producing the paper's entire prior state. The DA entry requires holding an internal inconsistency across multiple version states and constructing a Discovery Context note whose register and specific trigger are hard to engineer deliberately. The six-to-two entry requires knowing a specific list and a specific criterion that appears nowhere in the published paper. Different entries surface different kinds of constraint. The consistency tax is visible across all of them: the fabricator must maintain consistency simultaneously across version states, decisions, Discovery Context notes, and responses under challenge — and that cost is multiplicative, not additive.
+The fabrication cost is not uniform. The VMA entry requires producing the paper's entire prior state. The DA entry requires holding an internal inconsistency across multiple version states and constructing a Discovery Context note whose register and specific trigger are hard to engineer deliberately. The six-to-two entry requires knowing a specific list and a specific criterion that appears nowhere in the published paper. Different entries surface different kinds of constraint. The proposed consistency tax is visible as a design demand across these entries: a fabricator must maintain agreement among version states, decisions, Discovery Context notes and responses under challenge. Those constraints may compound difficulty; how fabrication cost scales remains unmeasured.
 
 The paper is its own test case, not its own proof. The complete Intellectual Work Ledger is published alongside this paper. Whether the entries hold up under scrutiny is the test this section is proposing.
 
 ## Future Directions
 
-Two directions emerge from this paper. The first is the Agency Gradient as its own investigation: AI is a fundamentally open-ended tool with no social agreement on what "using AI" means, and that openness — the fact that the same model produces incomparable outputs depending on who operates it — is the upstream condition the Vending Machine Assumption has been collapsing. The second is ReTI (Researcher Timeline): a private-by-default researcher feed where a researcher commits moments of insight, source discoveries, and draft revisions as they happen — hash-chained, notary-attested, reversals included. The consistency tax observation suggests a design rule for ReTI: every new temporal channel should cost the honest researcher nothing and the fabricator compounding amounts. Timestamps are free for you, expensive to fake. Diffs are free for you, expensive to fake. ReTI is the temporal implementation of the same principle the IWL applies to content — and the unflattering commits you would delete are the strongest authenticity signals, because a fabricator writes a highlight reel. Both directions were created by the work this paper did.
+Two directions emerge from this paper. The first is the Agency Gradient as its own investigation: AI is a fundamentally open-ended tool with no social agreement on what "using AI" means, and that openness — the fact that the same model produces incomparable outputs depending on who operates it — is the upstream condition the Vending Machine Assumption has been collapsing. The second is ReTI (Researcher Timeline): a private-by-default researcher feed where a researcher commits moments of insight, source discoveries, and draft revisions as they happen — hash-chained, notary-attested, reversals included. The consistency-tax hypothesis suggests a design objective for ReTI: keep routine evidence capture inexpensive for an honest researcher while making credible retrospective fabrication harder. Timestamps and diffs can provide independently checkable constraints, although collecting and preserving them is not costless. ReTI is the temporal implementation of the same principle the IWL applies to content — and the unflattering commits you would delete are the strongest authenticity signals, because a fabricator writes a highlight reel. Both directions were created by the work this paper did.
 
 ## The Chisel and the Sculptor
 
@@ -371,7 +375,7 @@ Execution-layer evidence cannot by itself settle whether intellectual contributi
 ## References
 1. 404 Media. (2026, July 28). Substackers say new AI detection tool is a "witch hunt." [404media.co/substackers-say-new-ai-detection-tool-is-a-witch-hunt/](https://www.404media.co/substackers-say-new-ai-detection-tool-is-a-witch-hunt/)
 2. Ahlstrom, P., & Dragonsteel Books. (2025, May 9). Behind the scenes: How Wind and Truth came to life. [dragonsteelbooks.com/blogs/the-cognitive-realm/behind-the-scenes-how-wind-and-truth-came-to-life](https://www.dragonsteelbooks.com/blogs/the-cognitive-realm/behind-the-scenes-how-wind-and-truth-came-to-life)
-3. Arvan, M., et al. (2026). PeerPrism: Disentangling idea and text provenance in peer review. Proceedings of the 49th International ACM SIGIR Conference. [doi.org/10.1145/3805712.3808602](https://doi.org/10.1145/3805712.3808602)
+3. Sadeghian, S., DaghighFarsoodeh, A., Cheraghi, R., Ebrahimi, S., Arabzadeh, N., & Bagheri, E. (2026). PeerPrism: Peer Evaluation Expertise vs Review-writing AI. Proceedings of the 49th International ACM SIGIR Conference (pp. 3381–3387). [doi.org/10.1145/3805712.3808602](https://doi.org/10.1145/3805712.3808602)
 4. Bellare, M., & Goldreich, O. (1992). On defining proofs of knowledge. In E. F. Brickell (Ed.), Advances in Cryptology — CRYPTO '92 (pp. 390–420). Springer. [doi.org/10.1007/3-540-48071-4_28](https://doi.org/10.1007/3-540-48071-4_28)
 5. Boneh, D., & Shoup, V. (n.d.). A graduate course in applied cryptography. Stanford University. [crypto.stanford.edu/~dabo/cryptobook/](https://crypto.stanford.edu/~dabo/cryptobook/)
 6. Brittle Paper. (2026, June 26). Commonwealth Short Story Prize clears regional winners of AI use following month-long review. [brittlepaper.com/2026/06/commonwealth-short-story-prize-clears-regional-winners-of-ai-use-following-month-long-review/](https://brittlepaper.com/2026/06/commonwealth-short-story-prize-clears-regional-winners-of-ai-use-following-month-long-review/)

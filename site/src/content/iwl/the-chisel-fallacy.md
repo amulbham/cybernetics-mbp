@@ -3,7 +3,7 @@ parent: 'the-chisel-fallacy-what-pangram-actually-measures'
 title: 'Intellectual Work Ledger v4 — The Chisel Fallacy: What AI Detection Misses and What the Intellectual Work Ledger Gets Right'
 publicationState: published
 pubDate: 2026-09-22
-dateModified: 2026-10-18
+dateModified: 2026-10-28
 ---
 
 ## Document Identity
@@ -23,6 +23,8 @@ dateModified: 2026-10-18
 ## Version History
 
 Compact record of the paper's macro development arc across nine drafts. Development Ledger entries document the individual intellectual events; this table shows what kind of development each version represented and whether it received external position 3 review.
+
+**Reading note (2026-10-28):** Historical section numbers below refer to development drafts, not to the current article's unnumbered headings. The current article's ledger demonstration is titled “This Paper's Own IWL.”
 
 <!-- table-layout: responsive-records -->
 
@@ -47,6 +49,8 @@ This paper was developed across approximately six working sessions spanning earl
 Position 3, as used here, refers to an observer position with no prior context relative to the artifact under review — a concept developed in the author's ongoing work on the Observer Triad framework (forthcoming). Operationally: each draft sent for review went to a fresh instance of Grok 4.6 High (xAI) or ChatGPT Sol 5.6 (OpenAI) that had not participated in any prior development session and encountered the paper cold. This cold read is what distinguishes position 3 review from ordinary editorial feedback.
 
 A qualification on reviewer independence: while these instances are different systems from different organizations than the primary development partner, all three are large language models with potentially overlapping training distributions. The review is best described as context-independent and cross-model rather than genuinely independent. The author handled orchestration: conceptual decisions, argument direction, example selection, and structural choices. Review instances handled precision: logical consistency, claims violating the paper's own standard, and sources requiring independent verification.
+
+**Methodological clarification (2026-10-28):** This ledger preserves statements made during the paper's development, including the author's earlier characterization of the Fabrication Paradox as an established mechanism applied to a new domain. Costly signaling has established theoretical precedents (Spence, 1973; Zahavi, 1975); the claim that this particular IWL reliably increases the cost of false intellectual provenance, defeats AI-assisted fabrication, or imposes multiplicative costs remains a proposed application requiring adversarial evidence. Claims about “guideline-compliant editing” in the historical dependency rows refer to Karr et al.'s generative “refine (abstract only)” proxy; they are not observations that particular writers complied with institutional policies. The 64.4% and 80.1% Pangram rates apply to refinements based on the two sampled time periods, not to all possible forms of editing. This note qualifies present interpretation without rewriting historical author testimony, epistemic labels, or development decisions.
 
 ## Layer 1 — Development Ledger
 
@@ -242,7 +246,7 @@ The paper's own argument rendered as typed relational structure.
 | Agency Gradient (empirical fact) | COLLAPSES_TO → | Vending Machine Assumption | VMA treats the low-agency endpoint of the gradient as representative of the whole category |
 | Vending Machine Assumption | EXPLAINS_WHY → | Chisel Fallacy appears coherent | Without VMA, using detection as authorship verdict feels insufficient; with VMA, it appears to follow logically |
 | Chisel Fallacy | REQUIRES as enabling premise | Vending Machine Assumption | Without VMA the fallacy is immediately recognizable as a category error |
-| PeerPrism 2026 (Arvan et al.) | ESTABLISHES → | Text and idea provenance can diverge | Hybrid cases show detector predictions fail precisely where intellectual contribution is present but text is AI-assisted |
+| PeerPrism 2026 (Sadeghian et al.) | ESTABLISHES → | Text and idea provenance can diverge | Hybrid cases show detector predictions fail precisely where intellectual contribution is present but text is AI-assisted |
 | PeerPrism finding | SUPPORTS REFUTATION OF → | Detection score settling intellectual contribution | Once provenance diverges, detector of text origin cannot settle idea origin |
 | Karr et al. 2026 | ESTABLISHES → | Both workflows produce detection flags at high rates | 64–80% flag rate for guideline-compliant editing; detector cannot distinguish by workflow |
 | Commonwealth case | DEMONSTRATES → | Process evidence can distinguish where detection cannot | Foundation inspected development record instead of detector output |
