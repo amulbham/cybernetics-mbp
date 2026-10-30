@@ -804,3 +804,17 @@ pre.astro-code span {
 	}
 }
 
+/* T26.2 — Lab Bubble only: intentional section rhythm. Preserve every
+   authored horizontal divider and keep other research pieces unchanged. */
+body.lab-bubble-article .prose > p {
+	margin-bottom: 1.2em;
+}
+body.lab-bubble-article .prose > hr {
+	margin: 1.5em 0 1.25em;
+}
+body.lab-bubble-article .prose > hr + h2 {
+	margin: 0 0 0.45em;
+}
+body.lab-bubble-article .prose > h2 + p {
+	margin-top: 0;
+}
