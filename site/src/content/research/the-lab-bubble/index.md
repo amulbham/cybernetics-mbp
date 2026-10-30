@@ -1,5 +1,6 @@
 ---
 title: 'The Lab Bubble'
+subtitle: 'Why Internal AI Experience Doesn''t Always Translate to Customer Reality'
 format: 'essay'
 category: 'ai-systems'
 pubDate: 2026-10-30
@@ -9,11 +10,11 @@ excerpt: "How inference budgets, model choice, and learning histories shape AI w
 
 ## I Had Tokens to Burn
 
-When Anthropic rolled out its new orchestration experience for Claude, I understood the appeal almost immediately. Instead of working through a problem in one long thread, Claude could coordinate work across multiple parallel threads, delegate pieces of a task, and bring the results back together. It was the kind of feature I would normally want to spend an afternoon pulling apart. [[1]](https://claude.com/blog/projects-redesigned)
+When Anthropic rolled out its [new orchestration experience for Claude](https://claude.com/blog/projects-redesigned), I understood the appeal almost immediately. Instead of working through a problem in one long thread, Claude could coordinate work across multiple parallel threads, delegate pieces of a task, and bring the results back together. It was the kind of feature I would normally want to spend an afternoon pulling apart.
 
 My first reaction was basically: *That's cute. I'm not burning my tokens on it.*
 
-I was paying around $20 a month for Claude Pro [[2]](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan), and I was already using it for work that mattered to me. I was writing a paper. I was building a research website. I had learned, through repeated encounters with Claude's usage limits, roughly how much room I had before experimentation started competing with the work I actually wanted to finish.
+I was paying [around $20 a month for Claude Pro](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan), and I was already using it for work that mattered to me. I was writing a paper. I was building a research website. I had learned, through repeated encounters with Claude's usage limits, roughly how much room I had before experimentation started competing with the work I actually wanted to finish.
 
 The new feature looked interesting. It also looked expensive.
 
@@ -83,13 +84,13 @@ Different meters reward different methods.
 The difference matters because inside an AI lab, the Meter can become remarkably faint.
 
 > **Evidence.** {#internal-inference-access}
-> At an OpenAI Applied AI Engineering event in August 2026, Erika Kettleson described the company's internal environment in unusually direct terms: employees could experiment with all of the tools, had “unlimited tokens,” and could “go crazy with Codex.” [[4]](https://forum.openai.com/public/videos/event-replay-inside-applied-ai-engineering-at-openai-2026-08-27) OpenAI's own research on internal AI use describes how thoroughly that access has entered everyday work: Codex went from accounting for less than 10 percent of employee token usage through August 2025 to becoming the company's primary AI work tool across departments. [[3]](https://openai.com/index/how-agents-are-transforming-work/)
+> At an [OpenAI Applied AI Engineering event in August 2026](https://forum.openai.com/public/videos/event-replay-inside-applied-ai-engineering-at-openai-2026-08-27), Erika Kettleson described the company's internal environment in unusually direct terms: employees could experiment with all of the tools, had “unlimited tokens,” and could “go crazy with Codex.” [OpenAI's own research on internal AI use](https://openai.com/index/how-agents-are-transforming-work/) describes how thoroughly that access has entered everyday work: Codex went from accounting for less than 10 percent of employee token usage through August 2025 to becoming the company's primary AI work tool across departments.
 
 If inference is expensive, spending another million tokens to save an hour may be questionable. If it is effectively abundant to the employee, human attention becomes comparatively scarce. Multiple agents, competing approaches, critics, and retries can make sense if they save the person time.
 
-In 2026, OpenAI reported using a large multi-agent research system on mathematical problems including the Navier–Stokes existence and smoothness problem. For the Navier–Stokes effort alone, OpenAI reported a group of roughly 10,000 concurrent agents, 2.7 million messages, and about 130 billion output tokens. The agents arrived at the reported result approximately 88 hours after the effort began. [[5]](https://openai.com/index/navier-stokes-solution/) Contemporary reporting described the compute expenditure as being in the millions of dollars; one independent estimate put it at $15 million, not an audited OpenAI cost. [[6]](https://www.theguardian.com/science/2026/sep/12/openai-mathematicians-millennium-prize-problem)
+In 2026, [OpenAI reported using a large multi-agent research system](https://openai.com/index/navier-stokes-solution/) on mathematical problems including the Navier–Stokes existence and smoothness problem. For the Navier–Stokes effort alone, OpenAI reported a group of roughly 10,000 concurrent agents, 2.7 million messages, and about 130 billion output tokens. The agents arrived at the reported result approximately 88 hours after the effort began. Contemporary reporting described the compute expenditure as being in the millions of dollars; [one independent estimate](https://www.theguardian.com/science/2026/sep/12/openai-mathematicians-millennium-prize-problem) put it at $15 million, not an audited OpenAI cost.
 
-There is another way to make that scale legible. As a thought experiment, price those 130 billion output tokens at GPT-6 Astra's publicly listed API output rate of $50 per million tokens. [[7]](https://developers.openai.com/api/docs/models/gpt-6-astra) The output tokens alone come to roughly $6.5 million.
+There is another way to make that scale legible. As a thought experiment, price those 130 billion output tokens at [GPT-6 Astra's publicly listed API output rate of $50 per million tokens](https://developers.openai.com/api/docs/models/gpt-6-astra). The output tokens alone come to roughly $6.5 million.
 
 That is not an estimate of OpenAI's bill. OpenAI was not buying its own inference from a public API at retail prices, and the calculation does not attempt to reconstruct the actual economics of the experiment. It simply translates the token volume into a Meter more familiar to an outside user.
 
@@ -97,7 +98,7 @@ Navier–Stokes makes the scale of exploration visible. It does not establish ho
 
 Then the product leaves the building.
 
-A customer operating under a monthly subscription can face another calculation. Consumer AI products still expose users to allowances, usage windows, and different consumption rates depending on the model and kind of work being performed. [[2]](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan) The customer therefore has at least two questions available to them:
+A customer operating under a monthly subscription can face another calculation. Consumer AI products still expose users to [allowances, usage windows, and different consumption rates](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan) depending on the model and kind of work being performed. The customer therefore has at least two questions available to them:
 
 *Can AI technically do this?*
 
@@ -111,7 +112,7 @@ These are not necessarily degraded versions of an abundant workflow. They are ad
 
 **A workflow can feel natural under internal economics while feeling extravagant under retail economics.**
 
-Consider Dots. In its [product announcement](https://openai.com/index/introducing-dots/), OpenAI describes a Dot as an always-on personal agent powered by GPT-6 Astra, operating through its own cloud computer and capable of continuing work in the background. At the time of writing, Dots are rolling out to eligible Pro and Business Premium users, rather than to the lower-priced Plus tier. [[8]](https://help.openai.com/en/articles/20001530-getting-started-with-your-dot) Meta's Muse occupies some of the same broad personal-agent territory—persistent work, a cloud computer, actions across connected services—but Meta says most ordinary Muse use is free, with subscriptions expanding what users can do. [[9]](https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/)
+Consider Dots. In its [product announcement](https://openai.com/index/introducing-dots/), OpenAI describes a Dot as an always-on personal agent powered by GPT-6 Astra, operating through its own cloud computer and capable of continuing work in the background. At the time of writing, [Dots are rolling out to eligible Pro and Business Premium users](https://help.openai.com/en/articles/20001530-getting-started-with-your-dot), rather than to the lower-priced Plus tier. Meta's Muse occupies some of the same broad personal-agent territory—persistent work, a cloud computer, actions across connected services—but [Meta says most ordinary Muse use is free](https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/), with subscriptions expanding what users can do.
 
 That comparison does not tell us why Dots was built that way. It does not establish that OpenAI mispriced it, or that Muse found the correct model.
 
@@ -139,7 +140,7 @@ A lab need not forbid competing tools for that difference to arise. Organizing w
 
 There is a kind of home-stack gravity to this, even when the people inside the lab know their competitors extremely well. **The Lab Bubble is not an information bubble.**
 
-In 2024, reporting on Google's Gemini evaluation process showed contractors comparing Gemini responses with outputs from Anthropic's Claude. Google was not developing Gemini in ignorance of what a rival model could do. It was explicitly looking. [[10]](https://techcrunch.com/2024/12/24/google-is-using-anthropics-claude-to-improve-its-gemini-ai/)
+In 2024, [reporting on Google's Gemini evaluation process](https://techcrunch.com/2024/12/24/google-is-using-anthropics-claude-to-improve-its-gemini-ai/) showed contractors comparing Gemini responses with outputs from Anthropic's Claude. Google was not developing Gemini in ignorance of what a rival model could do. It was explicitly looking.
 
 But evaluating another model and depending on it are different relationships.
 
@@ -149,9 +150,9 @@ Dependence asks: *My model isn't giving me what I need. Should I move the work t
 
 For an outside user who can move work between providers, that second question can become part of the method itself. If one model is better at a particular coding task, another is cheaper for routine work, and a third is useful as a separate reviewer, the user can route around a weakness. Organizational policies and the cost of moving context can narrow that choice.
 
-LangChain's 2026 State of Agent Engineering received 1,340 survey responses from professionals working with AI agents. More than three-quarters reported using multiple models in development or production, with teams selecting and routing models according to factors such as task complexity, cost, and latency. The sample was heavily technical, so this is not evidence that the average AI consumer maintains a portfolio of frontier models. It does establish that multi-model use is a meaningful professional behavior rather than an unusual personal habit. [[11]](https://www.langchain.com/state-of-agent-engineering)
+[LangChain's 2026 State of Agent Engineering](https://www.langchain.com/state-of-agent-engineering) received 1,340 survey responses from professionals working with AI agents. More than three-quarters reported using multiple models in development or production, with teams selecting and routing models according to factors such as task complexity, cost, and latency. The sample was heavily technical, so this is not evidence that the average AI consumer maintains a portfolio of frontier models. It does establish that multi-model use is a meaningful professional behavior rather than an unusual personal habit.
 
-The differences are not just a matter of preference. LLMRouterBench, a 2026 study evaluating routing across 33 models and more than 400,000 instances, found meaningful differences in model performance and cost-efficiency across tasks. The study reported strong model complementarity across its evaluated tasks. It also found diminishing returns as more models were added, and sophisticated routing did not automatically beat simpler approaches. [[12]](https://aclanthology.org/2026.findings-acl.1881/)
+The differences are not just a matter of preference. [LLMRouterBench](https://aclanthology.org/2026.findings-acl.1881/), a 2026 study evaluating routing across 33 models and more than 400,000 instances, found meaningful differences in model performance and cost-efficiency across tasks. The study reported strong model complementarity across its evaluated tasks. It also found diminishing returns as more models were added, and sophisticated routing did not automatically beat simpler approaches.
 
 > **Counterpoint.** {#portfolio-limits}
 > A portfolio is not automatically better because it contains more models. Different models do not magically acquire independent errors because they have different logos on their websites.
@@ -200,11 +201,11 @@ Then they have to learn it. A user discovers which tasks the new model handles w
 
 Inside an AI lab, that process can begin before launch.
 
-OpenAI, for example, described employees using GPT-6 Astra in real work weeks before its public release. [[13]](https://openai.com/index/gpt-6-astra-next-generation-work/) Engineers and other employees were not simply evaluating a benchmark result; they had an opportunity to encounter the model inside actual workflows before customers received the same public capability. Google has described a similar pattern with Gemini 4 Argon, with thousands of Googlers using the model internally before its restricted external rollout. [[14]](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/)
+OpenAI, for example, described [employees using GPT-6 Astra in real work weeks before its public release](https://openai.com/index/gpt-6-astra-next-generation-work/). Engineers and other employees were not simply evaluating a benchmark result; they had an opportunity to encounter the model inside actual workflows before customers received the same public capability. Google has described a similar pattern with [Gemini 4 Argon](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/), with thousands of Googlers using the model internally before its restricted external rollout.
 
 Neither example means lab employees are perpetually a generation ahead of everyone else. Early access does not automatically produce insight. It creates something much simpler: time in which adaptation can occur.
 
-Research published in *Information Systems Research* studied prompt adaptation in two text-to-image experiments with 3,750 participants and nearly 37,000 prompts. In a bounded image-reproduction task, users' prompt adaptation accounted for roughly half the gains from a stronger model; in an open-ended logo-design task, adaptation mattered much less. [[15]](https://pubsonline.informs.org/doi/10.1287/isre.2025.2029) These findings show that effective use can depend on learned behavior, although they do not directly establish the same effect for coding agents or autonomous workflows.
+Research published in *Information Systems Research* [studied prompt adaptation in two text-to-image experiments](https://pubsonline.informs.org/doi/10.1287/isre.2025.2029) with 3,750 participants and nearly 37,000 prompts. In a bounded image-reproduction task, users' prompt adaptation accounted for roughly half the gains from a stronger model; in an open-ended logo-design task, adaptation mattered much less. These findings show that effective use can depend on learned behavior, although they do not directly establish the same effect for coding agents or autonomous workflows.
 
 **Capability can arrive in an update. Method takes time.**
 
@@ -214,7 +215,7 @@ This creates a problem with thinking about public release as a synchronized even
 
 Suppose a new model launches on Tuesday. For an employee who has already been using it internally, that might mean: *Customers can finally use the thing I've been working with.* For an outside power user, it might mean: *I can start rebuilding parts of my workflow around this today.* For another customer, it might mean only: *I can select this model now.*
 
-Claude's treatment of its Fable models makes the distinction unusually visible. Fable 5.1 is available to Pro subscribers, but using it on that plan requires pay-as-you-go usage credits rather than the subscription's included allowance. Eligible higher-tier plans include some Fable usage within their regular limits. [[16]](https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan) A capability can therefore be available to a subscriber without being equally economical to explore routinely.
+[Claude's treatment of its Fable models](https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan) makes the distinction unusually visible. Fable 5.1 is available to Pro subscribers, but using it on that plan requires pay-as-you-go usage credits rather than the subscription's included allowance. Eligible higher-tier plans include some Fable usage within their regular limits. A capability can therefore be available to a subscriber without being equally economical to explore routinely.
 
 A subscriber paying separately for a compute-intensive model may reserve it for exceptional tasks and accumulate little routine experience. Only when the economics become manageable might the capability enter daily work.
 
@@ -225,7 +226,7 @@ The release date never changed. The learning date did.
 
 There is another complication. The frontier does not necessarily wait for everyone to catch up.
 
-The Navier–Stokes experiment shows another side of Calendar: OpenAI used an internal research model beyond its released flagship. That checkpoint wasn't a public product or a promise of one. It does show that internal exploration can continue beyond the capabilities customers are still learning to use. [[5]](https://openai.com/index/navier-stokes-solution/)
+[The Navier–Stokes experiment](https://openai.com/index/navier-stokes-solution/) shows another side of Calendar: OpenAI used an internal research model beyond its released flagship. That checkpoint wasn't a public product or a promise of one. It does show that internal exploration can continue beyond the capabilities customers are still learning to use.
 
 That head start may narrow when a capability launches. The Meter and Menu differences need not disappear with it: customers can receive the same model while still facing different usage economics and reasons to switch providers. The lab may experience tomorrow's capability without experiencing tomorrow's customer environment.
 
@@ -241,7 +242,7 @@ The harder question is whether product intuition formed through one history of a
 
 None of this makes dogfooding—employees using their own company's product in real work—a bad way to build products.
 
-Dogfooding is valuable because experience contains information. Living with a product exposes friction, unexpected workflows, and boundaries of trust that benchmarks can miss. OpenAI's deployment-simulation work similarly acknowledges that static evaluations alone may not capture behavior in the contexts models encounter after release. [[17]](https://openai.com/index/deployment-simulation/)
+Dogfooding is valuable because experience contains information. Living with a product exposes friction, unexpected workflows, and boundaries of trust that benchmarks can miss. [OpenAI's deployment-simulation work](https://openai.com/index/deployment-simulation/) similarly acknowledges that static evaluations alone may not capture behavior in the contexts models encounter after release.
 
 If lived experience is valuable enough to guide product judgment, then the conditions producing that experience matter too.
 
@@ -251,7 +252,7 @@ An internal team may discover that a difficult task can be handled reliably insi
 
 True product knowledge is not necessarily representative product knowledge.
 
-Ecological validity and representative design address a related problem: whether observations made under one set of conditions generalize to the environment of interest. Research on healthcare usability evaluation offers a concrete example: greater environmental realism does not automatically improve every kind of evaluation, and the relevance of the conditions depends on the question being tested. [[18]](https://pmc.ncbi.nlm.nih.gov/articles/PMC11276482/)
+Ecological validity and representative design address a related problem: whether observations made under one set of conditions generalize to the environment of interest. [Research on healthcare usability evaluation](https://pmc.ncbi.nlm.nih.gov/articles/PMC11276482/) offers a concrete example: greater environmental realism does not automatically improve every kind of evaluation, and the relevance of the conditions depends on the question being tested.
 
 > **Definition.** {#dogfood-validity}
 > Dogfood Validity is the degree to which product knowledge gathered through internal use transfers to the environment in which customers actually use the product.
@@ -336,7 +337,7 @@ Meter makes a useful first experiment. Preserve the normal frontier environment 
 
 The same logic extends beyond inference. If the product intuition being tested might depend on access to alternative models, change the Menu and see whether the task stays in the home stack. If it might depend on months of accumulated experience with a capability, Calendar becomes the relevant variable. That case is harder because experience cannot simply be switched off. Someone who has spent six months learning where an agent succeeds and fails cannot be instructed to forget what they know. Some questions therefore require people with a different exposure history, including fresh or external users.
 
-This second environment might be called **Representative Dogfood**. It is not an attempt to make employees pretend to be customers. Employees remain unusually informed users with institutional knowledge, internal vocabulary, and experience that no experimental condition can fully remove. The narrower goal is to identify which environmental conditions could plausibly change the behavior we care about and vary those conditions deliberately. Research on ecological validity points toward the same distinction: more realism is not automatically better evaluation. What matters is whether the conditions relevant to the behavior being studied are represented well enough to support the inference we want to make. [[18]](https://pmc.ncbi.nlm.nih.gov/articles/PMC11276482/)
+This second environment might be called **Representative Dogfood**. It is not an attempt to make employees pretend to be customers. Employees remain unusually informed users with institutional knowledge, internal vocabulary, and experience that no experimental condition can fully remove. The narrower goal is to identify which environmental conditions could plausibly change the behavior we care about and vary those conditions deliberately. [Research on ecological validity](https://pmc.ncbi.nlm.nih.gov/articles/PMC11276482/) points toward the same distinction: more realism is not automatically better evaluation. What matters is whether the conditions relevant to the behavior being studied are represented well enough to support the inference we want to make.
 
 The shift in method is worth measuring alongside what it produces. Retries, model switching, specification, and intervention reveal how people manage the work. Output quality, total human time including review, and inference spent reveal whether the method delivers value. Tasks abandoned or deferred when the allowance runs out matter too; completed work alone can conceal what the constraint prevented.
 
@@ -346,7 +347,7 @@ For a product team, all of this can collapse into a much simpler question: **Wou
 
 Such tests can also reveal what different users want the product to preserve. A team may see fewer handoffs as an obvious improvement; people accustomed to routing work across models may instead value inspectable tickets, portable state, and independent review. The experiment should not assume either preference wins. It should make both visible.
 
-Even then, Representative Dogfood cannot substitute for actual customers. Microsoft's idea of employees as “Customer Zero” captures much of what makes internal deployment useful: employees can encounter products early, put them into real workflows, expose failures, and generate feedback before broader release. [[19]](https://www.microsoft.com/insidetrack/blog/it-on-the-cutting-edge-working-in-microsoft-digital-in-the-era-of-ai/) But Customer Zero is still not Customer One. Employees know too much, share too much context with the people building the product, and have reasons to explore capabilities that an ordinary customer may never find compelling. [[20]](https://www.nngroup.com/articles/dogfooding/)
+Even then, Representative Dogfood cannot substitute for actual customers. [Microsoft's idea of employees as “Customer Zero”](https://www.microsoft.com/insidetrack/blog/it-on-the-cutting-edge-working-in-microsoft-digital-in-the-era-of-ai/) captures much of what makes internal deployment useful: employees can encounter products early, put them into real workflows, expose failures, and generate feedback before broader release. But Customer Zero is still not Customer One. [Employees know too much, share too much context with the people building the product](https://www.nngroup.com/articles/dogfooding/), and have reasons to explore capabilities that an ordinary customer may never find compelling.
 
 The three forms of evidence therefore complement rather than replace one another. Frontier Dogfood shows what becomes possible under unusually favorable conditions. Representative Dogfood asks which of those discoveries survive when the environmental variables relevant to customers are restored. External user research then asks the question neither form of internal use can answer: what do actual customers want and do?
 
