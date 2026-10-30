@@ -59,6 +59,7 @@ export const ROUTE_HISTORY: readonly RouteHistoryRow[] = [
 	},
 	{ id: 'how-frontier-model-training-became-a-public-utility', categories: ['essays'], pdf: false, iwl: false },
 	{ id: 'the-desk-is-where-you-write-it-down', categories: ['knowledge-work'], pdf: true, iwl: false },
+	{ id: 'the-lab-bubble', categories: ['ai-systems'], pdf: false, iwl: false },
 ];
 
 /** Category landing pages retired by T19.0, and where each now redirects. A retired segment is never a current category. */
