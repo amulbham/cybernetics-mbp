@@ -46,7 +46,7 @@ export const AUTHOR = {
 // schema field would make "which piece is pinned" a fact scattered across
 // content files instead of one place to look). A wrong slug fails the build
 // (Spotlight.astro throws via getEntry) rather than silently showing nothing.
-export const HOMEPAGE_SPOTLIGHT = 'the-desk-is-where-you-write-it-down';
+export const HOMEPAGE_SPOTLIGHT = 'the-lab-bubble';
 
 // Sitewide content license — shown in ArticleMasthead.astro, the footer, and
 // each entry's JSON-LD `license` field. Single source of truth so these
