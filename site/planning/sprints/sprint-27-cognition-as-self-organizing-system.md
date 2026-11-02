@@ -1,6 +1,6 @@
 # Sprint 27 — Cognition as a Self-Organizing System: new scholarly paper publication
 
-Status: **T27.0 AUTHOR EDITORIAL ACCEPTANCE PASS; SOURCE COMMITTED ON ISOLATED RESEARCH BRANCH; T27.1 DRAFT — NO WEBSITE DEPLOYMENT AUTHORITY**
+Status: **T27.0 AUTHOR EDITORIAL ACCEPTANCE PASS; SOURCE COMMITTED ON ISOLATED RESEARCH BRANCH; T27.1 SEALED FOR ISOLATED TEST IMPLEMENTATION ONLY — NO WEBSITE DEPLOYMENT AUTHORITY**
 Risk ceiling: **R3** for new public route, scholarly PDF and release manifest; each ticket independently classified
 Branch: `planner/context` for planning; later isolated website/research branches only by a sealed contract; `staging` indexes CLOSED; `main` production is separately owner-approved
 Depends on: Sprint 25 accepted publication/intake process; Sprint 26 Lab Bubble production CI PASS and owner-confirmed visible article (formal independent HTML check still open); website `PLANNING.md`, `PUBLISHING.md`, `AGENTS.md` and `MANUSCRIPT-CONTRACT.md`
@@ -58,7 +58,7 @@ No argument/factual revision, new source manuscript history, Paper A edits, comp
 | Ticket | Mode | Purpose | Depends on | Gate |
 | --- | --- | --- | --- | --- |
 | **T27.0** | AUDIT / owner DECISION | Audit 11 primitives and all citation payloads against immutable paper | Original research pins | **PASS: delegated selection approved and separate research-source commit verified `ccac0659`** |
-| **T27.1** | IMPLEMENTATION / VALIDATION | Six-PDF fail-closed first-production-404 bootstrap, five-hash preservation, normal redeploy | Accepted source `ccac0659aff4150b1be5b0a903753bd3a684e5bd` | [Draft ticket](../tickets/T27.1-sixth-pdf-bootstrap.md) awaiting independent review and separate prospective seal; code not started |
+| **T27.1** | IMPLEMENTATION / VALIDATION | Six-PDF fail-closed first-production-404 bootstrap, five-hash preservation, normal redeploy | Accepted source `ccac0659aff4150b1be5b0a903753bd3a684e5bd` | [Sealed bounded ticket](../tickets/T27.1-sixth-pdf-bootstrap.md) for isolated candidate code+tests from website main `bb6f170`; staging and production remain separately approved |
 | **T27.2** | IMPLEMENTATION / VALIDATION | Ingest immutable approved Paper B, render HTML/figure/primitives/citations/metadata; run complete six-PDF staging QA | T27.0 acceptance, **separately authorized committed approved research source**, and T27.1 safety proof | Closed-indexing staging as prospectively sealed; owner visual review of **exact** PDF |
 | **T27.3** | RELEASE | Freeze the **exact approved staging PDF**, selectively release Paper B with a six-line manifest; verify live HTML and exact-byte PDF | T27.1/2 verified, owner authorizes exact production commit and PDF hash | Separate owner production release approval |
 | **Final owner action** | AUTHOR ACTION / VALIDATION | New Zenodo v2 using exact public-site PDF download; verify version DOI and bytes; reconcile research `STATE.md` | T27.3 website live | Explicit site–Zenodo parity outcome |
