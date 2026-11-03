@@ -10,5 +10,17 @@
       "near": "1-introduction",
       "anchor": "Paper A in the Cognitive Physics Series"
     }
+  },
+  {
+    "id": "cognition--invariants",
+    "source": "cognition-as-self-organizing-system",
+    "target": "the-invariants-of-self-organizing-systems",
+    "type": "depends_on",
+    "reason": "Paper B tests against cognition the seven structural conditions that Paper A in this series establishes.",
+    "inline": {
+      "status": "accepted",
+      "near": "1-what-self-organizing-systems-are",
+      "anchor": "Paper A in this series"
+    }
   }
 ]

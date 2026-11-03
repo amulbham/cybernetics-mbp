@@ -13,6 +13,7 @@
 //   real dist/
 //     copy ONCE -> transient dist
 //     absolutizePdfLinks ONCE on that tree
+//     removeEmptySrcset ONCE on that tree (T27.2 — see removeEmptySrcset below)
 //     one loopback static server at the transient root
 //     for each paper: vivliostyle build <served URL> --style print-research.css
 //                      -> real dist/research/{category}/{id}/{id}.pdf
@@ -27,10 +28,10 @@
 
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
-import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import sirv from 'sirv';
 import { absolutizePdfLinks } from './absolutize-pdf-links.mjs';
 import { discoverPapers, discoverResearch } from './discover-research.mjs';
@@ -76,6 +77,47 @@ function stopServer(server) {
 }
 
 /**
+ * T27.2 — drop an EMPTY srcset from every <img> in the PDF's input only.
+ *
+ * Astro emits `srcset=""` on every Markdown image it optimizes (`<img ... src="/_astro/x.webp" srcset="">`).
+ * Browsers ignore the empty list and use `src`, but the headless Chromium Vivliostyle typesets with treats the
+ * image as having no usable source: the PDF then shows a broken-image icon and the alt text instead of the
+ * picture. No paper had an image before Paper B's Figure 2, so this never mattered. Bisected on the real
+ * Paper B page: removing only `srcset=""` embeds the full 2400x1780 figure; removing only `loading="lazy"`,
+ * only `decoding="async"`, or making loading eager does not.
+ *
+ * This runs on the transient copy only (the same tree absolutizePdfLinks rewrites); the real dist/ — the HTML
+ * that is deployed — is never touched. It removes only a srcset whose value is empty or whitespace, inside an
+ * <img> tag: a real srcset (candidates), src, alt, width, height, loading and decoding are left exactly as emitted.
+ */
+export function removeEmptySrcset(html) {
+	return html.replace(/<img\b[^>]*>/g, (tag) => tag.replace(/\ssrcset=(?:""|'')(?=[\s/>])/, ''));
+}
+
+/** Applies removeEmptySrcset to every .html file under dir; returns { htmlFileCount, changedCount }. */
+export function removeEmptySrcsetInTree(dir) {
+	let htmlFileCount = 0;
+	let changedCount = 0;
+	const walk = (d) => {
+		for (const entry of readdirSync(d)) {
+			const full = join(d, entry);
+			if (statSync(full).isDirectory()) walk(full);
+			else if (entry.endsWith('.html')) {
+				htmlFileCount++;
+				const before = readFileSync(full, 'utf8');
+				const after = removeEmptySrcset(before);
+				if (after !== before) {
+					writeFileSync(full, after);
+					changedCount++;
+				}
+			}
+		}
+	};
+	walk(dir);
+	return { htmlFileCount, changedCount };
+}
+
+/**
  * Runs the pinned Vivliostyle CLI asynchronously — never `execSync`/
  * `execFileSync`. Those block the whole Node event loop for as long as the
  * child process runs, which includes this same process's own static
@@ -118,6 +160,8 @@ async function main() {
 	try {
 		const { htmlFileCount, rewrittenCount } = absolutizePdfLinks(REAL_DIST, transientDist);
 		console.log(`build-research-pdfs: whole-tree copy done (${htmlFileCount} HTML files, ${rewrittenCount} with rewritten anchors)`);
+		const { changedCount: srcsetCount } = removeEmptySrcsetInTree(transientDist);
+		console.log(`build-research-pdfs: ${srcsetCount} HTML file(s) had an empty img srcset removed in the transient copy`);
 
 		server = await startStaticServer(transientDist, SERVER_PORT);
 		console.log(`build-research-pdfs: serving transient copy at http://127.0.0.1:${SERVER_PORT}`);
@@ -167,7 +211,11 @@ async function main() {
 	}
 }
 
-main().catch((err) => {
-	console.error(err.message || err);
-	process.exit(1);
-});
+// Run only when executed directly (tsx scripts/build-research-pdfs.mjs), so the
+// image helpers above can be imported by their test without typesetting anything.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+	main().catch((err) => {
+		console.error(err.message || err);
+		process.exit(1);
+	});
+}

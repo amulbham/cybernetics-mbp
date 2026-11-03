@@ -1,1 +1,2 @@
 1f68d9eec9a0d8412a7fefc4d2c42b17f340801fbbef438b671edbffaf4582f3  research/knowledge-work/the-chisel-fallacy-what-pangram-actually-measures/the-chisel-fallacy-what-pangram-actually-measures.pdf
+fe64b3026988a72056fea22ec081d24880cb9ca88e8f6c77a1a8941df69f7ac7  research/cybernetics/cognition-as-self-organizing-system/cognition-as-self-organizing-system.pdf
