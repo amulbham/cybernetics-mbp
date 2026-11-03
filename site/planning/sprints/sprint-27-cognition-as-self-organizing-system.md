@@ -1,8 +1,8 @@
 # Sprint 27 — Cognition as a Self-Organizing System: new scholarly paper publication
 
-Status: **T27.0 AUTHOR EDITORIAL ACCEPTANCE PASS; SOURCE COMMITTED ON ISOLATED RESEARCH BRANCH; T27.1 SEALED FOR ISOLATED TEST IMPLEMENTATION ONLY — NO WEBSITE DEPLOYMENT AUTHORITY**
+Status: **WEBSITE DEVELOPMENT AND PRODUCTION RELEASE COMPLETE (T27.0–T27.3) — ZENODO V2 DEPOSIT/EXACT-BYTE PARITY PENDING. NOT FULLY CLOSED.** Product Authority approved the completed development status 2026-11-03.
 Risk ceiling: **R3** for new public route, scholarly PDF and release manifest; each ticket independently classified
-Branch: `planner/context` for planning; later isolated website/research branches only by a sealed contract; `staging` indexes CLOSED; `main` production is separately owner-approved
+Branches at engineering completion: website `main @ 7583d87dd0b4214d69e3fc11b67be1d5c1da8407` production SUCCESS (Actions #134), `staging @ 3f2b0369169278f6606804dee17749944aee0e32` CLOSED, `planner/context` for documentation. Do not conflate website success with Zenodo v2 closure.
 Depends on: Sprint 25 accepted publication/intake process; Sprint 26 Lab Bubble production CI PASS and owner-confirmed visible article (formal independent HTML check still open); website `PLANNING.md`, `PUBLISHING.md`, `AGENTS.md` and `MANUSCRIPT-CONTRACT.md`
 Unlocks: first verified new six-PDF scholarly publication workflow, with author-controlled Zenodo v2 parity
 
