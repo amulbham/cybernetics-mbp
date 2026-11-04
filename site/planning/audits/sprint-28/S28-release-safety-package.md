@@ -1,6 +1,6 @@
 # Sprint 28 — Release-safety follow-on package and dependency contract
 
-**Date:** 2026-11-03 (America/Los_Angeles). **Status:** **T28.6a DOCS + T28.8a ISOLATED GUARD SOURCE ACCEPTED; T28.7/T28.8 DRAFT/UNSEALED; NO HOSTED DEPLOYMENT OR PROD RELEASE APPROVED.** Independent Planner audit reviewed work commit `7109644` (static source PASS, tests Executor-reported, CI not run).  
+**Date:** 2026-11-03 (America/Los_Angeles). **Status:** **T28.6a DOCS + T28.8a ISOLATED GUARD SOURCE ACCEPTED; T28.7a PREFLIGHT-ONLY SEALED; T28.7 HOSTED UPLOAD AND T28.8 MAIN RELEASE DRAFT/UNSEALED.** No Cloudflare or production action authorized. Candidate `7109644` reviewed at source level; active manifest/target unverified.  
 **Observed implemented candidate:** `work/t28-publishing-integrity-candidate @ d7149d24c81526f66e337927c06b65060f657d3d` based on `main @ 7583d87dd0b4214d69e3fc11b67be1d5c1da8407`, independently Planner reviewed [PASS for isolated source](S28-implementation-candidate-planner-review.md). `staging @ 3f2b0369169278f6606804dee17749944aee0e32` contains unreleased Chisel. This is a **release-safety continuation of already sealed Sprint 28 scope**, not a new publication, PDF version or redesign.
 
 ## Narrow dependency path
@@ -34,3 +34,6 @@ Product Authority approved the recommended **separate T28.8a implementation seal
 
 ## T28.8a implementation acceptance (candidate only)
 [Independent source review](S28-T28.8a-production-guard-candidate-planner-review.md): exact four-path work commit `710964480f432c9b8e5582b09c811308aa7c50f2` accepted for source conformance; built/tested guard reported by Executor, not independently rerun. The code is **NOT deployed** and owner Actions variables/Cloudflare preview settings remain unverified. T28.7 preview requires separate authorization of the exact uploaded bytes/target and fresh after-approval rechecks; T28.8 main release requires a still-separate full-tree GO.
+
+## 2026-11-04 T28.7a preflight-only authorization
+[Sealed preparation ticket](../../tickets/T28.7a-preupload-artifact-validation.md) and [Executor handoff](S28-T28.7a-preview-preflight-only-seal.md) authorize read-only verification, scratch CLOSED build and six frozen PDF carry, tests, deterministic whole-dist digest and read-only Cloudflare/Actions target discovery from exact `7109644` candidate. **No tracked change, GitHub push, Wrangler upload, workflow dispatch or release variable edit is authorized.** Any unavailable active manifest or target evidence ⇒ report BLOCKED, not preview-ready. The full T28.7 hosted RELEASE/R3 and T28.8 main remain unsealed and require separate exact-tuple GO.
