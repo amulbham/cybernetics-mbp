@@ -206,7 +206,7 @@ Two conditions deserve note across all three systems. Quantization maps most cle
 
 ## References
 
-1. Bham, A. (2026). *The Invariants of Self-Organizing Systems*. Paper A. Cognitive Physics Series. [doi.org/10.5281/zenodo.20531589](https://doi.org/10.5281/zenodo.20531589)
+1. Bham, A. (2026). *The Invariants of Self-Organizing Systems*. Paper A. Cognitive Physics Series. [doi.org/10.5281/zenodo.20531588](https://doi.org/10.5281/zenodo.20531588)
 2. Bonabeau, E., Dorigo, M. & Theraulaz, G. (1999). *Swarm Intelligence: From Natural to Artificial Systems*. Oxford University Press. [doi.org/10.1093/oso/9780195131581.001.0001](https://doi.org/10.1093/oso/9780195131581.001.0001)
 3. Camazine, S., Deneubourg, J-L., Franks, N.R., Sneyd, J., Theraulaz, G. & Bonabeau, E. (2001). *Self-Organization in Biological Systems*. Princeton University Press. [doi.org/10.1515/9780691212920](https://doi.org/10.1515/9780691212920)
 4. Wilson, E.O. (1971). *The Insect Societies*. Belknap Press of Harvard University Press. [hup.harvard.edu/books/9780674454903](https://www.hup.harvard.edu/books/9780674454903)

@@ -3,7 +3,7 @@ title: 'The Invariants of Self-Organizing Systems'
 format: 'paper'
 category: 'cybernetics'
 pubDate: 2026-08-24
-doi: 'https://doi.org/10.5281/zenodo.20531589'
+doi: 'https://doi.org/10.5281/zenodo.20531588'
 description: >-
   Some systems maintain complex organized structure on their own, without
   external coordination, against the thermodynamic tendency toward disorder.

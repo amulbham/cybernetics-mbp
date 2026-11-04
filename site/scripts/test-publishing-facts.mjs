@@ -132,13 +132,13 @@ outputCase('O30', 'sameAs: malformed value (no scheme)', (d) => editPage(d, '/',
 outputCase('O31', 'sameAs: Substack appended to homepage Person', (d) => editPage(d, '/', rep('"sameAs":[', '"sameAs":["https://amulbham.substack.com/",')), 'duplicate|unexpected');
 outputCase('O32', 'masthead role line changed', (d) => editPage(d, PB.route, rep(fx.visible.mastheadRoleLine, 'Professor, Example University, USA')), 'masthead role line');
 outputCase('O33', 'AuthorNote bio stale/changed', (d) => editPage(d, PB.route, rep(fx.visible.authorNoteBio.slice(0, 40), 'Amul Bham is a university professor.')), 'AuthorNote');
-outputCase('O34', 'A2-type change: one Paper A DOI anchor retargeted', (d) => {
-	const token = Object.keys(PA.zenodoTokens).find((t) => PA.zenodoAnchors.some((a) => a[0].endsWith(t)));
-	const needle = `href="https://doi.org/10.5281/zenodo.${token}"`;
+outputCase('O34', 'A2-type change: the last (Data Availability) Paper A DOI anchor retargeted', (d) => {
 	editPage(d, PA.route, (t) => {
-		const i = t.lastIndexOf(needle);
-		if (i < 0) throw new Error('A2 anchor not found');
-		return t.slice(0, i) + `href="https://doi.org/10.5281/zenodo.20531588"` + t.slice(i + needle.length);
+		const re = /href="https:\/\/doi\.org\/10\.5281\/zenodo\.\d+"/g;
+		const all = [...t.matchAll(re)];
+		const last = all[all.length - 1];
+		if (!last) throw new Error('no Zenodo anchor on the Paper A page');
+		return t.slice(0, last.index) + 'href="https://doi.org/10.5281/zenodo.20531599"' + t.slice(last.index + last[0].length);
 	});
 }, 'Zenodo DOI');
 outputCase('O35', 'Three SOS reference #1 DOI points at another DOI', (d) => {
