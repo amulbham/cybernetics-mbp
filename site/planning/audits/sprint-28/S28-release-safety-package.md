@@ -1,6 +1,6 @@
 # Sprint 28 — Release-safety follow-on package and dependency contract
 
-**Date:** 2026-11-03 (America/Los_Angeles). **Status:** **FOCUSED INDEPENDENT RECHECK PASS (0/0/0); T28.6a DOCS ACCEPTED, T28.8a R3 ISOLATED GUARD IMPLEMENTATION SEALED. T28.7/T28.8 UNSEALED; NO HOSTED DEPLOYMENT OR PROD RELEASE APPROVED.**  
+**Date:** 2026-11-03 (America/Los_Angeles). **Status:** **T28.6a DOCS + T28.8a ISOLATED GUARD SOURCE ACCEPTED; T28.7/T28.8 DRAFT/UNSEALED; NO HOSTED DEPLOYMENT OR PROD RELEASE APPROVED.** Independent Planner audit reviewed work commit `7109644` (static source PASS, tests Executor-reported, CI not run).  
 **Observed implemented candidate:** `work/t28-publishing-integrity-candidate @ d7149d24c81526f66e337927c06b65060f657d3d` based on `main @ 7583d87dd0b4214d69e3fc11b67be1d5c1da8407`, independently Planner reviewed [PASS for isolated source](S28-implementation-candidate-planner-review.md). `staging @ 3f2b0369169278f6606804dee17749944aee0e32` contains unreleased Chisel. This is a **release-safety continuation of already sealed Sprint 28 scope**, not a new publication, PDF version or redesign.
 
 ## Narrow dependency path
@@ -31,3 +31,6 @@ Independent focused reviewer PASS 0 BLOCKER / 0 REQUIRED / 0 OPTIONAL on `84f100
 
 ## T28.8a execution gate — 2026-11-03
 Product Authority approved the recommended **separate T28.8a implementation seal** after T28.6a candidate acceptance. [Sealed guard handoff](S28-T28.8a-production-guard-implementation-seal.md) authorizes exactly one minimal workflow+checker+independent fixture+tests commit on work candidate `6ded4618ad2989a55dbd6d1f44d1cb55b76fd9a5`. **The guard is not currently installed or active on `main`.** No staging push, Pages preview, production push, repository-variable change, published PDF byte change or Zenodo action. Next gate: independent review of executed guard candidate; T28.7 and T28.8 require separate Product Authority approvals.
+
+## T28.8a implementation acceptance (candidate only)
+[Independent source review](S28-T28.8a-production-guard-candidate-planner-review.md): exact four-path work commit `710964480f432c9b8e5582b09c811308aa7c50f2` accepted for source conformance; built/tested guard reported by Executor, not independently rerun. The code is **NOT deployed** and owner Actions variables/Cloudflare preview settings remain unverified. T28.7 preview requires separate authorization of the exact uploaded bytes/target and fresh after-approval rechecks; T28.8 main release requires a still-separate full-tree GO.
