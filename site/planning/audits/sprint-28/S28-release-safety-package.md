@@ -1,12 +1,12 @@
 # Sprint 28 — Release-safety follow-on package and dependency contract
 
-**Date:** 2026-11-03 (America/Los_Angeles). **Status:** **REVIEW CORRECTIONS RECONCILED / FOCUSED RECHECK READY; NO TICKET SEALED; NO HOSTED DEPLOYMENT OR PROD RELEASE APPROVED.**  
+**Date:** 2026-11-03 (America/Los_Angeles). **Status:** **FOCUSED INDEPENDENT RECHECK PASS (0/0/0); T28.6a DOCS-ONLY SEALED. T28.8a/T28.7/T28.8 NOT SEALED; NO HOSTED DEPLOYMENT OR PROD RELEASE APPROVED.**  
 **Observed implemented candidate:** `work/t28-publishing-integrity-candidate @ d7149d24c81526f66e337927c06b65060f657d3d` based on `main @ 7583d87dd0b4214d69e3fc11b67be1d5c1da8407`, independently Planner reviewed [PASS for isolated source](S28-implementation-candidate-planner-review.md). `staging @ 3f2b0369169278f6606804dee17749944aee0e32` contains unreleased Chisel. This is a **release-safety continuation of already sealed Sprint 28 scope**, not a new publication, PDF version or redesign.
 
 ## Narrow dependency path
 | Ticket | Class / risk | Ownership and scope | Release authority |
 | --- | --- | --- | --- |
-| [T28.6a](../../tickets/T28.6a-canonical-publishing-doc-sync.md) | DECISION / R0 | Correct current, inaccurate five/six PDF, active Substack/role and publishing-facts build instructions in `AGENTS.md`, `CLAUDE.md`, `PUBLISHING.md`. Preserve closed history; new docs-inclusive SHA. | After separate seal: candidate branch docs-only commit; no deployment. |
+| [T28.6a](../../tickets/T28.6a-canonical-publishing-doc-sync.md) | DECISION / R0 | Correct current, inaccurate five/six PDF, active Substack/role and publishing-facts build instructions in `AGENTS.md`, `CLAUDE.md`, `PUBLISHING.md`. Preserve closed history; new docs-inclusive SHA. | T28.6a is SEALED for one candidate-branch docs-only commit; no deployment. |
 | [T28.8a](../../tickets/T28.8a-six-pdf-production-upload-guard.md) | VALIDATION / R3 | Mandatory independent six-PDF baseline/byte guard in actual main upload workflow; both main pushes and manual dispatch protected. | Separate guard seal, isolated implementation and independent tests. |
 | [T28.7](../../tickets/T28.7-frozen-pdf-safe-preview.md) | RELEASE / R3 | Independently replay exact candidate normal build and scratch PDFs; verify active six-row manifest; restore final six frozen PDF bytes; preview **on isolated Cloudflare non-production branch via deliberate manual Wrangler**, never via existing `staging` workflow. Inspect preview and all six hashes. | Requires separate risk review, exact-SHA and Owner preview GO after preupload proof. No preview executed under this package. |
 | [T28.8](../../tickets/T28.8-selective-production-release.md) | Release / R3 | Fresh main-only selective promotion, previously implemented/independently reviewed T28.8a guard in actual production tree, post-carry preupload hashes, six independent postdeploy downloads. | Requires independent preview/QA, separate exact-SHA Owner main GO and release mechanism approval. Nothing executed under this package. |
@@ -25,3 +25,6 @@ If T28.7 manual CLI route cannot be verified, provide the smallest safer alterna
 
 ## Reviewer NOT READY disposition and corrected sequence
 Independent reviewer at `9b49bb3` reported **1 BLOCKER / 3 REQUIRED / 0 OPTIONAL**. [Reconciliation](S28-release-safety-review-corrections-reconciliation.md) documents closure of prospective contract issues. **Sequence:** T28.6a docs-only DECISION/R0 → T28.8a R3 executable production-path guard (separately sealed, implemented, independently verified) → **full guard-inclusive exact candidate SHA review** → T28.7 RELEASE/R3 preview with approval bound to complete directory digest, account/project/branch and six hashes plus **fresh after-approval preupload recheck** → T28.8 exact-tree production GO. If guard changes after preview, repeat affected tests and get renewed owner approval. **These are draft contracts, not execution permits.**
+
+## 2026-11-03 scoped authorization
+Independent focused reviewer PASS 0 BLOCKER / 0 REQUIRED / 0 OPTIONAL on `84f1007`; Product Authority approved next gate. ONLY T28.6a docs-only implementation authorized. T28.8a production-path guard remains **PENDING / NOT IMPLEMENTED**; T28.7 and T28.8 are separate unauthorized releases. [Seal handoff](S28-T28.6a-docs-only-implementation-seal.md).
