@@ -1,6 +1,6 @@
 # Sprint 28 — Independent pre-seal review request for release-safety follow-on
 
-**Review anchor:** Planner `planner/context` exact commit **[fill from commit that adds this request]**.  
+**Review anchor:** use the **exact immutable `planner/context` commit specified in the review invitation**; do not substitute a moving branch head or the earlier candidate-source commit.  
 **Prior accepted candidate:** `work/t28-publishing-integrity-candidate @ d7149d24c81526f66e337927c06b65060f657d3d`; production main `7583d87dd0b4214d69e3fc11b67be1d5c1da8407`, staging `3f2b0369169278f6606804dee17749944aee0e32`.
 
 Read the [release-safety package](S28-release-safety-package.md) and **T28.6a**, **T28.7**, **T28.8** draft contracts. Compare key claims to the pinned `main` workflow `.github/workflows/deploy-pages.yml`, `site/scripts/carry-over-pdfs.sh`, `site/AGENTS.md`, `site/CLAUDE.md`, `site/PUBLISHING.md`, and accepted candidate `d7149d24`.
