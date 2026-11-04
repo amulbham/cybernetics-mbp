@@ -1,0 +1,23 @@
+# Sprint 28 — Release-safety follow-on package and dependency contract
+
+**Date:** 2026-11-03 (America/Los_Angeles). **Status:** **PRE-SEAL REVIEW READY; NO TICKET SEALED; NO HOSTED DEPLOYMENT OR PROD RELEASE APPROVED.**  
+**Observed implemented candidate:** `work/t28-publishing-integrity-candidate @ d7149d24c81526f66e337927c06b65060f657d3d` based on `main @ 7583d87dd0b4214d69e3fc11b67be1d5c1da8407`, independently Planner reviewed [PASS for isolated source](S28-implementation-candidate-planner-review.md). `staging @ 3f2b0369169278f6606804dee17749944aee0e32` contains unreleased Chisel. This is a **release-safety continuation of already sealed Sprint 28 scope**, not a new publication, PDF version or redesign.
+
+## Narrow dependency path
+| Ticket | Class / risk | Ownership and scope | Release authority |
+| --- | --- | --- | --- |
+| [T28.6a](../../tickets/T28.6a-canonical-publishing-doc-sync.md) | Docs / R1–R2 | Correct current, inaccurate five/six PDF, active Substack/role and publishing-facts build instructions in `AGENTS.md`, `CLAUDE.md`, `PUBLISHING.md`. Preserve closed history; new docs-inclusive SHA. | After separate seal: candidate branch docs-only commit; no deployment. |
+| [T28.7](../../tickets/T28.7-frozen-pdf-safe-preview.md) | Preview / R3 | Independently replay exact candidate normal build and scratch PDFs; verify active six-row manifest; restore final six frozen PDF bytes; preview **on isolated Cloudflare non-production branch via deliberate manual Wrangler**, never via existing `staging` workflow. Inspect preview and all six hashes. | Requires separate risk review, exact-SHA and Owner preview GO after preupload proof. No preview executed under this package. |
+| [T28.8](../../tickets/T28.8-selective-production-release.md) | Release / R3 | Fresh main-only selective promotion, non-bypassable active-manifest-to-six-baseline guard and post-carry preupload hashes, six independent postdeploy downloads. | Requires independent preview/QA, separate exact-SHA Owner main GO and release mechanism approval. Nothing executed under this package. |
+
+## Architecture and risk explicitly verified
+- Existing GitHub workflow `.github/workflows/deploy-pages.yml`: triggers on **`staging`/`main` push**, and the `workflow_dispatch` path **also deploys**. It generates PDFs on both branches, but runs `carry-over-pdfs.sh carry` **only on `main`** when `PDF_CARRY_OVER=true`. **No `staging` push or existing deployment workflow dispatch as a shortcut**.
+- Existing `site/scripts/carry-over-pdfs.sh carry` can be invoked as a **controlled standalone script in a disposable worktree**, is SHA checked against injected `PDF_MANIFEST`, and replaces freshly typeset PDFs with current approved production files. Manual command sequence is a **design proposal requiring preview preseal review and trusted active manifest proof**, not an already accepted deployment path.
+- `site/release-pdfs/expected.txt` has two historic release expectation rows only; the approved six identities are recorded in [T28.0 source baseline](T28.0-baseline-audit.md) and recently Executor-verified on live production in T28.4. Active current repository-variable contents are **not currently independently readable here**; the six-path equality check is a hard stop until satisfied.
+- **Separate preview branch** `s28-publishing-integrity-safe-preview` is a proposed Pages CLI branch name only, **not** the existing `staging` alias. Its actual semantics must be confirmed in Cloudflare before deployment; none of these contracts changes Cloudflare indexing variables.
+- No prior PDFs/Zenodo releases change. The HTML/PDF differences in A1/A3 and shared bio/role are explicit owner-approved historical version distinctions. Sprint 29 remains a mini-sprint for *future* PDF typography; do not attempt it here.
+
+## Reviewer question and recommendation
+Can a reviewer approve the **docs-only T28.6a** as small enough to execute on the isolated work branch, and approve the **architecture** of T28.7 as safe in principle provided explicit owner exact-SHA GO and trustworthy active six-row manifest evidence are obtained? Does T28.8 correctly stop when a production CI guard is missing? Return BLOCKER / REQUIRED / OPTIONAL and **PASS / PASS WITH REQUIRED CORRECTIONS / NOT READY** for each gate, not one blanket release approval.
+
+If T28.7 manual CLI route cannot be verified, provide the smallest safer alternative **without** staging auto deploy, weakening PDF carry-over or uploading any non-frozen PDF. Preserve unknowns. No file source edits, branch merges or Cloudflare action under review.
