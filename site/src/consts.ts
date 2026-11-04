@@ -6,7 +6,7 @@ export const SITE_DESCRIPTION =
 	'Independent research on how ideas emerge, how systems organize, and how technology and institutions shape the conditions for discovery.';
 
 // Single source of truth for the site owner's identity/social profiles —
-// used by SocialLinks.astro (footer chips: linkedin/substack/github/orcid),
+// used by SocialLinks.astro (footer chips: linkedin/github/orcid),
 // ResearchLayout.astro (author.sameAs in ScholarlyArticle/Article JSON-LD), and
 // index.astro (Person.sameAs in the homepage entity graph). Don't duplicate
 // these elsewhere; that's exactly how canonicalURL drifted out of sync in an
@@ -15,7 +15,6 @@ export const SITE_DESCRIPTION =
 // for structured data first, but that doesn't mean it's hidden from readers.
 export const SOCIAL_LINKS = {
 	linkedin: 'https://www.linkedin.com/in/amul-bham/',
-	substack: 'https://amulbham.substack.com/',
 	github: 'https://github.com/amulbham',
 	orcid: 'https://orcid.org/0009-0009-7660-4031',
 } as const;
