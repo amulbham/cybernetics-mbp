@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE, SOCIAL_LINKS } from '../consts';
+import { AUTHOR, SITE_TITLE, SOCIAL_LINKS } from '../consts';
 import { CATEGORIES } from '../lib/categories';
 import { personIdentity } from '../lib/structured-data';
 
@@ -18,11 +18,12 @@ const pageDescription =
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'ProfilePage',
-	dateCreated: '2026-08-01T00:00:00Z',
-	dateModified: new Date().toISOString(),
+	// T28.2 — no `dateCreated` / `dateModified`: the previous hard-coded creation
+	// date had no verified provenance and `new Date()` stamped every build as a
+	// "profile edit". Add a real, owner-evidenced date here only when one exists.
 	mainEntity: {
 		...personIdentity(Astro.site),
-		jobTitle: 'Systems & AI Researcher',
+		jobTitle: AUTHOR.role,
 		knowsAbout: [
 			'AI Systems & Infrastructure',
 			'Information Architecture & Technical SEO',

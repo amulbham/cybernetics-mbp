@@ -24,7 +24,11 @@ export const SOCIAL_LINKS = {
 // every research entry, so this is a constant, not per-entry frontmatter.
 export const AUTHOR = {
 	name: 'Amul Bham',
-	affiliation: 'Independent Researcher',
+	// T28.2 — the author's public PROFESSIONAL ROLE (an occupation), shown in the
+	// article masthead and used as the About `Person.jobTitle`. Deliberately not
+	// named `affiliation`: this is not an institution or employer, and no
+	// institutional affiliation is claimed anywhere on the site.
+	role: 'Systems Researcher',
 	location: 'Corona, CA, USA',
 	email: 'amul.bham@gmail.com',
 	// Universal identity, rendered by AuthorNote.astro at the end of every
@@ -37,7 +41,7 @@ export const AUTHOR = {
 	// piece actually has them), no DOI, no contact instructions (the
 	// masthead above already owns correspondence) — just who the author is
 	// and what the throughline of the work actually is.
-	bio: 'Amul Bham is an independent AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy.',
+	bio: 'Amul Bham is a systems researcher and AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy.',
 } as const;
 
 // Collection id (folder slug) pinned in Spotlight.astro on the homepage.

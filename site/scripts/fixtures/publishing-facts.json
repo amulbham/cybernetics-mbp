@@ -1,10 +1,10 @@
 {
   "fixtureVersion": 1,
-  "phase": "BASELINE",
+  "phase": "TARGET",
   "readme": [
     "T28.5a independent publishing-facts expectations. Human-reviewed; edited only in the same reviewed commit as the source change it authorizes.",
     "This file is the ORACLE for scripts/validate-publishing-facts.mjs. The checker reads only this file and built dist/ HTML: it must never import src/consts.ts, personIdentity(), AUTHOR or content frontmatter to construct an expected value.",
-    "BASELINE phase pins the values deployed on production main 7583d87 (observed live 2026-11-03T23:21Z and on owner-authored PDF page 1 / the public ORCID record). It records, but does not endorse, two UNVERIFIED legacy About values (profilePage.dateCreated, profilePage.dateModified)."
+    "TARGET phase (from T28.2): the legacy About build-timestamp exception is removed; About dateCreated/dateModified are expected ABSENT until a real, owner-evidenced date is approved. History: BASELINE pinned production main 7583d87 (observed live 2026-11-03T23:21Z)."
   ],
   "provenance": {
     "personName": "owner-authored page 1 of the six frozen PDFs; public ORCID record 0009-0009-7660-4031 (given name Amul, family name Bham)",
@@ -14,7 +14,8 @@
     "substack": "BASELINE only: present on production main 7583d87; owner decision S (2026-11-03) retires it; not on ORCID or in PDFs",
     "dates": "per-entry publication/revision dates are the dates printed on the visible masthead and on PDF page 1 of the frozen PDFs",
     "license": "sitewide CC BY-NC 4.0 owner decision 2026-08-24; printed on PDF page 1",
-    "doi": "T28.1 (owner decisions A1/A2/A3, 2026-11-03): Paper A work-level DOI 10.5281/zenodo.20531588 for page identity (A1) and Three SOS reference #1 (A3); Paper A Data Availability keeps archived exact-version 10.5281/zenodo.20531589 (A2, invariant). Paper B 23068820 / ref #4 20531588 unchanged (regression). Frozen PDFs keep their printed version DOI (accepted HTML-vs-PDF divergence)."
+    "doi": "T28.1 (owner decisions A1/A2/A3, 2026-11-03): Paper A work-level DOI 10.5281/zenodo.20531588 for page identity (A1) and Three SOS reference #1 (A3); Paper A Data Availability keeps archived exact-version 10.5281/zenodo.20531589 (A2, invariant). Paper B 23068820 / ref #4 20531588 unchanged (regression). Frozen PDFs keep their printed version DOI (accepted HTML-vs-PDF divergence).",
+    "role": "Owner decisions I1/I2/I3 (2026-11-03): short professional role 'Systems Researcher' (masthead + About jobTitle, a profession not an institutional affiliation); AuthorNote first sentence 'Amul Bham is a systems researcher and AI systems architect.' with the remaining bio verbatim; About dateCreated/dateModified omitted without owner-evidenced real dates."
   },
   "siteOrigin": "https://amulbham.com",
   "license": {
@@ -33,21 +34,20 @@
     ]
   },
   "profilePage": {
-    "jobTitle": "Systems & AI Researcher",
+    "jobTitle": "Systems Researcher",
     "dateCreated": {
-      "mode": "observed-unverified",
-      "value": "2026-08-01T00:00:00Z",
-      "note": "Legacy hard-coded value on production main; provenance UNVERIFIED; recorded, not endorsed."
+      "mode": "absent",
+      "note": "Omitted: legacy 2026-08-01 value had unverified provenance (owner decision I3, 2026-11-03)."
     },
     "dateModified": {
-      "mode": "legacy-build-timestamp",
-      "note": "Legacy exception: production main stamps new Date() at build time. Valid ISO-8601 UTC timestamp only. Removed by T28.2 (TARGET expects absence)."
+      "mode": "absent",
+      "note": "Omitted: no real owner-evidenced About edit date; build clock is not a revision date (owner decision I3)."
     }
   },
   "visible": {
     "mastheadName": "Amul Bham",
-    "mastheadRoleLine": "Independent Researcher, Corona, CA, USA",
-    "authorNoteBio": "Amul Bham is an independent AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy."
+    "mastheadRoleLine": "Systems Researcher, Corona, CA, USA",
+    "authorNoteBio": "Amul Bham is a systems researcher and AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy."
   },
   "identityLinks": {
     "article": [
