@@ -112,6 +112,22 @@ jobs:
         # raster check, not automated here).
         run: npm run validate:pdfs
 
+      - name: Independent six-PDF production guard (main only, mandatory)
+        # T28.8a — the last gate before any production upload, in the same job and immediately
+        # before the Wrangler step. It compares BOTH the effective PDF_MANIFEST and the PDF files
+        # actually sitting in dist/ (after carry) with the independently pinned six-row baseline
+        # scripts/fixtures/approved-six-production-pdfs.sha256, and refuses PDF_CARRY_OVER other
+        # than "true" and any PDF_RELEASE value. The condition is exactly the production
+        # condition: Wrangler gets --branch=<ref name>, and only `main` is the Pages production
+        # branch, so every main push AND every workflow_dispatch run on main executes this step.
+        # No continue-on-error, no skip input, no branch other than `main` can reach production.
+        if: github.ref_name == 'main'
+        env:
+          PDF_MANIFEST: ${{ vars.PDF_MANIFEST }}
+          PDF_CARRY_OVER: ${{ vars.PDF_CARRY_OVER }}
+          PDF_RELEASE: ${{ vars.PDF_RELEASE }}
+        run: node scripts/guard-production-six-pdfs.mjs
+
       - name: Deploy to Cloudflare Pages
         # Sprint 9.0 — calls the pinned `wrangler` (site/package.json's
         # devDependency, exact version, package-lock.json committed) via the
