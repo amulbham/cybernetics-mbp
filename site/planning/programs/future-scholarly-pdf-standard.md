@@ -1,7 +1,7 @@
 # Future scholarly PDF standard — next new paper, no retroactive rewrites
 
 **Status:** PRODUCT DIRECTION APPROVED 2026-11-03 / **PROSPECTIVE SPECIFICATION ONLY, NOT IMPLEMENTED OR SEALED AS EXECUTOR WORK**. Planning-only. Prepared from Sprint 28 [Scholar audit](../audits/sprint-28/T28.4-scholar-audit.md), [schema audit](../audits/sprint-28/T28.5-schema-audit.md) and [Planner disposition](../audits/sprint-28/T28.4-T28.5-planner-disposition.md). The current production PDF pipeline does **not** automatically meet all items below.
-**Timing:** Scope and implement as one small **PDF-foundation implementation + QA ticket after T28.2 identity copy/model is approved, and before the first subsequent new `format: paper` intake**. A standalone numbered sprint is not required by chronology; make one only if exploratory font/PDF toolchain work needs independent R3 risk and its own acceptance cycle.
+**Timing / preferred placement (2026-11-03 product direction):** **Sprint 29 is the likely mini-sprint**, after Sprint 28 T28.2's approved identity model and before Sprint 30+ new academic-paper intake. [Proposed S29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md). One bounded print-template implementation + QA; do not expand into a renderer rewrite without separate risk review. Sprint 29 remains **PROPOSED / NOT SEALED**.
 **Non-goal:** Reprocessing Paper A, Three SOS, FAFSA, Chisel, Desk or Cognition historical PDFs. Their six approved SHA-256 values and repository-variable manifest remain unchanged. Paper A T28.1 work-level DOI corrections on HTML do **not** authorize a PDF or Zenodo v2; any such future version is a distinct explicit publication project.
 
 ## A. Identity and scholarly page-1 hierarchy — intended future output
