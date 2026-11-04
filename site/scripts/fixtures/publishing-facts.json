@@ -1,0 +1,264 @@
+{
+  "fixtureVersion": 1,
+  "phase": "BASELINE",
+  "readme": [
+    "T28.5a independent publishing-facts expectations. Human-reviewed; edited only in the same reviewed commit as the source change it authorizes.",
+    "This file is the ORACLE for scripts/validate-publishing-facts.mjs. The checker reads only this file and built dist/ HTML: it must never import src/consts.ts, personIdentity(), AUTHOR or content frontmatter to construct an expected value.",
+    "BASELINE phase pins the values deployed on production main 7583d87 (observed live 2026-11-03T23:21Z and on owner-authored PDF page 1 / the public ORCID record). It records, but does not endorse, two UNVERIFIED legacy About values (profilePage.dateCreated, profilePage.dateModified)."
+  ],
+  "provenance": {
+    "personName": "owner-authored page 1 of the six frozen PDFs; public ORCID record 0009-0009-7660-4031 (given name Amul, family name Bham)",
+    "orcid": "printed on PDF page 1; public ORCID record resolves (HTTP 200)",
+    "linkedin": "slug amul-bham printed on PDF page 1 and listed on the public ORCID record; destination not independently fetchable (UNVERIFIED)",
+    "github": "github.com/amulbham listed on the public ORCID record; destination not independently fetchable from the audit environment (UNVERIFIED)",
+    "substack": "BASELINE only: present on production main 7583d87; owner decision S (2026-11-03) retires it; not on ORCID or in PDFs",
+    "dates": "per-entry publication/revision dates are the dates printed on the visible masthead and on PDF page 1 of the frozen PDFs",
+    "license": "sitewide CC BY-NC 4.0 owner decision 2026-08-24; printed on PDF page 1"
+  },
+  "siteOrigin": "https://amulbham.com",
+  "license": {
+    "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "label": "CC BY-NC 4.0"
+  },
+  "person": {
+    "@id": "https://amulbham.com/about/#person",
+    "name": "Amul Bham",
+    "url": "https://amulbham.com/about/",
+    "sameAs": [
+      "https://www.linkedin.com/in/amul-bham/",
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031"
+    ]
+  },
+  "profilePage": {
+    "jobTitle": "Systems & AI Researcher",
+    "dateCreated": {
+      "mode": "observed-unverified",
+      "value": "2026-08-01T00:00:00Z",
+      "note": "Legacy hard-coded value on production main; provenance UNVERIFIED; recorded, not endorsed."
+    },
+    "dateModified": {
+      "mode": "legacy-build-timestamp",
+      "note": "Legacy exception: production main stamps new Date() at build time. Valid ISO-8601 UTC timestamp only. Removed by T28.2 (TARGET expects absence)."
+    }
+  },
+  "visible": {
+    "mastheadName": "Amul Bham",
+    "mastheadRoleLine": "Independent Researcher, Corona, CA, USA",
+    "authorNoteBio": "Amul Bham is an independent AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy."
+  },
+  "identityLinks": {
+    "article": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "about": [
+      "https://amulbham.substack.com/",
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "home": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "research-index": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "category": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "tag": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "iwl": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "search": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "404": [
+      "https://amulbham.substack.com/",
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://www.linkedin.com/in/amul-bham/"
+    ]
+  },
+  "entries": [
+    {
+      "id": "the-invariants-of-self-organizing-systems",
+      "route": "/research/cybernetics/the-invariants-of-self-organizing-systems/",
+      "format": "paper",
+      "title": "The Invariants of Self-Organizing Systems",
+      "pubDate": "2026-08-24",
+      "revisedDate": null,
+      "doi": "10.5281/zenodo.20531589",
+      "pdfPath": "research/cybernetics/the-invariants-of-self-organizing-systems/the-invariants-of-self-organizing-systems.pdf",
+      "ogImagePath": "open-graph/cybernetics/the-invariants-of-self-organizing-systems.png",
+      "zenodoTokens": {
+        "20531589": 6
+      },
+      "zenodoAnchors": [
+        [
+          "https://doi.org/10.5281/zenodo.20531589",
+          "doi.org/10.5281/zenodo.20531589"
+        ],
+        [
+          "https://doi.org/10.5281/zenodo.20531589",
+          "doi.org/10.5281/zenodo.20531589"
+        ]
+      ]
+    },
+    {
+      "id": "three-self-organizing-systems",
+      "route": "/research/cybernetics/three-self-organizing-systems/",
+      "format": "paper",
+      "title": "Three Self-Organizing Systems",
+      "pubDate": "2026-08-31",
+      "revisedDate": null,
+      "doi": null,
+      "pdfPath": "research/cybernetics/three-self-organizing-systems/three-self-organizing-systems.pdf",
+      "ogImagePath": "open-graph/cybernetics/three-self-organizing-systems.png",
+      "zenodoTokens": {
+        "20531589": 2
+      },
+      "zenodoAnchors": [
+        [
+          "https://doi.org/10.5281/zenodo.20531589",
+          "doi.org/10.5281/zenodo.20531589"
+        ]
+      ]
+    },
+    {
+      "id": "an-engineers-guide-to-structural-financial-aid-exploits",
+      "route": "/research/essays/an-engineers-guide-to-structural-financial-aid-exploits/",
+      "format": "paper",
+      "title": "An Engineer's Guide to Structural Financial Aid Exploits",
+      "pubDate": "2026-08-04",
+      "revisedDate": null,
+      "doi": null,
+      "pdfPath": "research/essays/an-engineers-guide-to-structural-financial-aid-exploits/an-engineers-guide-to-structural-financial-aid-exploits.pdf",
+      "ogImagePath": "open-graph/essays/an-engineers-guide-to-structural-financial-aid-exploits.png",
+      "zenodoTokens": {},
+      "zenodoAnchors": []
+    },
+    {
+      "id": "the-chisel-fallacy-what-pangram-actually-measures",
+      "route": "/research/knowledge-work/the-chisel-fallacy-what-pangram-actually-measures/",
+      "format": "paper",
+      "title": "The Chisel Fallacy: What AI Detection Misses and What the Intellectual Work Ledger Gets Right",
+      "pubDate": "2026-09-22",
+      "revisedDate": "2026-10-18",
+      "doi": "10.5281/zenodo.23458660",
+      "pdfPath": "research/knowledge-work/the-chisel-fallacy-what-pangram-actually-measures/the-chisel-fallacy-what-pangram-actually-measures.pdf",
+      "ogImagePath": "open-graph/knowledge-work/the-chisel-fallacy-what-pangram-actually-measures.png",
+      "zenodoTokens": {
+        "23458660": 4
+      },
+      "zenodoAnchors": [
+        [
+          "https://doi.org/10.5281/zenodo.23458660",
+          "doi.org/10.5281/zenodo.23458660"
+        ]
+      ]
+    },
+    {
+      "id": "the-desk-is-where-you-write-it-down",
+      "route": "/research/knowledge-work/the-desk-is-where-you-write-it-down/",
+      "format": "paper",
+      "title": "The Desk Is Where You Write It Down",
+      "pubDate": "2026-10-14",
+      "revisedDate": null,
+      "doi": "10.5281/zenodo.23328158",
+      "pdfPath": "research/knowledge-work/the-desk-is-where-you-write-it-down/the-desk-is-where-you-write-it-down.pdf",
+      "ogImagePath": "open-graph/knowledge-work/the-desk-is-where-you-write-it-down.png",
+      "zenodoTokens": {
+        "23328158": 4
+      },
+      "zenodoAnchors": [
+        [
+          "https://doi.org/10.5281/zenodo.23328158",
+          "doi.org/10.5281/zenodo.23328158"
+        ]
+      ]
+    },
+    {
+      "id": "cognition-as-self-organizing-system",
+      "route": "/research/cybernetics/cognition-as-self-organizing-system/",
+      "format": "paper",
+      "title": "Cognition as a Self-Organizing System",
+      "pubDate": "2026-09-30",
+      "revisedDate": "2026-11-02",
+      "doi": "10.5281/zenodo.23068820",
+      "pdfPath": "research/cybernetics/cognition-as-self-organizing-system/cognition-as-self-organizing-system.pdf",
+      "ogImagePath": "open-graph/cybernetics/cognition-as-self-organizing-system.png",
+      "zenodoTokens": {
+        "23068820": 4,
+        "20531588": 2
+      },
+      "zenodoAnchors": [
+        [
+          "https://doi.org/10.5281/zenodo.20531588",
+          "https://doi.org/10.5281/zenodo.20531588"
+        ],
+        [
+          "https://doi.org/10.5281/zenodo.23068820",
+          "doi.org/10.5281/zenodo.23068820"
+        ]
+      ]
+    },
+    {
+      "id": "the-lab-bubble",
+      "route": "/research/ai-systems/the-lab-bubble/",
+      "format": "essay",
+      "title": "The Lab Bubble",
+      "pubDate": "2026-10-30",
+      "revisedDate": null,
+      "doi": null,
+      "pdfPath": null,
+      "ogImagePath": "open-graph/ai-systems/the-lab-bubble.png",
+      "zenodoTokens": {},
+      "zenodoAnchors": []
+    },
+    {
+      "id": "how-frontier-model-training-became-a-public-utility",
+      "route": "/research/essays/how-frontier-model-training-became-a-public-utility/",
+      "format": "essay",
+      "title": "How Frontier Model Training Became a Public Utility",
+      "pubDate": "2026-08-19",
+      "revisedDate": null,
+      "doi": null,
+      "pdfPath": null,
+      "ogImagePath": "open-graph/essays/how-frontier-model-training-became-a-public-utility.png",
+      "zenodoTokens": {},
+      "zenodoAnchors": []
+    }
+  ]
+}
