@@ -20,3 +20,11 @@ The current conversation agrees to finish Sprint 28 with a bounded documentation
 
 ## Remaining closeout
 [T28.9](../../tickets/T28.9-production-documentation-closeout.md) prepares the small canonical docs correction from released main, records Sprint 28 in CHANGELOG/ROADMAP, and returns an exact docs candidate for the separately approved main promotion. After that pipeline succeeds and the release record is reconciled, append completion evidence and obtain final Product Authority Sprint 28 acceptance. Earlier sealed bodies and audit outcomes retain their historical meaning.
+
+## T28.9 isolated documentation review — 2026-11-05
+Planner verdict PASS for candidate `fc3cb775aeb104b362426a589d64cbacf9fe9411`, tree `d60f7b1f8eb4f0097ff16bf32855971be7b2eaee`.
+- Independently compared to fresh main `710964480f432c9b8e5582b09c811308aa7c50f2`. One commit, four authorized Markdown paths, +27/-10. No code, workflow, fixture or PDF delta.
+- Independently read complete commit diff. Live guard, both main triggers, rejected release values and independent baseline are described accurately. Historical entries are preserved; S29 staging/PDF work is proposed and deferred.
+- Git trees confirm `site/CLAUDE.md` stays mode 120000 with identical blob `47dc3e3d863cfb5727b87d785d09abf9743c0a72`.
+- Executor reports successful CLOSED normal build, TARGET facts and indexing checks. Planner did not independently rerun the build.
+- No corrections required. Unrelated dated roadmap/documentation lag remains outside the sealed delta. Main promotion and resulting pipeline/live verification still need exact-candidate Product Authority approval; final CLOSED is pending.
