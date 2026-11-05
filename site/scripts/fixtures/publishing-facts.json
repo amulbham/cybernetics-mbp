@@ -16,7 +16,8 @@
     "license": "sitewide CC BY-NC 4.0 owner decision 2026-08-24; printed on PDF page 1",
     "doi": "T28.1 (owner decisions A1/A2/A3, 2026-11-03): Paper A work-level DOI 10.5281/zenodo.20531588 for page identity (A1) and Three SOS reference #1 (A3); Paper A Data Availability keeps archived exact-version 10.5281/zenodo.20531589 (A2, invariant). Paper B 23068820 / ref #4 20531588 unchanged (regression). Frozen PDFs keep their printed version DOI (accepted HTML-vs-PDF divergence).",
     "role": "Owner decisions I1/I2/I3 (2026-11-03): short professional role 'Systems Researcher' (masthead + About jobTitle, a profession not an institutional affiliation); AuthorNote first sentence 'Amul Bham is a systems researcher and AI systems architect.' with the remaining bio verbatim; About dateCreated/dateModified omitted without owner-evidenced real dates.",
-    "sameAsSet": "Exact approved set: LinkedIn, GitHub, ORCID (all three listed on the public ORCID record; LinkedIn/GitHub destinations UNVERIFIED from the audit environment)."
+    "sameAsSet": "Exact approved set: LinkedIn, GitHub, ORCID (all three listed on the public ORCID record; LinkedIn/GitHub destinations UNVERIFIED from the audit environment).",
+    "chiselStaging": "STAGING-ONLY (S28 reconciliation): Chisel v2 candidate revision date 2026-10-28 per owner authorization T25.5 B2 (planner/STATE.md, 2026-10-28: article and IWL both dateModified 2026-10-28, pubDate and DOI unchanged). Production main keeps 2026-10-18 until Chisel v2 is separately released; this entry must be reviewed again then."
   },
   "siteOrigin": "https://amulbham.com",
   "license": {
@@ -167,7 +168,7 @@
       "format": "paper",
       "title": "The Chisel Fallacy: What AI Detection Misses and What the Intellectual Work Ledger Gets Right",
       "pubDate": "2026-09-22",
-      "revisedDate": "2026-10-18",
+      "revisedDate": "2026-10-28",
       "doi": "10.5281/zenodo.23458660",
       "pdfPath": "research/knowledge-work/the-chisel-fallacy-what-pangram-actually-measures/the-chisel-fallacy-what-pangram-actually-measures.pdf",
       "ogImagePath": "open-graph/knowledge-work/the-chisel-fallacy-what-pangram-actually-measures.png",
