@@ -1,6 +1,6 @@
 # Sprint 28 — Production acceptance and remaining closeout
 
-Date 2026-11-05. Status PRODUCTION AND DOCUMENTATION RELEASE VERIFIED / FINAL OWNER ACCEPTANCE PENDING.
+Date 2026-11-05. Status CLOSED / PRODUCT AUTHORITY ACCEPTED.
 
 ## Accepted release
 - Production source `710964480f432c9b8e5582b09c811308aa7c50f2`, tree `4b4f226823475f0c91ef0d58046d7c7d8048d1bd`, fast-forwarded from `7583d87dd0b4214d69e3fc11b67be1d5c1da8407`.
@@ -52,3 +52,6 @@ Planner verdict PASS / ALL TECHNICAL CLOSEOUT WORK COMPLETE / FINAL PRODUCT AUTH
 | T28.6 executable cleanup | Deferred by owner disposition; bootstrap/recovery retirement requires separate authorization. |
 
 Pending owner acceptance, append final CLOSED reconciliation to this record and update the sprint/Planner status. No source or deployment task remains within the scoped Sprint 28 finish.
+
+## Final acceptance and closure — 2026-11-05
+Product Authority explicitly directed: “Sprint 28 accepted—close it”. Sprint 28 and T28.9 are CLOSED. This acceptance resolves the pending gate in the preceding review records. Main release `fc3cb775aeb104b362426a589d64cbacf9fe9411`, core release Actions #135 and documentation release Actions #136 remain the evidence anchors. Planner STATE, sprint status and T28.9 status are reconciled on planner/context. The previous evidence limits, deferred staging/PDF work for proposed Sprint 29, separate Paper B Zenodo parity obligation and unverified external indexing outcomes retain their stated meaning. No further production deployment is needed for this closure record.
