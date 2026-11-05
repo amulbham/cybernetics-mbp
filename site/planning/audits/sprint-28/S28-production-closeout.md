@@ -1,6 +1,6 @@
 # Sprint 28 — Production acceptance and remaining closeout
 
-Date 2026-11-05. Status PRODUCTION VERIFIED / DOCUMENTATION CLOSEOUT PENDING.
+Date 2026-11-05. Status PRODUCTION AND DOCUMENTATION RELEASE VERIFIED / FINAL OWNER ACCEPTANCE PENDING.
 
 ## Accepted release
 - Production source `710964480f432c9b8e5582b09c811308aa7c50f2`, tree `4b4f226823475f0c91ef0d58046d7c7d8048d1bd`, fast-forwarded from `7583d87dd0b4214d69e3fc11b67be1d5c1da8407`.
@@ -28,3 +28,27 @@ Planner verdict PASS for candidate `fc3cb775aeb104b362426a589d64cbacf9fe9411`, t
 - Git trees confirm `site/CLAUDE.md` stays mode 120000 with identical blob `47dc3e3d863cfb5727b87d785d09abf9743c0a72`.
 - Executor reports successful CLOSED normal build, TARGET facts and indexing checks. Planner did not independently rerun the build.
 - No corrections required. Unrelated dated roadmap/documentation lag remains outside the sealed delta. Main promotion and resulting pipeline/live verification still need exact-candidate Product Authority approval; final CLOSED is pending.
+
+## T28.9 production verification and final disposition — 2026-11-05
+Planner verdict PASS / ALL TECHNICAL CLOSEOUT WORK COMPLETE / FINAL PRODUCT AUTHORITY SPRINT ACCEPTANCE PENDING.
+- Fresh main ref is `fc3cb775aeb104b362426a589d64cbacf9fe9411`, tree `d60f7b1f8eb4f0097ff16bf32855971be7b2eaee`. Compared with `7109644`: one commit and exactly four authorized Markdown paths.
+- Independently fetched [Actions #136](https://github.com/amulbham/cybernetics-mbp/actions/runs/42084464807): push event on main at exact `fc3cb775`, completed success. Carry, PDF validator, independent six-PDF guard, Wrangler and postdeploy live verification all succeeded, with guard before upload.
+- Executor reports zero carry swaps and six fresh cache-busted production downloads at 2026-11-05T18:29Z whose full SHA-256 values match the approved fixture, with OPEN indexing and accepted content preserved.
+- Planner's additional canonical-host download attempt returned the same 195-byte HTML 'Site Unavailable' response for all six PDF routes and robots.txt, so that attempt cannot establish PDF hashes. An independent deployment-host request returned application/pdf, and web retrieval opened the canonical homepage. Treat the canonical six-download evidence as Executor-reported plus successful live workflow verification; do not label the failed Planner attempt as a PDF hash mismatch or an independent success.
+- Updated canonical operating docs and additive changelog/roadmap are now on released main. No further deployment is required to record final sprint acceptance; planner status reconciliation stays on planner/context.
+- Owner pre-push variable and Cloudflare target checks retain their stated provenance. Staging reconciliation, candidate/published PDF policy and future print standards remain proposed Sprint 29 work.
+
+| Work | Closure disposition |
+| --- | --- |
+| T28.0 | Baseline inventory recorded in existing audit. |
+| T28.4 / T28.5 | Audits completed; official-guidance, indexing and external-tool evidence limits retained. |
+| T28.5a | Independent factual checker and mutation coverage released. |
+| T28.1 / T28.2 / T28.3 | Approved DOI occurrences, professional role/bio/About dates and promotional Substack removal released; historical exceptions preserved. |
+| T28.6a | Documentation foundation released; superseded pending-guard directions corrected by T28.9. |
+| T28.8a | Guard released and independently observed succeeding in production runs #135 and #136. |
+| T28.7a / T28.7 | Preparation, owner-run upload, hosted byte checks and desktop/mobile author acceptance completed with documented provenance. |
+| T28.8 | Core production release verified at run #135. |
+| T28.9 | Four-file documentation release verified at run #136; final sprint acceptance remains the sole closure gate. |
+| T28.6 executable cleanup | Deferred by owner disposition; bootstrap/recovery retirement requires separate authorization. |
+
+Pending owner acceptance, append final CLOSED reconciliation to this record and update the sprint/Planner status. No source or deployment task remains within the scoped Sprint 28 finish.
