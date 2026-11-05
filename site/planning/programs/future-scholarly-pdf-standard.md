@@ -1,6 +1,6 @@
 # Sprint 29 — Prospective publication and reading standard
 
-Status: DRAFT v0.1 / OWNER DISCUSSION / NOT IMPLEMENTED OR SEALED
+Status: DRAFT v0.2 / OWNER DISCUSSION / NOT IMPLEMENTED OR SEALED
 Updated: 2026-11-05
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Baseline: website main fc3cb775aeb104b362426a589d64cbacf9fe9411; Planner 8bb432aa9489b8e96a1917fe6d05894d8d18e9ad before this update.
@@ -19,10 +19,10 @@ APPROVED DIRECTION means the owner selected the product direction in planning; i
 | D5 | APPROVED DIRECTION | Improve visual salience of the five primitives and mobile tables; preserve their meanings and authorial content. |
 | D6 | APPROVED DIRECTION | Standard findings component should orient readers and provide a concrete reason to continue; it is not a sixth primitive or AI Overview. |
 | D7 | APPROVED PROCESS | Separate chat reviews pinned complete sprint package before executor tickets. Develop only evidence-earned tickets afterward. |
-| D8 | OPEN | Findings name, placement, formats required, PDF inclusion, adoption rule and live-paper pilot. |
+| D8 | PARTLY APPROVED | Key findings, required for papers and essays, manuscript-owned, legacy HTML rollout in scope. Placement/look and future-PDF inclusion await examples. |
 | D9 | OPEN | Candidate versus published artifact selection, preview URL/link semantics and explicitly permitted revision rendering. |
 | D10 | OPEN | Exact minimal masthead optional fields and visual hierarchy; no new biography text needed for PDF. |
-| D11 | OPTIONAL | Cross-repo primitives/intake alignment after inspecting research-repo authority; no bulk backfill. |
+| D11 | APPROVED DIRECTION / DRAFTED | Core research-repo authoring reference with primitive one-pagers, findings guidance and examples; align with website grammar. No automatic manuscript migration. |
 
 Decision chronology: the initial list omitted the PDF biography; later discussion proposed keeping it; the latest owner acceptance explicitly returns to the minimal masthead/no closing biography direction. D2 supersedes the interim proposal. Existing runtime still prints the biography until reviewed implementation changes it.
 
@@ -72,25 +72,24 @@ Historical PDFs and Zenodo records remain unchanged. Specify reader-facing licen
 Current Article JSON-LD has LICENSE.url and a PDF MediaObject without a separate license field. Decide the truthful representation and validate it; do not add unsupported graph properties merely for completeness.
 Acceptance is no incorrect active CC BY-NC assertion, not deletion of factual historical mentions or original publication evidence.
 
-## 5. Findings summary: proposed authoring contract
-Purpose: give a reader a concrete preview of the contribution and an anchor for the full argument. It must be useful even if the reader stops there.
-Working name recommendation: Key findings; not yet owner-final.
-Proposed payload: 3–5 concise author-approved bullets stating actual contributions/results and material scope limits. A theory's proposed framework must not be presented as an empirically established result.
-Avoid vague promotional hooks, automatic text generation, duplicated abstract sentences and new unsupported claims.
-Proposed adoption: required for new paper intakes; existing entries grandfathered; essays optional; one author-selected live paper explicitly adopts it in S29. Owner has not yet accepted this narrower interpretation of “every article.”
-Placement and PDF inclusion remain open: compare a compact post-abstract treatment on papers against a web-first treatment. Keep abstracts intact and readily accessible; the summary is not an abstract substitute.
-Existing Key Findings authored heading/list is optional and may already carry valuable content. Decide migration/recognition rules to prevent duplicate summaries and preserve author wording, citation links and anchors.
-Existing readerNote explains why/for whom; keep its role distinct and prevent a stack of repetitive opening panels.
-Storage shape (frontmatter versus controlled manuscript section) follows repository intake audit. One author-owned source, one standard rendered slot; no separate manually maintained PDF copy.
-Intake validation must detect missing/empty content for required entries and accept explicitly grandfathered historical entries. “Existing” needs a pinned explicit rule, not an ever-moving date heuristic.
-Pilot article/content selection is an owner decision. No live manuscript edit authorized here.
+## 5. Findings summary: authoring contract proposal
+Owner direction: **Key findings is a standard component for papers AND essays**, authored in the manuscript in amulbham-research. Legacy website HTML adoption is in scope; six historical PDFs stay byte-identical.
+Research editorial proposal and trial: [reading components workspace](https://github.com/amulbham/amulbham-research/tree/438ce073fa705f4c58fc0cae283c07e3ce096783/meta/manuscript-authoring). That draft owns editorial detail and five primitive one-pagers; this section owns website adoption/projection decisions. Reconcile the earlier draft authoring guide before promoting one canonical reference.
+Proposed source: one controlled `## Key findings` section and 3–5 bullets, usually 60–110 words total. Length is editorial guidance, not a hard failure. Use existing heading/list support as the compatibility starting point; fixed slot/extraction and required validation are not implemented.
+Useful overview and honest hook: actual contribution, mechanism/distinction, consequence and material limit as appropriate. Essays summarize arguments; theory does not become experimental proof. Preserve author-approved text and citations; no build-time generation.
+Proposed web placement: after masthead/compact metadata and before long body; compare before/after abstract on papers. Essays need no invented abstract. Keep the summary visible by default, readable bullets with restrained border/background, and avoid a repetitive summary/readerNote/abstract stack.
+Proposed future PDF: same text after abstract/before introduction (after front matter for essays); light heading/list. Decide inclusion from the actual specimen's usefulness, pagination and title/author/abstract extraction. Web-only remains fallback; this is not a default yet.
+Existing findings migrate as one source, never duplicate. Preserve section anchors or deliberate compatibility. Intake must detect missing/empty/duplicate required content without manufacturing prose.
+Legacy rollout: pin inventory of all papers/essays, draft and approve summaries, record per-entry holds, apply HTML only through the protected-artifact path. Temporary migration exceptions must be explicit, not indefinite date-based grandfathering.
+Three-article documentation trial: Lab Bubble, Frontier Training and Cognition as a Self-Organizing System. Candidate text remains unapproved; Frontier has a claim-strength editorial hold. No live manuscript changes or completed user/visual tests.
+NN/G supports concise distinct opening summaries for orientation: https://www.nngroup.com/articles/formatting-long-form-content/. Elsevier supplies a 3–5-bullet precedent but currently describes highlights as online-only: https://www.elsevier.support/publishing/answer/how-do-i-include-highlights-with-my-manuscript. PDF inclusion is our design hypothesis, not a publisher requirement.
 
 ## 6. Primitive design brief and one-pager contract
 Improve prominence through hierarchy, spacing, label legibility, borders and restrained contrast within the existing design system. Start with Definition, then inspect all five inside real long-form passages.
 Do not invent a sixth kind, change meaning, require more primitives per article, or change syntax merely to refresh appearance.
 Existing labels already identify kinds; do not assume five unrelated colors/icons improve comprehension. Visual differences should earn their place in review.
 Screen and print are distinct treatments of the same semantic content. Screen cards need not become heavy PDF boxes.
-Each final one-pager will contain: purpose, use/avoid conditions, exact existing Markdown syntax, a clearly labeled illustrative example, approved visual treatment, accessibility/anchor requirements and print behavior.
+Research draft one-pagers now exist at the linked workspace; final versions will contain: purpose, use/avoid conditions, exact existing Markdown syntax, a clearly labeled illustrative example, approved visual treatment, accessibility/anchor requirements and print behavior.
 
 | Kind | Starting editorial purpose | Avoid | Illustrative payload (not approved manuscript text) |
 | --- | --- | --- | --- |

@@ -10,7 +10,7 @@ Unlocks: repeatable future-paper PDF standard and improved website reading exper
 Can future publications inherit one approved identity, licensing and presentation standard, with useful mobile reading and trustworthy candidate previews, while all six historical production PDFs remain byte-identical?
 
 ## Outcome
-An author-approved, rendered PDF specimen and website component examples become a tested forward standard. The site receives approved reading/publishing changes; historical PDFs and Zenodo deposits retain their existing bytes and recorded licensing. New research publication is not required except an explicitly selected existing-paper HTML findings pilot.
+An author-approved, rendered PDF specimen and website component examples become a tested forward standard. The site receives approved reading/publishing changes; historical PDFs and Zenodo deposits retain their existing bytes and recorded licensing. New research publication is not required for the findings rollout; approved legacy HTML summaries are in scope.
 
 ## Inherited truths
 - Inherits site/PLANNING.md and site/planning/templates/sprint-contract.md @ 8bb432aa9489b8e96a1917fe6d05894d8d18e9ad; canonical product baseline is main @ fc3cb775aeb104b362426a589d64cbacf9fe9411.
@@ -21,7 +21,7 @@ An author-approved, rendered PDF specimen and website component examples become 
 - Detailed design decisions and open questions have one home: [prospective standard](../programs/future-scholarly-pdf-standard.md). Existing filename retained to preserve inbound links.
 
 ## Starting-state audit
-This is a publication foundation/reading-experience sprint, not a new-manuscript intake. The eventual live findings pilot needs its own compact content audit before its implementation scope freezes.
+This is a publication foundation/reading-experience sprint, not a new-manuscript intake. Legacy HTML adoption needs a pinned paper/essay inventory and author-approved summaries before implementation scope freezes.
 
 | Surface | Status | Pinned evidence / minimum action |
 | --- | --- | --- |
@@ -30,12 +30,12 @@ This is a publication foundation/reading-experience sprint, not a new-manuscript
 | PDF typography | WORK NEEDED | print-research.css: 19pt title, 12pt small-caps author, bundled Latin Modern. Polish using a specimen; do not infer broken indexing from typography alone. |
 | Primitives | WORK NEEDED | global.css: one shared surface, 6px accent border and small uppercase mono label. Visual audit required; five meanings and syntax preserved. |
 | Tables | READY mechanism / WORK NEEDED audit | rehype-table-wrap.mjs already supports opt-in responsive-records from one table AST, screen-only records and printed tables. Inventory actual table shapes before proposing more machinery. |
-| Findings summary | OWNER DECISIONS / WORK NEEDED | rehype-key-findings.mjs wraps an optional authored heading/list. Fixed slot, intake requirement, duplicate handling, adoption policy and selected pilot remain to be settled. |
+| Findings summary | OWNER DECISIONS / WORK NEEDED | rehype-key-findings.mjs wraps an optional authored heading/list. Owner requires Key findings for papers and essays, manuscript-owned source, and legacy HTML adoption. Placement, migration enforcement and PDF inclusion remain open. |
 | Mobile anchors | WORK NEEDED | global.css offset targets only .prose h2[id] below 1100px. Reference/primitive/other target behavior needs served-page reproduction and a bounded fix. |
 | License | DIRECTION RECEIVED / WORK NEEDED | consts.ts currently CC BY-NC 4.0; ResearchLayout emits LICENSE.url for Article and a linked PDF MediaObject. Specify HTML versus historical artifact notices/metadata before migration. |
 | Staging/artifact selection | WORK NEEDED / OWNER DECISION | Staging remains divergent with unreleased Chisel v2/IWL. Review preserved proposal and explicit published/candidate mode, URLs and allowed rendering before upload. |
 | Scholar | INHERITED AUDIT / TARGETED RECHECK | T28.4/T28.5 disposition: Scholar 0 required, typography/extraction advisory; metadata fixes already shipped in S28. Recheck relevant official guidance, no promised index/ranking changes. |
-| Cross-repo authoring | OPTIONAL / UNVERIFIED | Website contract alignment required; research-repo alignment only after targeted source discovery and bounded scope. No bulk manuscript migration. |
+| Cross-repo authoring | CORE DOCUMENTATION / DRAFTED | Research branch workflow/manuscript-authoring-s29 contains the five primitive one-pagers, Key findings spec and three-article trial. Reconcile predecessor guide before canonical adoption; no bulk manuscript edits. |
 
 Source inspection above is not visual QA, a new build, an accessibility test, or live artifact verification.
 
@@ -56,7 +56,7 @@ Source inspection above is not visual QA, a new build, an accessibility test, or
 - User requires separate reviewer chat on a pinned sprint package BEFORE executable tickets are developed. This draft and its phase table are not tickets or seals.
 
 ## Explicit exclusions
-Legacy PDF optimization/replacement; legacy corpus summary backfill beyond one selected pilot; new academic paper/Zenodo release; Keystatic; broad rebranding; renderer replacement without earned separate scope; blanket reference/DOI rewrites; Google indexing guarantees. Paper B Zenodo parity stays a separate Sprint 27 obligation.
+Legacy PDF optimization/replacement; new academic paper/Zenodo release; Keystatic; broad rebranding; renderer replacement without earned separate scope; blanket reference/DOI rewrites; Google indexing guarantees. Paper B Zenodo parity stays a separate Sprint 27 obligation.
 
 ## Ticket sequence
 Provisional phases only; ticket IDs/contracts follow accepted review and predecessor evidence.
@@ -67,7 +67,7 @@ Provisional phases only; ticket IDs/contracts follow accepted review and predece
 | Design and contract | DECISION | Pin exact copy, authoring requirements, candidate policy and specimen brief | Audit | Separate-chat review; reconcile BLOCKER/REQUIRED findings |
 | Artifact foundation | IMPLEMENTATION | Reconcile staging and implement approved per-work artifact handling | Reviewed plan + prospective ticket seal | Closed-preview custody/identity proof; no production promotion |
 | Presentation specimen | IMPLEMENTATION | Render minimal PDF and in-context primitive/table/summary examples | Approved artifact boundary + sealed scope | Owner accepts actual examples before default adoption |
-| Reading/intake rollout | IMPLEMENTATION | Apply accepted treatment, findings intake/pilot, license migration and anchors | Design acceptance + pilot content audit | Local and closed-preview checks pass |
+| Reading/intake rollout | IMPLEMENTATION | Apply accepted treatment, findings intake and approved legacy HTML rollout, license migration and anchors | Design acceptance + pilot content audit | Local and closed-preview checks pass |
 | Consolidated proof | VALIDATION | Run existing bundles plus delta-specific negative and visual checks | Candidate ready | Independent review of exact candidate/evidence |
 | Controlled release | RELEASE | Scoped production promotion and canonical documentation | Owner preview acceptance | Exact-candidate production authorization; live verification |
 
@@ -81,7 +81,7 @@ No phase authorizes implementation now. Adjacent work may be combined when risk 
 5. CC BY 4.0 appears on intended current site/future-PDF licensing surfaces; historical artifact license representation remains truthful.
 6. All five primitive kinds have approved visual examples and concise one-pagers covering purpose/use/example/screen/print behavior. Existing labels, content and anchors survive.
 7. Corpus table inventory maps each supported shape to a readable treatment; mobile and desktop preserve all cells, meaningful comparisons, links and accessible relationships.
-8. Findings component and intake rule are implemented under the approved adoption policy; at least one selected live paper uses author-approved content without a frozen-PDF replacement.
+8. Key findings is standard for new papers and essays, sourced from the manuscript. Inventory legacy papers/essays and roll out author-approved HTML summaries; record any unresolved per-entry hold explicitly. Missing/empty/duplicate checks and migration rules are tested. Six frozen PDFs remain unchanged.
 9. In-page links across identified target classes land visibly below sticky chrome; desktop and navigation history remain correct.
 10. Scholar-related title/author/text/link checks pass for the future specimen; no claim of indexing from a technical PASS.
 11. Canonical instructions, tests and authoring documentation agree with shipped behavior. Separate review and owner acceptance complete.
