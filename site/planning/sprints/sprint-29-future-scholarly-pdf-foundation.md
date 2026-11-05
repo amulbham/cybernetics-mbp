@@ -37,5 +37,14 @@ Have a repeatable **future-only** PDF template that produces a new paper with co
 5. After transient regeneration/test, production package still deploys the **existing six exact byte sequences**; active six-line manifest verified and six fresh live SHA-256 values match after an explicitly approved deployment.
 6. Standalone future-paper template adoption is documented only after evidence proves it works. If unfinished before S30's next paper, block silent default adoption; obtain an explicit owner legacy-template exception or complete S29 first.
 
+## Scope intake from Sprint 28 closeout — 2026-11-05
+Product Authority agreed to carry the remaining staging/PDF system work into this proposed sprint. Preserve the existing future-template goals and review the combined scope before sealing.
+- Production Sprint 28 release is verified at `710964480f432c9b8e5582b09c811308aa7c50f2`, Actions #135. Staging integration is deferred, not a Sprint 28 release failure.
+- Review the preserved staging proposal `0ac207fed57943db17a28dad9f258dc41f7478ce` (tree `0f0d205ec0f91d462c490cea06d8ae4c6dadd706`) and its illustrative carry/guard patch. No staging upload is approved by this intake.
+- Design explicit per-work choice of published artifact or draft candidate artifact, with protected production custody and HTML/PDF version correspondence. Decide candidate URL/link semantics before exposing draft HTML with a historical PDF.
+- Plan integration of production changes into staging while preserving Chisel v2/IWL and reconciling canonical operating docs and independently grounded metadata expectations.
+- Frozen production artifacts remain byte-identical. The existing prohibition on generating historical PDFs remains operative until a reviewed sprint amendment specifically authorizes scratch/closed-preview candidate rendering for a revision. Chisel publication or Zenodo actions need separate content/version approval.
+- The original mini-sprint task arc above is provisional. Reassess risk, sequence and ticket numbers from the combined audit before drafting executable tickets. Do not treat this intake as a new renderer or deployment implementation.
+
 ## Review and authority
 This is a **prospective sprint planning placeholder**, not an implementation seal. Before any work, perform exact-source audit, bound ticket(s), independent whole-sprint review if scope expands, and Product Authority seal. Any new PDF's first-publication release, exact bytes and Zenodo deposit require their own later content-specific approvals. S29 may be mini-sprint or one concentrated release cycle; timing follows S28 signoff rather than an arbitrary calendar target.
