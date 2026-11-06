@@ -1,6 +1,6 @@
 # Sprint 29 — Prospective publication and reading standard
 
-Status: DRAFT v0.3 / OWNER DISCUSSION / NOT IMPLEMENTED OR SEALED
+Status: DRAFT v0.4 / OWNER DISCUSSION / NOT IMPLEMENTED OR SEALED
 Updated: 2026-11-06
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Baseline: website main fc3cb775aeb104b362426a589d64cbacf9fe9411; Planner 8bb432aa9489b8e96a1917fe6d05894d8d18e9ad before this update.
@@ -22,8 +22,9 @@ APPROVED DIRECTION means the owner selected the product direction in planning; i
 | D8 | PARTLY APPROVED | Key findings, required for papers and essays, manuscript-owned, legacy HTML rollout in scope. Placement/look and future-PDF inclusion await examples. |
 | D9 | OPEN | Candidate versus published artifact selection, preview URL/link semantics and explicitly permitted revision rendering. |
 | D10 | OPEN | Exact minimal masthead optional fields and visual hierarchy; no new biography text needed for PDF. |
-| D11 | APPROVED DIRECTION / DRAFTED | Core research-repo authoring reference with primitive one-pagers, findings guidance and examples; reconcile predecessor into one canonical reference and align with website grammar. No automatic manuscript migration. |
-| D12 | APPROVED DIRECTION | Findings corpus audit/backfill is a one-time S29 migration. Future papers/essays arrive with author-approved findings in their manuscript; normal intake validates rather than recreates the summaries. |
+| D11 | APPROVED DIRECTION / DRAFTED | Consolidated research MANUSCRIPT-AUTHORING.md entry point, five primitive one-pagers and eight findings examples exist; validate website alignment and reviewed adoption. No automatic manuscript migration. |
+| D12 | APPROVED DIRECTION | One-time S29 findings backfill targets all eight current articles, with no planned exclusions. Every future paper/essay supplies findings or is flagged for editorial completion; never silently omit the component. |
+| D13 | OWNER DIRECTED / COPY RESOLVED | Proceed with faithful examples across varied articles; Frontier summary now represents its existing argument and deployment/trust conclusion. No body revision is required for the examples. |
 
 Decision chronology: the initial list omitted the PDF biography; later discussion proposed keeping it; the latest owner acceptance explicitly returns to the minimal masthead/no closing biography direction. D2 supersedes the interim proposal. Existing runtime still prints the biography until reviewed implementation changes it.
 
@@ -75,15 +76,16 @@ Acceptance is no incorrect active CC BY-NC assertion, not deletion of factual hi
 
 ## 5. Findings summary: authoring contract proposal
 Owner direction: **Key findings is a standard component for papers AND essays**, authored in the manuscript in amulbham-research. Legacy website HTML adoption is in scope; six historical PDFs stay byte-identical.
-Research editorial proposal and trial: [reading components workspace](https://github.com/amulbham/amulbham-research/tree/438ce073fa705f4c58fc0cae283c07e3ce096783/meta/manuscript-authoring). That draft owns editorial detail and five primitive one-pagers; this section owns website adoption/projection decisions. Reconcile the earlier draft authoring guide before promoting one canonical reference.
+Research editorial proposal and trial: [reading components workspace](https://github.com/amulbham/amulbham-research/tree/f17779eff0d47f88bac8d7031df552c9ff000b46/meta/manuscript-authoring). That draft owns editorial detail and five primitive one-pagers; this section owns website adoption/projection decisions. The consolidated MANUSCRIPT-AUTHORING.md is the single guide entry point on that branch; the old draft is provenance.
 Proposed source: one controlled `## Key findings` section and 3–5 bullets, usually 60–110 words total. Length is editorial guidance, not a hard failure. Use existing heading/list support as the compatibility starting point; fixed slot/extraction and required validation are not implemented.
 Useful overview and honest hook: actual contribution, mechanism/distinction, consequence and material limit as appropriate. Essays summarize arguments; theory does not become experimental proof. Preserve author-approved text and citations; no build-time generation.
 Proposed web placement: after masthead/compact metadata and before long body; compare before/after abstract on papers. Essays need no invented abstract. Keep the summary visible by default, readable bullets with restrained border/background, and avoid a repetitive summary/readerNote/abstract stack.
 Proposed future PDF: same text after abstract/before introduction (after front matter for essays); light heading/list. Decide inclusion from the actual specimen's usefulness, pagination and title/author/abstract extraction. Web-only remains fallback; this is not a default yet.
 Existing findings migrate as one source, never duplicate. Preserve section anchors or deliberate compatibility. Intake must detect missing/empty/duplicate required content without manufacturing prose.
-One-time legacy rollout: pin inventory of all papers/essays, draft and approve summaries, record per-entry holds, apply HTML only through the protected-artifact path. Temporary migration exceptions must be explicit, not indefinite date-based grandfathering.
-Three-article documentation trial: Lab Bubble, Frontier Training and Cognition as a Self-Organizing System. Supplied review requests less Lab Bubble overlap and more prominent architectural consequence in Cognition. These two can become fixed-wording specimens after author approval. Frontier's entire summary stays on hold because its candidate/body claim strengths differ; do not resolve merely by deleting a caveat. Owner chooses faithful existing-argument summary, bounded manuscript correction, or rollout deferral, with deployment depth/enterprise trust represented in any revision. No text was changed or approved by this record.
-Future intake receives findings from the finalized research manuscript. This calibration and corpus inventory do not recur for every publication; upstream editorial approval and ordinary intake validation still apply.
+One-time legacy rollout: pinned main inventory contains eight articles, six papers and two essays; only Frontier has an existing findings section. All eight now have a ready four-bullet payload and source-section map. Target all eight in the HTML rollout; no planned deferrals or automatic grandfathering.
+The prior Frontier copy hold is resolved by summarizing the published argument faithfully and attributing its claims, with deployment depth/enterprise trust restored. This selects no article-body correction and does not claim a new factual verification of the essay.
+Lab Bubble overlap is tightened; Cognition's architectural consequence is prominent and the existing causal limit retained. Five further examples broaden variety. The [specimen brief](../audits/sprint-29/S29-key-findings-specimen-brief.md) covers actual opening configurations.
+Future intake receives findings from the finalized research manuscript. If missing, flag the specific manuscript for completion in the normal editorial workflow; do not silently omit the component or generate it at build time. This corpus calibration does not recur for every publication.
 Extraction/relocation must preserve the existing section anchor, produce exactly one visible component, and leave no orphan heading or stale TOC entry.
 NN/G supports concise distinct opening summaries for orientation: https://www.nngroup.com/articles/formatting-long-form-content/. Elsevier supplies a 3–5-bullet precedent but currently describes highlights as online-only: https://www.elsevier.support/publishing/answer/how-do-i-include-highlights-with-my-manuscript. PDF inclusion is our design hypothesis, not a publisher requirement.
 
@@ -125,7 +127,7 @@ A visual mockup alone cannot establish pipeline behavior. Owner acceptance of th
 
 ## 9. Reviewer packet readiness
 The sprint contract owns the [phase roadmap](../sprints/sprint-29-future-scholarly-pdf-foundation.md#ticket-sequence): currently Phase 1, completing review inputs. No executor tickets have been drafted.
-Before Phase 2 review, finish the bounded corpus/table/anchor/license audit, authoring-reference reconciliation, specimen content authority and experiment/candidate-artifact boundaries. D8 placement/look/PDF inclusion and D10 visual hierarchy may remain explicit experiment questions; they do not need final answers before a bounded specimen can be authorized. D9 must be settled to the extent required by the first artifact/preview operation.
+Before Phase 2 review, complete remaining table/anchor/license and experiment/candidate-artifact boundaries. The corpus inventory, consolidated guide and eight content examples are now ready. D8 placement/look/PDF inclusion and D10 visual hierarchy may remain explicit experiment questions; they do not need final answers before a bounded specimen can be authorized. D9 must be settled to the extent required by the first artifact/preview operation.
 Supplied findings/editorial feedback is reconciled in [the review record](../audits/sprint-29/S29-planning-feedback-reconciliation.md). It is not a full-sprint approval or proof of rendered behavior.
 Before handoff: pin revision; summarize owner decisions and evidence limits; list all affected canonical surfaces; state migration/custody and rollback boundaries; include measurable acceptance and phase dependencies.
 Reviewer should identify BLOCKER/REQUIRED/OPTIONAL findings, especially cross-version license/DOI claims, candidate leakage, duplicated authoring sources, grandfathering, mobile semantics and excessive scope.

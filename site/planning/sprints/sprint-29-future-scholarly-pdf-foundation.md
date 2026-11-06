@@ -19,13 +19,13 @@ An author-approved, rendered PDF specimen and website component examples become 
 ## Inherited truths
 - Inherits site/PLANNING.md and site/planning/templates/sprint-contract.md @ 8bb432aa9489b8e96a1917fe6d05894d8d18e9ad; canonical product baseline is main @ fc3cb775aeb104b362426a589d64cbacf9fe9411.
 - Sprint 28 CLOSED: ../audits/sprint-28/S28-production-closeout.md at the planning baseline above. Run #136 and its recorded evidence limits remain authoritative historical evidence, not fresh live checks.
-- Fresh remote source checks on 2026-11-06: main fc3cb775aeb104b362426a589d64cbacf9fe9411; staging 3f2b0369169278f6606804dee17749944aee0e32; planner/context d8d903d2a199c6788b987e9c9771f511088cf0ab before this update. Research authoring branch workflow/manuscript-authoring-s29 remains 438ce073fa705f4c58fc0cae283c07e3ce096783.
+- Fresh remote source checks on 2026-11-06: main fc3cb775aeb104b362426a589d64cbacf9fe9411; staging 3f2b0369169278f6606804dee17749944aee0e32; planner/context 864a6875edd3a427f2faffd124473455f35be7db before this update. Research authoring checkpoint now f17779eff0d47f88bac8d7031df552c9ff000b46; whole-branch integration remains separate.
 - Current six-PDF guard and independently reviewed publishing-facts oracle remain mandatory. No wholesale staging-to-main merge.
 - Preserved staging proposal work/t28-staging-reconciliation-candidate @ 0ac207fed57943db17a28dad9f258dc41f7478ce is an input to review, not an accepted implementation.
 - Detailed design decisions and open questions have one home: [prospective standard](../programs/future-scholarly-pdf-standard.md). Existing filename retained to preserve inbound links.
 
 ## Starting-state audit
-This is a publication foundation/reading-experience sprint, not a new-manuscript intake. Legacy HTML adoption needs a pinned paper/essay inventory and author-approved summaries before implementation scope freezes.
+This is a publication foundation/reading-experience sprint, not a new-manuscript intake. The pinned inventory now covers all eight current articles (six papers/two essays); eight findings payloads are ready for examples and grouped rollout review.
 
 | Surface | Status | Pinned evidence / minimum action |
 | --- | --- | --- |
@@ -39,7 +39,7 @@ This is a publication foundation/reading-experience sprint, not a new-manuscript
 | License | DIRECTION RECEIVED / WORK NEEDED | consts.ts currently CC BY-NC 4.0; ResearchLayout emits LICENSE.url for Article and a linked PDF MediaObject. Specify HTML versus historical artifact notices/metadata before migration. |
 | Staging/artifact selection | WORK NEEDED / OWNER DECISION | Staging remains divergent with unreleased Chisel v2/IWL. Review preserved proposal and explicit published/candidate mode, URLs and allowed rendering before upload. |
 | Scholar | INHERITED AUDIT / TARGETED RECHECK | T28.4/T28.5 disposition: Scholar 0 required, typography/extraction advisory; metadata fixes already shipped in S28. Recheck relevant official guidance, no promised index/ranking changes. |
-| Cross-repo authoring | CORE DOCUMENTATION / DRAFTED | Research branch workflow/manuscript-authoring-s29 contains the five primitive one-pagers, Key findings spec and three-article trial. Reconcile predecessor guide before canonical adoption; no bulk manuscript edits. |
+| Cross-repo authoring | CORE DOCUMENTATION / DRAFTED | Research branch workflow/manuscript-authoring-s29 now has one consolidated MANUSCRIPT-AUTHORING.md entry point, five one-pagers and eight findings examples; website grammar/adoption validation remains. |
 
 Source inspection above is not visual QA, a new build, an accessibility test, or live artifact verification.
 
@@ -70,7 +70,7 @@ The phase numbers below describe progression, not pre-created ticket IDs. This t
 
 | Phase | Current status | Work and output | Lead / exit gate |
 | --- | --- | --- | --- |
-| **1. Complete planning inputs** | **IN PROGRESS — WE ARE HERE** | Reconcile one editorial guide; refine Lab Bubble/Cognition candidates; bound Frontier hold; finish table/anchor/license/artifact inventory and specimen brief. | Planner prepares; Amul selects material product/editorial choices. Exit: reviewable scope and bounded experiments, with visual choices explicitly open. |
+| **1. Complete planning inputs** | **IN PROGRESS — WE ARE HERE** | Authoring reference consolidated; all eight content examples ready and Frontier copy hold resolved. Finish remaining table/anchor/license/artifact decisions and full-sprint review inputs. | Planner prepares; Amul selects material product/editorial choices. Exit: reviewable scope and bounded experiments, with visual choices explicitly open. |
 | **2. Review the sprint plan** | PENDING | Separate reviewer chat examines this roadmap, standard, authoring reference, relevant evidence and experiment boundaries. Reconcile BLOCKER/REQUIRED findings once. | Independent reviewer advises; Amul accepts scope. Exit: pinned plan ready for first tickets. Supplied findings feedback is input, not a full-sprint PASS. |
 | **3. Draft and seal first earned tickets** | NOT STARTED | Draft only the first bounded artifact-safety or specimen contract justified by Phase 2. Pin surfaces, risk, source/branch lease, permitted experiment choices, validation and deployment boundary. | Planner drafts and pre-seal reviews; Amul seals. Exit: Claude Code has an executable first assignment. Dependent tickets wait for predecessor evidence. |
 | **4. Build and accept specimens** | NOT STARTED | Establish needed artifact/preview safety first; render essay and paper openings, five primitives, representative tables and future PDF. Compare before/after abstract, mobile reading and PDF inclusion using fixed approved wording. | Claude Code executes one sealed ticket at a time; Planner checks evidence; Amul accepts selected examples. Exit: tested design decisions, or explicit rejection/remaining issue. |
@@ -88,28 +88,28 @@ No full new review is required for routine corrections already covered by the ac
 | --- | --- | --- | --- |
 | Future PDF foundation | Minimal identity, no closing biography, concept DOI policy, legacy freeze; current typography and Scholar audit inspected | Pin top/bottom copy and fields; rendered fonts/layout/extraction/Scholar check; decide findings inclusion; adopt future defaults | 1 → 4 → 5 → 6 |
 | Five primitives and tables | Five draft one-pagers; current shared primitive style and responsive-records mechanism inspected | Reconcile guide; table-shape inventory; Definition-first visual examples; all-five and screen/print acceptance | 1 → 4 → 5 → 6 |
-| Key findings | Manuscript-owned section, papers AND essays, three-article editorial trial | Approve two specimen summaries; one-time legacy inventory/wording migration; component/extraction/intake checks; Frontier disposition | 1 → 4 → 5 → 6 |
+| Key findings | All eight article examples and source maps ready; Frontier summary faithful to source; one-time inventory complete | Varied rendered openings, grouped publication-copy review, component/extraction/intake checks and 8/8 HTML migration | 1 → 4 → 5 → 6 |
 | CC BY 4.0 | Direction and historical-license distinction documented | Inventory active assertions; truthful HTML/PDF metadata and reader notices; migrate current site/future standard | 1 → 5 → 6 |
 | Mobile anchors | Source audit found h2-only offset | Reproduce real reference/other target obstruction; fix and verify sticky TOC, direct fragments, history and desktop | 1 → 5 → 6 |
 | Candidate/published artifacts and staging | Divergence, Chisel preservation and previous proposal identified | Choose artifact/link semantics; protect six frozen files; validate safe preview workflow; reconcile selectively | 1 → 3 → 4/5 → 6 |
-| Authoring and operating documentation | Research draft guide/trial and website prospective spec committed | One canonical editorial reference; align website grammar/intake and update current operating docs to accepted behavior | 1 → 5 → 7 |
+| Authoring and operating documentation | Research draft guide/trial and website prospective spec committed | Consolidated guide entry point exists; validate website grammar/intake alignment and update current operating docs to accepted behavior | 1 → 5 → 7 |
 
 ### One-time migration versus normal future intake
 
-The corpus findings inventory, legacy summary drafting and this three-article calibration are **one-time Sprint 29 migration work**, not recurring prerequisites for each new article.
+The corpus findings inventory, legacy summary drafting and this eight-article calibration are **one-time Sprint 29 migration work**, not recurring prerequisites for each new article.
 After adoption, the research hub supplies author-approved Key findings inside each final manuscript. Website intake checks presence, supported structure and uniqueness and preserves the supplied wording; ordinary editorial approval remains upstream.
-Reopen a legacy entry only if it remains on explicit hold or a later separately requested revision needs it. Do not recreate a corpus audit for every future publication.
+Flag any missing summary for editorial completion; no current article has a planned exclusion. A later content revision reopens only its affected entry. Do not recreate a corpus audit for every future publication.
 
 ### Phase 1 completion checklist and immediate order
 
-1. Reconcile the older authoring draft and new reading-components guide into one proposed canonical reference; retain the trial as examples/review evidence.
-2. Refine Lab Bubble's overlapping opening bullets; keep Cognition's architectural consequence prominent and causal limit intact; obtain author-approved fixed wording for design.
-3. Record Frontier as a **whole-summary claim-strength hold**. Amul chooses faithful summary of the existing argument, bounded body correction, or explicit rollout deferral. Include deployment depth/enterprise trust when revising. This hold need not delay the two other specimens.
-4. Complete the bounded corpus/table/anchor/license inventory and candidate/published artifact proposal; list concrete affected source, metadata and instruction surfaces.
-5. Freeze a specimen brief: essay + paper, all five primitives, table shapes, future-only PDF and pass/reject criteria. Propose alternatives; do not preselect the experiment result.
-6. Pin the complete package for separate-chat review. Then, and only then, draft the first executor ticket.
+1. **DONE — consolidated authoring entry point.** MANUSCRIPT-AUTHORING.md now owns the workflow and links the five one-pagers and examples; prior guide/trial retained as provenance.
+2. **DONE — content examples and variety.** Eight four-bullet summaries cover all current papers/essays and actual opening configurations. Lab Bubble overlap tightened; Cognition architecture emphasized.
+3. **RESOLVED — Frontier copy hold.** Use a faithful attributed summary of the published argument, with deployment depth and enterprise trust prominent. No body revision or article exclusion is required to make these examples.
+4. **READY — specimen brief.** [Opening/print experiments and eight-case matrix](../audits/sprint-29/S29-key-findings-specimen-brief.md) define comparisons and evidence. Actual rendering follows the reviewed execution scope.
+5. **REMAINING — other workstream inputs.** Finish the bounded table/anchor/license inventory and candidate/published artifact proposal; list concrete affected source, metadata and instruction surfaces.
+6. **NEXT REVIEW GATE.** Pin the complete sprint package for the separate reviewer chat, then draft the first executor ticket. Content copy no longer blocks this preparation.
 
-A held legacy article is not silently counted as migrated. It must be resolved or prospectively deferred by the owner before closing acceptance for that rollout.
+Copy readiness is not web adoption. Rollout acceptance requires exactly one component on **all eight** current article pages; a genuinely blocked entry is reported and corrected rather than silently excluded.
 
 ### Documentation map and update cadence
 
@@ -118,7 +118,7 @@ A held legacy article is not silently counted as migrated. It must be resolved o
 | **This sprint contract** on website planner/context | Full roadmap, current phase, workstream status, dependencies, acceptance | A phase/gate or sprint scope materially changes |
 | [Prospective standard](../programs/future-scholarly-pdf-standard.md) | Decision register, design/specimen boundaries and open product choices | A choice is proposed, accepted or rejected |
 | [Feedback reconciliation](../audits/sprint-29/S29-planning-feedback-reconciliation.md) | Supplied review findings, dispositions and evidence limits | This feedback receives a substantive correction or disposition |
-| [Research authoring workspace](https://github.com/amulbham/amulbham-research/tree/438ce073fa705f4c58fc0cae283c07e3ce096783/meta/manuscript-authoring) on workflow/manuscript-authoring-s29 | Editorial guide, primitive examples, findings trial and upstream wording approvals | Editorial milestone; reconcile predecessor before standard adoption |
+| [Research authoring workspace](https://github.com/amulbham/amulbham-research/tree/f17779eff0d47f88bac8d7031df552c9ff000b46/meta/manuscript-authoring) on workflow/manuscript-authoring-s29 | Editorial guide, primitive examples, findings trial and upstream wording approvals | Editorial milestone; consolidated entry point now exists |
 | [Planner STATE](../../../planner/STATE.md) | Short resume pointer to current gate, approvals and blockers | Meaningful checkpoint; roadmap remains the progress index |
 | site/planning/tickets/ and site/planning/audits/sprint-29/ | Future executor contracts, evidence and reconciliations | Only when earned by reviewed plan/predecessor results |
 | Existing publishing/design/intake docs and site/ROADMAP.md / CHANGELOG.md | Adopted current behavior and verified history | Accepted implementation/release; prospective drafts do not claim to be shipped |
@@ -133,7 +133,7 @@ Amul owns product/editorial decisions, this chat owns planning/reconciliation, t
 5. CC BY 4.0 appears on intended current site/future-PDF licensing surfaces; historical artifact license representation remains truthful.
 6. All five primitive kinds have approved visual examples and concise one-pagers covering purpose/use/example/screen/print behavior. Existing labels, content and anchors survive.
 7. Corpus table inventory maps each supported shape to a readable treatment; mobile and desktop preserve all cells, meaningful comparisons, links and accessible relationships.
-8. Key findings is standard for new papers and essays, supplied author-approved in the manuscript. Complete the one-time legacy HTML migration; every inventory entry is adopted or explicitly owner-deferred prospectively, with no unresolved hold counted as done. Missing/empty/duplicate, extraction/anchor/TOC and migration checks pass. Six frozen PDFs remain unchanged.
+8. Key findings is standard for new papers and essays, supplied author-approved in the manuscript. Complete the one-time legacy HTML migration with exactly one component on all eight current article pages; missing future findings are flagged for completion, never silently omitted. Missing/empty/duplicate, extraction/anchor/TOC and migration checks pass. Six frozen PDFs remain unchanged.
 9. In-page links across identified target classes land visibly below sticky chrome; desktop and navigation history remain correct.
 10. Scholar-related title/author/text/link checks pass for the future specimen; no claim of indexing from a technical PASS.
 11. Canonical instructions, tests and authoring documentation agree with shipped behavior. Separate review and owner acceptance complete.
