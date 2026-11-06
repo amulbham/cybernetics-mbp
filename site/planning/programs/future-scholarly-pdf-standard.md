@@ -1,7 +1,7 @@
 # Sprint 29 — Prospective publication and reading standard
 
-Status: DRAFT v0.2 / OWNER DISCUSSION / NOT IMPLEMENTED OR SEALED
-Updated: 2026-11-05
+Status: DRAFT v0.3 / OWNER DISCUSSION / NOT IMPLEMENTED OR SEALED
+Updated: 2026-11-06
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Baseline: website main fc3cb775aeb104b362426a589d64cbacf9fe9411; Planner 8bb432aa9489b8e96a1917fe6d05894d8d18e9ad before this update.
 This file replaces the earlier future-PDF mini-sprint proposal prospectively. Git history preserves that proposal. It owns design choices; the sprint owns sequence and acceptance.
@@ -18,11 +18,12 @@ APPROVED DIRECTION means the owner selected the product direction in planning; i
 | D4 | APPROVED DIRECTION | Polish the existing PDF foundation; approve a rendered specimen before applying it forward. Avoid a speculative renderer overhaul. |
 | D5 | APPROVED DIRECTION | Improve visual salience of the five primitives and mobile tables; preserve their meanings and authorial content. |
 | D6 | APPROVED DIRECTION | Standard findings component should orient readers and provide a concrete reason to continue; it is not a sixth primitive or AI Overview. |
-| D7 | APPROVED PROCESS | Separate chat reviews pinned complete sprint package before executor tickets. Develop only evidence-earned tickets afterward. |
+| D7 | APPROVED PROCESS | Separate chat reviews pinned complete sprint package before executor tickets. Bounded specimens may be authorized with placement/PDF decisions open; select defaults after specimen acceptance. Develop only evidence-earned tickets afterward. |
 | D8 | PARTLY APPROVED | Key findings, required for papers and essays, manuscript-owned, legacy HTML rollout in scope. Placement/look and future-PDF inclusion await examples. |
 | D9 | OPEN | Candidate versus published artifact selection, preview URL/link semantics and explicitly permitted revision rendering. |
 | D10 | OPEN | Exact minimal masthead optional fields and visual hierarchy; no new biography text needed for PDF. |
-| D11 | APPROVED DIRECTION / DRAFTED | Core research-repo authoring reference with primitive one-pagers, findings guidance and examples; align with website grammar. No automatic manuscript migration. |
+| D11 | APPROVED DIRECTION / DRAFTED | Core research-repo authoring reference with primitive one-pagers, findings guidance and examples; reconcile predecessor into one canonical reference and align with website grammar. No automatic manuscript migration. |
+| D12 | APPROVED DIRECTION | Findings corpus audit/backfill is a one-time S29 migration. Future papers/essays arrive with author-approved findings in their manuscript; normal intake validates rather than recreates the summaries. |
 
 Decision chronology: the initial list omitted the PDF biography; later discussion proposed keeping it; the latest owner acceptance explicitly returns to the minimal masthead/no closing biography direction. D2 supersedes the interim proposal. Existing runtime still prints the biography until reviewed implementation changes it.
 
@@ -80,8 +81,10 @@ Useful overview and honest hook: actual contribution, mechanism/distinction, con
 Proposed web placement: after masthead/compact metadata and before long body; compare before/after abstract on papers. Essays need no invented abstract. Keep the summary visible by default, readable bullets with restrained border/background, and avoid a repetitive summary/readerNote/abstract stack.
 Proposed future PDF: same text after abstract/before introduction (after front matter for essays); light heading/list. Decide inclusion from the actual specimen's usefulness, pagination and title/author/abstract extraction. Web-only remains fallback; this is not a default yet.
 Existing findings migrate as one source, never duplicate. Preserve section anchors or deliberate compatibility. Intake must detect missing/empty/duplicate required content without manufacturing prose.
-Legacy rollout: pin inventory of all papers/essays, draft and approve summaries, record per-entry holds, apply HTML only through the protected-artifact path. Temporary migration exceptions must be explicit, not indefinite date-based grandfathering.
-Three-article documentation trial: Lab Bubble, Frontier Training and Cognition as a Self-Organizing System. Candidate text remains unapproved; Frontier has a claim-strength editorial hold. No live manuscript changes or completed user/visual tests.
+One-time legacy rollout: pin inventory of all papers/essays, draft and approve summaries, record per-entry holds, apply HTML only through the protected-artifact path. Temporary migration exceptions must be explicit, not indefinite date-based grandfathering.
+Three-article documentation trial: Lab Bubble, Frontier Training and Cognition as a Self-Organizing System. Supplied review requests less Lab Bubble overlap and more prominent architectural consequence in Cognition. These two can become fixed-wording specimens after author approval. Frontier's entire summary stays on hold because its candidate/body claim strengths differ; do not resolve merely by deleting a caveat. Owner chooses faithful existing-argument summary, bounded manuscript correction, or rollout deferral, with deployment depth/enterprise trust represented in any revision. No text was changed or approved by this record.
+Future intake receives findings from the finalized research manuscript. This calibration and corpus inventory do not recur for every publication; upstream editorial approval and ordinary intake validation still apply.
+Extraction/relocation must preserve the existing section anchor, produce exactly one visible component, and leave no orphan heading or stale TOC entry.
 NN/G supports concise distinct opening summaries for orientation: https://www.nngroup.com/articles/formatting-long-form-content/. Elsevier supplies a 3–5-bullet precedent but currently describes highlights as online-only: https://www.elsevier.support/publishing/answer/how-do-i-include-highlights-with-my-manuscript. PDF inclusion is our design hypothesis, not a publisher requirement.
 
 ## 6. Primitive design brief and one-pager contract
@@ -111,7 +114,7 @@ Anchor scope includes references, section headings beyond h2, primitive IDs and 
 Reproduce the obstruction before fixing it. Test collapsed and expanded sticky TOC, direct fragments, same-page taps, client-side navigation and back/forward. Desktop must not acquire an arbitrary mobile gap.
 
 ## 8. Example and approval packet
-After separate-chat plan review and prospective implementation seal, produce:
+After separate-chat plan review of the experiment boundaries and a prospective ticket seal, produce the following. Final layout and PDF inclusion may remain open until owner acceptance of these examples:
 1. One clearly nonpublication specimen PDF through the actual Astro/Vivliostyle path, with source revision and rendering settings recorded.
 2. First/last-page previews and a full contact sheet; representative primitive, descriptive-table, comparison-table, figure, references and declarations pages.
 3. Extracted title, author, ORCID and sample body/reference text using two independent extractors.
@@ -121,7 +124,9 @@ Use synthetic source or explicitly approved excerpts; no silent revision of a pu
 A visual mockup alone cannot establish pipeline behavior. Owner acceptance of the rendered example precedes standard/default adoption.
 
 ## 9. Reviewer packet readiness
-Not yet ready for final review: D8–D10, corpus/table audit and exact specimen scope remain open.
+The sprint contract owns the [phase roadmap](../sprints/sprint-29-future-scholarly-pdf-foundation.md#ticket-sequence): currently Phase 1, completing review inputs. No executor tickets have been drafted.
+Before Phase 2 review, finish the bounded corpus/table/anchor/license audit, authoring-reference reconciliation, specimen content authority and experiment/candidate-artifact boundaries. D8 placement/look/PDF inclusion and D10 visual hierarchy may remain explicit experiment questions; they do not need final answers before a bounded specimen can be authorized. D9 must be settled to the extent required by the first artifact/preview operation.
+Supplied findings/editorial feedback is reconciled in [the review record](../audits/sprint-29/S29-planning-feedback-reconciliation.md). It is not a full-sprint approval or proof of rendered behavior.
 Before handoff: pin revision; summarize owner decisions and evidence limits; list all affected canonical surfaces; state migration/custody and rollback boundaries; include measurable acceptance and phase dependencies.
 Reviewer should identify BLOCKER/REQUIRED/OPTIONAL findings, especially cross-version license/DOI claims, candidate leakage, duplicated authoring sources, grandfathering, mobile semantics and excessive scope.
 Reconcile substantive findings once; draft executable tickets only afterward.
@@ -132,4 +137,4 @@ Reconcile substantive findings once; draft executable tickets only afterward.
 - Zenodo versioning: https://zenodo.org/help/versioning — concept DOI resolves latest landing page; version DOI supports exact-artifact citations.
 - Zenodo licenses: https://help.zenodo.org/docs/deposit/describe-records/licenses/ — CC BY 4.0 is its default, not its only allowed license.
 - S28 Scholar audit and disposition remain qualified observations. Do not relabel Type 3 fonts or historical small caps as demonstrated indexing failures.
-No new render, visual inspection, publication or six-live-download proof occurred in this planning update.
+No new render, visual inspection, publication or six-live-download proof occurred in this planning update. Remote branch heads were rechecked on 2026-11-06; source-audit observations above retain their original baseline/provenance.
