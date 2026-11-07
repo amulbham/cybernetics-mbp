@@ -1,9 +1,9 @@
 # Sprint 29 — Publication Standards and Reading Experience
 
-Status: AUDITING / DRAFT FOR OWNER DISCUSSION — NOT SEALED
+Status: AUDITING / PHASE 1 COMPLETE / INDEPENDENT REVIEW READY — NOT SEALED
 Updated: 2026-11-06 (America/Los_Angeles)
-Current phase: **1 of 7 — complete planning inputs and editorial reference**
-Next gate: separate-chat review of the complete sprint and bounded specimen plan
+Current phase: **2 of 7 — independent review of the completed planning package**
+Next gate: separate-chat review via [the pinned review entry point](../audits/sprint-29/README.md)
 Ticket state: **No Sprint 29 executor tickets drafted or sealed**
 Risk ceiling: R3
 Branch: planner/context for planning; isolated implementation candidates and explicit closed-preview/release gates to be specified after review
@@ -19,7 +19,7 @@ An author-approved, rendered PDF specimen and website component examples become 
 ## Inherited truths
 - Inherits site/PLANNING.md and site/planning/templates/sprint-contract.md @ 8bb432aa9489b8e96a1917fe6d05894d8d18e9ad; canonical product baseline is main @ fc3cb775aeb104b362426a589d64cbacf9fe9411.
 - Sprint 28 CLOSED: ../audits/sprint-28/S28-production-closeout.md at the planning baseline above. Run #136 and its recorded evidence limits remain authoritative historical evidence, not fresh live checks.
-- Fresh remote source checks on 2026-11-06: main fc3cb775aeb104b362426a589d64cbacf9fe9411; staging 3f2b0369169278f6606804dee17749944aee0e32; planner/context 864a6875edd3a427f2faffd124473455f35be7db before this update. Research authoring checkpoint now f17779eff0d47f88bac8d7031df552c9ff000b46; whole-branch integration remains separate.
+- Fresh remote source checks on 2026-11-06: main fc3cb775aeb104b362426a589d64cbacf9fe9411; staging 3f2b0369169278f6606804dee17749944aee0e32; planner/context e924a4b89f137afb258a8d32824a3b5e9807f887 before this package update. Research authoring/copy fixed at f17779eff0d47f88bac8d7031df552c9ff000b46 by owner direction; no research changes in this phase.
 - Current six-PDF guard and independently reviewed publishing-facts oracle remain mandatory. No wholesale staging-to-main merge.
 - Preserved staging proposal work/t28-staging-reconciliation-candidate @ 0ac207fed57943db17a28dad9f258dc41f7478ce is an input to review, not an accepted implementation.
 - Detailed design decisions and open questions have one home: [prospective standard](../programs/future-scholarly-pdf-standard.md). Existing filename retained to preserve inbound links.
@@ -33,11 +33,11 @@ This is a publication foundation/reading-experience sprint, not a new-manuscript
 | Closing author biography | OWNER DIRECTION APPROVED / WORK NEEDED | Main AuthorNote.astro and print CSS explicitly require printing it. Latest owner direction removes it from future PDFs only; reconcile these active instructions during implementation. |
 | PDF typography | WORK NEEDED | print-research.css: 19pt title, 12pt small-caps author, bundled Latin Modern. Polish using a specimen; do not infer broken indexing from typography alone. |
 | Primitives | WORK NEEDED | global.css: one shared surface, 6px accent border and small uppercase mono label. Visual audit required; five meanings and syntax preserved. |
-| Tables | READY mechanism / WORK NEEDED audit | rehype-table-wrap.mjs already supports opt-in responsive-records from one table AST, screen-only records and printed tables. Inventory actual table shapes before proposing more machinery. |
+| Tables | AUDIT COMPLETE / SPECIMEN NEEDED | Audit complete: 40 authored tables, 18 records opt-ins; T1–T7 cover values, records, matrix, long cells and hidden-ID cases. No new grammar assumed. |
 | Findings summary | OWNER DECISIONS / WORK NEEDED | rehype-key-findings.mjs wraps an optional authored heading/list. Owner requires Key findings for papers and essays, manuscript-owned source, and legacy HTML adoption. Placement, migration enforcement and PDF inclusion remain open. |
-| Mobile anchors | WORK NEEDED | global.css offset targets only .prose h2[id] below 1100px. Reference/primitive/other target behavior needs served-page reproduction and a bounded fix. |
-| License | DIRECTION RECEIVED / WORK NEEDED | consts.ts currently CC BY-NC 4.0; ResearchLayout emits LICENSE.url for Article and a linked PDF MediaObject. Specify HTML versus historical artifact notices/metadata before migration. |
-| Staging/artifact selection | WORK NEEDED / OWNER DECISION | Staging remains divergent with unreleased Chisel v2/IWL. Review preserved proposal and explicit published/candidate mode, URLs and allowed rendering before upload. |
+| Mobile anchors | WORK NEEDED | Audit complete: h2-only fixed collapsed-height offset; A1–A7 define reference/h3/primitive/IWL/hidden-cell/skip experiments. Browser measurements remain specimen evidence. |
+| License | DIRECTION RECEIVED / WORK NEEDED | Surface inventory and exact notices/metadata complete in standard §4; active IWL assertions and strict independent oracle identified. O1 before migration. |
+| Staging/artifact selection | WORK NEEDED / OWNER DECISION | Selection/link matrix proposed in standard §3 (O2). Staging/proposal 0ac207f still lack staging carry/guard. Local experiments explicitly independent of hosted reconciliation. |
 | Scholar | INHERITED AUDIT / TARGETED RECHECK | T28.4/T28.5 disposition: Scholar 0 required, typography/extraction advisory; metadata fixes already shipped in S28. Recheck relevant official guidance, no promised index/ranking changes. |
 | Cross-repo authoring | CORE DOCUMENTATION / DRAFTED | Research branch workflow/manuscript-authoring-s29 now has one consolidated MANUSCRIPT-AUTHORING.md entry point, five one-pagers and eight findings examples; website grammar/adoption validation remains. |
 
@@ -70,16 +70,16 @@ The phase numbers below describe progression, not pre-created ticket IDs. This t
 
 | Phase | Current status | Work and output | Lead / exit gate |
 | --- | --- | --- | --- |
-| **1. Complete planning inputs** | **IN PROGRESS — WE ARE HERE** | Authoring reference consolidated; all eight content examples ready and Frontier copy hold resolved. Finish remaining table/anchor/license/artifact decisions and full-sprint review inputs. | Planner prepares; Amul selects material product/editorial choices. Exit: reviewable scope and bounded experiments, with visual choices explicitly open. |
-| **2. Review the sprint plan** | PENDING | Separate reviewer chat examines this roadmap, standard, authoring reference, relevant evidence and experiment boundaries. Reconcile BLOCKER/REQUIRED findings once. | Independent reviewer advises; Amul accepts scope. Exit: pinned plan ready for first tickets. Supplied findings feedback is input, not a full-sprint PASS. |
-| **3. Draft and seal first earned tickets** | NOT STARTED | Draft only the first bounded artifact-safety or specimen contract justified by Phase 2. Pin surfaces, risk, source/branch lease, permitted experiment choices, validation and deployment boundary. | Planner drafts and pre-seal reviews; Amul seals. Exit: Claude Code has an executable first assignment. Dependent tickets wait for predecessor evidence. |
-| **4. Build and accept specimens** | NOT STARTED | Establish needed artifact/preview safety first; render essay and paper openings, five primitives, representative tables and future PDF. Compare before/after abstract, mobile reading and PDF inclusion using fixed approved wording. | Claude Code executes one sealed ticket at a time; Planner checks evidence; Amul accepts selected examples. Exit: tested design decisions, or explicit rejection/remaining issue. |
+| **1. Complete planning inputs** | **COMPLETE** | Fixed-copy package, consolidated guide, bounded audit/inventories, exact license/artifact proposals and local specimen scope. | Review entry point contains all inputs; O1/O2 and visual questions intentionally explicit. |
+| **2. Review the sprint plan** | **READY — CURRENT NEXT ACTION** | Separate reviewer chat examines this roadmap, standard, authoring reference, relevant evidence and experiment boundaries. Reconcile BLOCKER/REQUIRED findings once. | Independent reviewer advises; Amul accepts scope. Exit: pinned plan ready for first tickets. Supplied findings feedback is input, not a full-sprint PASS. |
+| **3. Draft and seal first earned tickets** | NOT STARTED | Draft only the first local SPIKE contract justified by Phase 2; hosted artifact work is a separate later dependency. Pin surfaces, risk, source/branch lease, permitted experiment choices, validation and deployment boundary. | Planner drafts and pre-seal reviews; Amul seals. Exit: Claude Code has an executable first assignment. Dependent tickets wait for predecessor evidence. |
+| **4. Build and accept specimens** | NOT STARTED | Use isolated nondeployable output for openings, five primitives, representative T/A cases and two paper PDF variants. No hosted-reconciliation prerequisite. Compare before/after abstract, mobile reading and PDF inclusion using fixed approved wording. | Claude Code executes one sealed ticket at a time; Planner checks evidence; Amul accepts selected examples. Exit: tested design decisions, or explicit rejection/remaining issue. |
 | **5. Implement accepted standards and rollout** | NOT STARTED | Draft/seal each next ticket from accepted examples; implement shared rendering/intake, future-PDF defaults, CC BY 4.0, mobile anchors, approved legacy HTML summaries and remaining staging reconciliation. | Claude Code implements; Planner reconciles. Exit: complete candidate and canonical-doc updates ready for integrated validation. Routine within-seal fixes need no new product decision. |
 | **6. Validate complete candidate** | NOT STARTED | Verify corpus/mobile/desktop/accessibility behavior, metadata/license/artifact semantics, future-PDF extraction/pagination and six historical PDF hashes in the actual upload package; verify closed preview as authorized. | Planner reviews trusted validator/CI evidence and delta-specific checks. Exit: accepted exact candidate, resolved required findings and owner preview acceptance. |
 | **7. Release and close** | NOT STARTED | Separately scoped owner-authorized release, fresh production checks and six live PDF hash matches; reconcile current docs and record actual outcomes/deferrals. | Amul authorizes production; Executor releases; Planner verifies closure. Exit: PRODUCTION VERIFIED then CLOSED when acceptance is satisfied. |
 
 Phase 2 may approve **bounded experiments while leaving final visual placement and PDF inclusion open**. Phase 4 settles those choices. Do not require finished layout decisions to authorize the experiments that determine them.
-No implementation, preview upload or production authorization follows from this roadmap. Isolated local experiments may precede hosted staging reconciliation when their ticket makes the artifact boundary safe; hosted previews require their own explicitly permitted safe path.
+No implementation, upload or production authority follows from this roadmap. The first local SPIKE uses separate nondeployable output and does not need a production selector/staging integration. Hosted previews retain the separate standard §3 gate.
 No full new review is required for routine corrections already covered by the accepted plan. Material scope/risk changes or new BLOCKER/REQUIRED findings return to the applicable gate.
 
 ### Workstream map
@@ -87,11 +87,11 @@ No full new review is required for routine corrections already covered by the ac
 | Workstream | Already documented / inspected | Remaining work | Phase path |
 | --- | --- | --- | --- |
 | Future PDF foundation | Minimal identity, no closing biography, concept DOI policy, legacy freeze; current typography and Scholar audit inspected | Pin top/bottom copy and fields; rendered fonts/layout/extraction/Scholar check; decide findings inclusion; adopt future defaults | 1 → 4 → 5 → 6 |
-| Five primitives and tables | Five draft one-pagers; current shared primitive style and responsive-records mechanism inspected | Reconcile guide; table-shape inventory; Definition-first visual examples; all-five and screen/print acceptance | 1 → 4 → 5 → 6 |
+| Five primitives and tables | Guide consolidated; 40-table inventory and T1–T7 complete | Definition-first and shape-specific specimens; all-five/screen/print acceptance | 1 → 4 → 5 → 6 |
 | Key findings | All eight article examples and source maps ready; Frontier summary faithful to source; one-time inventory complete | Varied rendered openings, grouped publication-copy review, component/extraction/intake checks and 8/8 HTML migration | 1 → 4 → 5 → 6 |
-| CC BY 4.0 | Direction and historical-license distinction documented | Inventory active assertions; truthful HTML/PDF metadata and reader notices; migrate current site/future standard | 1 → 5 → 6 |
-| Mobile anchors | Source audit found h2-only offset | Reproduce real reference/other target obstruction; fix and verify sticky TOC, direct fragments, history and desktop | 1 → 5 → 6 |
-| Candidate/published artifacts and staging | Divergence, Chisel preservation and previous proposal identified | Choose artifact/link semantics; protect six frozen files; validate safe preview workflow; reconcile selectively | 1 → 3 → 4/5 → 6 |
+| CC BY 4.0 | Surface inventory, exact notices and metadata proposal complete | O1; reviewed migration/oracle update; real output checks | 1 → 5 → 6 |
+| Mobile anchors | Source inventory and A1–A7 complete | Reproduce measurements; implement and verify actual-obstruction/native-navigation behavior | 1 → 5 → 6 |
+| Candidate/published artifacts and staging | Selection/link/Chisel proposal and validator/workflow coupling audited | O2; reviewed resolver/validator work; separately authorized hosted reconciliation | 1 → 3 → 4/5 → 6 |
 | Authoring and operating documentation | Research draft guide/trial and website prospective spec committed | Consolidated guide entry point exists; validate website grammar/intake alignment and update current operating docs to accepted behavior | 1 → 5 → 7 |
 
 ### One-time migration versus normal future intake
@@ -100,16 +100,18 @@ The corpus findings inventory, legacy summary drafting and this eight-article ca
 After adoption, the research hub supplies author-approved Key findings inside each final manuscript. Website intake checks presence, supported structure and uniqueness and preserves the supplied wording; ordinary editorial approval remains upstream.
 Flag any missing summary for editorial completion; no current article has a planned exclusion. A later content revision reopens only its affected entry. Do not recreate a corpus audit for every future publication.
 
-### Phase 1 completion checklist and immediate order
+### Phase 1 completion and what remains
 
-1. **DONE — consolidated authoring entry point.** MANUSCRIPT-AUTHORING.md now owns the workflow and links the five one-pagers and examples; prior guide/trial retained as provenance.
-2. **DONE — content examples and variety.** Eight four-bullet summaries cover all current papers/essays and actual opening configurations. Lab Bubble overlap tightened; Cognition architecture emphasized.
-3. **RESOLVED — Frontier copy hold.** Use a faithful attributed summary of the published argument, with deployment depth and enterprise trust prominent. No body revision or article exclusion is required to make these examples.
-4. **READY — specimen brief.** [Opening/print experiments and eight-case matrix](../audits/sprint-29/S29-key-findings-specimen-brief.md) define comparisons and evidence. Actual rendering follows the reviewed execution scope.
-5. **REMAINING — other workstream inputs.** Finish the bounded table/anchor/license inventory and candidate/published artifact proposal; list concrete affected source, metadata and instruction surfaces.
-6. **NEXT REVIEW GATE.** Pin the complete sprint package for the separate reviewer chat, then draft the first executor ticket. Content copy no longer blocks this preparation.
+- **COMPLETE:** consolidated guide and fixed eight-copy research package at f17779e; no copy edits in this audit.
+- **COMPLETE:** table/anchor inventory, representative cases, mechanisms and source-observed limitations.
+- **COMPLETE:** license map, exact notices/metadata and explicit O1 proposal.
+- **COMPLETE:** published/candidate/Chisel policy, explicit O2 and independent local/hosted boundaries.
+- **COMPLETE:** bounded first local specimen scope and [single review entry point](../audits/sprint-29/README.md), source inventories and decision register.
+- **NEXT:** independent review on the exact package commit; reconcile BLOCKER/REQUIRED and record material owner choices before dependent implementation.
+- **AFTER REVIEW:** first local ticket/seal → rendered comparisons → owner design acceptance → earned adoption/artifact/rollout tickets → integrated closed preview → separately authorized production and closure.
 
-Copy readiness is not web adoption. Rollout acceptance requires exactly one component on **all eight** current article pages; a genuinely blocked entry is reported and corrected rather than silently excluded.
+No executor tickets drafted/sealed. Copy readiness is not adoption: all eight pages must receive one component during the later rollout, with no silent exclusion.
+Remaining tasks/gates are tracked in the review README and phase roadmap.
 
 ### Documentation map and update cadence
 
@@ -117,6 +119,7 @@ Copy readiness is not web adoption. Rollout acceptance requires exactly one comp
 | --- | --- | --- |
 | **This sprint contract** on website planner/context | Full roadmap, current phase, workstream status, dependencies, acceptance | A phase/gate or sprint scope materially changes |
 | [Prospective standard](../programs/future-scholarly-pdf-standard.md) | Decision register, design/specimen boundaries and open product choices | A choice is proposed, accepted or rejected |
+| [Review entry point and inventories](../audits/sprint-29/README.md) | Complete packet, reviewer instructions, owner decisions and remaining-work tracker | Review handoff/correction milestone |
 | [Feedback reconciliation](../audits/sprint-29/S29-planning-feedback-reconciliation.md) | Supplied review findings, dispositions and evidence limits | This feedback receives a substantive correction or disposition |
 | [Research authoring workspace](https://github.com/amulbham/amulbham-research/tree/f17779eff0d47f88bac8d7031df552c9ff000b46/meta/manuscript-authoring) on workflow/manuscript-authoring-s29 | Editorial guide, primitive examples, findings trial and upstream wording approvals | Editorial milestone; consolidated entry point now exists |
 | [Planner STATE](../../../planner/STATE.md) | Short resume pointer to current gate, approvals and blockers | Meaningful checkpoint; roadmap remains the progress index |
@@ -140,8 +143,8 @@ Amul owns product/editorial decisions, this chat owns planning/reconciliation, t
 
 ## Validation plan
 - Reuse actual package scripts: npm run build, npm run test:facts, npm run validate:pdfs when PDFs are present; inspect artifact/guard harness commands before specifying execution.
-- Negative cases: missing/substituted/extra protected artifact; candidate served as published; wrong license/DOI/author; missing or duplicate required summary; missing figure; hidden/clipped table content; duplicate IDs and lost reference targets.
-- Proposed visual matrix: 375px and 390px phones, 768px tablet, 1099/1100px breakpoint edges and 1440px desktop; light/dark/system theme, keyboard focus and enlarged text. Final matrix follows corpus audit.
+- Negative cases: missing/substituted/extra protected artifact; candidate encoded as published; wrong article/archive license or stale IWL assertion; wrong DOI/author; missing/empty/duplicate fixed summary; missing figure; hidden/clipped table; same-number/different-source reference mismatch; duplicate IDs and invisible fragment targets.
+- Specimen/rollout visual matrix: 375px and 390px phones, 768px tablet, 1099/1100px breakpoint edges and 1440px desktop; light/dark/system theme, keyboard focus and enlarged text. First local scope is bounded in the specimen brief; integrated rollout covers the full corpus.
 - Check direct hash loads, reference taps, TOC taps, primitive links, back/forward and client-side navigation with collapsed/expanded mobile TOC.
 - PDF: first/last pages, longest title, all five primitives, descriptive table and comparison matrix, image/caption, references, declarations, page breaks and running head. Two independent text extractors plus raster visual review; no extractability-only claims of visual correctness.
 - Production evidence and settings retain provenance labels; source checks are not live checks.

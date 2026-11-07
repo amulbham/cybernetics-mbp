@@ -1,0 +1,51 @@
+source_role	commit	path	audit_scope
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	HANDOFF.md	orientation; historical release snapshot distinguished from fresh refs
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	LICENSE	MIT code/software license; do not rewrite as article CC license
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/AGENTS.md	current execution/publishing and deploy constraints; targeted sections
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/PLANNING.md	canonical lifecycle, risk classes, seal and delta-only policy
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/PUBLISHING.md	current publication/PDF identity and content licensing instructions; targeted sections
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/CONTENT-MODULES.md	primitive/table grammar and authoring compatibility; targeted sections
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/ROADMAP.md	existing product/deferred scope; targeted source context
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/package.json	actual build/validation scripts and pinned tools
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/astro.config.mjs	rehype order; references/table cloning/citation/heading processing
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/consts.ts	current content license, author role and shared identity
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content.config.ts	paper/essay format and strict IWL schema
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/components/ArticleMasthead.astro	visible article license and identity
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/components/Footer.astro	global license on all pages
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/components/TableOfContents.astro	h2-only TOC, six-section threshold and mobile details
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/layouts/ArticleShell.astro	sticky TOC slots, deferred collapse, shared current-section observer
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/layouts/ResearchLayout.astro	one paper PDF URL for download/Highwire/encoding; article license
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/layouts/IwlLayout.astro	current IWL license; no JSON-LD/Highwire/PDF
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/styles/global.css	table/record breakpoint, key findings, sticky TOC and h2-only offset
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/styles/print-research.css	print tables/records, byline/author biography and summary treatment
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/lib/rehype-table-wrap.mjs	table shape validation, records generation, IDs and search duplication
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/lib/rehype-key-findings.mjs	optional heading/list wrapping
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/lib/rehype-section-utils.mjs	section matching/wrapping behavior
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/lib/rehype-research-primitive.mjs	exact labels and primitive-* fragment IDs
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/lib/rehype-references.mjs	generated ref-N list-item targets
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/lib/rehype-citation-links.mjs	generated links to ref-N; processes table/callout text
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/scripts/build-research-pdfs.mjs	all-paper typesetting into dist, no artifact-selection mode
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/scripts/validate-research-pdfs.mjs	URL coupling and cross-HTML/PDF reference/relation assumptions
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/scripts/carry-over-pdfs.sh	requires built PDF set before carry; verifies selected bytes
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/scripts/guard-production-six-pdfs.mjs	independent exact-six final upload guard
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/scripts/fixtures/approved-six-production-pdfs.sha256	single inherited authority for legacy paths/hashes
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/scripts/validate-publishing-facts.mjs	independent license/identity/encoding oracle checks
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/scripts/fixtures/publishing-facts.json	reviewed current license/PDF provenance and expected encoding
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	.github/workflows/deploy-pages.yml	actual main/staging triggers and main-only guards
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/cognition-as-self-organizing-system/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/how-frontier-model-training-became-a-public-utility/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-chisel-fallacy-what-pangram-actually-measures/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-desk-is-where-you-write-it-down/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-invariants-of-self-organizing-systems/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-lab-bubble/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/three-self-organizing-systems/index.md	table/anchor/active license source scan; article/IWL content preserved
+main	fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	table/anchor/active license source scan; article/IWL content preserved
+staging	3f2b0369169278f6606804dee17749944aee0e32	.github/workflows/deploy-pages.yml	staging guard and Chisel revision comparison; read only
+staging	3f2b0369169278f6606804dee17749944aee0e32	site/scripts/build-research-pdfs.mjs	staging guard and Chisel revision comparison; read only
+staging	3f2b0369169278f6606804dee17749944aee0e32	site/scripts/validate-research-pdfs.mjs	staging guard and Chisel revision comparison; read only
+staging	3f2b0369169278f6606804dee17749944aee0e32	site/src/content/research/the-chisel-fallacy-what-pangram-actually-measures/index.md	staging guard and Chisel revision comparison; read only
+staging	3f2b0369169278f6606804dee17749944aee0e32	site/src/content/iwl/the-chisel-fallacy.md	staging guard and Chisel revision comparison; read only
+prior proposal	0ac207fed57943db17a28dad9f258dc41f7478ce	.github/workflows/deploy-pages.yml	equals main workflow; carry/independent guard still main-only
+planner historical evidence	e924a4b89f137afb258a8d32824a3b5e9807f887	site/planning/audits/sprint-28/T28.4-scholar-audit.md	inherited Executor report, not fresh live indexing/PDF verification
+fixed research	f17779eff0d47f88bac8d7031df552c9ff000b46	meta/manuscript-authoring/v0.2_Key_Findings_Corpus_Examples.md	eight immutable specimen payloads; Git blob 197a482c2cf359dd118626df8d06d768cb7ce04e

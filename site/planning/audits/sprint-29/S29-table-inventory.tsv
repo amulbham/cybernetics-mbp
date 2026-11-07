@@ -1,0 +1,41 @@
+source_ref	path	header_line	section	columns	body_rows	responsive_records	column_headers
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	186	1.11 Protocol Preview	5	5	no	Protocol / Name / Mechanism / Primary Exploit / Logical End State
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	215	2.2 The Stay-at-Home Protocol	3	5	no	Phase / Duration / Description
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	229	2.3 The Dual-Processor Deficit	2	5	no	Input / Amount
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	243	2.4 The Binge-Watch Dilemma: Media Consumption as a Fiduciary Duty	2	4	no	Metric / Value
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	254	2.4 The Binge-Watch Dilemma: Media Consumption as a Fiduciary Duty	2	3	no	Phase / Description
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	306	4.1 The Anti-Optimization Reward & BIO-001	3	3	no	Parent age at first payment / Years to compound / Forfeited value ($30K/yr × 4 yrs, single dependent)
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	322	4.3 The Marriage Macro (Protocol 22-m)	2	5	no	Metric / Value
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	381	6. Protocol Registry: The Complete Exploit Surface	5	5	no	Protocol / Name / Mechanism / Primary Exploit / Logical End State
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	469	8.3 Terminal Directive: Out-Compute or Perish	2	4	no	Legacy Human / Optimized Node
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	549	Era 1: The Build-Up (1944–1978) — The ASA Assumption Is Installed	3	7	no	Year / Event / Consequence / Mechanism Created
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	561	Era 2: The Lock-In (1979–2020) — The Assumption Is Tightened; Consequences Compound	3	7	no	Year / Event / Consequence / Mechanism Created
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/an-engineers-guide-to-structural-financial-aid-exploits/index.md	573	Era 3: The Correction (2021–2026) — Private Market Responds; Federal System Doesn't	3	4	no	Year / Event / Consequence / Mechanism Created
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/cognition-as-self-organizing-system/index.md	38	1. What Self-Organizing Systems Are	2	7	no	Condition / What It Requires
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/cognition-as-self-organizing-system/index.md	157	3. The Empirical Test	3	7	no	Condition / AI Failure / What You See
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-chisel-fallacy-what-pangram-actually-measures/index.md	50	The Other Workflow	3	3	no	**Domain** / **Lower-level work (delegatable)** / **Upper-level work (authorship)**
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-chisel-fallacy-what-pangram-actually-measures/index.md	135	Two cases	2	4	no	**Question** / **Right kind of evidence**
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-chisel-fallacy-what-pangram-actually-measures/index.md	294	Development Ledger — Selected Entries	4	2	yes	**Phase** / **Event** / **What changed** / **Why it mattered**
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-chisel-fallacy-what-pangram-actually-measures/index.md	315	Decision Record — Selected Entries	4	3	yes	**Decision** / **Rejected** / **Adopted** / **Reason**
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-desk-is-where-you-write-it-down/index.md	435	Appendix A: Historical Accounts of Discovery and Working Conditions	4	17	yes	Figure / Era / domain / Reported practice or episode / Documentary basis and limitation
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-desk-is-where-you-write-it-down/index.md	464	Appendix A.1 — Four Principal Cases Mapped to the Operational Framework	5	4	yes	Figure / Discovery condition (reported) / Interval or habit reported / Capture method described / Scheduled?
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-desk-is-where-you-write-it-down/index.md	481	Appendix B: Framework Glossary	5	4	yes	Term / Definition / Wallas stage / Neural correlate (qualified) / Institutional implication
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-invariants-of-self-organizing-systems/index.md	103	2.2 Six Canonical Classes	2	6	no	Class / Description
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/the-invariants-of-self-organizing-systems/index.md	205	4. Why All Seven Are Necessary	3	7	no	Condition Removed / Failure Mode / Why It Fails
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/three-self-organizing-systems/index.md	55	1. Introduction	2	7	no	Condition / What It Requires
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/research/three-self-organizing-systems/index.md	189	5. What the Three Classifications Show	4	7	no	 / Ant Colony / Financial Market / Immune System
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	11	Document Identity	2	9	no	Item / Detail
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	29	Version History	4	9	yes	Draft / Primary development / Character / Position 3?
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	57	Layer 1 — Development Ledger	4	8	yes	Phase / Event / What changed / Why it mattered
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	72	Layer 1 — Development Ledger	4	1	yes	Phase / Event / What changed / Why it mattered
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	80	Layer 1 — Development Ledger	4	2	yes	Phase / Event / What changed / Why it mattered
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	89	Layer 1 — Development Ledger	4	4	yes	Phase / Event / What changed / Why it mattered
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	100	Layer 1 — Development Ledger	4	5	yes	Phase / Event / What changed / Why it mattered
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	116	Layer 2 — Decision Record	4	2	yes	Decision point / Rejected / Adopted / Reason
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	125	Layer 2 — Decision Record	4	1	yes	Decision point / Rejected / Adopted / Reason
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	133	Layer 2 — Decision Record	4	6	yes	Decision point / Rejected / Adopted / Reason
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	146	Layer 2 — Decision Record	4	4	yes	Decision point / Rejected / Adopted / Reason
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	209	4A — Core Claims Traced	5	10	yes	Claim / Depends on / Source / Evidence / Verif. / Epistemic status
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	224	4B — Novel Concepts Derivation Records	3	7	no	Concept / Derives from / Distinguished from
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	240	4C — Argument Dependency Chain	4	12	yes	From / Relationship / To / Note
+fc3cb775aeb104b362426a589d64cbacf9fe9411	site/src/content/iwl/the-chisel-fallacy.md	261	4D — Discourse Position Map	4	9	yes	Concept / Existing / converging territory / What this paper does with it / Novelty position

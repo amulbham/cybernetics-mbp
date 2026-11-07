@@ -1,7 +1,7 @@
 # Sprint 29 — planning feedback reconciliation
 
 Recorded: 2026-11-06 (America/Los_Angeles)
-Status: CONTENT FEEDBACK RECONCILED / REMAINING SPRINT PLANNING — not a full-sprint PASS or executor seal
+Status: CONTENT FEEDBACK RECONCILED / PHASE 1 COMPLETE / FULL SPRINT REVIEW READY — not an independent PASS or seal
 Source: Product Authority supplied an outside planning/manuscript-fidelity review in this conversation.
 Reviewed snapshots reported by that reviewer: research guide/trial 438ce073; current Sprint 29 documents and three published manuscripts. The reviewer's reads are reported provenance, not newly independently repeated checks by this record.
 Inherits: [Sprint 29 roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md) and [prospective standard](../../programs/future-scholarly-pdf-standard.md).
@@ -34,6 +34,6 @@ The source inventory and guide consolidation are complete for this milestone. [S
 
 ## Next gate
 
-Complete the remaining non-copy Phase 1 inputs in the sprint roadmap, then submit a pinned complete package to the separate reviewer chat.
+The remaining Phase 1 inputs are complete in the [source audit](S29-phase-1-source-audit.md). Submit the [complete package](README.md) on its exact website commit to the separate reviewer chat. Research copy remains fixed at f17779eff0d47f88bac8d7031df552c9ff000b46.
 Classify new review findings BLOCKER / REQUIRED / OPTIONAL. The supplied narrative review was not issued with those classifications; this record does not invent an all-clear count.
 No website code, manuscript prose, PDFs, deployment settings, main/staging refs or scientific claims changed here.
