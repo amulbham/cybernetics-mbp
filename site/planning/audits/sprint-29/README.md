@@ -1,78 +1,103 @@
-# Sprint 29 — independent planning review
+# Sprint 29 — planning and review entry point
 
-Status: PLAN REVIEW ACCEPTED · PHASE 3 · T29.0 DRAFT / OWNER SEAL PENDING
+Status: RESCOPED / PAPER C SOURCE PIN PENDING / NO ACTIVE EXECUTOR TICKET
 Updated: 2026-11-09 (America/Los_Angeles)
-Intent: track accepted plan review and the first local specimen ticket. Independent review of 59d702f returned READY, 0 BLOCKER / 0 REQUIRED / 0 OPTIONAL; [record and disposition](S29-independent-plan-review.md).
-Accepted plan snapshot: **59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9**. This later checkpoint records the supplied review and first ticket draft; it is not a new independent review or an execution seal.
-Current next action: owner reviews/seals [T29.0](../../tickets/T29.0-local-publication-specimens.md), then Claude Code produces the local comparisons. Pin the relevant ticket/seal commit in that handoff.
-Research authoring/copy input is fixed separately at **f17779eff0d47f88bac8d7031df552c9ff000b46**. No research changes in this phase.
+Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
+Exact next gate: **G29-A SOURCE PIN** — Product Authority supplies the exact research branch, full commit SHA and canonical final manuscript path. No intake/specimen executor ticket is drafted or sealed before that pin is verified.
 
-## Read in order
+## What changed
 
-| Document at this website review commit | Owns |
+The accepted broad planning package at **`59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`** remains the historical program map and evidence base. Its independent review returned READY with **0 BLOCKER / 0 REQUIRED / 0 OPTIONAL**.
+
+After that review, the Product Authority narrowed Sprint 29 to one vertical slice: use the real finalized Paper C / Cybernetics Bridge manuscript to establish the forward HTML/PDF system and publish it conditionally. The Cognition-centered T29.0 draft was never sealed or executed and is now superseded.
+
+This rescope does not invalidate the completed Phase 1 source/table/anchor/license/artifact audits. It changes which findings are active now.
+
+## Active read order
+
+| Document | Authority now |
 | --- | --- |
-| [Review report/disposition](S29-independent-plan-review.md) | Accepted independent plan result and Planner first-ticket check |
-| [T29.0 draft](../../tickets/T29.0-local-publication-specimens.md) | Concrete local SPIKE/R2 contract; no execution before owner seal |
-| [Sprint roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md) | Whole sprint scope, completed Phase 1, phase/gate sequence, acceptance and remaining work |
-| [Prospective standard and decision register](../../programs/future-scholarly-pdf-standard.md) | Approved directions, O1/O2 proposals, exact notices/metadata and artifact-selection matrix |
-| [Bounded Phase 1 source audit](S29-phase-1-source-audit.md) | Evidence, observed mechanisms/limitations, representative cases and evidence limits |
-| [Source inventory](S29-source-inventory.tsv) | Exact inspected source revisions and bounded read set |
-| [Table inventory](S29-table-inventory.tsv) | All 40 detected authored tables, lines, shapes and existing opt-ins |
-| [First local specimen brief](S29-key-findings-specimen-brief.md) | Proposed SPIKE/R2 boundaries, fixed content, allowed experiments and output/stop criteria |
-| [Earlier feedback reconciliation](S29-planning-feedback-reconciliation.md) | Why summary copy/guide questions are resolved; historical review provenance |
+| [Rescoped Sprint 29 roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md) | Active scope, phases, acceptance, exclusions and exact next gate |
+| [Paper C decision register](../../programs/future-scholarly-pdf-standard.md) | Active identity/license/candidate/custody decisions and unknowns |
+| Future Paper C source audit | Created only after G29-A; will own exact manuscript and publication-input findings |
+| [Phase 1 source audit](S29-phase-1-source-audit.md) | Retained evidence for current/future work within its stated source-only limits |
+| [Source inventory](S29-source-inventory.tsv) | Pinned inspected baseline |
+| [Table inventory](S29-table-inventory.tsv) | Forty-table corpus evidence, deferred except Paper C-specific needs |
+| [Accepted independent review](S29-independent-plan-review.md) | Historical confirmation that the broad package was coherent at `59d702f…` |
+| [Superseded specimen brief](S29-key-findings-specimen-brief.md) | Historical Cognition/eight-article experiment design; do not execute |
+| [Superseded T29.0 draft](../../tickets/T29.0-local-publication-specimens.md) | Unsealed planning history; do not execute |
+| [Earlier feedback reconciliation](S29-planning-feedback-reconciliation.md) | Historical editorial/planning provenance |
 
-Pinned research package, same commit for each:
-- [Consolidated authoring guide](https://github.com/amulbham/amulbham-research/blob/f17779eff0d47f88bac8d7031df552c9ff000b46/MANUSCRIPT-AUTHORING.md).
-- [Five primitive one-pagers / findings reference](https://github.com/amulbham/amulbham-research/blob/f17779eff0d47f88bac8d7031df552c9ff000b46/meta/manuscript-authoring/v0.1_Reading_Components_Guide.md).
-- [Eight fixed findings payloads and source maps](https://github.com/amulbham/amulbham-research/blob/f17779eff0d47f88bac8d7031df552c9ff000b46/meta/manuscript-authoring/v0.2_Key_Findings_Corpus_Examples.md).
-Do not reopen or rewrite that fixed copy as part of a layout review. Flag a demonstrated integrity issue if one exists, without inventing a new editorial pass.
+## Historical accepted review
 
-## Accepted independent review request (history)
+The review at `59d702f…` established useful facts that remain available:
 
-The following request was satisfied by the supplied 59d702f review; no repeat whole-plan review is required for this unchanged scope. Use BLOCKER / REQUIRED / OPTIONAL for concrete defects in any material amendment. Identify path/section, consequence, smallest necessary correction and the gate it affects.
-Return:
-1. Overall READY / NOT READY for developing the first bounded local specimen ticket.
-2. Findings by class; do not invent a finding to fill a class.
-3. Whether local specimens are correctly independent of hosted staging reconciliation.
-4. Whether licensing/current-vs-archived metadata and candidate selection are coherent.
-5. The material owner decisions still required before the specific implementation they affect.
+- local candidates can be isolated from deployable output;
+- published/candidate selection must be explicit and fail closed;
+- independent validators must be extended through reviewed expectations and negatives, never bypassed;
+- the source scan found forty tables and eighteen responsive-records opt-ins;
+- all six existing PDFs remain protected;
+- broad licensing/artifact proposals were coherent planning inputs.
 
-Inspect especially:
-- All six historical PDF paths/hashes remain frozen; no local specimen can leak into deploy output.
-- Staging still lacks staging-safe carry/guard; proposal 0ac207f is not a safe-hosted-preview result.
-- Candidate HTML must not claim its published archive is the candidate PDF; preserve unreleased Chisel and truthful citations/edition labels.
-- Original artifact license record differs from the current BY grant; CC grants are not format-limited; code/fonts/third-party rights retain scope.
-- Independent publishing-facts/PDF validators need explicit, reviewed changes for the new encoding/selection semantics; no blanket skip or self-derived oracle.
-- Table matrix/empty-header and hidden-ID cases; references/h3/primitive offsets; actual visible sticky height and native history.
-- Scope is sufficient but bounded: fixed copy, two primary openings, six fragments, representative components, one paper/two PDF variants; no production adoption or deployment under the experiment.
+Its recommendation to draft the first local Cognition specimen ticket is superseded only because the owner changed the sprint outcome. No defect was found in the historical package.
 
-This is a source/planning review. No new render/build/test/live hash/Scholar proof is claimed. The source audit's facts and the prospective standard's proposals have different authority.
-Do not require final fonts, summary placement, table layout or PDF inclusion to authorize the experiments that will decide them.
-This package does not request immediate implementation or production GO.
+## Active Paper C scope
 
-## Material owner decisions
+Sprint 29 now includes only:
 
-| ID | Proposed decision | Needed before |
+1. pin and audit the exact final Paper C manuscript and assets;
+2. render exact-source local HTML/PDF candidates outside deployable paths;
+3. choose Paper C/future-PDF identity, typography, Key findings, CC BY, tables, figures, references, links, extraction and pagination from evidence;
+4. implement the accepted treatment as a reusable selected-paper path;
+5. implement minimum Paper C candidate/published custody semantics with fail-closed tests;
+6. validate a closed hosted candidate without importing staging-only work;
+7. release only after a separate exact-candidate owner GO;
+8. protect Paper C as artifact seven and freshly verify the previous six unchanged.
+
+The legacy findings rollout, corpus primitive/table/anchor work, broad site-wide licensing migration and Chisel/IWL reconciliation are future-sprint backlog.
+
+## Narrowed decisions
+
+The owner's rescope resolves the broad O1/O2 questions only for this slice:
+
+| Area | Paper C decision | Not authorized |
 | --- | --- | --- |
-| O1 | Accept §4's precise license scope/notices: current controlled content CC BY; archive notices remain original release history; medium-neutral grants; code MIT/assets preserved; IWL assertions reconciled. Approve the narrow historical/archive-notice exception to the initial no-NC-wording goal. | Persistent license/metadata migration and its release, not a labeled local experiment |
-| O2 | Accept §3's published/candidate model: published canonical bytes default, explicitly labeled archived links on Chisel candidate HTML, no candidate scholarly publication claim, local-only candidate PDFs initially, six published PDFs in later hosted preview. | Persistent artifact/candidate implementation and hosted staging push/upload |
+| License | Paper C's new HTML/PDF direction is CC BY 4.0, subject to exact-source/rightsholder and rendered-notice checks | Site-wide/IWL/archive migration |
+| Artifact custody | Paper C candidate bytes isolated; exact hash approval required; published selection fails closed; release extends protection from six to seven artifacts | General Chisel/corpus reconciliation |
+| Identity | Amul Bham · Systems Researcher · readable linked ORCID; no generated closing PDF bio | Rewriting legacy PDFs |
+| Findings | Use author-supplied Paper C Key findings; preserve exact copy; flag missing content | Generating prose or rolling out all eight legacy summaries |
 
-Already fixed: all eight article summaries, required current/future web coverage, Systems Researcher/minimal identity/no closing PDF bio, frozen legacy PDFs and separate review before tickets.
-After specimens: owner selects visual hierarchy/contact fields, findings placement/PDF inclusion and table/anchor treatment. These are experiment outputs, not unanswered Phase 1 audit tasks.
+Remaining owner choices are source- or evidence-specific: missing publication facts from the final manuscript, visual/PDF treatment, exact candidate hash, hosted preview acceptance and production release tuple.
 
-## What remains after this review
+## Gate sequence
 
-| Work | Status / next gate |
+| Gate | Current state |
 | --- | --- |
-| Independent review | **COMPLETE** — READY, 0/0/0 at 59d702f; owner-supplied report recorded |
-| Reconciliation and O1/O2 | No review corrections required; O1/O2 remain before dependent persistent/hosted work |
-| First executor ticket | **T29.0 DRAFT / Planner check complete / owner seal is next** |
-| Rendered specimens | Not built; local comparisons then owner selection |
-| Production adoption/rollout tickets | Earned from specimen/predecessor outcomes, not pre-created |
-| Artifact handling + hosted staging reconciliation | Not implemented; separate gate; protect Chisel and six archived files |
-| Website changes | Primitives/tables, findings extractor/intake, CC BY/notices, future PDF defaults and anchors pending |
-| Legacy findings rollout | Eight content payloads ready; **0/8 newly adopted through S29 implementation** so far; Frontier's preexisting section is not counted as new rollout proof |
-| Integrated validation | Pending actual candidate, closed preview, targeted negative tests and six-file custody proof |
-| Production and closure | Separate owner authorization, fresh live checks, canonical docs and six PDF hashes |
+| Broad Phase 1 package/review | **COMPLETE / historical evidence retained** |
+| G29-A exact Paper C source pin | **WAITING — current gate** |
+| Paper C source/publication audit | Not started; no source revision supplied |
+| First executor contract | Not drafted; blocked by G29-A and audit readiness |
+| Local candidates and owner treatment selection | Not started |
+| Reusable implementation/custody | Not started |
+| Closed hosted candidate | Not authorized |
+| Production release | Separately owner-authorized after preview acceptance |
+| Seventh-artifact closure | Pending release and fresh seven-file verification |
 
-Review was delivered by the owner in chat. No outbound messages or delegated agents were used. Local examples and all implementation remain unexecuted.
+## Reviewer guidance for the next package
+
+Do not repeat the broad Phase 1 audit. Review the future Paper C audit/ticket for:
+
+- exact source and asset fidelity;
+- missing/fabricated Key findings, DOI, dates, version or license facts;
+- candidate output isolation and fail-closed selection;
+- generic shared implementation rather than Paper C conditionals;
+- preservation of all six historical path/hash pairs;
+- independent oracle/guard changes with negative tests;
+- no Chisel/IWL/staging-only scope;
+- distinct hosted and production authority.
+
+Classify concrete findings as BLOCKER / REQUIRED / OPTIONAL. Final typography and exact PDF bytes are owner evidence decisions, not preconditions for auditing the source.
+
+## Evidence limits
+
+No Paper C source has been pinned or audited under this rescope. No render, build, test, branch, candidate PDF, hosted preview, deployment or release was produced. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.

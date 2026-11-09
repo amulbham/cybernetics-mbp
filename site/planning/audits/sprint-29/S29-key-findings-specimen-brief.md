@@ -1,8 +1,8 @@
-# Sprint 29 — bounded first local specimen brief
+# Sprint 29 — bounded first local specimen brief (superseded)
 
 Updated: 2026-11-09 (America/Los_Angeles)
-Status: PLAN SCOPE REVIEWED READY at 59d702f — [T29.0 draft](../../tickets/T29.0-local-publication-specimens.md) owns the proposed execution delta; no seal yet
-Proposed mode: SPIKE · proposed risk: R2 · local/nonpublication only
+Status: **SUPERSEDED / UNSEALED / NEVER EXECUTED** — retained as historical evidence from the accepted broad package at `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`
+Prior proposed mode: SPIKE · risk: R2 · local/nonpublication only
 Inherits: [sprint roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md), [standard/decision register](../../programs/future-scholarly-pdf-standard.md).
 Fixed research package: f17779eff0d47f88bac8d7031df552c9ff000b46.
 [Eight summaries](https://github.com/amulbham/amulbham-research/blob/f17779eff0d47f88bac8d7031df552c9ff000b46/meta/manuscript-authoring/v0.2_Key_Findings_Corpus_Examples.md) are fixed experiment input: exactly eight four-bullet payloads, 72–88 words. Do not edit, regenerate, merge or reopen their copy.
@@ -10,8 +10,10 @@ Fixed research package: f17779eff0d47f88bac8d7031df552c9ff000b46.
 
 ## Purpose and dependency
 
-Earn a local rendered comparison for the opening, primitives/tables, anchors and future-only PDF design, then let the owner choose defaults.
-The independent sprint review returned READY, 0/0/0. T29.0 is drafted; its prospective owner seal is still required before execution.
+> Do not execute this brief. On 2026-11-09 the Product Authority rescoped Sprint 29 around the finalized Paper C manuscript. Cognition and the eight-article corpus are no longer the active specimen. No replacement ticket may be drafted until the exact Paper C research branch/commit and canonical manuscript are pinned and audited.
+
+Historical purpose: earn a local rendered comparison for the opening, primitives/tables, anchors and future-only PDF design, then let the owner choose defaults.
+The independent broad-package review returned READY, 0/0/0; that result remains evidence of coherence, not authority to execute this superseded scope.
 It does **not** depend on implementing the production artifact resolver, migrating all article content or reconciling hosted staging. O1/O2 in the standard must be decided before the persistent licensing/artifact operations they govern; local experiments can display explicitly proposed notices.
 Final placement/fonts/PDF inclusion are experiment questions, not preconditions.
 
