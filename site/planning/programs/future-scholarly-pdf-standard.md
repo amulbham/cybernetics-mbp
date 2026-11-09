@@ -1,7 +1,7 @@
 # Sprint 29 — Prospective publication and reading standard
 
-Status: DRAFT v0.5 / PHASE 1 COMPLETE / READY FOR INDEPENDENT PLAN REVIEW / NOT SEALED
-Updated: 2026-11-06
+Status: DRAFT v0.6 / PLAN REVIEW ACCEPTED / T29.0 DRAFT / NOT IMPLEMENTED OR SEALED
+Updated: 2026-11-09
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Audit baseline: website main fc3cb775aeb104b362426a589d64cbacf9fe9411; staging 3f2b0369169278f6606804dee17749944aee0e32; Planner parent e924a4b89f137afb258a8d32824a3b5e9807f887. The commit containing this file and the review entry point is the package revision.
 This file replaces the earlier future-PDF mini-sprint proposal prospectively. Git history preserves that proposal. It owns design choices; the sprint owns sequence and acceptance.
@@ -219,11 +219,11 @@ Final default adoption awaits owner acceptance. Hosted staging and production re
 
 ## 9. Reviewer packet readiness
 
-**Phase 1 is complete; Phase 2 independent review is ready.** [Review entry point](../audits/sprint-29/README.md) links the package at one website commit and pins research copy.
+**Phase 2 independent plan review is complete: READY, 0 BLOCKER / 0 REQUIRED / 0 OPTIONAL at 59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9.** [Supplied review and disposition](../audits/sprint-29/S29-independent-plan-review.md). [Review entry point](../audits/sprint-29/README.md) links the package at one website commit and pins research copy.
 Source inventories, license/metadata/notices and artifact proposal are complete as planning inputs; O1/O2 remain explicit material owner decisions, not missing audit work.
 The local first specimen needs accepted experiment scope and a ticket after review. It does not need final typography, opening placement, table treatment or PDF-inclusion decisions.
 Reviewer: classify concrete BLOCKER / REQUIRED / OPTIONAL findings; examine custody, licensing scope, candidate semantics, fixed-copy fidelity, table/anchor tests and proportionality.
-Reconcile BLOCKER/REQUIRED corrections once, then develop only the first earned ticket. No ticket is drafted or sealed in this package.
+No corrections were required by the accepted plan review. [T29.0](../tickets/T29.0-local-publication-specimens.md) is now drafted and Planner-checked; owner review/seal precedes execution. O1/O2 remain pending for their dependent work; no production/default-adoption authorization follows.
 
 ## 10. External guidance and evidence limits
 - Google Scholar inclusion: https://scholar.google.com/intl/en/scholar/inclusion.html — consulted 2026-11-05 for title/author placement and searchable PDFs; biography not an inclusion requirement. Actual indexing is external and not guaranteed.

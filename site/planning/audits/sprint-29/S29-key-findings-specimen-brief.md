@@ -1,7 +1,7 @@
 # Sprint 29 — bounded first local specimen brief
 
-Updated: 2026-11-06 (America/Los_Angeles)
-Status: REVIEW-READY EXPERIMENT SCOPE — not an executor ticket or seal
+Updated: 2026-11-09 (America/Los_Angeles)
+Status: PLAN SCOPE REVIEWED READY at 59d702f — [T29.0 draft](../../tickets/T29.0-local-publication-specimens.md) owns the proposed execution delta; no seal yet
 Proposed mode: SPIKE · proposed risk: R2 · local/nonpublication only
 Inherits: [sprint roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md), [standard/decision register](../../programs/future-scholarly-pdf-standard.md).
 Fixed research package: f17779eff0d47f88bac8d7031df552c9ff000b46.
@@ -11,7 +11,7 @@ Fixed research package: f17779eff0d47f88bac8d7031df552c9ff000b46.
 ## Purpose and dependency
 
 Earn a local rendered comparison for the opening, primitives/tables, anchors and future-only PDF design, then let the owner choose defaults.
-This scope may become the first earned ticket only after independent sprint review and prospective seal.
+The independent sprint review returned READY, 0/0/0. T29.0 is drafted; its prospective owner seal is still required before execution.
 It does **not** depend on implementing the production artifact resolver, migrating all article content or reconciling hosted staging. O1/O2 in the standard must be decided before the persistent licensing/artifact operations they govern; local experiments can display explicitly proposed notices.
 Final placement/fonts/PDF inclusion are experiment questions, not preconditions.
 

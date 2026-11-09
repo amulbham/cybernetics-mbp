@@ -1,16 +1,18 @@
 # Sprint 29 — independent planning review
 
-Status: PHASE 1 COMPLETE · PHASE 2 READY FOR REVIEW · no executor ticket/seal
-Date: 2026-11-06 (America/Los_Angeles)
-Intent: independently review the complete publication-standards/reading-experience plan before ticket development.
-**Pin the website commit that contains this entry point.** All relative links below belong to that one review snapshot; do not substitute moving main/staging/branch HEADs while reviewing.
-Website parent audited: e924a4b89f137afb258a8d32824a3b5e9807f887. Final review commit is supplied in the handoff URL; a file does not embed its own commit hash.
+Status: PLAN REVIEW ACCEPTED · PHASE 3 · T29.0 DRAFT / OWNER SEAL PENDING
+Updated: 2026-11-09 (America/Los_Angeles)
+Intent: track accepted plan review and the first local specimen ticket. Independent review of 59d702f returned READY, 0 BLOCKER / 0 REQUIRED / 0 OPTIONAL; [record and disposition](S29-independent-plan-review.md).
+Accepted plan snapshot: **59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9**. This later checkpoint records the supplied review and first ticket draft; it is not a new independent review or an execution seal.
+Current next action: owner reviews/seals [T29.0](../../tickets/T29.0-local-publication-specimens.md), then Claude Code produces the local comparisons. Pin the relevant ticket/seal commit in that handoff.
 Research authoring/copy input is fixed separately at **f17779eff0d47f88bac8d7031df552c9ff000b46**. No research changes in this phase.
 
 ## Read in order
 
 | Document at this website review commit | Owns |
 | --- | --- |
+| [Review report/disposition](S29-independent-plan-review.md) | Accepted independent plan result and Planner first-ticket check |
+| [T29.0 draft](../../tickets/T29.0-local-publication-specimens.md) | Concrete local SPIKE/R2 contract; no execution before owner seal |
 | [Sprint roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md) | Whole sprint scope, completed Phase 1, phase/gate sequence, acceptance and remaining work |
 | [Prospective standard and decision register](../../programs/future-scholarly-pdf-standard.md) | Approved directions, O1/O2 proposals, exact notices/metadata and artifact-selection matrix |
 | [Bounded Phase 1 source audit](S29-phase-1-source-audit.md) | Evidence, observed mechanisms/limitations, representative cases and evidence limits |
@@ -25,9 +27,9 @@ Pinned research package, same commit for each:
 - [Eight fixed findings payloads and source maps](https://github.com/amulbham/amulbham-research/blob/f17779eff0d47f88bac8d7031df552c9ff000b46/meta/manuscript-authoring/v0.2_Key_Findings_Corpus_Examples.md).
 Do not reopen or rewrite that fixed copy as part of a layout review. Flag a demonstrated integrity issue if one exists, without inventing a new editorial pass.
 
-## Review request
+## Accepted independent review request (history)
 
-Use BLOCKER / REQUIRED / OPTIONAL for concrete defects in this plan. Identify path/section, consequence, smallest necessary correction and the gate it affects.
+The following request was satisfied by the supplied 59d702f review; no repeat whole-plan review is required for this unchanged scope. Use BLOCKER / REQUIRED / OPTIONAL for concrete defects in any material amendment. Identify path/section, consequence, smallest necessary correction and the gate it affects.
 Return:
 1. Overall READY / NOT READY for developing the first bounded local specimen ticket.
 2. Findings by class; do not invent a finding to fill a class.
@@ -62,9 +64,9 @@ After specimens: owner selects visual hierarchy/contact fields, findings placeme
 
 | Work | Status / next gate |
 | --- | --- |
-| Independent review | **CURRENT NEXT ACTION** — obtain report on this exact snapshot |
-| Reconciliation and O1/O2 | Correct BLOCKER/REQUIRED once; record owner choices before their dependent work |
-| First executor ticket | Not drafted; only after accepted review; local SPIKE scope from brief |
+| Independent review | **COMPLETE** — READY, 0/0/0 at 59d702f; owner-supplied report recorded |
+| Reconciliation and O1/O2 | No review corrections required; O1/O2 remain before dependent persistent/hosted work |
+| First executor ticket | **T29.0 DRAFT / Planner check complete / owner seal is next** |
 | Rendered specimens | Not built; local comparisons then owner selection |
 | Production adoption/rollout tickets | Earned from specimen/predecessor outcomes, not pre-created |
 | Artifact handling + hosted staging reconciliation | Not implemented; separate gate; protect Chisel and six archived files |
@@ -73,4 +75,4 @@ After specimens: owner selects visual hierarchy/contact fields, findings placeme
 | Integrated validation | Pending actual candidate, closed preview, targeted negative tests and six-file custody proof |
 | Production and closure | Separate owner authorization, fresh live checks, canonical docs and six PDF hashes |
 
-Reviewer delivery is through the owner/separate chat. No outbound messages, delegated agents or external review request has been sent.
+Review was delivered by the owner in chat. No outbound messages or delegated agents were used. Local examples and all implementation remain unexecuted.

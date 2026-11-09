@@ -1,10 +1,10 @@
 # Sprint 29 — Publication Standards and Reading Experience
 
-Status: AUDITING / PHASE 1 COMPLETE / INDEPENDENT REVIEW READY — NOT SEALED
-Updated: 2026-11-06 (America/Los_Angeles)
-Current phase: **2 of 7 — independent review of the completed planning package**
-Next gate: separate-chat review via [the pinned review entry point](../audits/sprint-29/README.md)
-Ticket state: **No Sprint 29 executor tickets drafted or sealed**
+Status: AUDITING / PLAN REVIEW ACCEPTED / FIRST TICKET DRAFTED — NOT SEALED
+Updated: 2026-11-09 (America/Los_Angeles)
+Current phase: **3 of 7 — first ticket review and prospective seal**
+Next gate: owner review/seal of [T29.0 local specimens](../tickets/T29.0-local-publication-specimens.md); no further Phase 1 audit
+Ticket state: **T29.0 DRAFT / Planner pre-seal check complete / owner seal pending**
 Risk ceiling: R3
 Branch: planner/context for planning; isolated implementation candidates and explicit closed-preview/release gates to be specified after review
 Depends on: Sprint 28 CLOSED; released main fc3cb775aeb104b362426a589d64cbacf9fe9411
@@ -71,8 +71,8 @@ The phase numbers below describe progression, not pre-created ticket IDs. This t
 | Phase | Current status | Work and output | Lead / exit gate |
 | --- | --- | --- | --- |
 | **1. Complete planning inputs** | **COMPLETE** | Fixed-copy package, consolidated guide, bounded audit/inventories, exact license/artifact proposals and local specimen scope. | Review entry point contains all inputs; O1/O2 and visual questions intentionally explicit. |
-| **2. Review the sprint plan** | **READY — CURRENT NEXT ACTION** | Separate reviewer chat examines this roadmap, standard, authoring reference, relevant evidence and experiment boundaries. Reconcile BLOCKER/REQUIRED findings once. | Independent reviewer advises; Amul accepts scope. Exit: pinned plan ready for first tickets. Supplied findings feedback is input, not a full-sprint PASS. |
-| **3. Draft and seal first earned tickets** | NOT STARTED | Draft only the first local SPIKE contract justified by Phase 2; hosted artifact work is a separate later dependency. Pin surfaces, risk, source/branch lease, permitted experiment choices, validation and deployment boundary. | Planner drafts and pre-seal reviews; Amul seals. Exit: Claude Code has an executable first assignment. Dependent tickets wait for predecessor evidence. |
+| **2. Review the sprint plan** | **COMPLETE** | Owner supplied independent review of 59d702f: READY, 0 BLOCKER / 0 REQUIRED / 0 OPTIONAL. [Review/disposition](../audits/sprint-29/S29-independent-plan-review.md). | Scope accepted for drafting local specimens; O1/O2 remain gated. |
+| **3. Draft and seal first earned tickets** | **T29.0 DRAFT — CURRENT** | First local SPIKE/R2 contract drafted from the accepted brief; tracked writes restricted to experiments folder and exact ticket/report. | Planner pre-seal check complete; owner seal precedes Claude Code execution. |
 | **4. Build and accept specimens** | NOT STARTED | Use isolated nondeployable output for openings, five primitives, representative T/A cases and two paper PDF variants. No hosted-reconciliation prerequisite. Compare before/after abstract, mobile reading and PDF inclusion using fixed approved wording. | Claude Code executes one sealed ticket at a time; Planner checks evidence; Amul accepts selected examples. Exit: tested design decisions, or explicit rejection/remaining issue. |
 | **5. Implement accepted standards and rollout** | NOT STARTED | Draft/seal each next ticket from accepted examples; implement shared rendering/intake, future-PDF defaults, CC BY 4.0, mobile anchors, approved legacy HTML summaries and remaining staging reconciliation. | Claude Code implements; Planner reconciles. Exit: complete candidate and canonical-doc updates ready for integrated validation. Routine within-seal fixes need no new product decision. |
 | **6. Validate complete candidate** | NOT STARTED | Verify corpus/mobile/desktop/accessibility behavior, metadata/license/artifact semantics, future-PDF extraction/pagination and six historical PDF hashes in the actual upload package; verify closed preview as authorized. | Planner reviews trusted validator/CI evidence and delta-specific checks. Exit: accepted exact candidate, resolved required findings and owner preview acceptance. |
@@ -107,10 +107,10 @@ Flag any missing summary for editorial completion; no current article has a plan
 - **COMPLETE:** license map, exact notices/metadata and explicit O1 proposal.
 - **COMPLETE:** published/candidate/Chisel policy, explicit O2 and independent local/hosted boundaries.
 - **COMPLETE:** bounded first local specimen scope and [single review entry point](../audits/sprint-29/README.md), source inventories and decision register.
-- **NEXT:** independent review on the exact package commit; reconcile BLOCKER/REQUIRED and record material owner choices before dependent implementation.
-- **AFTER REVIEW:** first local ticket/seal → rendered comparisons → owner design acceptance → earned adoption/artifact/rollout tickets → integrated closed preview → separately authorized production and closure.
+- **REVIEW COMPLETE:** independent plan review of 59d702f is READY, 0/0/0, owner supplied 2026-11-09. No required correction or new Phase 1 audit.
+- **CURRENT NEXT GATE:** review/seal T29.0 → local comparisons → owner design acceptance → earned adoption/artifact/rollout tickets → integrated closed preview → separately authorized production and closure.
 
-No executor tickets drafted/sealed. Copy readiness is not adoption: all eight pages must receive one component during the later rollout, with no silent exclusion.
+T29.0 is drafted and Planner-checked; no ticket sealed or executed. Copy readiness is not adoption: all eight pages must receive one component during the later rollout, with no silent exclusion.
 Remaining tasks/gates are tracked in the review README and phase roadmap.
 
 ### Documentation map and update cadence
