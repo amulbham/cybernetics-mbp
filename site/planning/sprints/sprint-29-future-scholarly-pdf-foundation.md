@@ -1,9 +1,9 @@
 # Sprint 29 — Paper C forward-publication vertical slice
 
-Status: G29-B CLOSED FOR LOCAL DRAFTING / T29.1 DRAFT / NOT SEALED
+Status: T29.1 SEALED / LOCAL EXECUTION AUTHORIZED / PRODUCTION NOT AUTHORIZED
 Updated: 2026-11-10 (America/Los_Angeles)
 Current phase: **2 of 7 — local specimen contract review**
-Next gate: owner review of [T29.1 local specimens](../tickets/T29.1-paper-c-local-specimens.md), including its exact mechanical projection map; prospective seal remains required before execution. G29-B is closed for local drafting, not release.
+Next gate: execute sealed T29.1 locally; return saved specimens/evidence for owner treatment review. Owner DOI input/status is recorded in decision register §10.
 Risk ceiling: R3
 Branch: `planner/context` for planning; later implementation candidates require isolated branches and earned sealed contracts
 Depends on: Sprint 28 CLOSED; website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`; accepted broad S29 planning package `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`
@@ -82,7 +82,7 @@ These items remain discoverable in the accepted `59d702f…` program package and
 | --- | --- | --- |
 | **0. Broad planning evidence** | **COMPLETE / HISTORICAL** | Phase 1 package and independent review at `59d702f…`; useful evidence retained, broad execution scope superseded. |
 | **1. Pin and audit Paper C** | **COMPLETE FOR LOCAL DRAFTING** | v4.6 pin/delta verified; findings and note copy supplied; exact projection map documented. Persistent metadata/release inputs stay gated. |
-| **2. Render bounded local candidates** | **T29.1 DRAFT — CURRENT; execution not started** | Exact-source HTML opening/full-page and PDF treatment experiments in nondeployable output. Settle identity, typography, Key findings placement/inclusion, CC BY notice and Paper C tables/figures/references/links/extraction/pagination from rendered evidence. Exit: owner selects a treatment; no publication claim. |
+| **2. Render bounded local candidates** | **T29.1 SEALED — CURRENT; execution authorized** | Exact-source HTML opening/full-page and PDF treatment experiments in nondeployable output. Settle identity, typography, Key findings placement/inclusion, CC BY notice and Paper C tables/figures/references/links/extraction/pagination from rendered evidence. Exit: owner selects a treatment; no publication claim. |
 | **3. Implement reusable selected-paper path** | NOT STARTED | Apply accepted treatment in shared code and add an explicit selected-paper generation/candidate-output path with no paper-specific styling patch. Extend intake/facts checks as earned. Exit: passing local implementation and a newly generated exact Paper C release candidate. |
 | **4. Approve artifact and custody semantics** | NOT STARTED | Validate exact candidate bytes, metadata and render manifest; implement minimum candidate/published resolver/install semantics and negative tests. Exit: owner approves one exact hash and release facts; missing/mismatch/fallback cases fail closed. |
 | **5. Validate closed hosted candidate** | NOT STARTED | Prepare a selective closed-indexing hosted candidate from the accepted tree without absorbing staging-only work; prove six frozen PDFs plus isolated Paper C candidate behavior. Exit: preview evidence and owner acceptance. |

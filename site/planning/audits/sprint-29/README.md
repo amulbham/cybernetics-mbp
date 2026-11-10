@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: v4.6 VERIFIED / G29-B CLOSED FOR LOCAL DRAFTING / T29.1 DRAFT
+Status: T29.1 SEALED / LOCAL EXECUTION AUTHORIZED
 Updated: 2026-11-10 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: owner review of [T29.1 local HTML/PDF specimens](../../tickets/T29.1-paper-c-local-specimens.md), then explicit prospective seal before execution. [Audit §9](S29-paper-c-source-intake-audit.md#9-v46-focused-re-pin-and-g29-b-disposition--2026-11-10) owns the verified source/delta and exact projection map.
+Exact next gate: sealed T29.1 local execution, then owner specimen review. DOI input is bounded to provenance/labeled intended-header design until authoritative status/version verification.
 
 ## What changed
 

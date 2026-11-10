@@ -1,9 +1,11 @@
 # Planner state — research website
 
 Snapshot: **2026-11-10** (America/Los_Angeles).
-Primary intent: **Sprint 29: v4.6 verified; G29-B closed for local drafting. T29.1 SPIKE/R2 is DRAFT for owner review and prospective seal. Exact PDF author-note copy approved; placement and treatment await specimens.**
+Primary intent: **Execute SEALED T29.1 locally after owner approval of b1ae19c and bounded DOI input. Return saved HTML/PDF specimens; no permanent adoption or deployment.**
 
 ## Resume — active gate
+
+- **2026-11-10 CURRENT — T29.1 SEALED / local execution authorized.** Owner approves contract at b1ae19c plus bounded DOI `10.5281/zenodo.24120333`, registration/version identity UNVERIFIED. Capture provenance and optionally labeled intended-header design; never published metadata. Exact v4.6 source and approved note preserved. Execute isolated local work; no app edits, legacy generation, staging/main/deploy/publication. Full primary-source claim audit OPEN. Seal commit is the execution input; old draft/next-seal entries below are historical.
 
 - **2026-11-10 CURRENT — v4.6 VERIFIED / G29-B CLOSED for local drafting / T29.1 DRAFT.** Research `78c034102e5efcc5f1e0f935ec89181056bf3a94`, blob `9134e9294f49cb71408bae4f5264ab1afc02208b`, canonical v4.6 path verified against unchanged v4.5. Exact reverse reconstruction passes: four findings inserted, three primitive edits, two edition labels only. 25 anchors/order, 16 tables, 55 references, appendices preserved; findings after Abstract/Keywords. [Audit §9](../site/planning/audits/sprint-29/S29-paper-c-source-intake-audit.md#9-v46-focused-re-pin-and-g29-b-disposition--2026-11-10) owns current source and exact bio boundary L915–919; [T29.1 draft](../site/planning/tickets/T29.1-paper-c-local-specimens.md) owns proposed local projection and experiments. PDF template paragraph with AI systems architecture is approved; canonical linked ORCID; website note independent. Persistent URL/category/listing copy/date/DOI remain later gates; full primary-source claim audit OPEN. **Next: owner ticket review, then explicit seal before execution.** No PDF/build/deploy/research change; main/staging unchanged.
 

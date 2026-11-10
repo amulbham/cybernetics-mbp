@@ -1,6 +1,6 @@
 # Sprint 29 — Paper C forward-publication decision register
 
-Status: DRAFT v0.10 / v4.6 VERIFIED / G29-B CLOSED FOR LOCAL DRAFTING / NOT IMPLEMENTED
+Status: T29.1 SEALED FOR LOCAL EXECUTION / DOI OWNER-SUPPLIED, STATUS UNVERIFIED
 Updated: 2026-11-10 (America/Los_Angeles)
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Product baseline: website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`
@@ -187,3 +187,9 @@ A future sprint may inherit these exact records without repeating the Phase 1 au
 The broad package review at `59d702f…` remains accepted evidence. Its recommendation to execute the Cognition-centered T29.0 draft is superseded by owner rescope; the draft was never sealed.
 
 **G29-B CLOSED for local specimen drafting.** [Audit §9](../audits/sprint-29/S29-paper-c-source-intake-audit.md#9-v46-focused-re-pin-and-g29-b-disposition--2026-11-10) verifies the approved v4.6 source/delta, exact bio exclusion and approved template copy. [T29.1](../tickets/T29.1-paper-c-local-specimens.md) is DRAFT for owner review; its concrete projection map becomes authorized only at prospective seal. No executor action yet. Permanent category/slug/listing copy/date/DOI are deferred to persistent intake/release, not fabricated in local specimens. The upstream full primary-source claim audit remains open and unwaived.
+
+## 10. Owner DOI input and T29.1 execution authorization — 2026-11-10
+
+Paper C DOI supplied by owner: `10.5281/zenodo.24120333`; URL https://doi.org/10.5281/zenodo.24120333. Registration, public resolution, version-versus-concept record identity and final-artifact association are UNVERIFIED. Failed/blocked retrieval is not proof of nonregistration. Before permanent adoption inspect authoritative Zenodo/DataCite/DOI evidence and reconcile the intended edition. Eventual released masthead, scholarly schema/Highwire and PDF front matter must display the verified applicable DOI. Local T29.1 may carry it in provenance and a clearly labeled intended-header specimen only; no premature published metadata/canonical citation/PDF-release claim.
+
+Owner explicitly accepts b1ae19c T29.1 and its source projection, author-note copy, two findings treatments and negatives; authorizes prospective seal then isolated local execution. No permanent default/application change, staging/main/deploy or publication authority. The research claim audit remains OPEN. Earlier DRAFT/next-seal statements above are historical and superseded by this authorization.
