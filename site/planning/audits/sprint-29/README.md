@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: SOURCE PIN VERIFIED / SOURCE AUDIT COMPLETE WITH OPEN INPUTS / NO ACTIVE EXECUTOR TICKET
+Status: v4.6 VERIFIED / G29-B CLOSED FOR LOCAL DRAFTING / T29.1 DRAFT
 Updated: 2026-11-10 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: **G29-B SOURCE COMPLETION / PROJECTION** — provide approved manuscript-owned Key findings in a new pinned research revision and accept/correct the proposed clean projection. [Paper C audit](S29-paper-c-source-intake-audit.md) records the verified pin and grouped choices.
+Exact next gate: owner review of [T29.1 local HTML/PDF specimens](../../tickets/T29.1-paper-c-local-specimens.md), then explicit prospective seal before execution. [Audit §9](S29-paper-c-source-intake-audit.md#9-v46-focused-re-pin-and-g29-b-disposition--2026-11-10) owns the verified source/delta and exact projection map.
 
 ## What changed
 
@@ -19,7 +19,8 @@ This rescope does not invalidate the completed Phase 1 source/table/anchor/licen
 | --- | --- |
 | [Rescoped Sprint 29 roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md) | Active scope, phases, acceptance, exclusions and exact next gate |
 | [Paper C decision register](../../programs/future-scholarly-pdf-standard.md) | Active identity/license/candidate/custody decisions and unknowns |
-| [Paper C source audit](S29-paper-c-source-intake-audit.md) | Verified source lineage, starting-state matrix, 16 table cases, missing inputs and proposed projection |
+| [Paper C source audit §9](S29-paper-c-source-intake-audit.md#9-v46-focused-re-pin-and-g29-b-disposition--2026-11-10) | Current v4.6 pin/delta, findings/anchors/tables/refs and validated biography boundaries; earlier sections are history |
+| [T29.1 draft](../../tickets/T29.1-paper-c-local-specimens.md) | Bounded local SPIKE/R2; owner review/seal pending |
 | [Phase 1 source audit](S29-phase-1-source-audit.md) | Retained evidence for current/future work within its stated source-only limits |
 | [Source inventory](S29-source-inventory.tsv) | Pinned inspected baseline |
 | [Table inventory](S29-table-inventory.tsv) | Forty-table corpus evidence, deferred except Paper C-specific needs |
@@ -69,7 +70,7 @@ The owner's rescope resolves the broad O1/O2 questions only for this slice:
 
 Remaining owner choices are source- or evidence-specific: missing publication facts from the final manuscript, visual/PDF treatment, exact candidate hash, hosted preview acceptance and production release tuple.
 
-Owner biography refinement (2026-11-10): retain one slim PDF template, exclude the authored manuscript bio through explicit validated boundaries, preserve research originals and keep website biography independently editable. Exact PDF note wording/placement are local specimen choices. This supersedes prior no-closing-bio planning; [audit amendment](S29-paper-c-source-intake-audit.md#8-owner-biography-policy-amendment--2026-11-10) records the disposition.
+Owner biography refinement (2026-11-10): retain one slim PDF template, exclude the authored manuscript bio through explicit validated boundaries, preserve research originals and keep website biography independently editable. Exact PDF note wording is now approved in the decision register; typography/placement are local specimen choices. This supersedes prior no-closing-bio planning; [audit amendment](S29-paper-c-source-intake-audit.md#8-owner-biography-policy-amendment--2026-11-10) records the disposition.
 
 ## Gate sequence
 
@@ -77,9 +78,9 @@ Owner biography refinement (2026-11-10): retain one slim PDF template, exclude t
 | --- | --- |
 | Broad Phase 1 package/review | **COMPLETE / historical evidence retained** |
 | G29-A exact Paper C source pin | **COMPLETE** — 15ac4976 manuscript; supplied blob and direct-child branch HEAD verified |
-| Paper C source/publication audit | **COMPLETE with open inputs** — Key findings/new pin pending; biography policy resolved under refined PC3; remaining projection inputs still gated |
-| G29-B findings / projection | **CURRENT** — upstream approved findings/new pin; grouped projection choice |
-| First executor contract | Not drafted; source completion and focused delta check precede draft |
+| Paper C source/publication audit | **COMPLETE for local drafting** — v4.6 supplied findings and preserves all source inventories |
+| G29-B findings / projection | **CLOSED for local drafting** — note copy fixed, exact boundary map recorded; map reviewed with ticket |
+| First executor contract | **T29.1 DRAFT / NOT SEALED** — no execution authority |
 | Local candidates and owner treatment selection | Not started |
 | Reusable implementation/custody | Not started |
 | Closed hosted candidate | Not authorized |
@@ -103,4 +104,6 @@ Classify concrete findings as BLOCKER / REQUIRED / OPTIONAL. Final typography an
 
 ## Evidence limits
 
-Paper C source pin and starting-state audit are complete. One isolated in-memory citation-transform probe demonstrated the year-suffix linking defect. No full build, PDF render, browser test, candidate artifact, hosted preview, deployment or release occurred. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.
+Paper C v4.6 re-pin and focused reverse-reconstruction/source inventories pass. In-memory transform probes demonstrate findings wrapper shape compatibility and the previously recorded year-suffix citation defect; no full Markdown/Astro render has occurred. No full build, PDF render, browser test, candidate artifact, hosted preview, deployment or release occurred. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.
+
+Planner pre-seal document check: T29.1 has one mode (SPIKE), risk R2, 106 physical body lines (cap 250), report cap 50, pinned sources and explicit output/branch/authority boundaries. No BLOCKER or REQUIRED defect found in this check. This is a Planner contract review, not an independent review or an owner seal.

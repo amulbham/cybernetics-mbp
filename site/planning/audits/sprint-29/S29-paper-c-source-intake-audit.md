@@ -2,12 +2,12 @@
 
 Date: 2026-11-10 (America/Los_Angeles)
 Mode: AUDIT — Planner source inspection and one isolated citation-transform probe
-Disposition: **SOURCE PIN VERIFIED / SOURCE AUDIT COMPLETE / NOT READY for specimen ticket**
-Blocking input: author-approved Key findings are absent from the supplied manuscript.
+Disposition: **v4.6 VERIFIED / G29-B CLOSED FOR LOCAL DRAFTING — see §9; earlier dispositions retained as history**
+Historical v4.5 finding: Key findings were absent. The v4.6 pin in §9 resolves that input.
 Inherits: Sprint 29 roadmap and decision register @ e49e868d17e9aa0db6156d19f2b87718c1335d9b.
-No executor ticket is created or sealed by this record.
+This audit supports DRAFT T29.1 for owner review; no executor seal or execution is authorized.
 
-Current disposition update: the owner's 2026-11-10 biography refinement in §8 supersedes the initial biography proposal in §4. The observed source findings below remain historical evidence; Key findings/new source pin and remaining G29-B projection inputs are still pending.
+Current disposition: §9 supersedes earlier source readiness/gate statements. §8 retains the owner biography policy; §9 records approved template copy, v4.6 findings and concrete boundaries. Observed v4.5 findings remain historical evidence.
 
 ## 1. Source authority and lineage
 
@@ -157,3 +157,62 @@ This amendment supersedes the earlier no-generated-closing-biography direction a
 G29-B remains open: author-approved Key findings plus new immutable source pin and remaining clean-projection inputs. The owner will obtain findings from the research editor, preserving v4.5. Do not draft or seal an executor ticket until those inputs are resolved. Template wording/placement remain experiment outputs, not new pre-experiment gates.
 
 Planning-only amendment; no research changes, PDF generation, runtime changes or deployment.
+
+## 9. v4.6 focused re-pin and G29-B disposition — 2026-11-10
+
+**Current source authority:** research `papers/cybernetics-bridge-v4-3-p1-editorial @ 78c034102e5efcc5f1e0f935ec89181056bf3a94`, canonical `papers/cybernetics-bridge/assets/v4.6_Cybernetics_Bridge_Publication_Manuscript.md`, blob `9134e9294f49cb71408bae4f5264ab1afc02208b`.
+
+Remote branch equals that commit; its parent is `11a8dfab31f9a78f25089113091d93edffacc4e2`. STATE designates v4.6 as editorial intake authority. The preserved v4.5 file at this commit still has blob `ac81e330834d2586b3c122e99c3fd3f31d0e76b3` and identical text to the earlier immutable pin.
+
+### Focused delta proof
+
+Removing the seven inserted findings lines, reversing the three approved primitive substitutions and the two edition substitutions reconstructs the entire v4.5 source exactly. No other manuscript change is detected.
+
+| Surface | Verified v4.6 result |
+| --- | --- |
+| Findings | Exactly one heading L26; four approved bullets L28–31 after Abstract/Keywords and before §1 L35; “targeted interventions” present |
+| Findings wording | Exact match to approved checkpoint; 96 words counting each whitespace-delimited bullet payload, excluding Markdown markers |
+| Primitive edits | L53 body refined; L372 label changed Key idea → Counterpoint, body unchanged; L506 body refined |
+| Primitive inventory | 25 unique anchors, same IDs/order; 8 Definitions, 7 Key ideas, 3 Evidence, 5 Counterpoints, 2 Implications |
+| Tables | All 16 exact Markdown tables unchanged; earlier case/header lines shift +7; Appendix A table now L835 |
+| References | References section byte-identical, 55 sequential entries; heading now L719 |
+| Appendices | A/B/C content unchanged; headings now L831/851/894 |
+| Abstract/Keywords | L14–24 unchanged |
+| Biography | Authored section unchanged at L915–919 |
+| Edition | Exactly two source edition replacements, v4.5 → v4.6; month, identity, license and series preserved |
+
+The existing heading/list wrapper was exercised in-memory with a synthetic HAST carrying these four exact bullet payloads: one key-findings section contained the heading/list; following separator and §1 heading survived. This demonstrates transform shape compatibility, not full Markdown/Astro rendering, extraction or TOC behavior. The specimen must prove those on actual output.
+
+### Validated source boundary map for the proposed local contract
+
+- L1 title / L2 subtitle: extract exact words into the specimen shell; do not retain a second body title/subtitle.
+- L4–8 offline identity/topics/contact/edition/license: consume as source metadata; minimal opening uses canonical name/role/linked ORCID; November 2026 / v4.6 are source-edition facts, not a publication day.
+- L10 series/companions: preserve once, exactly; no automatic DOI changes to references.
+- L14–911 public article: retain Abstract/Keywords, findings, main text, References and Appendices A–C. No substantive content is dropped or rewritten.
+- L913 separator precedes the authored biography; L915 heading, L917 paragraph and L919 contact line define the exclusion. Validate the full expected block and neighboring Appendix C tail plus following separator. Exclude only L915–919 from both projections; do not truncate everything after a matched heading.
+- L921 separator and L923 footer remain outside that exclusion. Consume footer as shell/edition metadata and retain every unique edition fact once; removable separators are named mechanical chrome, not lost prose.
+- Preserve original research files. Reject missing/duplicate/moved/changed biography matches rather than guessing. Derive byte ranges/content hashes at execution against the pinned source; line anchors are corroboration, not a universal extractor.
+
+The owner has approved excluding the authored biography and using separate PDF/HTML templates. Other mechanical projection details above are now concrete for review within the local ticket; owner seal will authorize them. Permanent URL/category/description/excerpt/date/DOI decisions are deferred to persistent intake/release and do not require invented values in the standalone local specimen.
+
+### Approved PDF author-note copy
+
+Heading: **About the Author**
+
+Amul Bham is a systems researcher working across cybernetics, self-organizing systems, AI systems architecture, and cognition.
+
+ORCID: [orcid.org/0009-0009-7660-4031](https://orcid.org/0009-0009-7660-4031)
+
+Use the canonical shared ORCID identifier, not literal placeholder text. This exact prose is now approved template copy; only typography/placement remain specimen choices. PDF copy is independent of website AUTHOR.bio, recorded with render inputs and frozen with the accepted artifact. HTML retains the existing website AuthorNote/About; neither projection duplicates the research biography.
+
+### Gate and remaining decisions
+
+**G29-B CLOSED for local specimen contract drafting:** approved findings/new pin verified; biography policy/copy supplied; source boundaries unambiguous and mapped. This does not approve implementation, permanent metadata, a PDF artifact or publication.
+
+Next: owner reviews the DRAFT T29.1 local SPIKE/R2 contract, including this mechanical projection map, then explicitly seals before execution. The discarded T29.0 remains superseded.
+
+Remaining local evidence decisions: typography, complete opening hierarchy, PDF findings inclusion, table width/page treatment, PDF note placement and pagination. Authored findings remain after Abstract/Keywords on web; print may compare inclusion versus web-only.
+Remaining persistent/release decisions: canonical slug/category and listing copy; exact publication date; Paper C DOI/deposit/version plan; exact artifact hash; hosted preview and production approvals.
+Full primary-text source-to-claim audit remains explicitly open for separate research-side disposition before publication. This website pass neither completes nor waives it.
+
+No PDF render, full build, browser QA, live hash verification, research edit, deployment or publication occurred in this focused review.

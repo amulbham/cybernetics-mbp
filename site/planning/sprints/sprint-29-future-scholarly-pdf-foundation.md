@@ -1,9 +1,9 @@
 # Sprint 29 — Paper C forward-publication vertical slice
 
-Status: SOURCE PIN VERIFIED / INTAKE AUDIT COMPLETE WITH OPEN INPUTS / NO ACTIVE EXECUTOR TICKET
+Status: G29-B CLOSED FOR LOCAL DRAFTING / T29.1 DRAFT / NOT SEALED
 Updated: 2026-11-10 (America/Los_Angeles)
-Current phase: **1 of 7 — source pin and intake audit**
-Next gate: **G29-B SOURCE COMPLETION / PROJECTION** — author-approved Key findings in a new pinned research revision, plus acceptance/correction of the clean projection proposed in the [Paper C source audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md). G29-A source pin is complete.
+Current phase: **2 of 7 — local specimen contract review**
+Next gate: owner review of [T29.1 local specimens](../tickets/T29.1-paper-c-local-specimens.md), including its exact mechanical projection map; prospective seal remains required before execution. G29-B is closed for local drafting, not release.
 Risk ceiling: R3
 Branch: `planner/context` for planning; later implementation candidates require isolated branches and earned sealed contracts
 Depends on: Sprint 28 CLOSED; website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`; accepted broad S29 planning package `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`
@@ -30,7 +30,7 @@ The target exit is Paper C production-verified as the seventh protected publishe
 
 ## Paper C starting-state audit
 
-The supplied v4.5 pin is verified: manuscript commit `15ac4976e7076dbb88b2c4e6ef5798571051ec3e`, blob `ac81e330834d2586b3c122e99c3fd3f31d0e76b3`; research HEAD `11a8dfab31f9a78f25089113091d93edffacc4e2` is its direct child and preserves that manuscript. [Completed starting-state audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) owns the source matrix and table cases. Missing Key findings and the remaining clean-projection inputs prevent ticket readiness. The owner has now approved excluding the manuscript biography by explicit validated boundaries and replacing it with a separate slim PDF template; exact template wording/placement await local specimens. The audit covers:
+Current source: v4.6 at research commit `78c034102e5efcc5f1e0f935ec89181056bf3a94`, blob `9134e9294f49cb71408bae4f5264ab1afc02208b`, on `papers/cybernetics-bridge-v4-3-p1-editorial`. [Audit §9](../audits/sprint-29/S29-paper-c-source-intake-audit.md#9-v46-focused-re-pin-and-g29-b-disposition--2026-11-10) verifies the bounded delta, unchanged v4.5, four findings, 25 anchors, 16 tables and 55 references. G29-B is complete for drafting local experiments. Approved PDF note copy is fixed; placement/type treatment remain experiments. Permanent metadata remains a later gate.
 
 | Input | Audit requirement |
 | --- | --- |
@@ -47,7 +47,7 @@ The audit compares the exact source with current website intake/PDF capabilities
 
 ## Hard constraints
 
-- Owner refinement, 2026-11-10: future PDFs retain one slim standardized author note, with wording and placement selected during local specimen review. Its template/copy is independent of website AuthorNote/About; website edits never trigger regeneration of released PDFs. Record the template revision/approved text with the render inputs and freeze it in the accepted artifact.
+- Owner refinement, 2026-11-10: future PDFs retain one slim standardized author note, with approved wording recorded in the decision register and placement selected during local specimen review. Its template/copy is independent of website AuthorNote/About; website edits never trigger regeneration of released PDFs. Record the template revision/approved text with the render inputs and freeze it in the accepted artifact.
 - Intake recognizes and excludes the manuscript's authored About the Author block from both publication projections using source-specific, explicit validated boundaries. Preserve original research manuscripts/history; ambiguous or duplicate blocks stop the affected projection. The PDF receives its approved slim template and HTML keeps its independently editable website biography. This supersedes the earlier no-closing-PDF-biography direction.
 
 - The six existing production PDF path/hash pairs remain byte-identical throughout local, hosted and production work. They are never regenerated, rewritten or replaced.
@@ -81,8 +81,8 @@ These items remain discoverable in the accepted `59d702f…` program package and
 | Phase | Status | Output and exit gate |
 | --- | --- | --- |
 | **0. Broad planning evidence** | **COMPLETE / HISTORICAL** | Phase 1 package and independent review at `59d702f…`; useful evidence retained, broad execution scope superseded. |
-| **1. Pin and audit Paper C** | **SOURCE VERIFIED / INPUTS OPEN — CURRENT** | G29-A complete; source audit recorded. G29-B requires upstream approved findings/new pin and explicit projection acceptance; metadata/release gates remain proportionate to their dependent phase. |
-| **2. Render bounded local candidates** | NOT STARTED | Exact-source HTML opening/full-page and PDF treatment experiments in nondeployable output. Settle identity, typography, Key findings placement/inclusion, CC BY notice and Paper C tables/figures/references/links/extraction/pagination from rendered evidence. Exit: owner selects a treatment; no publication claim. |
+| **1. Pin and audit Paper C** | **COMPLETE FOR LOCAL DRAFTING** | v4.6 pin/delta verified; findings and note copy supplied; exact projection map documented. Persistent metadata/release inputs stay gated. |
+| **2. Render bounded local candidates** | **T29.1 DRAFT — CURRENT; execution not started** | Exact-source HTML opening/full-page and PDF treatment experiments in nondeployable output. Settle identity, typography, Key findings placement/inclusion, CC BY notice and Paper C tables/figures/references/links/extraction/pagination from rendered evidence. Exit: owner selects a treatment; no publication claim. |
 | **3. Implement reusable selected-paper path** | NOT STARTED | Apply accepted treatment in shared code and add an explicit selected-paper generation/candidate-output path with no paper-specific styling patch. Extend intake/facts checks as earned. Exit: passing local implementation and a newly generated exact Paper C release candidate. |
 | **4. Approve artifact and custody semantics** | NOT STARTED | Validate exact candidate bytes, metadata and render manifest; implement minimum candidate/published resolver/install semantics and negative tests. Exit: owner approves one exact hash and release facts; missing/mismatch/fallback cases fail closed. |
 | **5. Validate closed hosted candidate** | NOT STARTED | Prepare a selective closed-indexing hosted candidate from the accepted tree without absorbing staging-only work; prove six frozen PDFs plus isolated Paper C candidate behavior. Exit: preview evidence and owner acceptance. |
@@ -93,7 +93,7 @@ Phase numbers describe gates, not pre-created ticket IDs. Tickets are drafted on
 
 ## Evidence-earned ticket strategy
 
-- No active executor ticket exists at this checkpoint.
+- [T29.1 local specimen contract](../tickets/T29.1-paper-c-local-specimens.md) is DRAFT / NOT SEALED. Owner reviews the concrete projection/experiments before prospective execution authority.
 - After the source audit is accepted, draft the smallest local specimen/intake contract justified by the real manuscript. Do not reuse the superseded Cognition contract by substitution.
 - Decide after local evidence whether reusable generation and custody fit one R3 implementation ticket or require separate contracts.
 - Hosted validation and production release remain separate exact-candidate gates even if prior phases pass.
