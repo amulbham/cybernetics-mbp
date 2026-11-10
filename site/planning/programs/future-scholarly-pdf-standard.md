@@ -1,7 +1,7 @@
 # Sprint 29 — Paper C forward-publication decision register
 
-Status: RESCOPED DRAFT v0.7 / SOURCE PIN PENDING / NOT IMPLEMENTED
-Updated: 2026-11-09 (America/Los_Angeles)
+Status: DRAFT v0.8 / SOURCE PIN VERIFIED / SOURCE COMPLETION PENDING / NOT IMPLEMENTED
+Updated: 2026-11-10 (America/Los_Angeles)
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Product baseline: website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`
 Historical program baseline: accepted package `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`
@@ -41,8 +41,8 @@ No additional broad O1/O2 approval is required for the Paper C slice. Remaining 
 
 | ID | Unknown | Resolution gate |
 | --- | --- | --- |
-| S1 | Exact final research branch, commit, manuscript path and source hash | G29-A SOURCE PIN; blocks all executor ticket drafting |
-| S2 | Final title/subtitle/abstract/Key findings/declarations and exact tables/figures/references | Planner source audit after S1 |
+| S1 | VERIFIED: manuscript 15ac4976e7076dbb88b2c4e6ef5798571051ec3e / blob ac81e330834d2586b3c122e99c3fd3f31d0e76b3; HEAD 11a8dfab is its direct child, same manuscript | G29-A COMPLETE; [audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) owns full paths/provenance |
+| S2 | Audited: 25 primitives, 16 tables, 55 references, no image assets. Key findings absent; authored biography retained in source | G29-B: upstream approved findings/new pin plus clean projection acceptance; blocks first ticket |
 | M1 | Slug/category/description/excerpt, publication date and DOI/version facts | Source audit; missing facts become explicit owner decisions, not generated defaults |
 | R1 | Third-party asset/rightsholder constraints compatible with Paper C CC BY notice | Source/asset audit before specimen acceptance |
 | V1 | Exact type hierarchy, findings PDF inclusion/placement and page treatment | Local rendered evidence and owner selection |
@@ -172,4 +172,4 @@ A future sprint may inherit these exact records without repeating the Phase 1 au
 
 The broad package review at `59d702f…` remains accepted evidence. Its recommendation to execute the Cognition-centered T29.0 draft is superseded by owner rescope; the draft was never sealed.
 
-**Exact next gate: G29-A SOURCE PIN.** Supply the Paper C research branch, full commit SHA and canonical final manuscript path. The Planner then verifies the revision, audits all publication inputs against the current website system and returns the Paper C audit plus any material owner decisions. Only a READY/accepted audit earns the first executor-ticket draft.
+**G29-A COMPLETE. Exact next gate: G29-B SOURCE COMPLETION / PROJECTION.** [Paper C audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) records missing author-approved Key findings, the proposed biography/frontmatter/footer projection and concrete metadata recommendations. Supply a new approved research pin with findings and accept/correct that projection. Exact pubDate/DOI can remain deferred during labeled local experiments. Perform a focused delta check, then draft the first local specimen ticket. The upstream full source-to-claim audit remains open for research-side release disposition.

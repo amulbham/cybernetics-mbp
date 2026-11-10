@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: RESCOPED / PAPER C SOURCE PIN PENDING / NO ACTIVE EXECUTOR TICKET
-Updated: 2026-11-09 (America/Los_Angeles)
+Status: SOURCE PIN VERIFIED / SOURCE AUDIT COMPLETE WITH OPEN INPUTS / NO ACTIVE EXECUTOR TICKET
+Updated: 2026-11-10 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: **G29-A SOURCE PIN** — Product Authority supplies the exact research branch, full commit SHA and canonical final manuscript path. No intake/specimen executor ticket is drafted or sealed before that pin is verified.
+Exact next gate: **G29-B SOURCE COMPLETION / PROJECTION** — provide approved manuscript-owned Key findings in a new pinned research revision and accept/correct the proposed clean projection. [Paper C audit](S29-paper-c-source-intake-audit.md) records the verified pin and grouped choices.
 
 ## What changed
 
@@ -19,7 +19,7 @@ This rescope does not invalidate the completed Phase 1 source/table/anchor/licen
 | --- | --- |
 | [Rescoped Sprint 29 roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md) | Active scope, phases, acceptance, exclusions and exact next gate |
 | [Paper C decision register](../../programs/future-scholarly-pdf-standard.md) | Active identity/license/candidate/custody decisions and unknowns |
-| Future Paper C source audit | Created only after G29-A; will own exact manuscript and publication-input findings |
+| [Paper C source audit](S29-paper-c-source-intake-audit.md) | Verified source lineage, starting-state matrix, 16 table cases, missing inputs and proposed projection |
 | [Phase 1 source audit](S29-phase-1-source-audit.md) | Retained evidence for current/future work within its stated source-only limits |
 | [Source inventory](S29-source-inventory.tsv) | Pinned inspected baseline |
 | [Table inventory](S29-table-inventory.tsv) | Forty-table corpus evidence, deferred except Paper C-specific needs |
@@ -74,9 +74,10 @@ Remaining owner choices are source- or evidence-specific: missing publication fa
 | Gate | Current state |
 | --- | --- |
 | Broad Phase 1 package/review | **COMPLETE / historical evidence retained** |
-| G29-A exact Paper C source pin | **WAITING — current gate** |
-| Paper C source/publication audit | Not started; no source revision supplied |
-| First executor contract | Not drafted; blocked by G29-A and audit readiness |
+| G29-A exact Paper C source pin | **COMPLETE** — 15ac4976 manuscript; supplied blob and direct-child branch HEAD verified |
+| Paper C source/publication audit | **COMPLETE with open inputs** — missing Key findings; authored biography requires projection acceptance |
+| G29-B findings / projection | **CURRENT** — upstream approved findings/new pin; grouped projection choice |
+| First executor contract | Not drafted; source completion and focused delta check precede draft |
 | Local candidates and owner treatment selection | Not started |
 | Reusable implementation/custody | Not started |
 | Closed hosted candidate | Not authorized |
@@ -100,4 +101,4 @@ Classify concrete findings as BLOCKER / REQUIRED / OPTIONAL. Final typography an
 
 ## Evidence limits
 
-No Paper C source has been pinned or audited under this rescope. No render, build, test, branch, candidate PDF, hosted preview, deployment or release was produced. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.
+Paper C source pin and starting-state audit are complete. One isolated in-memory citation-transform probe demonstrated the year-suffix linking defect. No full build, PDF render, browser test, candidate artifact, hosted preview, deployment or release occurred. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.

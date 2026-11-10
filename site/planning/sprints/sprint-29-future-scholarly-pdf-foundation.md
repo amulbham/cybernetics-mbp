@@ -1,9 +1,9 @@
 # Sprint 29 — Paper C forward-publication vertical slice
 
-Status: RESCOPED / WAITING FOR PINNED PAPER C SOURCE / NO ACTIVE EXECUTOR TICKET
-Updated: 2026-11-09 (America/Los_Angeles)
+Status: SOURCE PIN VERIFIED / INTAKE AUDIT COMPLETE WITH OPEN INPUTS / NO ACTIVE EXECUTOR TICKET
+Updated: 2026-11-10 (America/Los_Angeles)
 Current phase: **1 of 7 — source pin and intake audit**
-Next gate: **G29-A SOURCE PIN** — Product Authority supplies the exact `amulbham-research` branch, full commit SHA and canonical finalized Paper C manuscript path. The Planner then verifies that revision and audits its publication inputs before any executor ticket is drafted or sealed.
+Next gate: **G29-B SOURCE COMPLETION / PROJECTION** — author-approved Key findings in a new pinned research revision, plus acceptance/correction of the clean projection proposed in the [Paper C source audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md). G29-A source pin is complete.
 Risk ceiling: R3
 Branch: `planner/context` for planning; later implementation candidates require isolated branches and earned sealed contracts
 Depends on: Sprint 28 CLOSED; website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`; accepted broad S29 planning package `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`
@@ -30,7 +30,7 @@ The target exit is Paper C production-verified as the seventh protected publishe
 
 ## Paper C starting-state audit
 
-No final Paper C source revision is pinned yet. The audit begins only after G29-A and must record:
+The supplied v4.5 pin is verified: manuscript commit `15ac4976e7076dbb88b2c4e6ef5798571051ec3e`, blob `ac81e330834d2586b3c122e99c3fd3f31d0e76b3`; research HEAD `11a8dfab31f9a78f25089113091d93edffacc4e2` is its direct child and preserves that manuscript. [Completed starting-state audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) owns the source matrix and table cases. Missing Key findings and an authored-bio projection decision prevent ticket readiness. The audit covers:
 
 | Input | Audit requirement |
 | --- | --- |
@@ -78,7 +78,7 @@ These items remain discoverable in the accepted `59d702f…` program package and
 | Phase | Status | Output and exit gate |
 | --- | --- | --- |
 | **0. Broad planning evidence** | **COMPLETE / HISTORICAL** | Phase 1 package and independent review at `59d702f…`; useful evidence retained, broad execution scope superseded. |
-| **1. Pin and audit Paper C** | **WAITING — CURRENT** | G29-A source pin; Planner verifies exact source/publication inputs and commits a bounded Paper C audit. Exit: audit READY and material missing inputs resolved or explicitly gated. |
+| **1. Pin and audit Paper C** | **SOURCE VERIFIED / INPUTS OPEN — CURRENT** | G29-A complete; source audit recorded. G29-B requires upstream approved findings/new pin and explicit projection acceptance; metadata/release gates remain proportionate to their dependent phase. |
 | **2. Render bounded local candidates** | NOT STARTED | Exact-source HTML opening/full-page and PDF treatment experiments in nondeployable output. Settle identity, typography, Key findings placement/inclusion, CC BY notice and Paper C tables/figures/references/links/extraction/pagination from rendered evidence. Exit: owner selects a treatment; no publication claim. |
 | **3. Implement reusable selected-paper path** | NOT STARTED | Apply accepted treatment in shared code and add an explicit selected-paper generation/candidate-output path with no paper-specific styling patch. Extend intake/facts checks as earned. Exit: passing local implementation and a newly generated exact Paper C release candidate. |
 | **4. Approve artifact and custody semantics** | NOT STARTED | Validate exact candidate bytes, metadata and render manifest; implement minimum candidate/published resolver/install semantics and negative tests. Exit: owner approves one exact hash and release facts; missing/mismatch/fallback cases fail closed. |
@@ -137,7 +137,7 @@ Sprint 29 closes only after Paper C is production-verified as the seventh protec
 | This sprint contract | Scope, phase or gate changes |
 | [Decision register](../programs/future-scholarly-pdf-standard.md) | Paper C-specific product/custody decisions and rendered-evidence selections |
 | [Review entry point](../audits/sprint-29/README.md) | Audit/review handoffs and current gate |
-| Future Paper C source audit | After G29-A; owns exact manuscript/input findings |
+| [Paper C source audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) | Completed source matrix; update only for changed inputs or focused dispositions |
 | Planner STATE | Every meaningful resume checkpoint |
 | PUBLISHING / AGENTS / validators / fixtures | Only after accepted implementation or release makes current behavior true |
 | CHANGELOG / ROADMAP | At verified release/closure, not during prospective planning |
