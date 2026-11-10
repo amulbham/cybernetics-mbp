@@ -64,10 +64,12 @@ The owner's rescope resolves the broad O1/O2 questions only for this slice:
 | --- | --- | --- |
 | License | Paper C's new HTML/PDF direction is CC BY 4.0, subject to exact-source/rightsholder and rendered-notice checks | Site-wide/IWL/archive migration |
 | Artifact custody | Paper C candidate bytes isolated; exact hash approval required; published selection fails closed; release extends protection from six to seven artifacts | General Chisel/corpus reconciliation |
-| Identity | Amul Bham · Systems Researcher · readable linked ORCID; no generated closing PDF bio | Rewriting legacy PDFs |
+| Identity | Minimal opening identity plus one slim templated PDF author note; independent editable website biography; exclude manuscript bio via validated boundaries | Rewriting legacy PDFs or copying mutable website bio into frozen PDFs |
 | Findings | Use author-supplied Paper C Key findings; preserve exact copy; flag missing content | Generating prose or rolling out all eight legacy summaries |
 
 Remaining owner choices are source- or evidence-specific: missing publication facts from the final manuscript, visual/PDF treatment, exact candidate hash, hosted preview acceptance and production release tuple.
+
+Owner biography refinement (2026-11-10): retain one slim PDF template, exclude the authored manuscript bio through explicit validated boundaries, preserve research originals and keep website biography independently editable. Exact PDF note wording/placement are local specimen choices. This supersedes prior no-closing-bio planning; [audit amendment](S29-paper-c-source-intake-audit.md#8-owner-biography-policy-amendment--2026-11-10) records the disposition.
 
 ## Gate sequence
 
@@ -75,7 +77,7 @@ Remaining owner choices are source- or evidence-specific: missing publication fa
 | --- | --- |
 | Broad Phase 1 package/review | **COMPLETE / historical evidence retained** |
 | G29-A exact Paper C source pin | **COMPLETE** — 15ac4976 manuscript; supplied blob and direct-child branch HEAD verified |
-| Paper C source/publication audit | **COMPLETE with open inputs** — missing Key findings; authored biography requires projection acceptance |
+| Paper C source/publication audit | **COMPLETE with open inputs** — Key findings/new pin pending; biography policy resolved under refined PC3; remaining projection inputs still gated |
 | G29-B findings / projection | **CURRENT** — upstream approved findings/new pin; grouped projection choice |
 | First executor contract | Not drafted; source completion and focused delta check precede draft |
 | Local candidates and owner treatment selection | Not started |

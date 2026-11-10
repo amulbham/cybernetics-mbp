@@ -7,6 +7,8 @@ Blocking input: author-approved Key findings are absent from the supplied manusc
 Inherits: Sprint 29 roadmap and decision register @ e49e868d17e9aa0db6156d19f2b87718c1335d9b.
 No executor ticket is created or sealed by this record.
 
+Current disposition update: the owner's 2026-11-10 biography refinement in §8 supersedes the initial biography proposal in §4. The observed source findings below remain historical evidence; Key findings/new source pin and remaining G29-B projection inputs are still pending.
+
 ## 1. Source authority and lineage
 
 Repository: `amulbham/amulbham-research`
@@ -134,3 +136,24 @@ After that response, perform a focused source-delta check and draft the bounded 
 Read-only repository/source inspection and the isolated in-memory citation probe only. No Astro build, PDF render, browser/viewport inspection, external-link liveness check, source-claim scientific certification, fresh live PDF hashes, candidate artifact, deployment, release or research mutation occurred.
 
 No runtime implementation, validator/fixture change, new executor contract, staging/main push or Zenodo action is authorized by this report. Six historical path/hash pairs remain inherited protected truth; fresh byte verification is deferred to the actual artifact/release gates.
+
+## 8. Owner biography policy amendment — 2026-11-10
+
+The Product Authority confirms Sprint 29's core objective: establish a reusable forward PDF publication standard and validate it through Paper C's first accepted publication using that standard.
+
+The owner expressly refines PC3 and disposes of §4 item 4's biography question:
+
+- Keep the minimal opening identity: Amul Bham, Systems Researcher and linked readable ORCID.
+- Retain one slim standardized templated author note in future PDFs. Exact wording, approved identity fields and placement are selected during local specimen review.
+- Exclude the authored manuscript About the Author block from HTML/PDF projections using explicit validated source boundaries; preserve the original research manuscript and all historical versions.
+- Maintain separate website AuthorNote/About copy, editable without requiring any released PDF to change.
+- Freeze the PDF note as part of the exact approved artifact; record template revision/approved copy among render inputs. Avoid duplicate biography blocks.
+- Preserve authored declarations and adjacent appendix/footer material outside the approved exclusion boundary.
+
+For v4.5, L908–912 identifies the observed authored block, not a universal removal rule. After the new findings revision is pinned, rederive and verify the exact heading/content/end boundary from that source; line numbers may move. Reject missing, ambiguous, multiple or overbroad matches and demonstrate retained adjacent content. No indiscriminate deletion by heading-to-end or generic text replacement.
+
+This amendment supersedes the earlier no-generated-closing-biography direction and the interpretation of §4 item 5 that would prohibit the slim template. It approves the biography policy only; remaining frontmatter/footer/metadata choices are not silently approved.
+
+G29-B remains open: author-approved Key findings plus new immutable source pin and remaining clean-projection inputs. The owner will obtain findings from the research editor, preserving v4.5. Do not draft or seal an executor ticket until those inputs are resolved. Template wording/placement remain experiment outputs, not new pre-experiment gates.
+
+Planning-only amendment; no research changes, PDF generation, runtime changes or deployment.

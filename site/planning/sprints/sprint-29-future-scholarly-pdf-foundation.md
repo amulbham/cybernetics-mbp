@@ -30,13 +30,13 @@ The target exit is Paper C production-verified as the seventh protected publishe
 
 ## Paper C starting-state audit
 
-The supplied v4.5 pin is verified: manuscript commit `15ac4976e7076dbb88b2c4e6ef5798571051ec3e`, blob `ac81e330834d2586b3c122e99c3fd3f31d0e76b3`; research HEAD `11a8dfab31f9a78f25089113091d93edffacc4e2` is its direct child and preserves that manuscript. [Completed starting-state audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) owns the source matrix and table cases. Missing Key findings and an authored-bio projection decision prevent ticket readiness. The audit covers:
+The supplied v4.5 pin is verified: manuscript commit `15ac4976e7076dbb88b2c4e6ef5798571051ec3e`, blob `ac81e330834d2586b3c122e99c3fd3f31d0e76b3`; research HEAD `11a8dfab31f9a78f25089113091d93edffacc4e2` is its direct child and preserves that manuscript. [Completed starting-state audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) owns the source matrix and table cases. Missing Key findings and the remaining clean-projection inputs prevent ticket readiness. The owner has now approved excluding the manuscript biography by explicit validated boundaries and replacing it with a separate slim PDF template; exact template wording/placement await local specimens. The audit covers:
 
 | Input | Audit requirement |
 | --- | --- |
 | Source identity | Exact research branch, commit, canonical manuscript path, blob/hash and any publication handoff/checkpoint declared authoritative |
 | Manuscript structure | Exact title/subtitle, abstract, author-supplied Key findings, headings, primitives, tables, figures/captions, references and declarations |
-| Author identity | Amul Bham; Systems Researcher; readable linked ORCID; no generated closing biography |
+| Author identity | Minimal opening: Amul Bham; Systems Researcher; readable linked ORCID. Slim templated PDF author note, independently editable website biography; no duplicate authored biography |
 | Publication metadata | Intended format/category/slug, description/excerpt, dates, DOI and version semantics; missing values remain missing or owner decisions, never invented |
 | Rights | Paper C HTML and future PDF CC BY 4.0 direction, third-party figure/table/source credits and any separate terms |
 | Assets | Exact source paths/hashes, dimensions, captions/alt text and render availability |
@@ -46,6 +46,9 @@ The supplied v4.5 pin is verified: manuscript commit `15ac4976e7076dbb88b2c4e6ef
 The audit compares the exact source with current website intake/PDF capabilities and returns READY or a bounded list of missing owner/source decisions. It does not rewrite the manuscript or generate missing Key findings.
 
 ## Hard constraints
+
+- Owner refinement, 2026-11-10: future PDFs retain one slim standardized author note, with wording and placement selected during local specimen review. Its template/copy is independent of website AuthorNote/About; website edits never trigger regeneration of released PDFs. Record the template revision/approved text with the render inputs and freeze it in the accepted artifact.
+- Intake recognizes and excludes the manuscript's authored About the Author block from both publication projections using source-specific, explicit validated boundaries. Preserve original research manuscripts/history; ambiguous or duplicate blocks stop the affected projection. The PDF receives its approved slim template and HTML keeps its independently editable website biography. This supersedes the earlier no-closing-PDF-biography direction.
 
 - The six existing production PDF path/hash pairs remain byte-identical throughout local, hosted and production work. They are never regenerated, rewritten or replaced.
 - Paper C is a candidate until the Product Authority approves one exact artifact hash and its publication metadata.
@@ -100,7 +103,7 @@ Phase numbers describe gates, not pre-created ticket IDs. Tickets are drafted on
 
 1. The exact final Paper C research revision and all consumed assets are pinned and reproducibly inventoried.
 2. Paper C HTML/PDF preserve the author-approved manuscript, Key findings, figures, tables, references and declarations without fabricated content.
-3. The approved future PDF treatment contains Amul Bham, Systems Researcher and readable linked ORCID; no generated closing biography; DOI/version/date/license claims are truthful.
+3. The approved future PDF treatment contains the minimal opening identity (Amul Bham, Systems Researcher, readable linked ORCID) and one slim templated author note with owner-approved wording/fields/placement. The PDF note is independent of the editable website AuthorNote/About and frozen with the artifact. Intake excludes authored biography only through explicit validated boundaries, preserves research originals and rejects ambiguous boundaries/duplicates. DOI/version/date/license claims are truthful.
 4. The accepted treatment is implemented through a reusable selected-paper generation path and shared print rules, with no Paper C-specific visual patch.
 5. Candidate bytes never enter canonical/deployable published paths before exact approval; unsafe destinations and ambiguous selection fail before writes.
 6. The selected published-artifact mechanism never falls back to fresh typesetting when approved bytes are missing or mismatched.

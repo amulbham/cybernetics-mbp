@@ -1,6 +1,6 @@
 # Sprint 29 — Paper C forward-publication decision register
 
-Status: DRAFT v0.8 / SOURCE PIN VERIFIED / SOURCE COMPLETION PENDING / NOT IMPLEMENTED
+Status: DRAFT v0.9 / SOURCE PIN VERIFIED / SOURCE COMPLETION PENDING / NOT IMPLEMENTED
 Updated: 2026-11-10 (America/Los_Angeles)
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Product baseline: website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`
@@ -21,7 +21,7 @@ APPROVED DIRECTION records product intent; it is not an executor seal, exact-art
 | --- | --- | --- |
 | PC1 | APPROVED DIRECTION | Paper C is the first real work used to prove the forward HTML/PDF path; no disposable Cognition PDF specimen is built. |
 | PC2 | APPROVED DIRECTION | Source authority is one exact final research branch/commit and canonical manuscript. Do not draft or seal intake/specimen execution until it is pinned and audited. |
-| PC3 | APPROVED DIRECTION | PDF opening identity: Amul Bham; Systems Researcher; readable linked ORCID; no generated closing biography. Authored declarations remain. |
+| PC3 | APPROVED DIRECTION — REFINED 2026-11-10 | Keep minimal PDF opening identity: Amul Bham; Systems Researcher; readable linked ORCID. Include one slim standardized templated PDF author note, independent of the editable website AuthorNote/About. Exclude manuscript biography using explicit validated boundaries; preserve research originals and authored declarations. Freeze the approved note with each released artifact. Wording/placement selected in local specimens. |
 | PC4 | APPROVED DIRECTION | Key findings is author-supplied manuscript content and may appear in both web and PDF if accepted from the real render. Intake validates/preserves it and never manufactures it. |
 | PC5 | APPROVED DIRECTION | Paper C's current HTML edition and newly approved PDF use CC BY 4.0, subject to exact-source/rightsholder audit and rendered notice acceptance. This does not migrate other articles, IWLs or archived PDFs. |
 | PC6 | APPROVED DIRECTION | Typography, findings placement, tables, figures, references, links, extraction and pagination are settled from Paper C evidence, not generalized corpus experiments. |
@@ -36,6 +36,8 @@ APPROVED DIRECTION records product intent; it is not an executor seal, exact-art
 | PC15 | DEFERRED | Legacy findings, primitive, table and anchor rollouts remain future-sprint inputs under the accepted `59d702f…` program map. |
 
 No additional broad O1/O2 approval is required for the Paper C slice. Remaining owner choices must be tied to Paper C's verified source, rendered treatment, exact candidate bytes or release tuple.
+
+PC3's refined owner direction supersedes the earlier instruction to omit every closing PDF biography. It does not select exact template copy or location; those remain specimen decisions and do not block ticket drafting once G29-B's other inputs are resolved.
 
 ## 3. Current unknowns and gates
 
@@ -87,7 +89,9 @@ The exact configuration/schema is not selected before the source and existing im
 - Author: Amul Bham, normal mixed case and independently extractable.
 - Role: Systems Researcher; occupation, not institutional affiliation.
 - ORCID: current canonical readable linked identifier from shared identity data.
-- No generated closing AuthorNote/biography in the PDF.
+- Include one slim standardized PDF author note from a dedicated, approved template; exact wording, identity fields and placement are selected during local specimen review.
+- Maintain separate website AuthorNote/About copy that can change independently. Do not source the PDF paragraph dynamically from the mutable website biography. Record template revision/approved text with render inputs; freeze the note with the approved PDF artifact. Later website edits never require regeneration of released PDFs.
+- Recognize and exclude the manuscript's authored About the Author block from HTML/PDF projection through an explicit source-boundary map and validated content/heading checks. Preserve the original research source and history. Reject ambiguous boundaries and duplicate biography blocks; do not remove arbitrary trailing text or authored declarations.
 - Preserve authored acknowledgments, funding, data, conflicts and other declarations when present.
 
 ### Key findings
@@ -172,4 +176,4 @@ A future sprint may inherit these exact records without repeating the Phase 1 au
 
 The broad package review at `59d702f…` remains accepted evidence. Its recommendation to execute the Cognition-centered T29.0 draft is superseded by owner rescope; the draft was never sealed.
 
-**G29-A COMPLETE. Exact next gate: G29-B SOURCE COMPLETION / PROJECTION.** [Paper C audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) records missing author-approved Key findings, the proposed biography/frontmatter/footer projection and concrete metadata recommendations. Supply a new approved research pin with findings and accept/correct that projection. Exact pubDate/DOI can remain deferred during labeled local experiments. Perform a focused delta check, then draft the first local specimen ticket. The upstream full source-to-claim audit remains open for research-side release disposition.
+**G29-A COMPLETE. Exact next gate: G29-B SOURCE COMPLETION / PROJECTION.** [Paper C audit](../audits/sprint-29/S29-paper-c-source-intake-audit.md) records missing author-approved Key findings and the frontmatter/footer projection proposals. The owner has resolved the biography policy under refined PC3; exact boundary checks still need the new pinned source. Supply a new approved research pin with findings and accept/correct that projection. Exact pubDate/DOI can remain deferred during labeled local experiments. Perform a focused delta check, then draft the first local specimen ticket. The upstream full source-to-claim audit remains open for research-side release disposition.
