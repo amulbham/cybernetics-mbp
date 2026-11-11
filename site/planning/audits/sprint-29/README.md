@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.1 SEALED / LOCAL EXECUTION AUTHORIZED
-Updated: 2026-11-10 (America/Los_Angeles)
+Status: T29.1 LOCAL EVIDENCE COMPLETE / OWNER TREATMENT PENDING
+Updated: 2026-11-11 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: sealed T29.1 local execution, then owner specimen review. DOI input is bounded to provenance/labeled intended-header design until authoritative status/version verification.
+Exact next gate: owner treatment selection from the recovered T29.1 review package. DOI input is bounded to provenance/labeled intended-header design until authoritative status/version verification.
 
 ## What changed
 
@@ -20,7 +20,7 @@ This rescope does not invalidate the completed Phase 1 source/table/anchor/licen
 | [Rescoped Sprint 29 roadmap](../../sprints/sprint-29-future-scholarly-pdf-foundation.md) | Active scope, phases, acceptance, exclusions and exact next gate |
 | [Paper C decision register](../../programs/future-scholarly-pdf-standard.md) | Active identity/license/candidate/custody decisions and unknowns |
 | [Paper C source audit §9](S29-paper-c-source-intake-audit.md#9-v46-focused-re-pin-and-g29-b-disposition--2026-11-10) | Current v4.6 pin/delta, findings/anchors/tables/refs and validated biography boundaries; earlier sections are history |
-| [T29.1 draft](../../tickets/T29.1-paper-c-local-specimens.md) | Bounded local SPIKE/R2; owner review/seal pending |
+| [T29.1 sealed contract](../../tickets/T29.1-paper-c-local-specimens.md) | Bounded local SPIKE/R2; local evidence complete, owner treatment pending |
 | [Phase 1 source audit](S29-phase-1-source-audit.md) | Retained evidence for current/future work within its stated source-only limits |
 | [Source inventory](S29-source-inventory.tsv) | Pinned inspected baseline |
 | [Table inventory](S29-table-inventory.tsv) | Forty-table corpus evidence, deferred except Paper C-specific needs |
@@ -77,15 +77,23 @@ Owner biography refinement (2026-11-10): retain one slim PDF template, exclude t
 | Gate | Current state |
 | --- | --- |
 | Broad Phase 1 package/review | **COMPLETE / historical evidence retained** |
-| G29-A exact Paper C source pin | **COMPLETE** — 15ac4976 manuscript; supplied blob and direct-child branch HEAD verified |
+| G29-A exact Paper C source pin | **COMPLETE** — current v4.6 manuscript pinned at `78c0341`; focused audit §9 records the exact blob |
 | Paper C source/publication audit | **COMPLETE for local drafting** — v4.6 supplied findings and preserves all source inventories |
 | G29-B findings / projection | **CLOSED for local drafting** — note copy fixed, exact boundary map recorded; map reviewed with ticket |
-| First executor contract | **T29.1 DRAFT / NOT SEALED** — no execution authority |
-| Local candidates and owner treatment selection | Not started |
+| First executor contract | **T29.1 SEALED** at `c096b174` |
+| Local candidates and owner treatment selection | Local evidence complete; owner selection pending |
 | Reusable implementation/custody | Not started |
 | Closed hosted candidate | Not authorized |
 | Production release | Separately owner-authorized after preview acceptance |
 | Seventh-artifact closure | Pending release and fresh seven-file verification |
+
+## T29.1 local specimen disposition — 2026-11-11
+
+Recovered `work/t29-paper-c-local-specimens @ b7f4850405250629704b482b52fd688de0b92570` (parent `fc3cb775`; seal `c096b174`). The private review package includes the exact Git bundle, HTML with assets, two 43-page PDFs, eight contact sheets, QA evidence and the completion report. GitHub did not expose an executor ref at review time.
+
+Planner matched all 84 manifest entries to committed bytes and modes, matched the sealed ticket prefix and v4.6 source blob, confirmed the diff allowlist and unchanged six-PDF fixture/release tree, and independently checked both PDF hashes, page counts, landscape page and key treatment details. The executor evidence reports the full browser, extraction and visual checks and 18 negative controls. Owner selection is pending; the provisional recommendation is PDF A with Key Findings after Abstract/Keywords, the wide Appendix A table on a landscape page and the slim closing note.
+
+Paper C's actual citation-link gap persists despite the experimental suffix patch. The next implementation review should bound the generic reference-key repair and review Type 3 embedding. DOI status/version and the independent primary-source claim audit remain open. This is local specimen evidence; shared rendering, hosted validation and release retain their own gates.
 
 ## Reviewer guidance for the next package
 
@@ -104,6 +112,6 @@ Classify concrete findings as BLOCKER / REQUIRED / OPTIONAL. Final typography an
 
 ## Evidence limits
 
-Paper C v4.6 re-pin and focused reverse-reconstruction/source inventories pass. In-memory transform probes demonstrate findings wrapper shape compatibility and the previously recorded year-suffix citation defect; no full Markdown/Astro render has occurred. No full build, PDF render, browser test, candidate artifact, hosted preview, deployment or release occurred. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.
+Paper C v4.6 re-pin and focused reverse-reconstruction/source inventories pass. In-memory probes supplied pre-seal transform evidence. T29.1 subsequently produced local build, browser and PDF evidence under the standalone adapter; hosted preview, production parity and release remain outside that evidence. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.
 
 Planner pre-seal document check: T29.1 has one mode (SPIKE), risk R2, 106 physical body lines (cap 250), report cap 50, pinned sources and explicit output/branch/authority boundaries. No BLOCKER or REQUIRED defect found in this check. This is a Planner contract review, not an independent review or an owner seal.
