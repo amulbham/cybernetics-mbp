@@ -1,6 +1,6 @@
 # Sprint 29 — Paper C forward-publication decision register
 
-Status: T29.2 FINAL DESIGN APPROVAL PENDING / DOI ASSIGNMENTS OWNER-CONFIRMED, PUBLIC VERIFICATION PENDING
+Status: DESIGN ACCEPTED / DOI ASSIGNMENTS OWNER-CONFIRMED, PUBLIC VERIFICATION PENDING
 Updated: 2026-11-11 (America/Los_Angeles)
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Product baseline: website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`
@@ -200,3 +200,12 @@ Owner explicitly accepts b1ae19c T29.1 and its source projection, author-note co
 Owner confirms the concept DOI `10.5281/zenodo.24120332` (all versions) and version-specific DOI `10.5281/zenodo.24120333` in the Zenodo deposit. This supersedes the earlier owner-supplied/unverified-assignment state in §10. Public resolution, record relationship and artifact association remain pending until the owner publishes the approved deposit; pre-publication 404s are expected and do not block local design or implementation. Before website release, reconcile the actual published deposit, DOI relationship, exact version and approved PDF identity. Use the concept DOI on public scholarly surfaces and retain the version DOI with archival and artifact provenance.
 
 Owner authorizes PDF A as the baseline for the [bounded local design prototype](../tickets/T29.2-paper-c-local-design-prototype.md). Shared renderer adoption awaits final design selection.
+
+
+## 12. Owner design acceptance and final DOI presentation — 2026-11-11
+
+The owner accepts the T29.2 44-page portrait prototype (SHA-256 `3297991a5e206b9fd32a88944389f6516073991f137afbc9d84430cc89210e52`) as design evidence. Keep the four Key Findings after Abstract and Keywords in HTML and PDF, Letter portrait throughout, and the two Appendix A panels with the same 56 original data cells, eight labels, condition associations and canonical order. Keep the accepted title/subtitle, typography, Systems Researcher identity, linked ORCID and CC BY 4.0. Remove the visible source version from the PDF masthead and retain it in provenance. Use the approved expanded two-sentence PDF note after Appendix C, independent of the website AuthorNote. Final published bytes, hash, publication date and website presentation await separate owner approval.
+
+Published PDF front matter must read `DOI: https://doi.org/10.5281/zenodo.24120332` with a working hyperlink. Remove both prototype notices, `Candidate specimen — not published` and `Intended concept DOI (owner-confirmed; public verification pending)`, and any equivalent provisional wording from the final PDF. Use the concept DOI consistently in the public masthead, `ScholarlyArticle.identifier` and `citation_doi`. Retain `10.5281/zenodo.24120333` with archival, deposit and exact artifact provenance. Apply §11's authenticated deposit reconciliation and public verification before website production release; expected prepublication 404s do not block implementation.
+
+Authorization on 2026-11-11 covers planning and successor draft only. Keep design acceptance, implementation seal, isolated execution, hosted candidate acceptance, deposit reconciliation, exact bytes/metadata/date approval, production authorization and live verification distinct. The independent primary-source claim audit remains open for explicit disposition before publication.

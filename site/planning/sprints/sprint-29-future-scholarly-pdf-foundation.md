@@ -1,9 +1,9 @@
 # Sprint 29 — Paper C forward-publication vertical slice
 
-Status: T29.2 LOCAL EVIDENCE COMPLETE / FINAL DESIGN APPROVAL PENDING
+Status: PAPER C DESIGN ACCEPTED / REUSABLE IMPLEMENTATION UNSEALED
 Updated: 2026-11-11 (America/Los_Angeles)
-Current phase: **2 of 7 — local specimen treatment review**
-Next gate: owner approves or revises the [T29.2 local design treatment](../audits/sprint-29/README.md#t292-local-design-prototype--2026-11-11). DOI roles and verification state are recorded in decision register §11.
+Current phase: **3 of 7 — reusable implementation contract review**
+Next gate: review and explicitly seal the bounded reusable implementation contract. The approved design and publication DOI treatment are recorded in the [decision register §12](../programs/future-scholarly-pdf-standard.md#12-owner-design-acceptance-and-final-doi-presentation--2026-11-11).
 Risk ceiling: R3
 Branch: `planner/context` for planning; later implementation candidates require isolated branches and earned sealed contracts
 Depends on: Sprint 28 CLOSED; website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`; accepted broad S29 planning package `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`
@@ -82,7 +82,7 @@ These items remain discoverable in the accepted `59d702f…` program package and
 | --- | --- | --- |
 | **0. Broad planning evidence** | **COMPLETE / HISTORICAL** | Phase 1 package and independent review at `59d702f…`; useful evidence retained, broad execution scope superseded. |
 | **1. Pin and audit Paper C** | **COMPLETE FOR LOCAL DRAFTING** | v4.6 pin/delta verified; findings and note copy supplied; exact projection map documented. Persistent metadata/release inputs stay gated. |
-| **2. Render bounded local candidates** | **T29.1 LOCAL EVIDENCE COMPLETE — OWNER SELECTION PENDING** | Exact-source HTML opening/full-page and PDF treatment experiments in nondeployable output. Settle identity, typography, Key findings placement/inclusion, CC BY notice and Paper C tables/figures/references/links/extraction/pagination from rendered evidence. Exit: owner selects a treatment; no publication claim. |
+| **2. Render bounded local candidates** | **COMPLETE — T29.2 DESIGN ACCEPTED** | Exact-source HTML opening/full-page and PDF treatment experiments in nondeployable output. Settle identity, typography, Key findings placement/inclusion, CC BY notice and Paper C tables/figures/references/links/extraction/pagination from rendered evidence. Exit: owner selects a treatment; no publication claim. |
 | **3. Implement reusable selected-paper path** | NOT STARTED | Apply accepted treatment in shared code and add an explicit selected-paper generation/candidate-output path with no paper-specific styling patch. Extend intake/facts checks as earned. Exit: passing local implementation and a newly generated exact Paper C release candidate. |
 | **4. Approve artifact and custody semantics** | NOT STARTED | Validate exact candidate bytes, metadata and render manifest; implement minimum candidate/published resolver/install semantics and negative tests. Exit: owner approves one exact hash and release facts; missing/mismatch/fallback cases fail closed. |
 | **5. Validate closed hosted candidate** | NOT STARTED | Prepare a selective closed-indexing hosted candidate from the accepted tree without absorbing staging-only work; prove six frozen PDFs plus isolated Paper C candidate behavior. Exit: preview evidence and owner acceptance. |
@@ -124,9 +124,9 @@ Phase numbers describe gates, not pre-created ticket IDs. Tickets are drafted on
 
 ## Stop conditions
 
-Stop the affected phase for an unpinned/moving research source, missing author-supplied Key findings, unresolved DOI/date/version/license ownership, inaccessible required asset, manuscript-changing intake need, paper-specific implementation pressure, candidate output escaping isolation, validator weakening, branch drift, incidental staging content, legacy PDF mismatch or missing owner authority.
+Stop the affected phase for an unpinned/moving research source, missing author-supplied Key findings, unresolved phase-required DOI/date/version/license facts, inaccessible required asset, manuscript-changing intake need, paper-specific implementation pressure, candidate output escaping isolation, validator weakening, branch drift, incidental staging content, legacy PDF mismatch or missing owner authority.
 
-Record the exact blocker. Do not solve it by inventing content, broadening the sprint, regenerating a protected PDF or weakening acceptance.
+Owner-confirmed DOI assignments permit implementation. The authenticated deposit and eventual public DOI relationship are release evidence. Record any phase-specific blocker without inventing metadata, broadening scope, regenerating a protected PDF, or weakening acceptance.
 
 ## Exit state
 
