@@ -95,6 +95,12 @@ Planner matched all 84 manifest entries to committed bytes and modes, matched th
 
 Paper C's actual citation-link gap persists despite the experimental suffix patch. The next implementation review should bound the generic reference-key repair and review Type 3 embedding. DOI status/version and the independent primary-source claim audit remain open. This is local specimen evidence; shared rendering, hosted validation and release retain their own gates.
 
+## T29.1 inherited planning pin — historical review disposition (2026-11-11)
+
+**Confirmed historical REQUIRED finding; accepted local evidence retained.** The sealed ticket at `c096b174375fbd74e7d8abb3c8692e11d9725c21` still inherits the sprint document at `0a0b09b37eedc0ae2b79a2c7dcfd30f320b41bc3`. That snapshot has v4.5 as the source, G29-B open, and no active executor ticket. The sprint snapshot at `b1ae19c3b455f7da22e0cbdc55bbc902a0021602` was the appropriate pre-seal reference for v4.6 and G29-B closure; the suggested correction was missed before seal.
+
+The same sealed ticket explicitly requires the exact v4.6 commit/blob, closes G29-B for this bounded work, and preserves the prior artifact constraints. The recovered commit was verified against that explicit source pin and allowlist. No source or execution-scope discrepancy requiring a rerun was found. Preserve the sealed ticket, prior review records, and specimen commit as history. The successor draft must pin an exact, current sprint revision consistent with its own source, gates, and custody scope before seal.
+
 ## Reviewer guidance for the next package
 
 Do not repeat the broad Phase 1 audit. Review the future Paper C audit/ticket for:
