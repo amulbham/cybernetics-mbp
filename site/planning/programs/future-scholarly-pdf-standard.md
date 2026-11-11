@@ -1,6 +1,6 @@
 # Sprint 29 — Paper C forward-publication decision register
 
-Status: T29.1 OWNER TREATMENT PENDING / DOI OWNER-SUPPLIED, STATUS UNVERIFIED
+Status: T29.2 LOCAL PROTOTYPE AUTHORIZED / DOI ASSIGNMENTS OWNER-CONFIRMED, PUBLIC VERIFICATION PENDING
 Updated: 2026-11-10 (America/Los_Angeles)
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Product baseline: website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`
@@ -193,3 +193,10 @@ The broad package review at `59d702f…` remains accepted evidence. Its recommen
 Paper C DOI supplied by owner: `10.5281/zenodo.24120333`; URL https://doi.org/10.5281/zenodo.24120333. Registration, public resolution, version-versus-concept record identity and final-artifact association are UNVERIFIED. Failed/blocked retrieval is not proof of nonregistration. Before permanent adoption inspect authoritative Zenodo/DataCite/DOI evidence and reconcile the intended edition. Eventual released masthead, scholarly schema/Highwire and PDF front matter must display the verified applicable DOI. Local T29.1 may carry it in provenance and a clearly labeled intended-header specimen only; no premature published metadata/canonical citation/PDF-release claim.
 
 Owner explicitly accepts b1ae19c T29.1 and its source projection, author-note copy, two findings treatments and negatives; authorizes prospective seal then isolated local execution. No permanent default/application change, staging/main/deploy or publication authority. The research claim audit remains OPEN. Earlier DRAFT/next-seal statements above are historical and superseded by this authorization.
+
+
+## 11. Owner-confirmed DOI assignments and local prototype — 2026-11-11
+
+Owner confirms the concept DOI `10.5281/zenodo.24120332` (all versions) and version-specific DOI `10.5281/zenodo.24120333` in the Zenodo deposit. This supersedes the earlier owner-supplied/unverified-assignment state in §10. Public resolution, record relationship and artifact association remain pending until the owner publishes the approved deposit; pre-publication 404s are expected and do not block local design or implementation. Before website release, reconcile the actual published deposit, DOI relationship, exact version and approved PDF identity. Use the concept DOI on public scholarly surfaces and retain the version DOI with archival and artifact provenance.
+
+Owner authorizes PDF A as the baseline for the [bounded local design prototype](../tickets/T29.2-paper-c-local-design-prototype.md). Shared renderer adoption awaits final design selection.

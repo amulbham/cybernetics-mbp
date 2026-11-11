@@ -1,11 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Review the exact T29.1 specimens and obtain owner treatment selection for Paper C.**
+Primary intent: **Run the owner-authorized T29.2 local design prototype and return evidence for final treatment selection.**
 
 ## Resume — active gate
 
-- **2026-11-11 CURRENT — T29.1 LOCAL EVIDENCE COMPLETE / OWNER TREATMENT PENDING.** Recovered the clean local executor commit `b7f4850405250629704b482b52fd688de0b92570` on `work/t29-paper-c-local-specimens`, parent `fc3cb775`, from [seal `c096b174`](../site/planning/tickets/T29.1-paper-c-local-specimens.md). [Sprint 29 review entry](../site/planning/audits/sprint-29/README.md) records the specimen and verification disposition. The exact review package is available privately and includes the Git bundle. No remote executor ref was visible; Planner verified main `fc3cb775` and staging `3f2b0369`. **Next:** owner selects treatment before shared implementation is drafted. DOI identity and primary-source claim audit remain open.
+- **2026-11-11 CURRENT — T29.2 SEALED / LOCAL PROTOTYPE AUTHORIZED.** Owner selects PDF A as the baseline for the portrait Appendix A comparison, revised opening without visible manuscript version, and proposed two-sentence closing note. [T29.2](../site/planning/tickets/T29.2-paper-c-local-design-prototype.md) bounds the work. Concept/version DOI assignments are owner-confirmed in the Zenodo deposit; public verification is pending publication and does not block local work. Owner design selection remains the next gate before shared implementation.
+
+- **2026-11-11 PREDECESSOR — T29.1 LOCAL EVIDENCE COMPLETE / OWNER TREATMENT PENDING.** Recovered the clean local executor commit `b7f4850405250629704b482b52fd688de0b92570` on `work/t29-paper-c-local-specimens`, parent `fc3cb775`, from [seal `c096b174`](../site/planning/tickets/T29.1-paper-c-local-specimens.md). [Sprint 29 review entry](../site/planning/audits/sprint-29/README.md) records the specimen and verification disposition. The exact review package is available privately and includes the Git bundle. No remote executor ref was visible; Planner verified main `fc3cb775` and staging `3f2b0369`. **Next:** owner selects treatment before shared implementation is drafted. DOI identity and primary-source claim audit remain open.
 
 - **2026-11-10 HISTORICAL — T29.1 SEALED / local execution authorized.** Owner approves contract at b1ae19c plus bounded DOI `10.5281/zenodo.24120333`, registration/version identity UNVERIFIED. Capture provenance and optionally labeled intended-header design; never published metadata. Exact v4.6 source and approved note preserved. Execute isolated local work; no app edits, legacy generation, staging/main/deploy/publication. Full primary-source claim audit OPEN. Seal commit is the execution input; old draft/next-seal entries below are historical.
 
