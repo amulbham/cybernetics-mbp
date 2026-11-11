@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.3 SEALED / ISOLATED LOCAL EXECUTION AUTHORIZED
+Status: T29.3 LOCAL IMPLEMENTATION EVIDENCE READY / HOSTED PREVIEW UNAUTHORIZED
 Updated: 2026-11-11 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: verify the isolated T29.3 implementation and local Astro/PDF candidate before any separately authorized hosted preview.
+Exact next gate: owner reviews the isolated implementation evidence and separately authorizes a closed hosted preview.
 
 ## What changed
 
@@ -133,3 +133,13 @@ Planner pre-seal document check: T29.1 has one mode (SPIKE), risk R2, 106 physic
 ## T29.3 pre-seal review and owner authorization — 2026-11-11
 
 Independent review: PASS WITH ONE REQUIRED CORRECTION (0 BLOCKER / 1 REQUIRED / 0 OPTIONAL). R1: the originally supplied `43f42f8a…` reference was incorrect. Owner accepted the correction to `43a6b0b4d3ee206baf37899a739dd8874ba44145`, parent `d56723fa676dedd5d60784d4b7a4f5863c964b1e`, and explicitly authorized sealing and isolated implementation. The reviewed body is preserved. Hosted preview and production are separately authorized. The independent primary-source claim audit remains open.
+
+## T29.3 isolated implementation evidence — 2026-11-11
+
+Private branch `work/t29-3-scholarly-pipeline @ 53ec1420d240606f627ec36cbe6c540059ad7eee`, tree `c3bea05dfaa4abf45314aa2bb74647f957e603a5`, parent `fc3cb775aeb104b362426a589d64cbacf9fe9411`. Seal `6cf443fd6ca06a2228db82f8e90d249052b8e3cf`. Complete private review package includes the exact branch bundle, HTML/PDF, source and artifact manifests, full desktop/mobile screenshot coverage and validation logs.
+
+- Selected actual Astro render from pinned v4.6. Working route `/research/cybernetics/cybernetics-structural-science/`. Candidate PDF SHA-256 `c032c96c4335aa21cd339bfa4da9b3f17b77c87e04bdbbe0749dfd280741c9b4`. Private final-form PDF SHA-256 `aabc815808784fbebb7bbf26acb0fc12a5697c3b7ced78048f807aeaa801d5ee`; fixture date applies to dry-run HTML only and is not a publication date.
+- Actual browser QA covered 1440 and 390 px, captured 32 and 51 ordered screenshots, verified citation and download behavior and isolated the scrolling wide table. Both PDFs are 43 Letter portrait pages; four findings, all 56 Appendix A cells, note/ORCID, exact citation destinations and two-extractor checks passed. Embedded fonts and document tags verified. Poppler reported long-destination-name warnings; formal PDF accessibility and actual Scholar indexing remain unverified.
+- 7/7 PDF and closed-indexing validators passed in the rehearsal. Six protected hashes matched with zero legacy renders, 15 existing research routes retained their content and links, and the focused regression/mutation checks passed. Production workflow/settings and published artifact paths were not changed.
+
+Next: separately authorize an access-controlled, noindex preview bound to the reviewed tree and exact candidate hash. Verify anonymous denial for the article and PDF, all six protected hashes and rendered identity, then obtain owner visual approval on desktop and mobile. Final slug/date, exact release bytes, DOI/deposit reconciliation and independent primary-source claim audit disposition remain open before separately authorized production release.

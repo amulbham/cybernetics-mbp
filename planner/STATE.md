@@ -1,11 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Execute sealed T29.3 in isolation and return local implementation evidence.**
+Primary intent: **Review the isolated T29.3 implementation and decide whether to authorize a closed hosted preview.**
 
 ## Resume — active gate
 
-- **2026-11-11 CURRENT — T29.3 SEALED.** Owner authorized isolated implementation and local QA against verified draft `43a6b0b4d3ee206baf37899a739dd8874ba44145`. [R1 review disposition](../site/planning/audits/sprint-29/README.md#t293-pre-seal-review-and-owner-authorization--2026-11-11) preserves the corrected reference and authority boundary. Hosted preview and production remain separate. Primary-source claim audit OPEN.
+- **2026-11-11 CURRENT — T29.3 LOCAL IMPLEMENTATION EVIDENCE READY / HOSTED PREVIEW UNAUTHORIZED.** Private isolated branch `work/t29-3-scholarly-pipeline` at `53ec1420d240606f627ec36cbe6c540059ad7eee`. [Execution evidence and next gate](../site/planning/audits/sprint-29/README.md#t293-isolated-implementation-evidence--2026-11-11). Local Astro and 7/7 PDF rehearsal checks passed. Owner visual acceptance must be on the separately authorized hosted candidate. Primary-source claim audit OPEN.
+
+- **2026-11-11 PREDECESSOR — T29.3 SEALED.** Owner authorized isolated implementation and local QA against verified draft `43a6b0b4d3ee206baf37899a739dd8874ba44145`. [R1 review disposition](../site/planning/audits/sprint-29/README.md#t293-pre-seal-review-and-owner-authorization--2026-11-11) preserves the corrected reference and authority boundary. Hosted preview and production remain separate. Primary-source claim audit OPEN.
 
 - **2026-11-11 PREDECESSOR — PAPER C DESIGN ACCEPTED / T29.3 THEN DRAFT.** Owner approves the portrait design and clean concept DOI in publication mode. [T29.3 draft](../site/planning/tickets/T29.3-paper-c-reusable-scholarly-publication.md) inherits the approved design revision at `494dfdb6c228b770a33fb7ccb126f152b46cf7de`. Next gate is focused pre-seal review and explicit owner seal. The independent primary-source claim audit remains open.
 
