@@ -11,15 +11,27 @@ import { formatLabel } from '../lib/research-routing';
 interface Props {
 	format: CollectionEntry<'research'>['data']['format'];
 	doi?: string;
+	scholarly?: boolean;
+	candidate?: boolean;
 }
 
-const { format, doi } = Astro.props;
+const { format, doi, scholarly, candidate } = Astro.props;
 
 // Same derivation AuthorNote.astro uses: the visible ORCID text must never
 // be a second, hand-typed copy of SOCIAL_LINKS.orcid (the href).
 const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
 ---
 
+{scholarly ? (
+	<div class="masthead meta">
+		<p class="name">{AUTHOR.name}</p>
+		<p>{AUTHOR.role}</p>
+		<p><a class="orcid" href={SOCIAL_LINKS.orcid}>{orcidLabel}</a></p>
+		{candidate && <p class="candidate-status">Candidate specimen — not published</p>}
+		{doi && <p>{candidate ? 'Intended concept DOI (public verification pending):' : 'DOI:'} <a href={doi}>{doi}</a></p>}
+		<p>{formatLabel(format)} · Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+	</div>
+) : (
 <div class="masthead meta">
 	<p class="name">{AUTHOR.name}</p>
 	<p>{AUTHOR.role}, {AUTHOR.location}</p>
@@ -40,6 +52,7 @@ const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
 	</p>
 	<p>{formatLabel(format)} · Licensed <a href={LICENSE.url}>{LICENSE.label}</a></p>
 </div>
+)}
 
 <style>
 	.masthead {

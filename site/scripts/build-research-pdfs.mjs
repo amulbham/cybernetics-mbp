@@ -52,7 +52,7 @@ const SERVER_PORT = 5327; // arbitrary, loopback-only, not the dev/preview ports
 // a future, larger paper, not a value to shrink casually.
 const VIVLIOSTYLE_TIMEOUT_SECONDS = 900;
 
-function startStaticServer(root, port) {
+export function startStaticServer(root, port) {
 	// Uses sirv (the same static-file-serving package Astro's own `astro
 	// preview` is built on — already a transitive dependency, pinned here
 	// as a direct one) rather than a hand-rolled http.Server. A first,
@@ -72,7 +72,7 @@ function startStaticServer(root, port) {
 	});
 }
 
-function stopServer(server) {
+export function stopServer(server) {
 	return new Promise((resolve) => server.close(() => resolve()));
 }
 
@@ -130,11 +130,12 @@ export function removeEmptySrcsetInTree(dir) {
  * papers sometimes got lucky (enough loaded before the freeze); FAFSA never
  * did. `spawn`, awaited via its `close` event, keeps the event loop free.
  */
-function runVivliostyle(url, outputPdf, styleSheet, timeoutSeconds) {
+export function runVivliostyle(url, outputPdf, styleSheet, timeoutSeconds, browser) {
+	const options = browser ? ['--executable-browser', browser, '--host', '127.0.0.1', '--proxy-server', 'direct://', '--proxy-bypass', '127.0.0.1,localhost'] : [];
 	return new Promise((resolve, reject) => {
 		const child = spawn(
 			process.execPath,
-			[VIVLIOSTYLE_CLI, 'build', url, '-o', outputPdf, '--style', styleSheet, '--timeout', String(timeoutSeconds)],
+			[VIVLIOSTYLE_CLI, 'build', url, '-o', outputPdf, '--style', styleSheet, '--timeout', String(timeoutSeconds), ...options],
 			{ stdio: 'inherit' },
 		);
 		child.on('error', reject);

@@ -9,7 +9,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import FromTheAuthor from '../components/FromTheAuthor.astro';
 import RelatedResearch from '../components/RelatedResearch.astro';
 import TableOfContents from '../components/TableOfContents.astro';
-import { AUTHOR, LICENSE } from '../consts';
+import { AUTHOR, LICENSE, SOCIAL_LINKS } from '../consts';
 import relationsRaw from '../data/research-relations.json';
 import projectionsRaw from '../data/research-relation-projections.json';
 import { relationsSchema } from '../lib/research-relations';
@@ -43,6 +43,7 @@ type Props = CollectionEntry<'research'>['data'] & {
 	minutesRead?: number;
 	wordCount?: number;
 	headings: Heading[];
+	reviewMode?: 'candidate' | 'final-form';
 };
 
 const {
@@ -63,12 +64,16 @@ const {
 	heroImage,
 	heroImageAlt,
 	readerNote,
+	scholarly,
+	reviewMode,
 } = Astro.props;
 
 // `format` alone decides the scholarly-artifact behavior below (PDF, Highwire,
 // ScholarlyArticle, isPartOf); `category` is editorial placement and only
 // routes the page (T19.0).
 const isPaper = format === 'paper';
+const candidate = reviewMode === 'candidate';
+const licenseUrl = scholarly ? 'https://creativecommons.org/licenses/by/4.0/' : LICENSE.url;
 const categoryLabel = categoryLabelFromSegment(category);
 const categoryUrl = categoryPath(category);
 
@@ -184,7 +189,7 @@ const jsonLd = {
 	}),
 	keywords: tags.join(', '),
 	inLanguage: 'en-US',
-	license: LICENSE.url,
+	license: licenseUrl,
 	...(wordCount && { wordCount }),
 	...(minutesRead && { timeRequired: `PT${minutesRead}M` }),
 	// Sprint 11.1 — the one canonical Person identity (src/lib/structured-data.ts),
@@ -288,16 +293,19 @@ const citationPublicationDate = isPaper
 			title={title}
 			description={excerpt}
 			image={ogImagePath}
-			article={{
+			canonical={candidate ? null : scholarly ? canonicalURL : undefined}
+			noindex={!!reviewMode}
+			privateReview={!!reviewMode}
+			article={candidate ? undefined : {
 				publishedTime: pubDate.toISOString(),
 				modifiedTime: dateModified?.toISOString(),
 				tags,
 			}}
 		/>
-		<script type="application/ld+json" set:html={jsonLdString} />
-		<script type="application/ld+json" set:html={breadcrumbJsonLdString} />
+		{!candidate && <script type="application/ld+json" set:html={jsonLdString} />}
+		{!candidate && <script type="application/ld+json" set:html={breadcrumbJsonLdString} />}
 			{
-				isPaper && (
+				isPaper && !candidate && (
 					<>
 						<meta name="citation_title" content={title} />
 						<meta name="citation_author" content={AUTHOR.name} />
@@ -342,11 +350,11 @@ const citationPublicationDate = isPaper
 		</style>
 	</head>
 
-	<body class={id === 'the-lab-bubble' ? 'lab-bubble-article' : undefined}>
+	<body class:list={[id === 'the-lab-bubble' && 'lab-bubble-article', scholarly && 'scholarly-forward']}>
 		<ArticleShell
 			title={title}
 			subtitle={subtitle}
-			pubDate={pubDate}
+			pubDate={candidate ? undefined : pubDate}
 			updatedDate={dateModified}
 			minutesRead={minutesRead}
 		>
@@ -363,7 +371,7 @@ const citationPublicationDate = isPaper
 				<Breadcrumbs items={breadcrumbItems} />
 			</Fragment>
 			<Fragment slot="after-title">
-				<ArticleMasthead format={format} doi={doi} />
+				<ArticleMasthead format={format} doi={doi} scholarly={!!scholarly} candidate={candidate} />
 				{
 					tags.length > 0 && (
 						<ul class="tags">
@@ -380,7 +388,7 @@ const citationPublicationDate = isPaper
 				{
 					isPaper && paperPdfUrl && (
 						<p class="pdf-link">
-							<a href={paperPdfUrl}>Download PDF</a>
+							<a href={candidate ? `./${paperPdfFilename(id)}` : paperPdfUrl}>{candidate ? 'Download candidate PDF' : 'Download PDF'}</a>
 						</p>
 					)
 				}
@@ -416,6 +424,13 @@ const citationPublicationDate = isPaper
 			</Fragment>
 			<slot />
 			<AuthorNote />
+			{scholarly && (
+				<section class="scholarly-print-only scholarly-pdf-note" aria-label="About the Author">
+					<p><strong>About the Author</strong></p>
+					<p>{scholarly.printAuthorNote}</p>
+					<p>ORCID: <a href={SOCIAL_LINKS.orcid}>{SOCIAL_LINKS.orcid.split('/').at(-1)}</a></p>
+				</section>
+			)}
 			<RelatedResearch currentId={id} category={category} tags={tags} />
 		</ArticleShell>
 	</body>

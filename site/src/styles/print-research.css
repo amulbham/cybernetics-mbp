@@ -695,3 +695,68 @@ hr {
 	font-family: var(--print-serif);
 	letter-spacing: 0;
 }
+
+/* Opt-in forward scholarly treatment. Legacy articles retain their print rules. */
+.scholarly-forward .scholarly-screen-table,
+.scholarly-forward .author-note,
+.scholarly-forward .title .date {
+	display: none !important;
+}
+.scholarly-forward .scholarly-print-only {
+	display: block !important;
+}
+.scholarly-forward .title h1 {
+	font-size: 20pt;
+}
+.scholarly-forward .title .masthead .name {
+	font-variant: normal;
+	letter-spacing: 0;
+}
+.scholarly-forward .scholarly-print-panel {
+	break-inside: avoid;
+}
+.scholarly-forward .scholarly-print-panel[data-panel="1"] {
+	break-before: page;
+}
+.scholarly-forward .scholarly-print-panel table {
+	table-layout: fixed;
+	font-size: 9.5pt;
+}
+.scholarly-forward .scholarly-print-panel caption {
+	text-align: left;
+	font-weight: bold;
+	font-size: 10.5pt;
+	margin-bottom: 5pt;
+}
+.scholarly-forward .scholarly-print-panel :is(td, th) {
+	padding: 4pt;
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+.scholarly-forward .scholarly-pdf-note {
+	break-inside: avoid;
+	margin-top: 1.5em;
+	border-top: .5pt solid #999;
+	padding-top: 8pt;
+	font-size: 9pt;
+	line-height: 1.4;
+}
+.scholarly-forward .scholarly-pdf-note p {
+	margin: 0 0 .4em;
+}
+
+@page scholarly {
+	size: letter;
+	margin: .8in .9in;
+	@top-right { font-size: 7pt; max-width: 5.7in; }
+}
+@page scholarly:first {
+	@top-left { content: none; }
+	@top-right { content: none; }
+}
+.scholarly-forward {
+	page: scholarly;
+}
+.scholarly-forward main {
+	width: auto !important;
+}

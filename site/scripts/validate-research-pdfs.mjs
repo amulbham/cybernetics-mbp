@@ -207,10 +207,11 @@ async function firstPageLines(path) {
 	}
 }
 
-function checkMastheadOrcid(lines) {
+function checkMastheadOrcid(lines, forward) {
 	const expected = SOCIAL_LINKS.orcid.replace(/^https?:[/][/]/, '');
-	const start = lines.findIndex((line) => line.includes(AUTHOR.email));
-	if (start === -1) return `masthead correspondence line (containing "${AUTHOR.email}") not found on page 1`;
+	const marker = forward ? AUTHOR.role : AUTHOR.email;
+	const start = lines.findIndex((line) => line.includes(marker));
+	if (start === -1) return `masthead correspondence line (containing "${marker}") not found on page 1`;
 	const end = lines.findIndex((line, i) => i > start && line.includes('Licensed'));
 	if (end === -1) return 'masthead "Licensed" line not found on page 1 after the correspondence line';
 	const block = lines.slice(start, end);
@@ -296,7 +297,9 @@ async function validatePaper(paper, frontmatter) {
 	}
 
 	const citationDate = meta.get('citation_publication_date')?.[0];
-	const expectedDate = expectedCitationDate(frontmatter.pubDate);
+	const date = frontmatter.scholarly && typeof frontmatter.pubDate === 'string'
+		? new Date(frontmatter.pubDate) : frontmatter.pubDate;
+	const expectedDate = expectedCitationDate(date);
 	if (citationDate !== undefined && citationDate !== expectedDate) {
 		fail(scope, `citation_publication_date "${citationDate}" !== expected "${expectedDate}" (UTC from pubDate)`);
 	}
@@ -361,7 +364,7 @@ async function validatePaper(paper, frontmatter) {
 
 	// T18.2: masthead ORCID must not be split across lines on page 1.
 	try {
-		const orcidProblem = checkMastheadOrcid(await firstPageLines(pdfPath));
+		const orcidProblem = checkMastheadOrcid(await firstPageLines(pdfPath), !!frontmatter.scholarly);
 		if (orcidProblem) fail(scope, orcidProblem);
 	} catch (err) {
 		fail(scope, `${pdfName} page 1 text could not be read for the masthead ORCID check: ${err.message}`);

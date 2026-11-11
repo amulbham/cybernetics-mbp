@@ -13,6 +13,7 @@ import { rehypePullQuote } from './src/lib/rehype-pull-quote.mjs';
 import { rehypeReferences } from './src/lib/rehype-references.mjs';
 import { rehypeResearchLinks } from './src/lib/rehype-research-links.mjs';
 import { rehypeResearchPrimitive } from './src/lib/rehype-research-primitive.mjs';
+import { rehypeScholarlyPrintTables } from './src/lib/rehype-scholarly-print-tables.mjs';
 import { rehypeTableWrap } from './src/lib/rehype-table-wrap.mjs';
 import { inSitemap, populatedCategories } from './src/lib/indexing.mjs';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
@@ -23,7 +24,7 @@ const populated = populatedCategories(fileURLToPath(new URL('./src/content/resea
 export default defineConfig({
 	site: 'https://amulbham.com',
 	// T22.0: the sitemap lists only indexable pages (no search, no 404, no empty landing pages).
-	integrations: [mdx(), sitemap({ filter: (page) => inSitemap(page, populated) })],
+	integrations: [mdx(), sitemap({ filter: (page) => new URL(page).pathname !== process.env.SCHOLARLY_REVIEW_ROUTE && inSitemap(page, populated) })],
 	markdown: {
 		processor: unified({
 			remarkPlugins: [remarkReadingTime, remarkAlert],
@@ -41,6 +42,7 @@ export default defineConfig({
 				// Must run after rehypeReferences — depends on id="ref-N" already
 				// being assigned to build its reference lookup table.
 				rehypeCitationLinks,
+				rehypeScholarlyPrintTables,
 				// Astro's own default heading-id assignment always runs *after*
 				// every plugin in this array (it's appended once, unconditionally,
 				// at the very end of the real pipeline this `unified()` config
