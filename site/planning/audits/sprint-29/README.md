@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.2 LOCAL EVIDENCE COMPLETE / FINAL DESIGN APPROVAL PENDING
+Status: PAPER C DESIGN ACCEPTED / T29.3 DRAFT, NOT SEALED
 Updated: 2026-11-11 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: final design selection from the private T29.2 review package. DOI roles are owner-confirmed; public verification is pending deposit publication.
+Exact next gate: focused review and owner seal of the [T29.3 draft](../../tickets/T29.3-paper-c-reusable-scholarly-publication.md). DOI roles are owner-confirmed; public verification is pending deposit publication.
 
 ## What changed
 
@@ -107,7 +107,7 @@ The same sealed ticket explicitly requires the exact v4.6 commit/blob, closes G2
 
 Recommend the two linked portrait tables on pp. 40–41 (9.5 pt body vs. baseline 8.5 pt). Matrix reconstruction verifies all 56 original data cells and eight headers; coordinate extraction verifies the printed cells including repeated keys. Both panels keep all seven rows intact. Opening p. 1 omits the visible source version and labels the intended concept DOI as pending public verification. Key Findings remain on p. 2 and follow Abstract/Keywords in HTML. Closing p. 44 has the exact proposed two-sentence note and linked ORCID. The T29.1 checkout and historical PDF protection paths passed drift checks.
 
-Owner final design approval is pending. Reusable renderer work, public DOI/deposit reconciliation, and release remain later gates.
+The owner subsequently approved the portrait treatment as the forward baseline. Exact release bytes, date, public DOI/deposit reconciliation and release approval remain pending.
 
 ## Reviewer guidance for the next package
 

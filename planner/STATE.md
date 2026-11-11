@@ -1,11 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Review the completed T29.2 prototype and obtain final design selection for Paper C.**
+Primary intent: **Review and seal the draft T29.3 reusable scholarly publication contract.**
 
 ## Resume — active gate
 
-- **2026-11-11 CURRENT — T29.2 LOCAL EVIDENCE COMPLETE / FINAL DESIGN APPROVAL PENDING.** The [T29.2 review disposition](../site/planning/audits/sprint-29/README.md#t292-local-design-prototype--2026-11-11) records the recommended 44-page all-Letter-portrait specimen, the revised opening and closing note, and the evidence. Both DOI assignments are owner-confirmed and public verification is pending deposit publication. Final owner design approval is the next gate before shared implementation.
+- **2026-11-11 CURRENT — PAPER C DESIGN ACCEPTED / T29.3 DRAFT, NOT SEALED.** Owner approves the portrait design and clean concept DOI in publication mode. [T29.3 draft](../site/planning/tickets/T29.3-paper-c-reusable-scholarly-publication.md) inherits the approved design revision at `494dfdb6c228b770a33fb7ccb126f152b46cf7de`. Next gate is focused pre-seal review and explicit owner seal. The independent primary-source claim audit remains open.
+
+- **2026-11-11 PREDECESSOR — T29.2 LOCAL EVIDENCE COMPLETE / THEN PENDING FINAL DESIGN APPROVAL.** The [T29.2 review disposition](../site/planning/audits/sprint-29/README.md#t292-local-design-prototype--2026-11-11) records the recommended 44-page all-Letter-portrait specimen, the revised opening and closing note, and the evidence. Both DOI assignments are owner-confirmed and public verification is pending deposit publication. Final owner design approval is the next gate before shared implementation.
 
 - **2026-11-11 PREDECESSOR — T29.2 SEALED / LOCAL PROTOTYPE AUTHORIZED.** Owner selects PDF A as the baseline for the portrait Appendix A comparison, revised opening without visible manuscript version, and proposed two-sentence closing note. [T29.2](../site/planning/tickets/T29.2-paper-c-local-design-prototype.md) bounds the work. Concept/version DOI assignments are owner-confirmed in the Zenodo deposit; public verification is pending publication and does not block local work. Owner design selection remains the next gate before shared implementation.
 
