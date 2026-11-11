@@ -1,11 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Run the owner-authorized T29.2 local design prototype and return evidence for final treatment selection.**
+Primary intent: **Review the completed T29.2 prototype and obtain final design selection for Paper C.**
 
 ## Resume — active gate
 
-- **2026-11-11 CURRENT — T29.2 SEALED / LOCAL PROTOTYPE AUTHORIZED.** Owner selects PDF A as the baseline for the portrait Appendix A comparison, revised opening without visible manuscript version, and proposed two-sentence closing note. [T29.2](../site/planning/tickets/T29.2-paper-c-local-design-prototype.md) bounds the work. Concept/version DOI assignments are owner-confirmed in the Zenodo deposit; public verification is pending publication and does not block local work. Owner design selection remains the next gate before shared implementation.
+- **2026-11-11 CURRENT — T29.2 LOCAL EVIDENCE COMPLETE / FINAL DESIGN APPROVAL PENDING.** The [T29.2 review disposition](../site/planning/audits/sprint-29/README.md#t292-local-design-prototype--2026-11-11) records the recommended 44-page all-Letter-portrait specimen, the revised opening and closing note, and the evidence. Both DOI assignments are owner-confirmed and public verification is pending deposit publication. Final owner design approval is the next gate before shared implementation.
+
+- **2026-11-11 PREDECESSOR — T29.2 SEALED / LOCAL PROTOTYPE AUTHORIZED.** Owner selects PDF A as the baseline for the portrait Appendix A comparison, revised opening without visible manuscript version, and proposed two-sentence closing note. [T29.2](../site/planning/tickets/T29.2-paper-c-local-design-prototype.md) bounds the work. Concept/version DOI assignments are owner-confirmed in the Zenodo deposit; public verification is pending publication and does not block local work. Owner design selection remains the next gate before shared implementation.
 
 - **2026-11-11 PREDECESSOR — T29.1 LOCAL EVIDENCE COMPLETE / OWNER TREATMENT PENDING.** Recovered the clean local executor commit `b7f4850405250629704b482b52fd688de0b92570` on `work/t29-paper-c-local-specimens`, parent `fc3cb775`, from [seal `c096b174`](../site/planning/tickets/T29.1-paper-c-local-specimens.md). [Sprint 29 review entry](../site/planning/audits/sprint-29/README.md) records the specimen and verification disposition. The exact review package is available privately and includes the Git bundle. No remote executor ref was visible; Planner verified main `fc3cb775` and staging `3f2b0369`. **Next:** owner selects treatment before shared implementation is drafted. DOI identity and primary-source claim audit remain open.
 

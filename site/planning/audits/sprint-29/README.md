@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.1 LOCAL EVIDENCE COMPLETE / OWNER TREATMENT PENDING
+Status: T29.2 LOCAL EVIDENCE COMPLETE / FINAL DESIGN APPROVAL PENDING
 Updated: 2026-11-11 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: owner treatment selection from the recovered T29.1 review package. DOI input is bounded to provenance/labeled intended-header design until authoritative status/version verification.
+Exact next gate: final design selection from the private T29.2 review package. DOI roles are owner-confirmed; public verification is pending deposit publication.
 
 ## What changed
 
@@ -100,6 +100,14 @@ Paper C's actual citation-link gap persists despite the experimental suffix patc
 **Confirmed historical REQUIRED finding; accepted local evidence retained.** The sealed ticket at `c096b174375fbd74e7d8abb3c8692e11d9725c21` still inherits the sprint document at `0a0b09b37eedc0ae2b79a2c7dcfd30f320b41bc3`. That snapshot has v4.5 as the source, G29-B open, and no active executor ticket. The sprint snapshot at `b1ae19c3b455f7da22e0cbdc55bbc902a0021602` was the appropriate pre-seal reference for v4.6 and G29-B closure; the suggested correction was missed before seal.
 
 The same sealed ticket explicitly requires the exact v4.6 commit/blob, closes G29-B for this bounded work, and preserves the prior artifact constraints. The recovered commit was verified against that explicit source pin and allowlist. No source or execution-scope discrepancy requiring a rerun was found. Preserve the sealed ticket, prior review records, and specimen commit as history. The successor draft must pin an exact, current sprint revision consistent with its own source, gates, and custody scope before seal.
+
+## T29.2 local design prototype — 2026-11-11
+
+[T29.2 seal](../../tickets/T29.2-paper-c-local-design-prototype.md) at `70ec859ecae4b3775dea53dd70c6c9a2175af048` used the exact T29.1 PDF A. The private package retains the 43-page baseline, the 44-page portrait candidate (SHA-256 `3297991a5e206b9fd32a88944389f6516073991f137afbc9d84430cc89210e52`), equal-scale images, scripts and QA.
+
+Recommend the two linked portrait tables on pp. 40–41 (9.5 pt body vs. baseline 8.5 pt). Matrix reconstruction verifies all 56 original data cells and eight headers; coordinate extraction verifies the printed cells including repeated keys. Both panels keep all seven rows intact. Opening p. 1 omits the visible source version and labels the intended concept DOI as pending public verification. Key Findings remain on p. 2 and follow Abstract/Keywords in HTML. Closing p. 44 has the exact proposed two-sentence note and linked ORCID. The T29.1 checkout and historical PDF protection paths passed drift checks.
+
+Owner final design approval is pending. Reusable renderer work, public DOI/deposit reconciliation, and release remain later gates.
 
 ## Reviewer guidance for the next package
 

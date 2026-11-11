@@ -1,9 +1,9 @@
 # Sprint 29 — Paper C forward-publication vertical slice
 
-Status: T29.1 LOCAL EVIDENCE COMPLETE / OWNER TREATMENT PENDING
+Status: T29.2 LOCAL EVIDENCE COMPLETE / FINAL DESIGN APPROVAL PENDING
 Updated: 2026-11-11 (America/Los_Angeles)
 Current phase: **2 of 7 — local specimen treatment review**
-Next gate: owner selects a treatment from the saved [T29.1 local specimens](../audits/sprint-29/README.md#t291-local-specimen-disposition--2026-11-11). Owner DOI input/status is recorded in decision register §10.
+Next gate: owner approves or revises the [T29.2 local design treatment](../audits/sprint-29/README.md#t292-local-design-prototype--2026-11-11). DOI roles and verification state are recorded in decision register §11.
 Risk ceiling: R3
 Branch: `planner/context` for planning; later implementation candidates require isolated branches and earned sealed contracts
 Depends on: Sprint 28 CLOSED; website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`; accepted broad S29 planning package `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`

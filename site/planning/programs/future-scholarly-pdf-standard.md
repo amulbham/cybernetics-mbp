@@ -1,7 +1,7 @@
 # Sprint 29 — Paper C forward-publication decision register
 
-Status: T29.2 LOCAL PROTOTYPE AUTHORIZED / DOI ASSIGNMENTS OWNER-CONFIRMED, PUBLIC VERIFICATION PENDING
-Updated: 2026-11-10 (America/Los_Angeles)
+Status: T29.2 FINAL DESIGN APPROVAL PENDING / DOI ASSIGNMENTS OWNER-CONFIRMED, PUBLIC VERIFICATION PENDING
+Updated: 2026-11-11 (America/Los_Angeles)
 Owner: [Sprint 29 contract](../sprints/sprint-29-future-scholarly-pdf-foundation.md)
 Product baseline: website `main @ fc3cb775aeb104b362426a589d64cbacf9fe9411`
 Historical program baseline: accepted package `59d702f8bcc0f1690dfd20a3cc2c9c743ea14dc9`
