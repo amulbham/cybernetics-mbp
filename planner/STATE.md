@@ -1,11 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Review and seal the draft T29.3 reusable scholarly publication contract.**
+Primary intent: **Execute sealed T29.3 in isolation and return local implementation evidence.**
 
 ## Resume — active gate
 
-- **2026-11-11 CURRENT — PAPER C DESIGN ACCEPTED / T29.3 DRAFT, NOT SEALED.** Owner approves the portrait design and clean concept DOI in publication mode. [T29.3 draft](../site/planning/tickets/T29.3-paper-c-reusable-scholarly-publication.md) inherits the approved design revision at `494dfdb6c228b770a33fb7ccb126f152b46cf7de`. Next gate is focused pre-seal review and explicit owner seal. The independent primary-source claim audit remains open.
+- **2026-11-11 CURRENT — T29.3 SEALED.** Owner authorized isolated implementation and local QA against verified draft `43a6b0b4d3ee206baf37899a739dd8874ba44145`. [R1 review disposition](../site/planning/audits/sprint-29/README.md#t293-pre-seal-review-and-owner-authorization--2026-11-11) preserves the corrected reference and authority boundary. Hosted preview and production remain separate. Primary-source claim audit OPEN.
+
+- **2026-11-11 PREDECESSOR — PAPER C DESIGN ACCEPTED / T29.3 THEN DRAFT.** Owner approves the portrait design and clean concept DOI in publication mode. [T29.3 draft](../site/planning/tickets/T29.3-paper-c-reusable-scholarly-publication.md) inherits the approved design revision at `494dfdb6c228b770a33fb7ccb126f152b46cf7de`. Next gate is focused pre-seal review and explicit owner seal. The independent primary-source claim audit remains open.
 
 - **2026-11-11 PREDECESSOR — T29.2 LOCAL EVIDENCE COMPLETE / THEN PENDING FINAL DESIGN APPROVAL.** The [T29.2 review disposition](../site/planning/audits/sprint-29/README.md#t292-local-design-prototype--2026-11-11) records the recommended 44-page all-Letter-portrait specimen, the revised opening and closing note, and the evidence. Both DOI assignments are owner-confirmed and public verification is pending deposit publication. Final owner design approval is the next gate before shared implementation.
 

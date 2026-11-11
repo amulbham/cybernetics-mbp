@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: PAPER C DESIGN ACCEPTED / T29.3 DRAFT, NOT SEALED
+Status: T29.3 SEALED / ISOLATED LOCAL EXECUTION AUTHORIZED
 Updated: 2026-11-11 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: focused review and owner seal of the [T29.3 draft](../../tickets/T29.3-paper-c-reusable-scholarly-publication.md). DOI roles are owner-confirmed; public verification is pending deposit publication.
+Exact next gate: verify the isolated T29.3 implementation and local Astro/PDF candidate before any separately authorized hosted preview.
 
 ## What changed
 
@@ -129,3 +129,7 @@ Classify concrete findings as BLOCKER / REQUIRED / OPTIONAL. Final typography an
 Paper C v4.6 re-pin and focused reverse-reconstruction/source inventories pass. In-memory probes supplied pre-seal transform evidence. T29.1 subsequently produced local build, browser and PDF evidence under the standalone adapter; hosted preview, production parity and release remain outside that evidence. The Phase 1 audit remains source/planning evidence at its recorded baseline, not proof of future Paper C output.
 
 Planner pre-seal document check: T29.1 has one mode (SPIKE), risk R2, 106 physical body lines (cap 250), report cap 50, pinned sources and explicit output/branch/authority boundaries. No BLOCKER or REQUIRED defect found in this check. This is a Planner contract review, not an independent review or an owner seal.
+
+## T29.3 pre-seal review and owner authorization — 2026-11-11
+
+Independent review: PASS WITH ONE REQUIRED CORRECTION (0 BLOCKER / 1 REQUIRED / 0 OPTIONAL). R1: the originally supplied `43f42f8a…` reference was incorrect. Owner accepted the correction to `43a6b0b4d3ee206baf37899a739dd8874ba44145`, parent `d56723fa676dedd5d60784d4b7a4f5863c964b1e`, and explicitly authorized sealing and isolated implementation. The reviewed body is preserved. Hosted preview and production are separately authorized. The independent primary-source claim audit remains open.
