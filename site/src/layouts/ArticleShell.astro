@@ -23,9 +23,11 @@ interface Props {
 	pubDate?: Date;
 	updatedDate?: Date;
 	minutesRead?: number;
+	/** Show dates as UTC calendar days (forward scholarly pages; see FormattedDate). */
+	utcDates?: boolean;
 }
 
-const { title, subtitle, pubDate, updatedDate, minutesRead } = Astro.props;
+const { title, subtitle, pubDate, updatedDate, minutesRead, utcDates } = Astro.props;
 ---
 
 <ScrollProgress />
@@ -38,12 +40,12 @@ const { title, subtitle, pubDate, updatedDate, minutesRead } = Astro.props;
 				<div class="title">
 					<slot name="before-title" />
 					<div class="date meta">
-						{pubDate && <FormattedDate date={pubDate} />}
+						{pubDate && <FormattedDate date={pubDate} utc={utcDates} />}
 						{minutesRead && <span>{pubDate && ' · '}{minutesRead} min read</span>}
 						{
 							updatedDate && (
 								<div class="last-updated-on">
-									Last updated on <FormattedDate date={updatedDate} />
+									Last updated on <FormattedDate date={updatedDate} utc={utcDates} />
 								</div>
 							)
 						}

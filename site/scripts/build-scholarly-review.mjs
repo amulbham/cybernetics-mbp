@@ -59,7 +59,7 @@ try {
 		writeFileSync(path, asset.bytes, {flag: 'wx'});
 	}
 	await run(process.execPath, [join(site, 'node_modules/astro/bin/astro.mjs'), 'build', '--force', '--outDir', htmlRoot],
-		{...process.env, SITE_INDEXING: 'closed', SCHOLARLY_REVIEW: mode, SCHOLARLY_REVIEW_ROUTE: '/' + route});
+		{...process.env, TZ: 'UTC', SITE_INDEXING: 'closed', SCHOLARLY_REVIEW: mode, SCHOLARLY_REVIEW_ROUTE: '/' + route});
 	absolutizePdfLinks(htmlRoot, printRoot);
 	removeEmptySrcsetInTree(printRoot);
 	const printPage = join(printRoot, route, 'index.html');

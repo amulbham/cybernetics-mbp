@@ -6,10 +6,26 @@ import { projectInput, sha256 } from './scholarly-input.mjs';
 import { rehypeCitationLinks } from '../src/lib/rehype-citation-links.mjs';
 import { rehypeScholarlyPrintTables } from '../src/lib/rehype-scholarly-print-tables.mjs';
 
-const [workspace, sourcePath] = process.argv.slice(2).map((path) => resolve(path));
+import { validateWorkspace } from './scholarly-workspace.mjs';
+
+// Usage: node --import <tsx loader> scripts/test-scholarly-contract.mjs <private-workspace> <v4.6.md>
+// The workspace and its inputs are private (see site/SCHOLARLY-REVIEW.md, "Reproducing the
+// contract suite"). Every required input is checked against its pin before any case runs.
+const argv = process.argv.slice(2);
+if (argv.length !== 2) {
+	console.error('usage: test-scholarly-contract.mjs <private-workspace> <source-manuscript>');
+	process.exit(2);
+}
+const [workspace, sourcePath] = argv.map((path) => resolve(path));
+const { config, problems } = validateWorkspace(workspace, sourcePath);
+if (problems.length) {
+	console.error(`scholarly contract suite NOT RUN: ${problems.length} required input problem(s):`);
+	for (const problem of problems) console.error(`  - ${problem}`);
+	process.exit(1);
+}
+console.log('required inputs verified against their pins; running the contract cases');
 const source = readFileSync(sourcePath);
 const input = JSON.parse(readFileSync(join(workspace, 'paper-c.json'), 'utf8'));
-const config = JSON.parse(readFileSync(join(workspace, 'rehearsal-config.json'), 'utf8'));
 let count = 0;
 function passed(label, assertion) {
 	assertion();

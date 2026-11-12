@@ -748,6 +748,12 @@ hr {
 @page scholarly {
 	size: letter;
 	margin: .8in .9in;
+	/* T29.3a (R1): the legacy head sets the surname in small caps. LM Roman 10 has no
+	   small-cap glyphs, so the renderer synthesizes them as separate scaled runs, which
+	   Poppler reads as "B ham" and pdfjs as "B", "H", "A", "M". Forward papers keep the
+	   head's font, size, tracking, colour and position and set the surname in ordinary
+	   case so every extractor reads one word, "Bham". Legacy pages are untouched. */
+	@top-left { font-variant: normal; }
 	@top-right { font-size: 7pt; max-width: 5.7in; }
 }
 @page scholarly:first {
