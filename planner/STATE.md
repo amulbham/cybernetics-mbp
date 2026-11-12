@@ -1,11 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Review the T29.3 independent audit reconciliation and focused correction draft.**
+Primary intent: **Relay the sealed T29.3a contract to a fresh Executor for isolated corrections.**
 
 ## Resume — active gate
 
-- **2026-11-11 CURRENT — T29.3 AUDIT RECONCILED / CORRECTION DRAFT.** [Post-implementation findings](../site/planning/audits/sprint-29/README.md#t293-independent-audit-reconciliation--2026-11-11) hold closure. T29.3a covers R1/R3/R5. T29.4 and T29.5 remain draft; hosted preview needs independently accepted corrections, exact candidate bytes, proven authentication and explicit owner authorization. Primary-source claim audit OPEN.
+- **2026-11-12 CURRENT — T29.3a SEALED / EXECUTOR HANDOFF.** Owner approved the exact reviewed draft `9a8f25f824d49d78cd223986cf97788cdf070d2b` after independent PASS (0 BLOCKER / 0 REQUIRED / 0 OPTIONAL). [Sealed correction contract](../site/planning/tickets/T29.3a-paper-c-audit-corrections.md) authorizes R1/R3/R5 on an isolated Executor branch from `53ec1420`, using the verified private bundle. Planner awaits relayed Executor evidence for independent implementation review. T29.3 remains open; T29.4/T29.5 remain unsealed. Primary-source claim audit OPEN.
+
+- **2026-11-11 PREDECESSOR — T29.3 AUDIT RECONCILED / CORRECTION THEN DRAFT.** [Post-implementation findings](../site/planning/audits/sprint-29/README.md#t293-independent-audit-reconciliation--2026-11-11) hold closure. T29.3a covers R1/R3/R5. T29.4 and T29.5 remain draft; hosted preview needs independently accepted corrections, exact candidate bytes, proven authentication and explicit owner authorization. Primary-source claim audit OPEN.
 
 - **2026-11-11 PREDECESSOR — T29.3 LOCAL IMPLEMENTATION EVIDENCE READY / HOSTED PREVIEW UNAUTHORIZED.** Private isolated branch `work/t29-3-scholarly-pipeline` at `53ec1420d240606f627ec36cbe6c540059ad7eee`. [Execution evidence and next gate](../site/planning/audits/sprint-29/README.md#t293-isolated-implementation-evidence--2026-11-11). Local Astro and 7/7 PDF rehearsal checks passed. Owner visual acceptance must be on the separately authorized hosted candidate. Primary-source claim audit OPEN.
 

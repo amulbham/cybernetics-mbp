@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.3 INDEPENDENT AUDIT RECONCILIATION / CORRECTION DRAFT / HOSTED PREVIEW UNAUTHORIZED
+Status: T29.3a SEALED / EXECUTOR HANDOFF / HOSTED PREVIEW UNAUTHORIZED
 Updated: 2026-11-11 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: review the focused T29.3a correction contract and return independently verified corrections before any hosted authorization.
+Exact next gate: relay the sealed T29.3a contract to a fresh Executor. Independent implementation review follows the isolated correction evidence.
 
 ## What changed
 
@@ -164,3 +164,7 @@ Drafts: [T29.3a corrections](../../tickets/T29.3a-paper-c-audit-corrections.md),
 ## Executor planning recheck disposition — 2026-11-11
 
 The owner accepted three additional REQUIRED findings against `494342176913cf73db56300856a258b04965b24f`. T29.3a now requires three-extractor per-page header acceptance and a private verified bundle handoff. T29.5 now includes the independent HTML publishing-facts oracle, forward masthead identity-link census and complete production-build rehearsal. The earlier R6 proposal remains above as review history and is superseded by the [owner-approved excerpt](../../programs/future-scholarly-pdf-standard.md#13-owner-approved-publication-excerpt--2026-11-11). The corrections, hosted preview and release-control tickets remain drafts. T29.3 remains open.
+
+## T29.3a pre-seal PASS and owner approval — 2026-11-12
+
+Independent review of exact planning revision `9a8f25f824d49d78cd223986cf97788cdf070d2b` returned PASS (0 BLOCKER / 0 REQUIRED / 0 OPTIONAL). The reviewer imported the private bundle in a fresh local clone, verified the implementation commit/tree, pinned source and six protected hashes, reproduced all 28 baseline cases, and confirmed the original extraction and date findings. The owner accepted the review and authorized the sealed R1/R3/R5 correction scope. The Planner verified the exact local implementation base and private archive checksums again. The sealed ticket preserves the reviewed body. T29.3 closure awaits independent implementation review. T29.4 and T29.5 remain unsealed; hosted and production authority remain separate.
