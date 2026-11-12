@@ -84,6 +84,9 @@ for (const [kind, viewport, mobile] of [['desktop', { width: 1440, height: 900 }
 		check(kind, 'a wide table scrolls inside its container', dom.wideScroll);
 	}
 	const toc = await page.$('[data-toc-link]');
+	if (!mobile) {
+		check(kind, 'a TOC link is present', !!toc);
+	}
 	if (!mobile && toc) {
 		const before = await page.evaluate(() => location.hash);
 		await toc.click();

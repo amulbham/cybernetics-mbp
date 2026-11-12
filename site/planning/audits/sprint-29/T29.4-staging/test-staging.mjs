@@ -16,7 +16,7 @@ async function test(name, fn) {
 }
 const tmp = () => mkdtempSync(join(tmpdir(), 't294s-'));
 const pdf = (n) => Buffer.from(`%PDF-1.4\nsynthetic ${n}\n`);
-const ARTICLE = Buffer.from('<html><meta name="robots" content="noindex, nofollow"><p>Candidate specimen</p><a href="./c.pdf">Download candidate PDF</a></html>');
+const ARTICLE = Buffer.from('<html><meta name="robots" content="noindex, nofollow"><p>Candidate specimen</p><p>Intended concept DOI (public verification pending): x</p><a href="./c.pdf">Download candidate PDF</a></html>');
 const REDIRECTS = '/old /new 301\n/old/ /new/ 301\n/x.png /y.png 301\n';
 const files = new Map([
 	['index.html', Buffer.from('<html>home</html>')], ['404.html', Buffer.from('<html>missing</html>')],
@@ -32,7 +32,7 @@ const pins = {
 	candidate: { pdfPath: 'research/c/c/c.pdf', sha256: sha256(pdf('cand')), routeHtmlSha256: sha256(ARTICLE) },
 	historical: ['a', 'b', 'd', 'e', 'f', 'g'].map((k) => ({ path: `research/${k}/${k}/${k}.pdf`, sha256: sha256(pdf(k)) })),
 	inventory: { digest: inventoryDigest(inventory) }, controlFiles: ['_headers', '_redirects'], robotsHeader: 'noindex, nofollow',
-	articleMarkers: { required: ['<meta name="robots" content="noindex, nofollow">', 'Candidate specimen', 'Download candidate PDF'], forbidden: ['rel="canonical"', 'application/ld+json', 'name="citation_'] },
+	articleMarkers: { required: ['<meta name="robots" content="noindex, nofollow">', 'Candidate specimen', 'public verification pending', 'Download candidate PDF'], forbidden: ['rel="canonical"', 'application/ld+json', 'name="citation_'] },
 	productionSitemapUrlCount: 1, captureMinScrollHeight: 1000,
 };
 const redirects = parseRedirects(REDIRECTS);
@@ -53,7 +53,7 @@ await test('kit integrity: the committed SHA256SUMS matches; tampering is detect
 	assert.equal(kitIntegrity(d).ok, false);
 	rmSync(d, { recursive: true });
 	const c = tmp(); cpSync(HERE, c, { recursive: true });
-	for (const f of ['SHA256SUMS', 'kit-common.mjs', 'verify-upload-dir.mjs', 'verify-staging.mjs', 'capture-staging.mjs', 'assemble-staging-tree.mjs', 'pins.json']) writeFileSync(join(c, f), readFileSync(join(c, f), 'utf8').replace(/\n/g, '\r\n'));
+	for (const f of ['SHA256SUMS', 'kit-common.mjs', 'verify-upload-dir.mjs', 'verify-staging.mjs', 'capture-staging.mjs', 'assemble-staging-tree.mjs', 'local-pages-server.mjs', 'test-staging.mjs', 'pins.json', 'T29.4-staging-upload-inventory.tsv', 'T29.4-staging-redirects.txt', 'T29.4-staging-pre-upload-state.tsv']) writeFileSync(join(c, f), readFileSync(join(c, f), 'utf8').replace(/\n/g, '\r\n'));
 	assert.equal(kitIntegrity(c).ok, true);
 	assert.equal(kitIntegrity(c).digest, kitIntegrity().digest);
 	rmSync(c, { recursive: true });
@@ -80,6 +80,9 @@ for (const [label, mutate, expect] of [
 	['a changed non-HTML asset', (m) => m.set('_astro/site.css', Buffer.from('body{color:red}')), 'differs from the inventory'],
 	['an injected script in the article', (m) => m.set('research/c/c/index.html', Buffer.concat([ARTICLE, Buffer.from('<script>x()</script>')])), 'article page SHA-256'],
 	['a canonical tag in the article', (m) => m.set('research/c/c/index.html', Buffer.from('<meta name="robots" content="noindex, nofollow">Candidate specimen Download candidate PDF <link rel="canonical" href="x">')), 'forbidden text'],
+	['the pending-DOI label missing from the article', (m) => m.set('research/c/c/index.html', Buffer.from('<meta name="robots" content="noindex, nofollow">Candidate specimen Download candidate PDF')), 'lacks required text'],
+	['a redirect to another host with the same path', (m) => m.set('_redirects', Buffer.from('/old https://evil.example/new 301\n/old/ /new/ 301\n/x.png /y.png 301\n')), 'redirect /old'],
+	['a redirect with an added query string', (m) => m.set('_redirects', Buffer.from('/old /new?x=1 301\n/old/ /new/ 301\n/x.png /y.png 301\n')), 'redirect /old'],
 	['the Paper C route in the sitemap', (m) => m.set('sitemap-0.xml', Buffer.from('<urlset><url><loc>https://amulbham.com/research/c/c/</loc></url></urlset>')), 'lists the Paper C route'],
 	['robots.txt allowing crawling', (m) => m.set('robots.txt', Buffer.from('User-agent: *\nAllow: /\n')), 'Disallow'],
 	['a redirect rule answering 302', (m) => m.set('_redirects', Buffer.from('/old /new 302\n/old/ /new/ 301\n/x.png /y.png 301\n')), 'redirect /old'],

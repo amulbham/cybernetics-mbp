@@ -93,7 +93,8 @@ export async function verifyHost({ origin, pins, inventory, redirects }) {
 		try {
 			const r = await get(new URL(rule.from, origin).toString());
 			const loc = r.headers.get('location');
-			const okTarget = loc !== null && new URL(loc, origin).pathname === rule.to;
+			const lu = loc === null ? null : new URL(loc, origin);
+			const okTarget = lu !== null && lu.origin === new URL(origin).origin && lu.pathname + lu.search === rule.to;
 			redirectResults.push({ from: rule.from, status: r.status, location: loc, ok: r.status === rule.status && okTarget });
 			if (!(r.status === rule.status && okTarget)) failures.push(`redirect ${rule.from}: ${r.status} ${loc} (expected ${rule.status} ${rule.to})`);
 		} catch (err) {
