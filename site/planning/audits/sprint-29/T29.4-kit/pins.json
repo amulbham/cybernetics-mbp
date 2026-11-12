@@ -1,0 +1,63 @@
+{
+ "project": "cybernetics-mbp-preview",
+ "branchLabel": "t29-4-paper-c-preview",
+ "correctionCommit": "63372f2b73d4d5287e92d283a4e71ee766a95e75",
+ "correctionTree": "740d13d8bedebe8c4a5f9ec81a11dc9af7c0c837",
+ "route": "/research/cybernetics/cybernetics-structural-science/",
+ "candidate": {
+  "pdfPath": "research/cybernetics/cybernetics-structural-science/cybernetics-structural-science.pdf",
+  "sha256": "fe6eaf21c0c0feadd61429a9d6ebb90ea1d3c623a8b363bc02b96e53b8039446",
+  "bytes": 592164,
+  "manifestSha256": "f004b0e3ce0707546ca91afa3e68d6324ff80ac434e89476e305d8959b79f875",
+  "routeHtmlSha256": "3b9e316989f3649f51ed2cf3b7cae0e9735733dec11820ab19ba1ccc152bb743"
+ },
+ "historical": [
+  {
+   "path": "research/cybernetics/the-invariants-of-self-organizing-systems/the-invariants-of-self-organizing-systems.pdf",
+   "sha256": "4b4e3b618e32a479a140d9cac4c180c18c3f57c9861a2df4999229772a6e0ab4"
+  },
+  {
+   "path": "research/cybernetics/three-self-organizing-systems/three-self-organizing-systems.pdf",
+   "sha256": "e86bd3005402badc647046096f71968bdfbb248efa017d467e2d769e2df1c21e"
+  },
+  {
+   "path": "research/essays/an-engineers-guide-to-structural-financial-aid-exploits/an-engineers-guide-to-structural-financial-aid-exploits.pdf",
+   "sha256": "d8ec32df31da35dd2e8efa6eda2aeb1d75cde70bd7e3a2a35a90cb93bf4df54f"
+  },
+  {
+   "path": "research/knowledge-work/the-chisel-fallacy-what-pangram-actually-measures/the-chisel-fallacy-what-pangram-actually-measures.pdf",
+   "sha256": "1f68d9eec9a0d8412a7fefc4d2c42b17f340801fbbef438b671edbffaf4582f3"
+  },
+  {
+   "path": "research/knowledge-work/the-desk-is-where-you-write-it-down/the-desk-is-where-you-write-it-down.pdf",
+   "sha256": "268d16c0f29d6ba4c0e8299ff30a816fe44d62591206e434ae277d080b40cfd9"
+  },
+  {
+   "path": "research/cybernetics/cognition-as-self-organizing-system/cognition-as-self-organizing-system.pdf",
+   "sha256": "fe64b3026988a72056fea22ec081d24880cb9ca88e8f6c77a1a8941df69f7ac7"
+  }
+ ],
+ "inventory": {
+  "file": "../T29.4-preview-upload-inventory.tsv",
+  "files": 105,
+  "bytes": 7193444,
+  "digest": "bcc01c5fb947d1d3e870dde4b6ef56c2e640035880f0b9d6afd41f28bd90464b",
+  "digestRule": "sort records by relative path (bytewise UTF-8), one '<sha256>  <path>\\n' line per record in that order, SHA-256 of the text"
+ },
+ "hostedExcludedFromDownloadChecks": [
+  "_headers"
+ ],
+ "hostedRobotsHeader": "noindex, nofollow",
+ "hostedArticleMarkers": {
+  "required": [
+   "<meta name=\"robots\" content=\"noindex, nofollow\">",
+   "Candidate specimen",
+   "Download candidate PDF"
+  ],
+  "forbidden": [
+   "rel=\"canonical\"",
+   "application/ld+json",
+   "name=\"citation_"
+  ]
+ }
+}
