@@ -1,20 +1,32 @@
-// T29.4 owner/Executor verification kit — shared helpers. node: built-ins only.
+// T29.4 owner/Executor verification kit — shared helpers. node: built-ins only (Node 22 or later).
 import { createHash } from 'node:crypto';
-import { lstatSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { crc32 } from 'node:zlib';
 
 export const HERE = dirname(fileURLToPath(import.meta.url));
 export const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
-export const loadJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
+
+/** Decode a text file that may carry a UTF-8 BOM or be UTF-16 (PowerShell 5.1 `Out-File` default). */
+export function readTextLoose(path) {
+	const b = readFileSync(path);
+	if (b[0] === 0xff && b[1] === 0xfe) return b.subarray(2).toString('utf16le');
+	if (b[0] === 0xfe && b[1] === 0xff) return Buffer.from(b.subarray(2)).swap16().toString('utf16le');
+	return (b[0] === 0xef && b[1] === 0xbb && b[2] === 0xbf ? b.subarray(3) : b).toString('utf8');
+}
+export const loadJson = (path) => JSON.parse(readTextLoose(path));
 export const loadPins = (path = join(HERE, 'pins.json')) => loadJson(path);
 
-/** Parse the inventory TSV (header: path, bytes, sha256) into records. */
+/** Parse the inventory TSV (header: path, bytes, sha256); tolerates CRLF checkouts. */
 export function readInventory(path) {
-	const [header, ...rows] = readFileSync(path, 'utf8').split('\n').filter(Boolean);
-	if (header !== 'path\tbytes\tsha256') throw new Error(`Unexpected inventory header: ${header}`);
+	const [header, ...rows] = readTextLoose(path).split(/\r?\n/).filter(Boolean);
+	if (header !== 'path\tbytes\tsha256') throw new Error(`Unexpected inventory header: ${JSON.stringify(header)}`);
+	const seen = new Set();
 	return rows.map((row) => {
 		const [p, bytes, hash] = row.split('\t');
+		if (!p || !/^[0-9a-f]{64}$/.test(hash ?? '') || seen.has(p)) throw new Error(`Bad or duplicate inventory row: ${JSON.stringify(row)}`);
+		seen.add(p);
 		return { path: p, bytes: Number(bytes), sha256: hash };
 	});
 }
@@ -51,3 +63,62 @@ export const arg = (argv, name, fallback) => {
 	const i = argv.indexOf(name);
 	return i >= 0 && argv[i + 1] !== undefined ? argv[i + 1] : fallback;
 };
+
+/**
+ * The scripts that decide PASS are bound to the owner's GO by the digest of `SHA256SUMS`, which lists the
+ * runtime files. Every CLI calls this first, prints the digest, and refuses to run if a listed file differs.
+ */
+export function kitIntegrity(dir = HERE) {
+	const sums = join(dir, 'SHA256SUMS');
+	if (!existsSync(sums)) return { ok: false, digest: null, problems: ['SHA256SUMS is missing'] };
+	const text = readFileSync(sums, 'utf8');
+	const problems = [];
+	for (const line of text.split('\n').filter(Boolean)) {
+		const [hash, name] = [line.slice(0, 64), line.slice(66)];
+		if (!existsSync(join(dir, name))) problems.push(`missing kit file ${name}`);
+		else if (sha256(readFileSync(join(dir, name))) !== hash) problems.push(`kit file differs from SHA256SUMS: ${name}`);
+	}
+	return { ok: problems.length === 0, digest: sha256(Buffer.from(text)), problems };
+}
+export function requireKitIntegrity(label) {
+	const k = kitIntegrity();
+	console.log(`${label}: kit digest (SHA256SUMS) ${k.digest ?? 'none'} — compare with the value in the GO`);
+	if (!k.ok) {
+		for (const p of k.problems) console.log(`  FAIL ${p}`);
+		console.log(`${label}: the kit has been modified — stop`);
+		process.exit(2);
+	}
+}
+
+/** Validate a PNG's chunk structure and CRCs (IHDR first, at least one IDAT, IEND last). */
+export function pngInfo(bytes) {
+	const SIG = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+	if (bytes.length < 57 || !bytes.subarray(0, 8).equals(SIG)) return null;
+	let pos = 8;
+	let info = null;
+	let idat = 0;
+	let ended = false;
+	for (let i = 0; pos + 12 <= bytes.length; i++) {
+		const len = bytes.readUInt32BE(pos);
+		const type = bytes.subarray(pos + 4, pos + 8).toString('latin1');
+		if (pos + 12 + len > bytes.length) return null;
+		if (crc32(bytes.subarray(pos + 4, pos + 8 + len)) !== bytes.readUInt32BE(pos + 8 + len)) return null;
+		if (i === 0) {
+			if (type !== 'IHDR' || len !== 13) return null;
+			info = { width: bytes.readUInt32BE(pos + 8), height: bytes.readUInt32BE(pos + 12) };
+		}
+		if (type === 'IDAT') idat++;
+		pos += 12 + len;
+		if (type === 'IEND') {
+			ended = true;
+			break;
+		}
+	}
+	return info && idat > 0 && ended && pos === bytes.length ? info : null;
+}
+
+export const hostRes = (project) => ({
+	immutable: new RegExp(`^https://[0-9a-f]{8}\\.${project.replace(/\./g, '\\.')}\\.pages\\.dev$`),
+	alias: (label) => new RegExp(`^https://${label.replace(/\./g, '\\.')}\\.${project.replace(/\./g, '\\.')}\\.pages\\.dev$`),
+	production: `https://${project}.pages.dev`,
+});

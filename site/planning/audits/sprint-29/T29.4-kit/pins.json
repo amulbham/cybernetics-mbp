@@ -59,5 +59,13 @@
    "application/ld+json",
    "name=\"citation_"
   ]
- }
+ },
+ "projectSubdomain": "cybernetics-mbp-preview",
+ "accessTeamHost": null,
+ "canaryForbidText": [
+  "Cybernetics and the Structural",
+  "Cognitive Physics Series",
+  "Companions: Paper A"
+ ],
+ "sha256sumsNote": "SHA256SUMS lists the runtime files; every CLI verifies them and prints the digest of SHA256SUMS, which the GO pins"
 }
