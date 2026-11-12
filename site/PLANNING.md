@@ -245,6 +245,8 @@ The purpose of tickets, gates, and corrective records is to preserve correctness
 
 Use the smallest governance unit that safely contains the work.
 
+When a new requirement introduces substantial complexity, confirm that the Product Authority actually wants the requirement before designing the solution.
+
 **Before seal**: directly adjacent low-risk work may be incorporated into a not-yet-sealed ticket when doing so preserves a clear, unified contract. Such incorporation must not hide a materially different product decision, architecture change, source-of-truth change, privacy boundary, or risk class inside an otherwise unrelated ticket.
 
 **After seal**, a finding may be absorbed into the sealed ticket only when it:
