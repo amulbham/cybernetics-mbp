@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.3a SEALED / EXECUTOR HANDOFF / HOSTED PREVIEW UNAUTHORIZED
-Updated: 2026-11-11 (America/Los_Angeles)
+Status: T29.3a INDEPENDENT PASS (OWNER-REPORTED) / T29.4 DRAFT FOR FOCUSED SEAL REVIEW / NO HOSTED AUTHORITY
+Updated: 2026-11-12 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: relay the sealed T29.3a contract to a fresh Executor. Independent implementation review follows the isolated correction evidence.
+Exact next gate: focused seal review of the T29.4 authenticated-preview draft and the owner decisions D1–D5 and setup O1–O6 in its pins record. Hosted execution needs a separate seal and exact-tuple owner GO; the T29.5 production controls and the primary-source claim audit stay open.
 
 ## What changed
 
@@ -168,3 +168,14 @@ The owner accepted three additional REQUIRED findings against `494342176913cf73d
 ## T29.3a pre-seal PASS and owner approval — 2026-11-12
 
 Independent review of exact planning revision `9a8f25f824d49d78cd223986cf97788cdf070d2b` returned PASS (0 BLOCKER / 0 REQUIRED / 0 OPTIONAL). The reviewer imported the private bundle in a fresh local clone, verified the implementation commit/tree, pinned source and six protected hashes, reproduced all 28 baseline cases, and confirmed the original extraction and date findings. The owner accepted the review and authorized the sealed R1/R3/R5 correction scope. The Planner verified the exact local implementation base and private archive checksums again. The sealed ticket preserves the reviewed body. T29.3 closure awaits independent implementation review. T29.4 and T29.5 remain unsealed; hosted and production authority remain separate.
+
+## T29.3a independent PASS and ordinary-case `Bham` decision — 2026-11-12
+
+The owner reports an independent PASS for the T29.3a implementation: commit `63372f2b73d4d5287e92d283a4e71ee766a95e75`, tree `740d13d8bedebe8c4a5f9ec81a11dc9af7c0c837`, parent `53ec1420d240606f627ec36cbe6c540059ad7eee`. The reviewer's record is not attached here. The Executor evidence (private review set SHA-256 `3d0d67742b19b1e557ceeb9ea4a6736cb7831a79ff685151d55ddb7c3de68f0c`) reports R1 `Bham` intact on all 42 running-head pages of both corrected PDFs in Poppler, MuPDF and pdfjs-dist with page 1 header-free, R3 all 28 contract cases on the base, the preserved original set and the corrected set, and R5 date agreement including non-UTC probes, with the six protected hashes unchanged and zero historical renders. The owner decided that forward PDFs set the head surname in ordinary case; see [register §14](../../programs/future-scholarly-pdf-standard.md#14-t29a-independent-pass-and-ordinary-case-running-head--2026-11-12). Executor-reported limits remain: a different Chrome for Testing binary hash from the original recording, byte-irreproducible PDFs, and MuPDF as a non-locked tool.
+
+## T29.4 prepared for focused seal review — 2026-11-12
+
+[T29.4](../../tickets/T29.4-paper-c-closed-hosted-preview.md) is rewritten as a draft for focused seal review, with [pins, target, hostnames, canary and owner actions](T29.4-preview-pins-and-hosts.md) and the [105-file upload inventory](T29.4-preview-upload-inventory.tsv) (directory digest `bcc01c5fb947d1d3e870dde4b6ef56c2e640035880f0b9d6afd41f28bd90464b`). It pins the correction commit and tree, the candidate PDF `fe6eaf21…9446`, the candidate manifest, the Astro route HTML and the six historical path/hash pairs, and requires the exact candidate bytes without regeneration.
+
+Read-only observations on 2026-11-12: the existing project's preview hostnames, its staging alias and its production address are publicly reachable (200, `noindex` header only), a preview PDF Range request returned 200 with the full body, and the Paper C route and PDF return 404 on `amulbham.com`. The recommended target is a new dedicated direct-upload Pages project with Cloudflare Access on its preview hostnames; the live project is not recommended. The owner must choose the target, enable and shape the Access policy, supply read-only setup evidence and choose the authenticated-verification path before a seal. No access setting was changed, nothing was uploaded or pushed, and Cloudflare account state is unverified.
+

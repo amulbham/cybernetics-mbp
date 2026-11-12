@@ -1,11 +1,13 @@
 # Planner state — research website
 
-Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Relay the sealed T29.3a contract to a fresh Executor for isolated corrections.**
+Snapshot: **2026-11-12** (America/Los_Angeles).
+Primary intent: **Focused seal review of the T29.4 authenticated hosted-preview draft.**
 
 ## Resume — active gate
 
-- **2026-11-12 CURRENT — T29.3a SEALED / EXECUTOR HANDOFF.** Owner approved the exact reviewed draft `9a8f25f824d49d78cd223986cf97788cdf070d2b` after independent PASS (0 BLOCKER / 0 REQUIRED / 0 OPTIONAL). [Sealed correction contract](../site/planning/tickets/T29.3a-paper-c-audit-corrections.md) authorizes R1/R3/R5 on an isolated Executor branch from `53ec1420`, using the verified private bundle. Planner awaits relayed Executor evidence for independent implementation review. T29.3 remains open; T29.4/T29.5 remain unsealed. Primary-source claim audit OPEN.
+- **2026-11-12 CURRENT — T29.3a INDEPENDENT PASS (OWNER-REPORTED) / T29.4 DRAFT FOR FOCUSED SEAL REVIEW.** Correction commit `63372f2b73d4d5287e92d283a4e71ee766a95e75`, tree `740d13d8bedebe8c4a5f9ec81a11dc9af7c0c837`; owner decision recorded: forward PDFs use ordinary-case `Bham` ([register §14](../site/planning/programs/future-scholarly-pdf-standard.md#14-t29a-independent-pass-and-ordinary-case-running-head--2026-11-12)). [T29.4](../site/planning/tickets/T29.4-paper-c-closed-hosted-preview.md) pins candidate PDF `fe6eaf21c0c0feadd61429a9d6ebb90ea1d3c623a8b363bc02b96e53b8039446`, its manifest, Astro HTML, a 105-file upload inventory (digest `bcc01c5f…464b`) and the six historical pairs; see [pins, hosts, canary and owner actions](../site/planning/audits/sprint-29/T29.4-preview-pins-and-hosts.md). **Owner action needed before a seal:** choose the nonproduction project (recommended: new dedicated direct-upload Pages project), enable and shape the Access policy, supply read-only setup evidence, choose the authenticated-verification path (D1–D5, O1–O6). Existing project previews are publicly reachable today; no access setting changed, nothing uploaded or pushed. Hosted execution needs a separate seal and exact-tuple GO. T29.5 and the primary-source claim audit remain open.
+
+- **2026-11-12 PREDECESSOR — T29.3a SEALED / EXECUTOR HANDOFF.** Owner approved the exact reviewed draft `9a8f25f824d49d78cd223986cf97788cdf070d2b` after independent PASS (0 BLOCKER / 0 REQUIRED / 0 OPTIONAL). [Sealed correction contract](../site/planning/tickets/T29.3a-paper-c-audit-corrections.md) authorizes R1/R3/R5 on an isolated Executor branch from `53ec1420`, using the verified private bundle. Planner awaits relayed Executor evidence for independent implementation review. T29.3 remains open; T29.4/T29.5 remain unsealed. Primary-source claim audit OPEN.
 
 - **2026-11-11 PREDECESSOR — T29.3 AUDIT RECONCILED / CORRECTION THEN DRAFT.** [Post-implementation findings](../site/planning/audits/sprint-29/README.md#t293-independent-audit-reconciliation--2026-11-11) hold closure. T29.3a covers R1/R3/R5. T29.4 and T29.5 remain draft; hosted preview needs independently accepted corrections, exact candidate bytes, proven authentication and explicit owner authorization. Primary-source claim audit OPEN.
 
