@@ -67,5 +67,6 @@
   "Cognitive Physics Series",
   "Companions: Paper A"
  ],
- "sha256sumsNote": "SHA256SUMS lists the runtime files; every CLI verifies them and prints the digest of SHA256SUMS, which the GO pins"
+ "sha256sumsNote": "SHA256SUMS lists the runtime files; every CLI verifies them and prints the digest of SHA256SUMS, which the GO pins",
+ "captureMinScrollHeight": 20000
 }

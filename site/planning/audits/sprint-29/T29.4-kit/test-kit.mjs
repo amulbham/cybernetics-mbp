@@ -1,11 +1,11 @@
 // T29.4 kit tests: local mock servers only (127.0.0.1); no network, no credentials, no Cloudflare.
-// Usage: ./make-sums.sh && node test-kit.mjs
+// Usage: node test-kit.mjs   (verifies the COMMITTED SHA256SUMS first; make-sums.mjs is for authoring only)
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { crc32 } from 'node:zlib';
 import { HERE, inventoryDigest, kitIntegrity, pngInfo, readInventory, sha256 } from './kit-common.mjs';
@@ -52,7 +52,7 @@ const pins = {
 	projectSubdomain: 'cybernetics-mbp-preview', branchLabel: 't29-4-paper-c-preview',
 	route: '/research/c/c/', correctionCommit: 'x', historical: historical.map(([path, b]) => ({ path, sha256: sha256(b) })),
 	candidate: { pdfPath: 'research/c/c/c.pdf', sha256: sha256(pdf('cand')), routeHtmlSha256: sha256(ARTICLE) },
-	inventory: { digest: inventoryDigest(inventory) }, hostedExcludedFromDownloadChecks: ['_headers'], hostedRobotsHeader: 'noindex, nofollow',
+	captureMinScrollHeight: 1000, inventory: { digest: inventoryDigest(inventory) }, hostedExcludedFromDownloadChecks: ['_headers'], hostedRobotsHeader: 'noindex, nofollow',
 	hostedArticleMarkers: { required: ['<meta name="robots" content="noindex, nofollow">', 'Candidate specimen', 'Download candidate PDF'], forbidden: ['rel="canonical"', 'application/ld+json', 'name="citation_'] },
 };
 const ROUTE = pins.route;
@@ -105,6 +105,16 @@ await test('kit integrity: SHA256SUMS matches the runtime files and tampering is
 	cpSync(HERE, d, { recursive: true });
 	writeFileSync(join(d, 'verify-hosted-preview.mjs'), readFileSync(join(d, 'verify-hosted-preview.mjs'), 'utf8') + '\n// tampered\n');
 	assert.equal(kitIntegrity(d).ok, false);
+	rmSync(d, { recursive: true });
+});
+
+await test('kit integrity: a CRLF (Windows autocrlf) checkout still verifies', () => {
+	const d = tmp();
+	cpSync(HERE, d, { recursive: true });
+	for (const f of ['SHA256SUMS', 'kit-common.mjs', 'verify-upload-dir.mjs', 'anonymous-denial-check.mjs', 'verify-hosted-preview.mjs', 'pins.json']) writeFileSync(join(d, f), readFileSync(join(d, f), 'utf8').replace(/\n/g, '\r\n'));
+	const k = kitIntegrity(d);
+	assert.equal(k.ok, true, k.problems.join('|'));
+	assert.equal(k.digest, kitIntegrity().digest, 'the GO digest is the same for LF and CRLF checkouts');
 	rmSync(d, { recursive: true });
 });
 
@@ -328,6 +338,15 @@ for (const [label, opts, expect, origin] of [
 		rmSync(s.dir, { recursive: true });
 	});
 }
+await test('captures: an implausibly small scrollHeight or a devicePixelRatio below 1 fails (default floor)', () => {
+	const s = captureSet({ height: 100 });
+	const strict = buildCaptureIndex({ dir: s.dir, origin: ORIGIN, pins: { ...pins, captureMinScrollHeight: undefined }, reportPath: s.reportPath });
+	assert.ok(strict.problems.some((p) => p.includes('implausibly small')), strict.problems.join('|'));
+	const m = JSON.parse(readFileSync(join(s.dir, 'page-metrics-desktop.json'), 'utf8')); m.devicePixelRatio = 0.1;
+	writeFileSync(join(s.dir, 'page-metrics-desktop.json'), JSON.stringify(m));
+	assert.ok(build(s).problems.some((p) => p.includes('below 1')));
+	rmSync(s.dir, { recursive: true });
+});
 await test('captures: a numbering gap, a fabricated 33-byte PNG and duplicate images fail', () => {
 	const s = captureSet({});
 	rmSync(join(s.dir, 'desktop-002.png'));
@@ -390,6 +409,55 @@ await test('captures: pngInfo checks chunk CRCs; a UTF-16 / BOM metrics file sti
 		assert.notEqual(inventoryDigest(inventory), sha256(Buffer.from(byHash.map((r) => `${r.sha256}  ${r.path}\n`).join(''))));
 	});
 	rmSync(dir, { recursive: true }); rmSync(side, { recursive: true });
+}
+
+// ---- CLI-level canary runs with the canary's own pins and inventory ---------------------------------------
+{
+	const login = await loginServer();
+	const good = await accessOrigin({ loginOrigin: login.origin });
+	const control = await publicServer();
+	const ns2 = await notServed();
+	const side = tmp();
+	const tsv = join(side, 'canary.tsv');
+	writeFileSync(tsv, 'path\tbytes\tsha256\n' + inventory.map((r) => `${r.path}\t${r.bytes}\t${r.sha256}`).join('\n') + '\n');
+	const pinsFile = join(side, 'canary-pins.json');
+	writeFileSync(pinsFile, JSON.stringify(pins));
+	const env = { ...process.env, CF_AUTHORIZATION: 'GOOD' };
+	// Async spawn: the mock servers live in this process, so a blocking spawnSync would deadlock.
+	const cli = (script, args, e = env) => new Promise((resolve) => {
+		const child = spawn(process.execPath, [join(HERE, script), ...args], { env: e });
+		let stdout = ''; let stderr = '';
+		child.stdout.on('data', (d) => { stdout += d; }); child.stderr.on('data', (d) => { stderr += d; });
+		child.on('close', (status) => resolve({ status, stdout, stderr }));
+	});
+	await test('CLI: the hosted verifier runs a canary with --pins and --inventory (exit 0)', async () => {
+		const r = await cli('verify-hosted-preview.mjs', ['--origin', good.origin, '--alias', good.origin, '--pins', pinsFile, '--inventory', tsv, '--out', join(side, 'r.json'), '--skip-host-validation-for-tests']);
+		assert.equal(r.status, 0, r.stdout + r.stderr);
+		assert.match(r.stdout, /kit digest/);
+	});
+	await test('CLI: the hosted verifier without --pins refuses a canary tree (candidate inventory mismatch)', async () => {
+		const r = await cli('verify-hosted-preview.mjs', ['--origin', good.origin, '--inventory', tsv, '--out', join(side, 'r2.json'), '--skip-host-validation-for-tests']);
+		assert.notEqual(r.status, 0);
+	});
+	await test('CLI: a tampered inventory (digest differs from the pins) is refused before any request', async () => {
+		writeFileSync(join(side, 'tampered.tsv'), readFileSync(tsv, 'utf8').replace(inventory[0].sha256, 'f'.repeat(64)));
+		const r = await cli('verify-hosted-preview.mjs', ['--origin', good.origin, '--pins', pinsFile, '--inventory', join(side, 'tampered.tsv'), '--out', join(side, 'r3.json'), '--skip-host-validation-for-tests']);
+		assert.equal(r.status, 2);
+		assert.match(r.stdout, /inventory digest/);
+	});
+	await test('CLI: the hosted verifier rejects an alias or production origin', async () => {
+		for (const o of ['https://t29-4-paper-c-preview.cybernetics-mbp-preview.pages.dev', 'https://cybernetics-mbp-preview.pages.dev']) assert.equal((await cli('verify-hosted-preview.mjs', ['--origin', o])).status, 2);
+	});
+	await test('CLI: the denial check requires --access-host and rejects non-project hosts', async () => {
+		const common = ['--pins', pinsFile, '--inventory', tsv, '--control-html', `${control.origin}/page`, '--control-pdf', `${control.origin}/doc.pdf`, '--marker', 'Candidate specimen', '--allow-http-login-for-tests'];
+		assert.equal((await cli('anonymous-denial-check.mjs', ['--protected', good.origin, ...common])).status, 2);
+		assert.equal((await cli('anonymous-denial-check.mjs', ['--protected', 'https://evil.example.com', '--access-host', 'x.example', ...common])).status, 2);
+	});
+	await test('CLI: the denial check runs a canary with its own pins and the team host (exit 0)', async () => {
+		const r = await cli('anonymous-denial-check.mjs', ['--protected', good.origin, '--not-served', ns2.origin, '--pins', pinsFile, '--inventory', tsv, '--access-host', '127.0.0.1', '--control-html', `${control.origin}/page`, '--control-pdf', `${control.origin}/doc.pdf`, '--marker', 'Candidate specimen', '--allow-http-login-for-tests', '--skip-host-validation-for-tests']);
+		assert.equal(r.status, 0, r.stdout + r.stderr);
+	});
+	await good.close(); await login.close(); await control.close(); await ns2.close(); rmSync(side, { recursive: true });
 }
 
 console.log(`\nT29.4 kit: ${count} cases passed${process.exitCode ? ', FAILURES PRESENT' : ''}`);

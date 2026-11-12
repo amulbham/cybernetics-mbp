@@ -68,24 +68,43 @@ export const arg = (argv, name, fallback) => {
  * The scripts that decide PASS are bound to the owner's GO by the digest of `SHA256SUMS`, which lists the
  * runtime files. Every CLI calls this first, prints the digest, and refuses to run if a listed file differs.
  */
+/** Hash text files after CRLF -> LF so a Windows (autocrlf) checkout verifies exactly like the sealed LF files. */
+const lf = (buf) => Buffer.from(buf.toString('latin1').replace(/\r\n/g, '\n'), 'latin1');
+export const sha256Lf = (buf) => sha256(lf(buf));
+
 export function kitIntegrity(dir = HERE) {
 	const sums = join(dir, 'SHA256SUMS');
 	if (!existsSync(sums)) return { ok: false, digest: null, problems: ['SHA256SUMS is missing'] };
-	const text = readFileSync(sums, 'utf8');
+	const text = lf(readFileSync(sums)).toString('latin1');
 	const problems = [];
 	for (const line of text.split('\n').filter(Boolean)) {
 		const [hash, name] = [line.slice(0, 64), line.slice(66)];
 		if (!existsSync(join(dir, name))) problems.push(`missing kit file ${name}`);
-		else if (sha256(readFileSync(join(dir, name))) !== hash) problems.push(`kit file differs from SHA256SUMS: ${name}`);
+		else if (sha256Lf(readFileSync(join(dir, name))) !== hash) problems.push(`kit file differs from SHA256SUMS: ${name}`);
 	}
-	return { ok: problems.length === 0, digest: sha256(Buffer.from(text)), problems };
+	return { ok: problems.length === 0, digest: sha256(Buffer.from(text, 'latin1')), problems };
 }
+/** Node 22.2 or later (zlib.crc32); then the kit files must match SHA256SUMS. Prints the digest the GO pins. */
 export function requireKitIntegrity(label) {
+	const [major, minor] = process.versions.node.split('.').map(Number);
+	if (major < 22 || (major === 22 && minor < 2)) {
+		console.log(`${label}: Node ${process.versions.node} is too old; Node 22.2 or later is required`);
+		process.exit(2);
+	}
 	const k = kitIntegrity();
 	console.log(`${label}: kit digest (SHA256SUMS) ${k.digest ?? 'none'} — compare with the value in the GO`);
 	if (!k.ok) {
 		for (const p of k.problems) console.log(`  FAIL ${p}`);
 		console.log(`${label}: the kit has been modified — stop`);
+		process.exit(2);
+	}
+}
+
+/** The TSV that a run trusts must be the pinned inventory: its path-sorted digest must equal the pin. */
+export function requireInventoryMatchesPins(label, inventory, pins) {
+	const d = inventoryDigest(inventory);
+	if (d !== pins.inventory.digest) {
+		console.log(`${label}: the inventory digest ${d} differs from the pinned ${pins.inventory.digest} — stop`);
 		process.exit(2);
 	}
 }

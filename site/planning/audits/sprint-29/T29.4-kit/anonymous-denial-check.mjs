@@ -15,11 +15,13 @@
 // Usage: node anonymous-denial-check.mjs --protected <origin,origin,...> [--not-served <origin,...>]
 //          [--project cybernetics-mbp-preview] [--route /path/] [--pdf /path.pdf] [--asset /_astro/x.css]
 //          [--control-html <url>] [--control-pdf <url>] [--marker <text,...>] [--access-host <team>.cloudflareaccess.com]
-//          [--allow-status-denial] [--out report.json]
+//          [--allow-status-denial] [--pins <json>] [--inventory <tsv>] [--out report.json]
+//          (canary runs pass the canary's own --pins and --inventory; --access-host is required; the --*-for-tests flags
+//           exist only for the local mock-server tests and must never be used on a real host)
 // Exit: 0 all expectations met; 1 an expectation failed; 2 a control failed, a request errored or the kit changed.
 import { writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { HERE, arg, hostRes, loadPins, readInventory, requireKitIntegrity } from './kit-common.mjs';
+import { join, resolve } from 'node:path';
+import { HERE, arg, hostRes, loadPins, readInventory, requireInventoryMatchesPins, requireKitIntegrity } from './kit-common.mjs';
 
 const REDIRECT = new Set([301, 302, 303, 307, 308]);
 const PDF_MAGIC = '%PDF-';
@@ -187,25 +189,32 @@ if (process.argv[1] && import.meta.url === new URL(process.argv[1], 'file://').h
 	requireKitIntegrity('anonymous-denial-check');
 	const argv = process.argv.slice(2);
 	const list = (name) => (arg(argv, name, '') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
-	const pins = loadPins();
+	const pins = loadPins(resolve(arg(argv, '--pins') ?? join(HERE, 'pins.json')));
 	const project = arg(argv, '--project', pins.projectSubdomain);
 	const hosts = hostRes(project);
 	const protectedOrigins = list('--protected').map((o) => o.replace(/\/$/, ''));
-	const bad = protectedOrigins.filter((o) => !(hosts.immutable.test(o) || hosts.alias(pins.branchLabel).test(o)));
+	const skipHosts = argv.includes('--skip-host-validation-for-tests');
+	const bad = skipHosts ? [] : protectedOrigins.filter((o) => !(hosts.immutable.test(o) || hosts.alias(pins.branchLabel).test(o)));
+	const accessHost = arg(argv, '--access-host', pins.accessTeamHost ?? undefined);
+	if (!accessHost && !argv.includes('--allow-any-access-host')) {
+		console.error('--access-host <team>.cloudflareaccess.com is required (the owner\'s Zero Trust team host from the Phase 0 evidence); --allow-any-access-host only for an explicitly accepted Phase 0 trial');
+		process.exit(2);
+	}
 	if (!protectedOrigins.length || bad.length) {
 		console.error(`usage: node anonymous-denial-check.mjs --protected <origin,...> [--not-served <origin,...>] [--out report.json]\nEvery protected origin must be the alias https://${pins.branchLabel}.${project}.pages.dev or an immutable https://<8 hex>.${project}.pages.dev${bad.length ? `; rejected: ${bad.join(', ')}` : ''}`);
 		process.exit(2);
 	}
-	const inventory = readInventory(join(HERE, pins.inventory.file));
+	const inventory = readInventory(resolve(arg(argv, '--inventory') ?? join(HERE, pins.inventory.file)));
+	requireInventoryMatchesPins('anonymous-denial-check', inventory, pins);
 	const options = {
-		protectedOrigins, notServed: [...new Set([hosts.production, ...list('--not-served')])],
+		protectedOrigins, notServed: [...new Set([...(skipHosts ? [] : [hosts.production]), ...list('--not-served')])],
 		route: arg(argv, '--route', pins.route), pdf: arg(argv, '--pdf', `/${pins.candidate.pdfPath}`),
 		asset: arg(argv, '--asset', `/${inventory.find((r) => r.path.startsWith('_astro/') && r.path.endsWith('.css'))?.path}`),
 		extra: list('--extra'),
 		controlHtml: arg(argv, '--control-html', 'https://amulbham.com/'),
 		controlPdf: arg(argv, '--control-pdf', 'https://amulbham.com/research/cybernetics/three-self-organizing-systems/three-self-organizing-systems.pdf'),
 		markers: list('--marker').length ? list('--marker') : ['Cybernetics and the Structural', 'Candidate specimen', 'T29.4 canary'],
-		accessSuffix: '.cloudflareaccess.com', accessHost: arg(argv, '--access-host', pins.accessTeamHost ?? undefined),
+		accessSuffix: '.cloudflareaccess.com', accessHost, allowHttp: argv.includes('--allow-http-login-for-tests'),
 		allowStatusDenial: argv.includes('--allow-status-denial'),
 	};
 	const report = await run(options);

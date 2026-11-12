@@ -12,6 +12,9 @@
 // With --alias the seven PDFs are repeated on the alias (a different host: its own cookie may be needed,
 // CF_AUTHORIZATION_ALIAS). The report records the observed hashes, never the cookie.
 //
+// For a canary run pass the canary's own `--pins canary-N-pins.json --inventory canary-N.tsv`; the inventory's path-sorted
+// digest must equal the pins' digest. (--skip-host-validation-for-tests exists only for the local mock-server tests.)
+//
 // MODE 2 (index): after taking the captures, build the capture index from an EXISTING PASSING report
 //   node verify-hosted-preview.mjs --index --origin <immutable origin> --report report.json --captures <dir>
 // It needs no cookie. It refuses a missing, failed or other-origin report, and records the observed candidate hash.
@@ -20,7 +23,7 @@
 // Exit: 0 pass; 1 a check failed; 2 bad usage, a modified kit or no session.
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { HERE, arg, hostRes, loadJson, loadPins, pngInfo, readInventory, requireKitIntegrity, sha256 } from './kit-common.mjs';
+import { HERE, arg, hostRes, loadJson, loadPins, pngInfo, readInventory, requireInventoryMatchesPins, requireKitIntegrity, sha256 } from './kit-common.mjs';
 
 const ACCESS_SUFFIX = '.cloudflareaccess.com';
 
@@ -121,6 +124,7 @@ export async function verifyHosted({ origin, alias, token, aliasToken, pins, inv
 
 const NEED = { desktop: { width: 1440, tol: 2 }, mobile: { width: 390, tol: 2 } };
 const MIN_IMAGE_BYTES = 4096;
+const MIN_SCROLL_HEIGHT = 20000; // the article is tens of thousands of CSS px tall; a self-declared tiny height is not a page
 
 /** Build and validate the capture index from a PASSING report. */
 export function buildCaptureIndex({ dir, origin, pins, reportPath, project = pins.projectSubdomain }) {
@@ -152,6 +156,8 @@ export function buildCaptureIndex({ dir, origin, pins, reportPath, project = pin
 			continue;
 		}
 		const dpr = metrics.devicePixelRatio || 1;
+		if (!(dpr >= 1)) problems.push(`${kind}: devicePixelRatio ${metrics.devicePixelRatio} is below 1`);
+		if (!(metrics.scrollHeight >= (pins.captureMinScrollHeight ?? MIN_SCROLL_HEIGHT))) problems.push(`${kind}: scrollHeight ${metrics.scrollHeight} is implausibly small for the article`);
 		if (metrics.url !== `${origin}${pins.route}`) problems.push(`${kind}: metrics URL ${metrics.url} is not exactly the immutable article URL ${origin}${pins.route}`);
 		if (Math.abs(metrics.innerWidth - NEED[kind].width) > NEED[kind].tol) problems.push(`${kind}: viewport width ${metrics.innerWidth} is not ${NEED[kind].width} (±${NEED[kind].tol})`);
 		if (metrics.routeHtmlSha256 !== pins.candidate.routeHtmlSha256) problems.push(`${kind}: the page the browser fetched hashes to ${metrics.routeHtmlSha256}, expected ${pins.candidate.routeHtmlSha256}`);
@@ -193,9 +199,9 @@ if (process.argv[1] && import.meta.url === new URL(process.argv[1], 'file://').h
 	requireKitIntegrity('verify-hosted-preview');
 	const argv = process.argv.slice(2);
 	const origin = arg(argv, '--origin');
-	const pins = loadPins(join(HERE, 'pins.json'));
+	const pins = loadPins(resolve(arg(argv, '--pins') ?? join(HERE, 'pins.json')));
 	const hosts = hostRes(arg(argv, '--project', pins.projectSubdomain));
-	if (!origin || !hosts.immutable.test(origin)) {
+	if (!origin || !(hosts.immutable.test(origin) || argv.includes('--skip-host-validation-for-tests'))) {
 		console.error(`--origin must be an immutable preview URL https://<8 hex>.${pins.projectSubdomain}.pages.dev (not the alias, not the production host)`);
 		process.exit(2);
 	}
@@ -209,7 +215,7 @@ if (process.argv[1] && import.meta.url === new URL(process.argv[1], 'file://').h
 		process.exit(problems.length ? 1 : 0);
 	}
 	const alias = arg(argv, '--alias');
-	if (alias && !hosts.alias(pins.branchLabel).test(alias)) {
+	if (alias && !hosts.alias(pins.branchLabel).test(alias) && !argv.includes('--skip-host-validation-for-tests')) {
 		console.error(`--alias must be https://${pins.branchLabel}.${pins.projectSubdomain}.pages.dev`);
 		process.exit(2);
 	}
@@ -219,6 +225,7 @@ if (process.argv[1] && import.meta.url === new URL(process.argv[1], 'file://').h
 		process.exit(2);
 	}
 	const inventory = readInventory(resolve(arg(argv, '--inventory') ?? join(HERE, pins.inventory.file)));
+	requireInventoryMatchesPins('verify-hosted-preview', inventory, pins);
 	const report = await verifyHosted({ origin, alias, token, aliasToken: process.env.CF_AUTHORIZATION_ALIAS, pins, inventory });
 	const out = arg(argv, '--out', 'hosted-verification-report.json');
 	const text = JSON.stringify(report, null, 1) + '\n';
