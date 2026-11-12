@@ -1,6 +1,8 @@
 # T29.4 owner-run kit and Cloudflare setup checklist
 
-Status: PLANNING ARTIFACT for the [T29.4 draft](../../../tickets/T29.4-paper-c-closed-hosted-preview.md). Not sealed, not run against any Cloudflare resource. Hosted execution needs the separate seal and, for the candidate, your exact-tuple GO.
+> **SUPERSEDED 2026-11-12 — HISTORICAL EVIDENCE ONLY.** This protected-preview kit (Access denial, canary and authenticated verification) is not on the active path; use [`../T29.4-staging/`](../T29.4-staging/README.md). Preserved unchanged, including its 65-case suite and `SHA256SUMS`.
+
+Status: PLANNING ARTIFACT for the [T29.4 draft](../../../tickets/T29.4-protected-preview-SUPERSEDED.md). Not sealed, not run against any Cloudflare resource. Hosted execution needs the separate seal and, for the candidate, your exact-tuple GO.
 Files: `pins.json` (machine-readable pins), [`../T29.4-preview-upload-inventory.tsv`](../T29.4-preview-upload-inventory.tsv), `verify-upload-dir.mjs`, `anonymous-denial-check.mjs`, `verify-hosted-preview.mjs`, `kit-common.mjs`, `SHA256SUMS` (the five runtime files), `make-sums.mjs` (authoring only; neither you nor the seal runs it), `.gitattributes`, `test-kit.mjs` (65 cases against local mock servers; `node test-kit.mjs` first verifies the **committed** `SHA256SUMS`, so it cannot pass on a modified kit). **Node 22.2 or later**, `node:` built-ins only. Every CLI prints the digest of `SHA256SUMS` and refuses to run if a runtime file differs; the GO pins that digest. The kit reaches you as a zip from the Executor; `.gitattributes` keeps a Git checkout byte-exact and the integrity check also normalizes CRLF, so a Windows checkout verifies identically. Every run that trusts an inventory first requires its path-sorted digest to equal the digest in the pins file.
 
 ## Who runs what
