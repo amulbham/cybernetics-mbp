@@ -160,3 +160,7 @@ Applies to `53ec1420d240606f627ec36cbe6c540059ad7eee` (tree `c3bea05dfaa4abf4531
 Proposed excerpt for owner approval: “This paper proposes seven candidate conditions for self-organization and outlines how to test them across biology, markets, and AI systems.”
 
 Drafts: [T29.3a corrections](../../tickets/T29.3a-paper-c-audit-corrections.md), [T29.4 authenticated preview](../../tickets/T29.4-paper-c-closed-hosted-preview.md), [T29.5 seven-PDF production controls](../../tickets/T29.5-paper-c-seven-pdf-release-controls.md). Final slug, publication date, excerpt, DOI/deposit reconciliation, primary-source claim audit disposition and exact release-byte approval remain tracked in the release sequence. No draft here carries execution or deployment authority.
+
+## Executor planning recheck disposition — 2026-11-11
+
+The owner accepted three additional REQUIRED findings against `494342176913cf73db56300856a258b04965b24f`. T29.3a now requires three-extractor per-page header acceptance and a private verified bundle handoff. T29.5 now includes the independent HTML publishing-facts oracle, forward masthead identity-link census and complete production-build rehearsal. The earlier R6 proposal remains above as review history and is superseded by the [owner-approved excerpt](../../programs/future-scholarly-pdf-standard.md#13-owner-approved-publication-excerpt--2026-11-11). The corrections, hosted preview and release-control tickets remain drafts. T29.3 remains open.

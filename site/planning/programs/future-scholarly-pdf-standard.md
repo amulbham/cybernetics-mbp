@@ -209,3 +209,11 @@ The owner accepts the T29.2 44-page portrait prototype (SHA-256 `3297991a5e206b9
 Published PDF front matter must read `DOI: https://doi.org/10.5281/zenodo.24120332` with a working hyperlink. Remove both prototype notices, `Candidate specimen — not published` and `Intended concept DOI (owner-confirmed; public verification pending)`, and any equivalent provisional wording from the final PDF. Use the concept DOI consistently in the public masthead, `ScholarlyArticle.identifier` and `citation_doi`. Retain `10.5281/zenodo.24120333` with archival, deposit and exact artifact provenance. Apply §11's authenticated deposit reconciliation and public verification before website production release; expected prepublication 404s do not block implementation.
 
 Authorization on 2026-11-11 covers planning and successor draft only. Keep design acceptance, implementation seal, isolated execution, hosted candidate acceptance, deposit reconciliation, exact bytes/metadata/date approval, production authorization and live verification distinct. The independent primary-source claim audit remains open for explicit disposition before publication.
+
+## 13. Owner-approved publication excerpt — 2026-11-11
+
+Owner-approved exact publication excerpt:
+
+> This paper proposes seven candidate conditions for self-organization and examines how their predictions can be tested across biological, economic, and artificial intelligence systems.
+
+Use this text as explicit excerpt metadata at the authorized publication stage. Preserve the pinned manuscript abstract and existing publication boundaries. The prior proposed excerpt is superseded; this editorial approval does not authorize installation, deployment or publication.
