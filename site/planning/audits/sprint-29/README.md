@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.3 LOCAL IMPLEMENTATION EVIDENCE READY / HOSTED PREVIEW UNAUTHORIZED
+Status: T29.3 INDEPENDENT AUDIT RECONCILIATION / CORRECTION DRAFT / HOSTED PREVIEW UNAUTHORIZED
 Updated: 2026-11-11 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: owner reviews the isolated implementation evidence and separately authorizes a closed hosted preview.
+Exact next gate: review the focused T29.3a correction contract and return independently verified corrections before any hosted authorization.
 
 ## What changed
 
@@ -143,3 +143,20 @@ Private branch `work/t29-3-scholarly-pipeline @ 53ec1420d240606f627ec36cbe6c5400
 - 7/7 PDF and closed-indexing validators passed in the rehearsal. Six protected hashes matched with zero legacy renders, 15 existing research routes retained their content and links, and the focused regression/mutation checks passed. Production workflow/settings and published artifact paths were not changed.
 
 Next: separately authorize an access-controlled, noindex preview bound to the reviewed tree and exact candidate hash. Verify anonymous denial for the article and PDF, all six protected hashes and rendered identity, then obtain owner visual approval on desktop and mobile. Final slug/date, exact release bytes, DOI/deposit reconciliation and independent primary-source claim audit disposition remain open before separately authorized production release.
+
+## T29.3 independent audit reconciliation — 2026-11-11
+
+Applies to `53ec1420d240606f627ec36cbe6c540059ad7eee` (tree `c3bea05dfaa4abf45314aa2bb74647f957e603a5`). The owner reports substantial independent passes for the reusable implementation, protected PDFs, Astro regression, content/citations and seven-file rehearsal; this is not owner closure. The six observations below preserve the owner-supplied Executor findings. The full raw Executor transcript/logs were not independently available for this record; the original local audit artifacts, hashes, warnings and reviewed commit remain as recorded above. Planner spot checks used those exact local PDF and HTML artifacts. These R-numbers are the post-implementation audit, distinct from the pre-seal SHA correction.
+
+| Finding | Evidence and disposition | Gate |
+| --- | --- | --- |
+| R1 running-header glyph split | Executor reports `B ham`. Planner reproduced it in Poppler layout extraction on all 42 running-header pages in each reviewed PDF. MuPDF extracted the same header as `Bham`. Required forward-print correction and per-page visual/extraction check. | Blocks acceptance of the corrected candidate for preview. |
+| R2 renderer-dependent PDF output | Executor reports renderer-dependent output. Existing manifests pin browser SHA-256 `6b0cef874618f730b32c8615e13db8531195e2f031faf7cebae5e9405cb3fcc9`, Node 24.22.1, Astro 7.2.3 and Vivliostyle 11.2.0; local matching browser reports Chrome for Testing 133.0.6943.16. Record exact versions with the corrected artifacts. Different pagination alone is not a content failure; each artifact must pass its own checks. | Exact accepted bytes and hash, with zero regeneration, required for preview and release. |
+| R3 private test reproduction | Existing suite takes the private source path, `paper-c.json`, and `rehearsal-config.json` with local paths. Required handoff correction preserves and reproduces all 28 cases in an independent checkout. | Blocks correction acceptance and therefore preview. |
+| R4 seven-PDF oracle and production guard | Local assembly rehearsal is evidence only. Independently pin the seventh expectation and keep the six historical path/hash pairs; review production workflow wiring separately. | Required for release. Private preview still verifies all seven served hashes without activating production controls. |
+| R5 timezone mismatch | On the reviewed final-form fixture, visible `Dec 31, 1999` differs from HTML `2000-01-01T00:00:00.000Z` and Highwire `2000/01/01`. Required UTC and date-parity check. | Blocks correction acceptance and therefore preview. |
+| R6 authored excerpt | Intake currently truncates the first abstract paragraph at 190 characters. Approve explicit excerpt metadata before publication; preserve the manuscript abstract. Private preview can suppress or clearly label provisional metadata. | Release requirement; preview can proceed without implying approval of an excerpt. |
+
+Proposed excerpt for owner approval: “This paper proposes seven candidate conditions for self-organization and outlines how to test them across biology, markets, and AI systems.”
+
+Drafts: [T29.3a corrections](../../tickets/T29.3a-paper-c-audit-corrections.md), [T29.4 authenticated preview](../../tickets/T29.4-paper-c-closed-hosted-preview.md), [T29.5 seven-PDF production controls](../../tickets/T29.5-paper-c-seven-pdf-release-controls.md). Final slug, publication date, excerpt, DOI/deposit reconciliation, primary-source claim audit disposition and exact release-byte approval remain tracked in the release sequence. No draft here carries execution or deployment authority.

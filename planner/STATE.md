@@ -1,11 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-11** (America/Los_Angeles).
-Primary intent: **Review the isolated T29.3 implementation and decide whether to authorize a closed hosted preview.**
+Primary intent: **Review the T29.3 independent audit reconciliation and focused correction draft.**
 
 ## Resume — active gate
 
-- **2026-11-11 CURRENT — T29.3 LOCAL IMPLEMENTATION EVIDENCE READY / HOSTED PREVIEW UNAUTHORIZED.** Private isolated branch `work/t29-3-scholarly-pipeline` at `53ec1420d240606f627ec36cbe6c540059ad7eee`. [Execution evidence and next gate](../site/planning/audits/sprint-29/README.md#t293-isolated-implementation-evidence--2026-11-11). Local Astro and 7/7 PDF rehearsal checks passed. Owner visual acceptance must be on the separately authorized hosted candidate. Primary-source claim audit OPEN.
+- **2026-11-11 CURRENT — T29.3 AUDIT RECONCILED / CORRECTION DRAFT.** [Post-implementation findings](../site/planning/audits/sprint-29/README.md#t293-independent-audit-reconciliation--2026-11-11) hold closure. T29.3a covers R1/R3/R5. T29.4 and T29.5 remain draft; hosted preview needs independently accepted corrections, exact candidate bytes, proven authentication and explicit owner authorization. Primary-source claim audit OPEN.
+
+- **2026-11-11 PREDECESSOR — T29.3 LOCAL IMPLEMENTATION EVIDENCE READY / HOSTED PREVIEW UNAUTHORIZED.** Private isolated branch `work/t29-3-scholarly-pipeline` at `53ec1420d240606f627ec36cbe6c540059ad7eee`. [Execution evidence and next gate](../site/planning/audits/sprint-29/README.md#t293-isolated-implementation-evidence--2026-11-11). Local Astro and 7/7 PDF rehearsal checks passed. Owner visual acceptance must be on the separately authorized hosted candidate. Primary-source claim audit OPEN.
 
 - **2026-11-11 PREDECESSOR — T29.3 SEALED.** Owner authorized isolated implementation and local QA against verified draft `43a6b0b4d3ee206baf37899a739dd8874ba44145`. [R1 review disposition](../site/planning/audits/sprint-29/README.md#t293-pre-seal-review-and-owner-authorization--2026-11-11) preserves the corrected reference and authority boundary. Hosted preview and production remain separate. Primary-source claim audit OPEN.
 
