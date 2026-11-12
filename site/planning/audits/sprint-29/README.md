@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.3a INDEPENDENT PASS (OWNER-REPORTED) / T29.4 CORRECTED AFTER INDEPENDENT PRE-SEAL REVIEW, AWAITING CONFIRMATION / NO HOSTED AUTHORITY
+Status: T29.3a INDEPENDENT PASS (OWNER-REPORTED) / T29.4 INDEPENDENTLY PRE-SEAL REVIEWED, READY TO SEAL SUBJECT TO THE PLANNER'S T29.3a RECORD / NO HOSTED AUTHORITY
 Updated: 2026-11-12 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: independent pre-seal review of the revised T29.4 and its owner-run kit, then the Planner completes the [T29.3a verification record](S29-T29.3a-verification-record.md). Hosted execution needs a separate seal; the candidate upload needs the owner's exact-tuple GO after the harmless canaries. T29.5 and the primary-source claim audit stay open.
+Exact next gate: the Planner completes the [T29.3a verification record](S29-T29.3a-verification-record.md) (F11), then the owner decides whether to seal T29.4 and completes the Cloudflare setup in the [kit README](T29.4-kit/README.md). Hosted execution needs the seal; the candidate upload needs the owner's exact-tuple GO after the harmless canaries. T29.5 and the primary-source claim audit stay open.
 
 ## What changed
 
@@ -182,3 +182,5 @@ Three required findings are resolved: (1) the directory digest is computed over 
 Artifacts: [T29.4](../../tickets/T29.4-paper-c-closed-hosted-preview.md), [pins, hosts and canary record](T29.4-preview-pins-and-hosts.md), [upload inventory](T29.4-preview-upload-inventory.tsv), the [owner-run kit and Cloudflare setup checklist](T29.4-kit/README.md) (scripts with a 65-case mock-server test suite), and the [T29.3a verification record](S29-T29.3a-verification-record.md). The Planner's post-implementation verification record of T29.3a was not available to the Executor and is a required input to that file. No project was created, no setting changed, nothing uploaded or pushed beyond planning commits.
 
 The independent pre-seal review of commit `0d10d5ecaff2eac44cc9ee0d283b52565cd1feb4` returned READY AFTER REQUIRED CORRECTIONS (0 BLOCKER, 12 REQUIRED, 4 OPTIONAL). Findings, dispositions and what the reviewer did and did not reproduce are in the [review record](S29-T29.4-pre-seal-review.md). Eleven REQUIRED findings were corrected in the ticket, pins record and kit; F11, the Planner's post-implementation T29.3a verification record, remains open and is a precondition for seal.
+
+The confirmation review of `67f8c2b9dc709c277902e78d27f221e7ce81d569` returned READY TO SEAL, subject only to F11, with four OPTIONAL items deferred to the seal record ([review record](S29-T29.4-pre-seal-review.md)). The reviewed planning commit is `67f8c2b9dc709c277902e78d27f221e7ce81d569`; later commits change only records.
