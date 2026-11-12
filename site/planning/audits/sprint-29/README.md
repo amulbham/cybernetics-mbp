@@ -1,9 +1,9 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.3a INDEPENDENT PASS (OWNER-REPORTED), NOT CLOSED / T29.4 REPLANNED FOR PUBLIC STAGING (DRAFT, PRE-SEAL REVIEW) / NO HOSTED AUTHORITY
+Status: T29.3a CLOSED / T29.4 PUBLIC-STAGING DRAFT REVIEWED / NO HOSTED AUTHORITY
 Updated: 2026-11-12 (America/Los_Angeles)
 Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
-Exact next gate: the Planner supplies the T29.3a post-implementation record and ACCEPT ([closure status](S29-T29.3a-closure-status.md)); the owner then decides whether to seal the [T29.4 staging ticket](../../tickets/T29.4-paper-c-staging-preview.md). Staging upload needs the seal and an exact-tuple GO; production, Zenodo and indexing each need their own. The [release checklist](S29-paper-c-release-checklist.md) lists the T29.5 gates. The primary-source claim audit stays open.
+Exact next gate: after [Planner acceptance and closure of T29.3a](S29-T29.3a-closure-status.md), the owner decides whether to seal the [T29.4 staging ticket](../../tickets/T29.4-paper-c-staging-preview.md). Staging upload needs the seal and an exact-tuple GO; production, Zenodo and indexing each need their own. The [release checklist](S29-paper-c-release-checklist.md) lists the T29.5 gates. The primary-source claim audit stays open.
 
 ## What changed
 
@@ -193,4 +193,4 @@ Why a direct upload: the staging workflow regenerates PDFs for every ref (carry 
 
 Exceptions for the owner's decision: E1 the alias stops serving the staging-branch build until rollback (the Chisel v2/IWL pages stay present as `main`'s versions); E2 the candidate is searchable and redirects; E3 `validate:pdfs` and `validate:facts` cannot pass for candidate-mode HTML (publication mode is verified at T29.5); E5 Git `staging` does not move; E6 the staged article links a pending DOI (`10.5281/zenodo.24120332`, 404 on 2026-11-12) and its meta description is truncated. Rollback is a re-run of the staging workflow on branch `staging` plus `--rollback-check`; deployment `2d879b27` must not be deleted.
 
-The [T29.3a closure status](S29-T29.3a-closure-status.md): the Executor completion report is appended to the ticket; the Planner's post-implementation record and ACCEPT were not available, so T29.3a is **not closed** and nothing was inferred. The [release checklist](S29-paper-c-release-checklist.md) lists the T29.5 gates (independent publishing-facts oracle, seven-PDF guard, negative tests, full release rehearsal, claim audit disposition, one final PDF hash for the website and Zenodo). The [staging pre-seal review record](S29-T29.4-staging-pre-seal-review.md) holds the independent review of the exact planning commit. No project, setting, upload, deployment or push beyond planning commits.
+At the staging replan, the Executor appended the T29.3a completion report and left closure to the Planner. The Planner subsequently attached the independent post-implementation record and [closed T29.3a with ACCEPT](S29-T29.3a-closure-status.md). The [release checklist](S29-paper-c-release-checklist.md) lists the T29.5 gates (independent publishing-facts oracle, seven-PDF guard, negative tests, full release rehearsal, claim audit disposition, one final PDF hash for the website and Zenodo). The [staging pre-seal review record](S29-T29.4-staging-pre-seal-review.md) holds the independent review of the exact planning commit. No project, setting, upload, deployment or push beyond planning commits.
