@@ -27,5 +27,16 @@ The staging candidate is a **labeled specimen** (`noindex`, no canonical, JSON-L
 ## Ordering and dependencies
 1 and 2 precede any T29.5 seal. 3–6 are one R3 implementation ticket (T29.5) and end before upload. 7, 8 and 9 are owner decisions that must be recorded before the final release rehearsal's expectation files are finalized (the oracle must be built from approved values, not guessed). 10–12 each need a separate seal and GO. A change to the approved final PDF bytes after item 9 voids the approval and every dependent gate.
 
+## Closed items
+- **Item 1 — CLOSED** (2026-11-13): T29.3a closure status record accepted by Planner.
+- **Item 2 — CLOSED** (2026-11-13): T29.4 staging preview accepted by owner, bound to deployment `285fb0df` and candidate PDF hash `fe6eaf21…9446`. All 22 assertions PASS; 7/7 PDFs verified; production unchanged.
+
 ## Open items
-The Planner's T29.3a record (item 1); the primary-source claim audit (item 8); the final slug, publication date and excerpt installation (item 7); owner approval of the final PDF hash (item 9). The seven-PDF release controls are not implemented and the six-file guard remains the only live enforcement.
+The seven-PDF release controls are not implemented; the six-file guard remains the only live enforcement. The following decisions and actions are required before T29.5 can be sealed and production release can proceed:
+
+- **Item 3** (T29.5 oracle): Owner must approve the exact research tags to be assigned to Paper C (derived from manuscript Keywords; proposed as optional in the source intake audit — not yet approved). The oracle cannot be built from approved metadata until the tag list is finalized.
+- **Item 3 / 7 addition**: The T29.5 oracle must explicitly assert Paper C's presence in the research hub (`/research/`) and in the `cybernetics` category listing. Homepage inclusion requires a separate owner decision (see item 7 addition below).
+- **Item 7 addition**: Owner decision required on whether Paper C should appear on the homepage (analogous to the Lab Bubble `HOMEPAGE_SPOTLIGHT` decision). This gates whether the homepage oracle expectation is included in item 3.
+- **Item 7** (open): final slug, publication date and excerpt installation (excerpt register §13, publication date approval).
+- **Item 8** (open): primary-source claim audit disposition.
+- **Item 9** (open): owner approval of the final publication PDF hash.
