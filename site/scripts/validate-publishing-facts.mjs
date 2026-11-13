@@ -201,7 +201,7 @@ function identityLinks(html) {
 	return [...html.matchAll(re)].map((m) => decode(m[1]));
 }
 
-function pageClass(route) {
+function pageClass(route, html = null) {
 	if (route === '/') return 'home';
 	if (route === '/about/') return 'about';
 	if (route === '/404') return '404';
@@ -210,7 +210,10 @@ function pageClass(route) {
 	if (route.startsWith('/tags/')) return 'tag';
 	if (/^\/research\/[^/]+\/$/.test(route)) return 'category';
 	if (/^\/research\/[^/]+\/[^/]+\/iwl\/$/.test(route)) return 'iwl';
-	if (/^\/research\/[^/]+\/[^/]+\/$/.test(route)) return 'article';
+	if (/^\/research\/[^/]+\/[^/]+\/$/.test(route)) {
+		if (html && html.includes('scholarly-forward')) return 'article-scholarly';
+		return 'article';
+	}
 	return `other`;
 }
 
@@ -262,7 +265,8 @@ function checkEntry(e) {
 	if (a.headline !== e.title) fail(scope, `JSON-LD headline ${JSON.stringify(a.headline)} !== ${JSON.stringify(e.title)}`);
 	if (a.url !== url) fail(scope, `JSON-LD url ${JSON.stringify(a.url)} !== ${JSON.stringify(url)}`);
 	if (a.mainEntityOfPage?.['@id'] !== url) fail(scope, `JSON-LD mainEntityOfPage.@id ${JSON.stringify(a.mainEntityOfPage?.['@id'])} !== ${JSON.stringify(url)}`);
-	if (a.license !== FX.license.url) fail(scope, `JSON-LD license ${JSON.stringify(a.license)} !== ${JSON.stringify(FX.license.url)}`);
+	const entryLicense = e.license ?? FX.license.url;
+	if (a.license !== entryLicense) fail(scope, `JSON-LD license ${JSON.stringify(a.license)} !== ${JSON.stringify(entryLicense)}`);
 	const imageUrl = `${ORIGIN}/${e.ogImagePath}`;
 	if (a.image !== imageUrl) fail(scope, `JSON-LD image ${JSON.stringify(a.image)} !== ${JSON.stringify(imageUrl)}`);
 	for (const key of ['og:image', 'og:image:url']) {
@@ -337,7 +341,8 @@ function checkEntry(e) {
 	else {
 		const ps = [...mast[1].matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((x) => textOf(x[1]));
 		if (ps[0] !== FX.visible.mastheadName) fail(scope, `masthead name ${JSON.stringify(ps[0])} !== ${JSON.stringify(FX.visible.mastheadName)}`);
-		if (ps[1] !== FX.visible.mastheadRoleLine) fail(scope, `masthead role line ${JSON.stringify(ps[1])} !== ${JSON.stringify(FX.visible.mastheadRoleLine)}`);
+		const expectedRoleLine = e.mastheadRoleLine ?? FX.visible.mastheadRoleLine;
+		if (ps[1] !== expectedRoleLine) fail(scope, `masthead role line ${JSON.stringify(ps[1])} !== ${JSON.stringify(expectedRoleLine)}`);
 	}
 	const bio = /<p class="author-note-bio"[^>]*>([\s\S]*?)<\/p>/.exec(html);
 	if (!bio || textOf(bio[1]) !== FX.visible.authorNoteBio) fail(scope, `AuthorNote bio ${JSON.stringify(bio ? textOf(bio[1]) : null)} !== ${JSON.stringify(FX.visible.authorNoteBio)}`);
@@ -346,7 +351,10 @@ function checkEntry(e) {
 // ---------------------------------------------------------------------------
 // Inventory: no unexpected research article, none missing
 // ---------------------------------------------------------------------------
-const builtArticleRoutes = allPages.filter((p) => pageClass(p.route) === 'article' && p.route.startsWith('/research/')).map((p) => p.route);
+const builtArticleRoutes = allPages.filter((p) => {
+	const cls = pageClass(p.route, readFileSync(p.path, 'utf8'));
+	return (cls === 'article' || cls === 'article-scholarly') && p.route.startsWith('/research/');
+}).map((p) => p.route);
 const expectedRoutes = FX.entries.map((e) => e.route);
 for (const r of builtArticleRoutes) if (!expectedRoutes.includes(r)) fail('inventory', `built research page ${r} has no entry in the fixture (add and review its facts)`);
 for (const r of expectedRoutes) if (!builtArticleRoutes.includes(r)) fail('inventory', `fixture entry ${r} has no built page`);
@@ -415,13 +423,14 @@ checkAbout();
 // Identity-link census on every built page (chrome + article + About)
 // ---------------------------------------------------------------------------
 for (const p of allPages) {
-	const cls = pageClass(p.route);
+	const html = readFileSync(p.path, 'utf8');
+	const cls = pageClass(p.route, html);
 	const expected = FX.identityLinks[cls];
 	if (!expected) {
 		fail(`links:${p.route}`, `page class "${cls}" has no identityLinks expectation`);
 		continue;
 	}
-	const actual = identityLinks(readFileSync(p.path, 'utf8'));
+	const actual = identityLinks(html);
 	if (!sameSet(actual, expected)) fail(`links:${p.route}`, `identity links ${JSON.stringify([...actual].sort())} !== ${JSON.stringify([...expected].sort())}`);
 }
 

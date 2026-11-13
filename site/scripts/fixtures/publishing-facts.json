@@ -13,7 +13,7 @@
     "github": "github.com/amulbham listed on the public ORCID record; destination not independently fetchable from the audit environment (UNVERIFIED)",
     "substack": "Owner decision S (2026-11-03): active Substack promotion and identity association retired (footer chip, About link, SOCIAL_LINKS.substack, Person.sameAs). Historical factual mentions in The Chisel Fallacy, its IWL and archived PDFs are research evidence and are preserved (plain text, not links).",
     "dates": "per-entry publication/revision dates are the dates printed on the visible masthead and on PDF page 1 of the frozen PDFs",
-    "license": "sitewide CC BY-NC 4.0 owner decision 2026-08-24; printed on PDF page 1",
+    "license": "sitewide CC BY-NC 4.0 owner decision 2026-08-24; printed on PDF page 1. Per-entry license override: scholarly papers (format=paper, scholarly frontmatter) carry CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) per T29.5 D-DATE/scholarly field governance; recorded in entry.license field.",
     "doi": "T28.1 (owner decisions A1/A2/A3, 2026-11-03): Paper A work-level DOI 10.5281/zenodo.20531588 for page identity (A1) and Three SOS reference #1 (A3); Paper A Data Availability keeps archived exact-version 10.5281/zenodo.20531589 (A2, invariant). Paper B 23068820 / ref #4 20531588 unchanged (regression). Frozen PDFs keep their printed version DOI (accepted HTML-vs-PDF divergence).",
     "role": "Owner decisions I1/I2/I3 (2026-11-03): short professional role 'Systems Researcher' (masthead + About jobTitle, a profession not an institutional affiliation); AuthorNote first sentence 'Amul Bham is a systems researcher and AI systems architect.' with the remaining bio verbatim; About dateCreated/dateModified omitted without owner-evidenced real dates.",
     "sameAsSet": "Exact approved set: LinkedIn, GitHub, ORCID (all three listed on the public ORCID record; LinkedIn/GitHub destinations UNVERIFIED from the audit environment)."
@@ -56,6 +56,14 @@
       "https://orcid.org/0009-0009-7660-4031",
       "https://orcid.org/0009-0009-7660-4031",
       "https://www.linkedin.com/in/amul-bham/",
+      "https://www.linkedin.com/in/amul-bham/"
+    ],
+    "article-scholarly": [
+      "https://github.com/amulbham",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://orcid.org/0009-0009-7660-4031",
+      "https://orcid.org/0009-0009-7660-4031",
       "https://www.linkedin.com/in/amul-bham/"
     ],
     "about": [
@@ -251,6 +259,38 @@
       "ogImagePath": "open-graph/essays/how-frontier-model-training-became-a-public-utility.png",
       "zenodoTokens": {},
       "zenodoAnchors": []
+    },
+    {
+      "id": "cybernetics-structural-science",
+      "route": "/research/cybernetics/cybernetics-structural-science/",
+      "format": "paper",
+      "title": "Cybernetics and the Structural Science of Self-Organizing Systems",
+      "pubDate": "2026-11-13",
+      "revisedDate": null,
+      "doi": "10.5281/zenodo.24120332",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "mastheadRoleLine": "Systems Researcher",
+      "pdfPath": "research/cybernetics/cybernetics-structural-science/cybernetics-structural-science.pdf",
+      "ogImagePath": "open-graph/cybernetics/cybernetics-structural-science.png",
+      "zenodoTokens": {
+        "24120332": 4,
+        "20531589": 2,
+        "23068821": 2
+      },
+      "zenodoAnchors": [
+        [
+          "https://doi.org/10.5281/zenodo.24120332",
+          "https://doi.org/10.5281/zenodo.24120332"
+        ],
+        [
+          "https://doi.org/10.5281/zenodo.20531589",
+          "https://doi.org/10.5281/zenodo.20531589"
+        ],
+        [
+          "https://doi.org/10.5281/zenodo.23068821",
+          "https://doi.org/10.5281/zenodo.23068821"
+        ]
+      ]
     }
   ]
 }
