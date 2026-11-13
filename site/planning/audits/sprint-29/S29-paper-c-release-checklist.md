@@ -1,6 +1,6 @@
 # Sprint 29 — Paper C release checklist (T29.5 and the production gate)
 
-Status: PLANNING CHECKLIST, 2026-11-12. Prepared in parallel with the T29.4 staging replan. **No authority:** T29.5 is an unsealed draft ([ticket](../../tickets/T29.5-paper-c-seven-pdf-release-controls.md)); production promotion, Zenodo publication and indexing changes each need their own seal and owner authorization. Nothing here was run.
+Status: PLANNING CHECKLIST, 2026-11-12. T29.5 **SEALED 2026-11-13** against `da36826` ([seal record](S29-T29.5-seal-record.md)); implementation and rehearsal are authorized. Production promotion, Zenodo publication and indexing changes each need their own seal and owner authorization. Nothing in items 3–12 has been run.
 Purpose: list every gate between an accepted staging preview and a published Paper C, with who proves it and what evidence closes it, so none is assumed from the staging preview.
 
 ## What the staging preview does and does not prove
@@ -57,9 +57,21 @@ All eight tags exist in the current site taxonomy. No new taxonomy term is intro
 
 Both bounded additions to items 3 and 7 identified in the gap analysis are now resolved: the T29.5 ticket's oracle clause (item 3) and rehearsal scope (item 7) have been updated to include these requirements.
 
-## Open items
-The seven-PDF release controls are not implemented; the six-file guard remains the only live enforcement. The following decisions and actions are required before T29.5 can be sealed and production release can proceed:
+## Owner decisions recorded — 2026-11-13 (T[33] seal decisions)
 
-- **Item 7** (open): final slug, publication date and excerpt installation (excerpt register §13, publication date approval). Also includes: tag installation, homepage spotlight installation, hub/category listing installation (all scoped by owner decisions above).
-- **Item 8** (open): primary-source claim audit disposition.
-- **Item 9** (open): owner approval of the final publication PDF hash.
+**D-SLUG — APPROVED.** Route: `/research/cybernetics/cybernetics-structural-science/` (the existing staged route).
+
+**D-DATE — PROVISIONAL.** Publication date: `2026-11-13`. Must reconcile at release; all final metadata, PDF identity, and Zenodo records must agree.
+
+**D-EXCERPT — COORDINATOR-FINALIZED.** Source: register [§13](../../programs/future-scholarly-pdf-standard.md#13-owner-approved-publication-excerpt--2026-11-11) (owner-approved 2026-11-11). Publication form: *"Seven candidate conditions for self-organization — examined across biology, economics, and artificial intelligence."* Content unchanged from §13; adapted to website noun-phrase convention. No additional owner approval required.
+
+**D-CLAIM — DEFERRED RELEASE GATE (item 8).** Claim audit runs during T29.5 implementation; findings returned to Product Authority before publication.
+
+**D-PDF — DEFERRED RELEASE GATE (item 9).** Final PDF generated and verified in rehearsal; SHA-256 and visual QA evidence returned to Product Authority for approval before any permanent publication or Zenodo deposit.
+
+## Open items
+The seven-PDF release controls are not implemented; the six-file guard remains the only live enforcement. T29.5 is sealed; implementation and rehearsal are authorized.
+
+- **Item 7** (pending implementation): slug, date, excerpt, tag, spotlight, hub, and category listing installation and oracle validation. All five owner decisions above supply the working values. Gate must pass during rehearsal before the production upload step.
+- **Item 8** (deferred release gate — D-CLAIM): primary-source claim audit disposition. Runs during T29.5 implementation; findings returned to owner before publication.
+- **Item 9** (deferred release gate — D-PDF): owner approval of the final publication PDF hash. Rehearsal produces the bytes; owner approves before Zenodo and website publication.
