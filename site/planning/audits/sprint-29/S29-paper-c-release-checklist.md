@@ -31,12 +31,35 @@ The staging candidate is a **labeled specimen** (`noindex`, no canonical, JSON-L
 - **Item 1 — CLOSED** (2026-11-13): T29.3a closure status record accepted by Planner.
 - **Item 2 — CLOSED** (2026-11-13): T29.4 staging preview accepted by owner, bound to deployment `285fb0df` and candidate PDF hash `fe6eaf21…9446`. All 22 assertions PASS; 7/7 PDFs verified; production unchanged.
 
+## Owner decisions recorded — 2026-11-13
+
+**Decision 1 — Research tags (resolved 2026-11-13).** The owner authorized the Executor to derive Paper C's research tags from the v4.6 manuscript Keywords and site taxonomy. Derivation performed 2026-11-13:
+
+Manuscript Keywords (retrieved from staged HTML): cybernetics; self-organizing systems; cognitive physics; structural conditions; GLC; C=MSV; feedback; homeostasis; second-order cybernetics; complexity science; emergence; verification; AI failure modes; Wiener; Ashby.
+
+**Owner-approved tag set (8 existing taxonomy terms):**
+- `cybernetics` — primary subject; in Paper C's title and all series papers
+- `self-organizing systems` — core topic; same series as Papers A and B
+- `cognitive-physics` — series designation; explicitly in subtitle ("A Cognitive Physics Framework")
+- `complexity-science` — field scope covered (manuscript Keywords, Papers A and B)
+- `cognition` — explicit test domain in excerpt ("tests across biology, cognition, and AI")
+- `seven-invariants` — the framework this paper extends (Papers A and B)
+- `attractor-dynamics` — named structural condition in the framework (Papers A and B)
+- `conservation-law` — named structural condition in the framework (Paper A)
+
+All eight tags exist in the current site taxonomy. No new taxonomy term is introduced. The Coordinator reviewed and approved this derivation as within scope (routine tag selection per owner authorization). These tags must appear visibly in Paper C's article front matter.
+
+**Decision 2 — Homepage and research hub (resolved 2026-11-13).** The owner authorized Paper C to appear in all appropriate publication discovery surfaces:
+- **Homepage spotlight**: Paper C as the spotlighted research publication, replacing the current spotlight (The Lab Bubble, Oct 30, 2026). The Lab Bubble is not deleted or modified.
+- **Research hub** (`/research/`): Paper C as a normal published entry.
+- **Cybernetics category** (`/research/cybernetics/`): Paper C as a normal entry.
+- **Tag listings**: Paper C discoverable through each of its eight approved tag pages.
+
+Both bounded additions to items 3 and 7 identified in the gap analysis are now resolved: the T29.5 ticket's oracle clause (item 3) and rehearsal scope (item 7) have been updated to include these requirements.
+
 ## Open items
 The seven-PDF release controls are not implemented; the six-file guard remains the only live enforcement. The following decisions and actions are required before T29.5 can be sealed and production release can proceed:
 
-- **Item 3** (T29.5 oracle): Owner must approve the exact research tags to be assigned to Paper C (derived from manuscript Keywords; proposed as optional in the source intake audit — not yet approved). The oracle cannot be built from approved metadata until the tag list is finalized.
-- **Item 3 / 7 addition**: The T29.5 oracle must explicitly assert Paper C's presence in the research hub (`/research/`) and in the `cybernetics` category listing. Homepage inclusion requires a separate owner decision (see item 7 addition below).
-- **Item 7 addition**: Owner decision required on whether Paper C should appear on the homepage (analogous to the Lab Bubble `HOMEPAGE_SPOTLIGHT` decision). This gates whether the homepage oracle expectation is included in item 3.
-- **Item 7** (open): final slug, publication date and excerpt installation (excerpt register §13, publication date approval).
+- **Item 7** (open): final slug, publication date and excerpt installation (excerpt register §13, publication date approval). Also includes: tag installation, homepage spotlight installation, hub/category listing installation (all scoped by owner decisions above).
 - **Item 8** (open): primary-source claim audit disposition.
 - **Item 9** (open): owner approval of the final publication PDF hash.
