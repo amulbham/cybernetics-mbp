@@ -1,9 +1,11 @@
 # Planner state — research website
 
-Snapshot: **2026-11-12** (America/Los_Angeles).
-Primary intent: **Owner decision on the T29.4 public-staging seal and exceptions. An exact-tuple GO is required before upload.**
+Snapshot: **2026-11-13** (America/Los_Angeles).
+Primary intent: **T29.4 is sealed (`49221e2c…`). Owner issues the exact-tuple GO after the production-branch precondition; no deployment is authorized.**
 
 ## Resume — active gate
+
+- **2026-11-13 CURRENT — T29.4 SEALED against `49221e2c9f81c6542bcdefd30768a1e3f40cd357` / NO HOSTED AUTHORITY.** [Seal record](../site/planning/audits/sprint-29/S29-T29.4-seal-record.md): owner authorization, owner-observed Cloudflare dashboard evidence (Production source `main`, commit `fc3cb77`, production domains, automatic deployments paused), reconciliation, and the GO precondition. The configured production-branch value is UNVERIFIED (strongly supported); the GO needs the exact value from an owner-run read-only check or the owner's explicit waiver. Preflight at the seal passed. T29.5, production, Zenodo and indexing remain outside.
 
 - **2026-11-12 CURRENT — T29.4 PUBLIC STAGING DRAFT REVIEWED / T29.3a CLOSED.** Owner accepted public access to the existing staging URL and its deployment URL; the protected plan is [superseded historical evidence](../site/planning/tickets/T29.4-protected-preview-SUPERSEDED.md). [Active ticket](../site/planning/tickets/T29.4-paper-c-staging-preview.md): single owner-run Direct Upload of a 187-file tree (digest `0cf5cc898798ccabac066018446c76a876cebe483834f32a74344188373ff834`, seven PDFs byte-exact, Pagefind index and 25-rule `_redirects` included) to the existing project's `staging` label; kit [`T29.4-staging/`](../site/planning/audits/sprint-29/T29.4-staging/README.md) (digest `6137ef42…`, 40 tests, local dry run PASS, live production and alias preflight PASS). Exceptions E1/E2/E3/E5/E6 await the owner (E6: pending DOI link, currently 404, and truncated meta description in the frozen candidate). [Independent staging pre-seal review](../site/planning/audits/sprint-29/S29-T29.4-staging-pre-seal-review.md). [Release checklist](../site/planning/audits/sprint-29/S29-paper-c-release-checklist.md) for T29.5. [T29.3a closure](../site/planning/audits/sprint-29/S29-T29.3a-closure-status.md): the Planner attached independent post-implementation verification and recorded ACCEPT. Nothing created, uploaded, deployed or pushed beyond planning commits; production, Zenodo and indexing remain separate authorizations. Primary-source claim audit OPEN.
 
