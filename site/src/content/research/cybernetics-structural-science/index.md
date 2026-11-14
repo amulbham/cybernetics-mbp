@@ -53,7 +53,9 @@ Complexity scientists at the Santa Fe Institute study how simple rules produce o
 
 Three systems appear throughout this paper as reference points. An ant colony — hundreds of thousands of individuals coordinating through local chemical signals with no central direction. A financial market — millions of uncoordinated decisions aggregating into coherent price signals with no coordinator. The immune system — billions of distributed cells maintaining a precise self/non-self boundary without any cell knowing the whole picture. They share no substrate, no components, no evolutionary history. They appear, on first encounter, to have nothing in common. The table below shows specific behavioral observations in each. Read across each row.
 
-| | **Ant Colony** | **Financial Market** | **Immune System** |
+<!-- table-layout: responsive-records -->
+
+| **Condition** | **Ant Colony** | **Financial Market** | **Immune System** |
 |---|---|---|---|
 | **Outputs accountable to inputs** | Local foraging interactions and pheromone reinforcement shape collective route selection without a central coordinator (Goss et al., 1989; Gordon, 2019) | Trades and order flow produce traceable quote and price revisions; the information effect of trade innovations is measurable through subsequent price impact (Hasbrouck, 1991) | CD8+ T-cell expansion is influenced by initial infection dose and antigen display; regulatory mechanisms also contribute to terminating immune responses and maintaining self-tolerance (Badovinac et al., 2002; Van Parijs & Abbas, 1998) |
 | **State connected across time** | Pheromone trails plus individual route memory give prior state causal influence on subsequent movement; ants retain route information even after pheromone is removed (Czaczkes et al., 2013) | Price formation is sequential: new trades and information revise an existing price state rather than generating an unrelated price de novo (Kyle, 1985; Hasbrouck, 1991) | Immune systems retain pathogen-specific information for years or lifelong periods through memory lymphocytes causally connected to prior encounters (Ahmed & Gray, 1996) |
@@ -844,6 +846,8 @@ Cognitive systems provide one place to test that claim. The framework will becom
 ## Appendix A — The Seven Conditions: Full Reference
 
 The table below is the complete reference for the seven structural conditions proposed and examined in this paper. Conditions appear in canonical order. The Paper A Name column maps to the names used in Paper A (Bham, 2026a) for readers familiar with that literature. The What Changed column explains the reason for each refinement. The GLC Cluster column maps each condition to the functional cluster it contributes to.
+
+<!-- table-layout: responsive-records -->
 
 | **#** | **Refined Name** | **Paper A Name** | **What Changed** | **One-Line Definition** | **Home Field** | **Failure When Absent** | **GLC Cluster** |
 |---|---|---|---|---|---|---|---|
