@@ -44,7 +44,11 @@ function cleanCitationName(name) {
  * matched against inline "et al." citations by the narrative regex below.
  */
 function extractReferenceKey(refText, forward) {
-	if (forward) refText = refText.trim().replace(/\s+/g, ' ');
+	// Trim leading/trailing whitespace unconditionally — loose markdown lists
+	// (blank lines between entries) produce <li>\n<p>text, so getText() returns
+	// "\nSurname, ..." and the ^\p{Lu} anchor fails on the leading newline.
+	refText = refText.trim();
+	if (forward) refText = refText.replace(/\s+/g, ' ');
 	const caseMatch = refText.match(/^([A-Z][\w.'’-]*(?:\s+v\.\s+[A-Z][\w.'’-]*))/);
 	let nameKeys;
 	let searchAfterIndex;
@@ -85,7 +89,7 @@ function extractReferenceKey(refText, forward) {
 		// 1900 (this project's own content already cites 1850, 1865, 1890),
 		// so excluding whole centuries by construction is a real bug, not a
 		// reasonable bound. 1600 is generous rather than exact.
-		const yearMatch = parenContent.match(forward ? /(?:1[6-9]|20)\d{2}[a-z]?/i : /(1[6-9]|20)\d{2}/);
+		const yearMatch = parenContent.match(forward ? /(?:1[6-9]|20)\d{2}[a-z]?/i : /(1[6-9]|20)\d{2}[a-z]?/);
 		year = yearMatch ? yearMatch[0].toLowerCase() : null;
 	}
 	if (!year) return null;
