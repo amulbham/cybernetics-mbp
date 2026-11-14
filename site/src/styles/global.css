@@ -380,7 +380,7 @@ tbody tr:hover {
    by default, so it never reaches print/PDF — only the screen media query
    below reveals it. Unmarked tables never match these selectors. */
 .table-container[data-table-layout='responsive-records'] {
-	overflow: visible;
+	overflow-x: auto;
 }
 .table-container[data-table-layout='responsive-records'] thead th {
 	white-space: normal;
