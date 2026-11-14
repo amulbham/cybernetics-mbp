@@ -1,3 +1,5 @@
+import { scholarlyComment } from './scholarly-markers.mjs';
+
 const SKIP_TAGS = new Set(['a', 'code', 'pre']);
 
 function getText(node) {
@@ -41,7 +43,8 @@ function cleanCitationName(name) {
  * the same reference. Three-or-more-author entries stay first-surname-only,
  * matched against inline "et al." citations by the narrative regex below.
  */
-function extractReferenceKey(refText) {
+function extractReferenceKey(refText, forward) {
+	if (forward) refText = refText.trim().replace(/\s+/g, ' ');
 	const caseMatch = refText.match(/^([A-Z][\w.'’-]*(?:\s+v\.\s+[A-Z][\w.'’-]*))/);
 	let nameKeys;
 	let searchAfterIndex;
@@ -82,8 +85,8 @@ function extractReferenceKey(refText) {
 		// 1900 (this project's own content already cites 1850, 1865, 1890),
 		// so excluding whole centuries by construction is a real bug, not a
 		// reasonable bound. 1600 is generous rather than exact.
-		const yearMatch = parenContent.match(/(1[6-9]|20)\d{2}/);
-		year = yearMatch ? yearMatch[0] : null;
+		const yearMatch = parenContent.match(forward ? /(?:1[6-9]|20)\d{2}[a-z]?/i : /(1[6-9]|20)\d{2}/);
+		year = yearMatch ? yearMatch[0].toLowerCase() : null;
 	}
 	if (!year) return null;
 	return { nameKeys, year };
@@ -103,14 +106,14 @@ function escapeRegex(s) {
 	return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function buildReferenceLookup(tree) {
+function buildReferenceLookup(tree, forward) {
 	const lookup = new Map();
 	const ambiguous = new Set();
 
 	function visit(node) {
 		if (node.type === 'element' && node.tagName === 'li' && /^ref-\d+$/.test(node.properties?.id ?? '')) {
 			const refNumber = Number(node.properties.id.slice(4));
-			const key = extractReferenceKey(getText(node));
+			const key = extractReferenceKey(getText(node), forward);
 			if (key) {
 				for (const nameKey of key.nameKeys) {
 					const mapKey = `${nameKey}|${key.year}`;
@@ -149,7 +152,7 @@ function buildReferenceLookup(tree) {
  * Fails closed throughout: anything that doesn't resolve to exactly one
  * reference is left as plain text, never linked on a guess.
  */
-function findCitationMatches(text, lookup) {
+function findCitationMatches(text, lookup, forward) {
 	const matches = [];
 	// Astro's markdown pipeline smartypants-converts straight quotes to curly
 	// ones (' → ’) before this plugin ever sees the text, so search against a
@@ -181,14 +184,14 @@ function findCitationMatches(text, lookup) {
 	const knownNames = [...new Set([...lookup.keys()].map((k) => k.split('|')[0]))].sort((a, b) => b.length - a.length);
 	if (knownNames.length > 0) {
 		const narrativeRe = new RegExp(
-			`(${knownNames.map(escapeRegex).join('|')})(?:\\s+et al\\.?)?\\s*\\(((?:1[6-9]|20)\\d{2}[a-z]?|n\\.d\\.)\\)`,
-			'gi'
+			`${forward ? '(?<![\\p{L}\\p{N}])' : ''}(${knownNames.map(escapeRegex).join('|')})(?:\\s+et al\\.?)?\\s*\\(((?:1[6-9]|20)\\d{2}[a-z]?|n\\.d\\.)\\)`,
+			forward ? 'giu' : 'gi'
 		);
 		while ((m = narrativeRe.exec(searchText))) {
 			const start = m.index;
 			const end = m.index + m[0].length;
 			if (matches.some((x) => start < x.end && end > x.start)) continue; // already claimed by Shape A
-			const refNumber = lookup.get(`${normalizeName(m[1])}|${m[2]}`);
+			const refNumber = lookup.get(`${normalizeName(m[1])}|${m[2].toLowerCase()}`);
 			if (refNumber) matches.push({ start, end, refNumber });
 		}
 	}
@@ -205,8 +208,8 @@ function findCitationMatches(text, lookup) {
 	return clean;
 }
 
-function splitTextNode(node, lookup) {
-	const matches = findCitationMatches(node.value, lookup);
+function splitTextNode(node, lookup, forward) {
+	const matches = findCitationMatches(node.value, lookup, forward);
 	if (matches.length === 0) return [node];
 
 	const text = node.value;
@@ -226,7 +229,7 @@ function splitTextNode(node, lookup) {
 	return out;
 }
 
-function linkCitations(node, lookup) {
+function linkCitations(node, lookup, forward) {
 	if (!Array.isArray(node.children)) return;
 	const next = [];
 	for (const child of node.children) {
@@ -235,11 +238,11 @@ function linkCitations(node, lookup) {
 			continue;
 		}
 		if (child.type === 'text') {
-			next.push(...splitTextNode(child, lookup));
+			next.push(...splitTextNode(child, lookup, forward));
 			continue;
 		}
 		if (child.type === 'element' && !SKIP_TAGS.has(child.tagName)) {
-			linkCitations(child, lookup);
+			linkCitations(child, lookup, forward);
 		}
 		next.push(child);
 	}
@@ -248,8 +251,9 @@ function linkCitations(node, lookup) {
 
 export function rehypeCitationLinks() {
 	return (tree) => {
-		const lookup = buildReferenceLookup(tree);
+		const forward = tree.children.some((node) => scholarlyComment(node) === 'scholarly-forward');
+		const lookup = buildReferenceLookup(tree, forward);
 		if (lookup.size === 0) return; // no References section — nothing to link against
-		linkCitations(tree, lookup);
+		linkCitations(tree, lookup, forward);
 	};
 }

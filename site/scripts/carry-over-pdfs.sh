@@ -48,18 +48,18 @@
 # 200 that is not a PDF fails too. Once production serves the six approved PDFs, an ordinary
 # redeploy carries all six over with zero swaps.
 #
-# PDF_MANIFEST: exactly five lines (the launch corpus) or, once the new paper is part of the release,
-# exactly six lines (the same five plus NEW_PAPER_PATH), in `sha256sum` format, e.g.
+# PDF_MANIFEST: exactly six lines (the launch corpus: five T22.0 + Cognition T27.3) or, once the
+# new paper is part of the release, exactly seven lines (the same six plus NEW_PAPER_PATH), in `sha256sum` format, e.g.
 #   <64 hex>  research/knowledge-work/<id>/<id>.pdf
 # Run from site/ (the workflow's working directory).
 
 set -euo pipefail
 
 ORIGIN="https://amulbham.com"
-LAUNCH_COUNT=5 # the launch corpus: five scholarly PDFs. Change deliberately, with the manifest.
-NEW_PAPER_COUNT=6 # the launch corpus plus NEW_PAPER_PATH. Any other count is refused.
-# The one new-paper path (T27.1): the only path whose HTTP 404 can mean "first publication".
-NEW_PAPER_PATH="research/cybernetics/cognition-as-self-organizing-system/cognition-as-self-organizing-system.pdf"
+LAUNCH_COUNT=6 # the launch corpus: six scholarly PDFs (five T22.0 + Cognition T27.3). Change deliberately, with the manifest.
+NEW_PAPER_COUNT=7 # the launch corpus plus NEW_PAPER_PATH. Any other count is refused.
+# The one new-paper path (T29.5): the only path whose HTTP 404 can mean "first publication".
+NEW_PAPER_PATH="research/cybernetics/cybernetics-structural-science/cybernetics-structural-science.pdf"
 # Desk bootstrap source (Amendment A) — Zenodo record 10.5281/zenodo.23328158, its single published file.
 DESK_PATH="research/knowledge-work/the-desk-is-where-you-write-it-down/the-desk-is-where-you-write-it-down.pdf"
 DESK_BOOTSTRAP_URL="https://zenodo.org/api/records/23328158/files/v41.10-Site-Bham-The-Desk-Is-Where-You-Write-It-Down.pdf/content"

@@ -1,4 +1,4 @@
-import { defineCollection, reference } from 'astro:content';
+import { defineCollection, reference, type SchemaContext } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { CATEGORY_SLUGS } from './lib/categories';
@@ -8,11 +8,7 @@ import { CATEGORY_SLUGS } from './lib/categories';
 // 2026-08-20: previously `papers` (pillar-based, ScholarlyArticle JSON-LD)
 // and `blog` (no pillar, BlogPosting JSON-LD) were separate collections with
 // separate schemas/layouts/routes — see AGENTS.md for why that got merged.
-const research = defineCollection({
-	// Load Markdown and MDX files in the `src/content/research/` directory.
-	loader: glob({ base: './src/content/research', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
+const researchSchema = ({ image }: SchemaContext) =>
 		z
 			.object({
 				title: z.string(),
@@ -99,6 +95,10 @@ const research = defineCollection({
 				// approximate public claim. This schema itself is unchanged by
 				// that decision — the asymmetry lives entirely in the layout and
 				// the semantic validator, not here.
+				scholarly: z.object({
+					versionDoi: z.url().regex(/^https:\/\/doi\.org\/10\.[^/]+\/.+/),
+					printAuthorNote: z.string().trim().min(1),
+				}).strict().optional(),
 				readerNote: z
 					.object({
 						why: z.string().min(1),
@@ -115,10 +115,22 @@ const research = defineCollection({
 				message: 'doi requires format "paper": a DOI-bearing work must carry a scholarly PDF',
 				path: ['doi'],
 			})
+			.refine((data) => !data.scholarly || (data.format === 'paper' && !!data.doi && data.doi !== data.scholarly.versionDoi), {
+				message: 'Forward scholarly papers require distinct concept and version DOI inputs',
+				path: ['scholarly'],
+			})
 			.refine((data) => !data.heroImage || !!data.heroImageAlt, {
 				message: 'heroImageAlt is required whenever heroImage is set',
 				path: ['heroImageAlt'],
-			}),
+			});
+
+const research = defineCollection({
+	loader: glob({ base: './src/content/research', pattern: '**/*.{md,mdx}' }),
+	schema: researchSchema,
+});
+const scholarlyReview = defineCollection({
+	loader: glob({ base: './src/content/scholarly-review', pattern: '**/*.md' }),
+	schema: researchSchema,
 });
 
 // T13.2 — the Intellectual Work Ledger's outer envelope, frozen by T13.1's
@@ -157,4 +169,4 @@ const iwl = defineCollection({
 			}),
 });
 
-export const collections = { research, iwl };
+export const collections = { research, iwl, scholarlyReview };

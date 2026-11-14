@@ -1,9 +1,13 @@
 ---
 interface Props {
 	date: Date;
+	/** Format the calendar day in UTC. Forward scholarly pages set this so the visible
+	 * date always agrees with `datetime` (UTC) and the Highwire/JSON-LD dates, whatever
+	 * timezone the build process runs in (T29.3a). Omitted, display is unchanged. */
+	utc?: boolean;
 }
 
-const { date } = Astro.props;
+const { date, utc } = Astro.props;
 ---
 
 <time datetime={date.toISOString()}>
@@ -12,6 +16,7 @@ const { date } = Astro.props;
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric',
+			...(utc ? { timeZone: 'UTC' } : {}),
 		})
 	}
 </time>

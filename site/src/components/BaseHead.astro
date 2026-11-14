@@ -22,6 +22,8 @@ interface Props {
 	};
 	/** Force this specific page to stay out of search results even when the site is open (e.g. 404.astro). Only `true` has an effect. */
 	noindex?: boolean;
+	canonical?: string | null;
+	privateReview?: boolean;
 }
 
 // Site-wide deindex is the fail-closed default: a build is indexable only when
@@ -33,7 +35,7 @@ interface Props {
 // can only add noindex, never remove it.
 const SITE_WIDE_NOINDEX = !indexingOpen();
 
-const { title, description, image = '/favicon-512.png', article, noindex } = Astro.props;
+const { title, description, image = '/favicon-512.png', article, noindex, canonical, privateReview } = Astro.props;
 const noindexPage = noindex === true || SITE_WIDE_NOINDEX;
 const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.url).toString();
 ---
@@ -90,9 +92,16 @@ const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.
 <Font cssVariable="--font-mono" />
 
 <!-- Title, description, canonical URL, Open Graph, and Twitter cards -->
-<SEO
+{canonical === null ? (
+	<>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="noindex, nofollow" />
+	</>
+) : <SEO
 	title={title}
 	description={description}
+	canonical={canonical === null ? undefined : canonical}
 	noindex={noindexPage}
 	nofollow={noindexPage}
 	openGraph={{
@@ -106,14 +115,14 @@ const ogImageUrl = new URL(typeof image === 'string' ? image : image.src, Astro.
 		article,
 	}}
 	twitter={{ card: 'summary_large_image' }}
-/>
+/>}
 
 <ClientRouter />
 
 <!-- Cloudflare Web Analytics -->
-<script
+{!privateReview && <script
 	is:inline
 	type="module"
 	src="https://static.cloudflareinsights.com/beacon.min.js"
-	data-cf-beacon='{"token": "764bccbd70d141d8867cbddfa95f42be"}'></script>
+	data-cf-beacon='{"token": "764bccbd70d141d8867cbddfa95f42be"}'></script>}
 <!-- End Cloudflare Web Analytics -->

@@ -818,3 +818,8 @@ body.lab-bubble-article .prose > hr + h2 {
 body.lab-bubble-article .prose > h2 + p {
 	margin-top: 0;
 }
+
+/* Forward scholarly projections: screen keeps the source matrix and website bio. */
+.scholarly-print-only {
+	display: none;
+}

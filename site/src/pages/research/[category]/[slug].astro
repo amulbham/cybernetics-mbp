@@ -5,12 +5,23 @@ import { categorySegment } from '../../../lib/research-routing';
 
 export async function getStaticPaths() {
 	const entries = await getCollection('research');
-	return entries.map((entry) => ({
+	const reviewEntries = await getCollection('scholarlyReview');
+	const mode = process.env.SCHOLARLY_REVIEW;
+	if (reviewEntries.length && (reviewEntries.length !== 1 || !['candidate', 'final-form'].includes(mode ?? '') || process.env.SITE_INDEXING !== 'closed')) {
+		throw new Error('Scholarly review input requires an explicit closed, single-paper build');
+	}
+	if (reviewEntries.some((entry) => process.env.SCHOLARLY_REVIEW_ROUTE !== `/research/${categorySegment(entry)}/${entry.id}/`)) {
+		throw new Error('Scholarly review route must match the selected entry');
+	}
+	if (reviewEntries.some((entry) => entries.some((published) => published.id === entry.id))) {
+		throw new Error('Scholarly review input collides with published content');
+	}
+	return [...entries, ...reviewEntries].map((entry) => ({
 		params: { category: categorySegment(entry), slug: entry.id },
 		props: entry,
 	}));
 }
-type Props = CollectionEntry<'research'>;
+type Props = CollectionEntry<'research'> | CollectionEntry<'scholarlyReview'>;
 
 const entry = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(entry);
@@ -19,6 +30,7 @@ const { Content, headings, remarkPluginFrontmatter } = await render(entry);
 <ResearchLayout
 	{...entry.data}
 	id={entry.id}
+	reviewMode={entry.collection === 'scholarlyReview' ? process.env.SCHOLARLY_REVIEW as 'candidate' | 'final-form' : undefined}
 	minutesRead={remarkPluginFrontmatter.minutesRead}
 	wordCount={remarkPluginFrontmatter.wordCount}
 	headings={headings}

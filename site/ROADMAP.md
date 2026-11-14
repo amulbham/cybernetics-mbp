@@ -4,110 +4,40 @@ Things flagged during past work but deliberately not done yet, plus open questio
 
 Detailed sprint/ticket contracts (as of Sprint 12.1.1 onward): `planning/`. Operating protocol: `PLANNING.md` (§13 adds a 2026-09-22 process-efficiency calibration — delta-only contracts, length caps, risk-based commit choreography — prospective only, does not touch any sealed or closed ticket). This file stays the short current-work index — it does not duplicate ticket acceptance criteria or the full program plan.
 
-**Sprint 12 (Reader Context) is complete and production-verified** (`T12.0`–`T12.4`, all `CLOSED`) — `readerNote`, `FromTheAuthor`, and the `readerNote.for → Article.audience` projection are all live on `amulbham.com` (`main @ b64e381`), independently re-verified there: human matrix, semantic matrix, reading-shell smoke test, all three paper PDFs, canonical identity/Person/DOI/`isBasedOn` regression, and indexing state (still deliberately deindexed) all confirmed unchanged. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-12-reader-context.md`.
+## Current status — public MVP launched (2026-10-16)
 
-**Sprint 24 (Homepage and About copy, T24.0)** — approved homepage H1/blurb and About introduction implemented and verified on staging (2026-10-20); production candidate and release are a separate, not yet authorized step.
+This section supersedes the earlier pre-launch direction. Production source and workflow facts were inspected on 2026-10-18; detailed live checks are Executor-reported, as distinguished in `planning/audits/T22.0-public-mvp-launch-evidence.md`. Full historical Sprint 12–19 evidence remains in `CHANGELOG.md`, the corresponding sprint/audit records and `HANDOFF.md`.
 
-**Sprint 13 (IWL Foundation) is complete and production-verified** (`T13.0`–`T13.4`, all `CLOSED`) — the outer Article/IWL envelope (`iwl` collection, validated registry, derived route, plain `IwlLayout`, bidirectional navigation, zero JSON-LD/PDF) is live on `amulbham.com` (`main @ ca67561`), independently re-verified there: both routes `200`, IWL PDF `404`, sitemap inclusion, `noindex, nofollow`, a real end-to-end production search confirming the IWL's own content is indexed, and byte-identical regression on the existing corpus (DOI/`audience`/`isBasedOn`). One real, product-authority-approved pair is live: **"The Chisel Fallacy: What Pangram Actually Measures"** (the first `ai-systems`-pillar paper) and its companion IWL. Field-level reference: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object" and `PUBLISHING.md` §2a. Three pre-existing, sitewide, non-IWL findings were recorded but not fixed (see `planning/tickets/T13.3-iwl-outer-contract-validation.md`); a fourth (breadcrumbs not a semantic `<nav>`) was explicitly accepted by Amul as a known release gap. Full history: `CHANGELOG.md`; closure record: `planning/sprints/sprint-13-iwl-foundation.md`. **Sprint 14** (IWL decomposition and corroboration) is closed (`T14.0`–`T14.2`). Contract: `planning/sprints/sprint-14-iwl-decomposition-corroboration.md`. **Sprint 15** (minimum IWL formalization) is closed on OPAQUE V1 (`T15.0`–`T15.1`). Contract: `planning/sprints/sprint-15-minimum-iwl-formalization.md`. **Sprint 18** (scholarly publication pipeline) is complete and production-verified (`T18.0`–`T18.5`, all `CLOSED`; `main @ 7c5d3cd`, 2026-10-12). Paper PDFs live at `{entry.id}.pdf` with a 301 from `paper.pdf` (T18.1); the masthead ORCID and Chisel IWL-link print defects are fixed with a page-1 ORCID check (T18.2); all 33 live tables were observed (T18.3) and the PDF clipping defect is fixed by wrapping table headers in print (T18.4); and the four paper PDFs are a scholarly projection with bundled Latin Modern, running head, page numbers, and academic tables (T18.5). Independently re-verified on the deployed staging and production PDFs: 19 of 19 tables complete, embedded fonts, canonical URLs, four legacy 301s, noindex and robots unchanged. One accepted exception: `⚠️` in Three Self-Organizing Systems renders from the platform emoji font. The release went to `main` product-only; the TP2 governance lineage stays on `staging` only. Evidence: `planning/audits/T18.5-release-verification-evidence.md`. Deferred and non-blocking, not an unfinished Sprint 18 gate: mobile row-label association and other print-polish items. Corpus readiness (Production Ready) and crawl indexing remain separately gated; nothing in Sprint 18 opened either. Contract: `planning/sprints/sprint-18-scholarly-publication-pipeline.md`. **Sprint 19** (publication taxonomy migration: `pillar` → required `category`; scholarly-PDF eligibility decoupled from editorial category) is complete and production-verified (`T19.0` `CLOSED`; `main @ 077a0c1`, 2026-10-13): all five entries serve at their category routes, 22 retired URLs are single-hop 301s, and the four scholarly PDFs match their pre-change text. The next manuscript pilot is *The Desk Is Where You Write It Down* (Knowledge Work, Zenodo DOI-backed, scholarly PDF required), followed by Home and About. The Chisel paper remains published; its editorial revision is deferred. Corpus-readiness and route-aware discovery stay directional, unnumbered and separately gated; nothing in Sprint 19 opened either. Contract: `planning/sprints/sprint-19-publication-taxonomy.md`; evidence: `planning/audits/T19.0-taxonomy-migration-evidence.md`. Program direction: `planning/programs/research-object-arc-13-17.md`.
+- **Sprints 12–19:** historical milestones completed; Sprint 18 scholarly PDF projection and Sprint 19 publication-category migration were production verified. Routing is `/research/{category}/{entry.id}/`, and `format: paper` enables scholarly PDFs, Highwire citation tags and ScholarlyArticle metadata.
+- **T20.0/T20.1:** Desk manuscript and reading presentation accepted; **T21.0:** homepage simplified and accepted (Desk spotlight plus five-item feed). Six entries now live: five scholarly papers + one essay, and a Chisel companion IWL.
+- **T22.0 S0–S4:** product-only production promotion, Zenodo Desk artifact correction and production indexing activation. `origin/main @ 384f0349`; GitHub Actions workflow #118 succeeded on 2026-10-16. No wholesale staging merge. The Desk DOI is `10.5281/zenodo.23328158`; the exact production Desk PDF was reported SHA-identical to its Zenodo deposit.
+- **Discovery:** production `robots.txt` advertises `https://amulbham.com/sitemap-index.xml` and allows crawling. The sitemap has **13 intended canonical URLs**. Search, 404, empty AI Systems and memos, and all 41 tag listings remain `noindex`; staging and preview remain blocked. Search engine indexing and Google Scholar inclusion **are not guaranteed or confirmed** by an indexable site.
+- **PDF identity:** all **six** approved PDF hashes live in the `PDF_MANIFEST` repo variable (corpus history: five at launch, Cognition added 2026-11-03); `PDF_CARRY_OVER=true` must remain on for routine production deploys. The PDF guard prevents unapproved regeneration, and since Sprint 28 an independent six-path upload guard pinned to `scripts/fixtures/approved-six-production-pdfs.sha256` runs before every production upload (Actions #135). See `HANDOFF.md` and `AGENTS.md`.
+- **Remaining T22.0 gates:** S5 Search Console setup/submission was **confirmed complete by the Product Authority on 2026-10-16** (private Search Console state not independently viewed here). S6 docs/evidence closure remains separately gated. Every documentation push to `main` redeploys and requires subsequent production + SHA verification.
 
-## Research Object MVP
+### Sprint 28 result and proposed Sprint 29 (2026-11-05)
 
-Directional only. Not authorized for execution. Future sprint numbering is undecided. This block does not say the current corpus is Production Ready.
+- **Sprint 28 shipped to production** at `main @ 710964480f43` (Actions #135): publication identity (Paper A/Three SOS DOIs, "Systems Researcher" role and bio, About dates, Substack retired), the independent publishing-facts oracle in `npm run build`, and the independent six-path PDF upload guard. Details and evidence limits: `CHANGELOG.md` 2026-11-05. The documentation closeout (T28.9) is pending release, so Sprint 28 is not yet final CLOSED.
+- **Proposed Sprint 29 — not planned or implemented:** staging reconciliation and a reviewed, PDF-safe staging-preview policy (staging is still `3f2b036`; review-only proposal branch `work/t28-staging-reconciliation-candidate`); published-versus-candidate PDF handling, per-work artifact selection and HTML/PDF version correspondence (Chisel v2/IWL and publication decisions stay author-controlled, and staging-generated candidate PDFs need explicit authorization); the future-PDF presentation goals (normal-case author byline, title hierarchy, extraction-friendly output, avoiding Type 3 fonts). The six existing PDF hashes stay protected.
+- **Still deferred:** Paper B Zenodo v2 parity (separate Sprint 27 archive obligation); retiring the Paper B first-publication bootstrap; cleaning the "five lines" workflow comments; deleting the retained hosted preview `s28-publishing-integrity-safe-preview` (optional).
 
-```text
-Production Ready =
-no known publication defects after the required
-CONTENT + READER + SCHOLARLY checks,
-applied according to each work’s publication format
+### Immediate next work
 
-Corpus target =
-five genuinely Production Ready long-form works from the honest corpus
-(+ additional work only when genuinely ready)
+1. T22.0 S6 was released at `main @ 5bf8518` and accepted by the Planner and Product Authority on 2026-10-18 (limits recorded in its report). The accepted final report and evidence addendum are promoted with the T23.0 release rather than by a status-only deployment.
+2. Follow Search Console indexing and sitemap processing over time, logging concrete errors or discoveries if they appear; S5 setup/submission is owner-reported done and need not be repeated.
+3. **Chisel canonical revision — T23.0 / T23.0.1** (sealed 2026-10-18; the two outside R3 pre-seal reviews were waived once and not performed): manuscript v9 and IWL v4 under unchanged ids and routes, with the frozen-artifact PDF path (`site/release-pdfs/`, flow in `PUBLISHING.md` "Revising a published paper"). Staging accepted 2026-10-18; this release candidate is prepared and **production release is pending**; **Zenodo deposit, DOI resolution and parity are pending** (owner-operated). Evidence: `planning/audits/T23.0-chisel-revision-evidence.md`. About simplification follows Chisel. Preserve publication history and historic closed tickets.
+4. **Sprint 24 — homepage and About refresh (T24.0 / T24.1)**: accepted on staging 2026-10-20; the cumulative two-page production candidate is prepared and **production release and verification are pending** the Product Authority's separate authorization. About simplification beyond this ticket and shared author-bio work remain separate.
+5. Investigate historical Invariants DOI-file mismatch if version parity becomes important; screen-reader verification and `FormattedDate` local-time formatting are known non-launch-blocking follow-ups.
 
-IWL =
-optional capability
-OPAQUE V1
-one strong live companion is sufficient for MVP
-second IWL only if a genuine second history earns it
+### Deferred product direction
 
-Optional:
-16 — second-IWL generalization
-     before launch only if a genuinely different second intellectual
-     history exists and product authority chooses the test
-
-Pre-launch direction:
-A — scholarly publication pipeline (Sprint 18) — CLOSED, production-verified
-    T18.0–T18.5 all CLOSED; main @ 7c5d3cd (2026-10-12)
-    deferred, non-blocking polish (not a Sprint 18 gate): mobile
-    row-label association
-
-S19 — Publication taxonomy (T19.0, R3)
-    STATUS: PRODUCTION VERIFIED / CLOSED (main @ 077a0c1,
-    run 38453516645, 2026-10-13)
-    required `category` (cybernetics | knowledge-work |
-    ai-systems | essays) replaces `pillar`; `format: paper` carries
-    the scholarly PDF; a DOI requires `format: paper`; direct 301s
-    for every retired public URL; route-history ledger protects
-    all four scholarly PDF identities (FAFSA included)
-
-B — Production Ready corpus + front door
-    MANUSCRIPT PILOT (S19 is closed; Desk v41.10 plus the T20.1
-    reading polish is STAGING ACCEPTED at 68b8f5b — not production;
-    DOI/Zenodo and public release unconfirmed; screen-reader and
-    forced-colors checks UNVERIFIED; T20.0 ran under a recorded
-    unsealed-ticket exception, see planning/audits/T20.0-desk-pilot-
-    evidence.md; T20.1 evidence: planning/audits/T20.1-desk-reading-
-    polish-evidence.md):
-    "The Desk Is Where You Write It Down" — Knowledge Work, Zenodo
-    DOI-backed, scholarly PDF required; the v41.10 Site MD's legacy
-    `pillar` was reconciled to `category: knowledge-work` at intake
-    (T20.0; no argument edits)
-    Publication MD v1.0 (Grokbot-to-site authoring contract)
-    finalized against post-S19 code and tested on the final Desk
-    manuscript
-    Workflow: author draft -> compiled MD -> Zenodo draft DOI
-    reserved -> DOI in MD -> ingest/validate -> HTML + exact scholarly
-    PDF -> that PDF (SHA-256 verified) to Zenodo -> Zenodo publication
-    coordinated with the site release
-    THEN Home / About redesign (separate specifications)
-    THEN remaining launch-corpus editorial readiness
-    Chisel canonical revision (manuscript v9, IWL v4): T23.0, sealed
-    2026-10-18; staging first, production and the Zenodo deposit are
-    separate later gates (see planning/tickets/T23.0-*.md)
-    CONTENT / READER / SCHOLARLY checks
-    editorial refinement
-
-C — route-aware discovery
-    separately gated; nothing in Sprint 18 opened it
-    open only intended crawl surfaces
-    verify Scholar-facing routes and metadata
-
-Post-launch:
-Keystatic
-graph UI
-citation JSON-LD
-richer IWL visualization
-```
-
-## Blocking the actual public launch
-
-- **Flip `SITE_WIDE_NOINDEX` to `false`** (`src/components/BaseHead.astro`) **and restore `robots.txt` to `Allow: /`** (plus the `Sitemap: https://amulbham.com/sitemap-index.xml` line). Explicitly gated on the user asking for it — do not do this proactively. See `AGENTS.md` → "Indexing state." This is also what blocks Scholar discovery specifically — see the Sprint 8 status line below; PDF build-readiness and search-engine discoverability are two independent gates, and this is the one that gates discovery.
-- **Scholarly PDF + Google Scholar compatibility — build contract complete (Sprint 8, 8.0–8.7) and now actually live on `amulbham.com` (Sprint 9, 9.0–9.5, 2026-09-04):**
-
-  ```
-  SCHOLAR-READY BUILD CONTRACT  ✅
-  LIVE PDF DEPLOYMENT           ✅
-  SCHOLAR DISCOVERY             ❌  indexing intentionally blocked
-  ```
-
-  `npm run build` → HTML with Highwire `citation_*` tags and a JSON-LD `MediaObject`; `npm run build:pdfs` → a typeset `{entry.id}.pdf` beside every paper's `index.html`, with `paper.pdf` as a 301 and not a second file (T18.1); `npm run validate:pdfs` → a fail-closed identity/link-structure gate; the pinned `wrangler pages deploy` (Sprint 9.0, exact `4.129.0`) ships the result. Deploy authority is GitHub Actions end to end for both `staging` and `main` — Cloudflare's own native Git-integrated build is off for both branches (Cloudflare dashboard, done by the site owner in 9.3/9.4) and no longer ships either. Sprint 9 confirmed production `paper.pdf` returned 200. T18.1, promoted to production 2026-09-29, serves `{entry.id}.pdf` and 301s `paper.pdf` on both `staging` and `main`. Full arc, the one real bug found along the way (a commit-message quoting break in the deploy workflow, fixed in an `env:` var), and the two-level rollback: `CHANGELOG.md` and `AGENTS.md`. **This still does not mean the site is Scholar-discoverable — a separate, still-closed gate, the same one the bullet above this one gates:** `SITE_WIDE_NOINDEX`/`robots.txt` still block every crawler, Scholar included, unrelated to how live the PDF pipeline now is.
-- `blog-placeholder-*.jpg` stock images are unused — no published entry currently has a hero image. They were only ever the starter template's leftover placeholders and can be deleted whenever someone notices them in `src/assets/`.
+More research entries and genuine second IWLs are content-driven, not required for this launch. Tag pages remain navigable but unindexed until a future accepted policy change. Keystatic, graph UI, richer IWL visualization and further reader polish are optional work, not launch gates.
 
 ## Content-shaped (grow the corpus, these activate on their own)
 
-- **Related-research module** (`RelatedResearch.astro`) is fully built and correct, and is no longer empty: the live corpus is 4 papers + 1 essay. Invariants and Three SOS share the `cybernetics` category, so both pages render a real related-research card for the other. The `essays` category gives no similarity bonus (an editorial catch-all, not a topical cluster), so FAFSA and Frontier Utility show nothing from category alone — correct, not a bug. Nothing to build; it keeps activating naturally as more content gets published.
-- **Tag governance**: a hard `z.enum()` on tags was considered and rejected as disproportionate for a solo-author site (see `CHANGELOG.md` 2026-08-14). A casing rule *was* decided 2026-08-24 (sentence case, with a paper's own coined/named terms excepted as proper nouns — documented in `AGENTS.md`) and enforced by the content-manager skill going forward; what's still open is a thin-content generation threshold for `/tags/[tag]/` pages, which would currently delete every existing tag page (each has a count of exactly 1). Revisit once there's actual tag overlap to threshold against — check current counts before picking a number, the way the TOC threshold was picked from real data rather than guessed.
-- **Category coverage** — `cybernetics` (Invariants, Three Self-Organizing Systems), `knowledge-work` (The Chisel Fallacy), and `essays` (FAFSA, a scholarly paper placed editorially among essays; Frontier Utility). `ai-systems` is intentionally empty until a work belongs there; its landing page shows an empty state and the homepage links it unconditionally. `/research/memos/` remains a functional empty route outside the four-category navigation.
+- **Related-research module** (`RelatedResearch.astro`) is fully built and correct, and is no longer empty: the live corpus is 5 papers + 1 essay. Invariants and Three SOS share the `cybernetics` category, so both pages render a real related-research card for the other. The `essays` category gives no similarity bonus (an editorial catch-all, not a topical cluster), so FAFSA and Frontier Utility show nothing from category alone — correct, not a bug. Nothing to build; it keeps activating naturally as more content gets published.
+- **Tag governance**: a hard `z.enum()` on tags was considered and rejected as disproportionate for a solo-author site (see `CHANGELOG.md` 2026-08-14). A casing rule *was* decided 2026-08-24 (sentence case, with a paper's own coined/named terms excepted as proper nouns — documented in `AGENTS.md`) and enforced by the content-manager skill going forward; what's still open is a thin-content generation threshold for `/tags/[tag]/` pages, which would currently delete existing tag pages. Revisit once there's actual tag overlap to threshold against — check current counts before picking a number, the way the TOC threshold was picked from real data rather than guessed.
+- **Category coverage** — `cybernetics` (Invariants, Three Self-Organizing Systems), `knowledge-work` (The Chisel Fallacy, The Desk Is Where You Write It Down), and `essays` (FAFSA, a scholarly paper placed editorially among essays; Frontier Utility). `ai-systems` is intentionally empty until a work belongs there; its landing page shows an empty state and the research archive/footer still provides access to it. `/research/memos/` remains a functional empty route outside the four-category navigation.
 
 ## Content-gated (next row only when a real entry exists)
 
@@ -116,7 +46,7 @@ richer IWL visualization
 
 ## Polish, not urgent
 
-- **Chisel IWL editorial mismatches, carried for the later content / Production Ready pass (the Layer 1 count part closed by T23.0).** The Layer 1 count was corrected in IWL v4 (T23.0). The 4C introductory vocabulary does not match the authored relation cells (`COLLAPSES` in the list, `COLLAPSES_TO` in the cell, plus cell verbs the list does not name). Recorded, not corrected. Not inner schema.
+- **Chisel IWL editorial mismatches, carried for the later content / Production Ready pass.** The Layer 1 count was corrected in IWL v4 (T23.0). The 4C introductory vocabulary does not match the authored relation cells (`COLLAPSES` in the list, `COLLAPSES_TO` in the cell, plus cell verbs the list does not name). Recorded, not corrected. Not inner schema.
 
 - **Content-detail pass** (next editorial sprint, flagged while writing `PUBLISHING.md` 2026-08-26): the Invariants paper's §4 pull-quote and Counterpoint currently sit stacked right next to each other; the frontier essay's "Frontier is the floor" Counterpoint and Key idea read as a cluster rather than two separated turning points. Neither is wrong, both are worth a second look once there's time for a pure editorial pass rather than a placement sprint. While at it: check across all three earlier published pieces for any restated sentence that now exists twice at full length instead of as a genuine restatement. (The sub-item this once carried — comparing Three SOS's and Invariants' near-identical "About the Author" bios for an unintentional duplicate — is resolved by construction: Sprint 10 deleted both hand-authored bios in favor of one generated `AUTHOR.bio`, so there's nothing left to compare.)
 - **6.1b — quiet header-utility polish.** Flagged as a real judgment call during Sprint 6.1's own implementation (the search-control's active-state "border cue" interpretation, and the brand-text hide-vs-nowrap decision at mobile) but never scheduled as its own sprint. Revisit only if either reads wrong in practice, not proactively.

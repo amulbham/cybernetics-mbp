@@ -6,7 +6,7 @@ export const SITE_DESCRIPTION =
 	'Independent research on how ideas emerge, how systems organize, and how technology and institutions shape the conditions for discovery.';
 
 // Single source of truth for the site owner's identity/social profiles —
-// used by SocialLinks.astro (footer chips: linkedin/substack/github/orcid),
+// used by SocialLinks.astro (footer chips: linkedin/github/orcid),
 // ResearchLayout.astro (author.sameAs in ScholarlyArticle/Article JSON-LD), and
 // index.astro (Person.sameAs in the homepage entity graph). Don't duplicate
 // these elsewhere; that's exactly how canonicalURL drifted out of sync in an
@@ -15,7 +15,6 @@ export const SITE_DESCRIPTION =
 // for structured data first, but that doesn't mean it's hidden from readers.
 export const SOCIAL_LINKS = {
 	linkedin: 'https://www.linkedin.com/in/amul-bham/',
-	substack: 'https://amulbham.substack.com/',
 	github: 'https://github.com/amulbham',
 	orcid: 'https://orcid.org/0009-0009-7660-4031',
 } as const;
@@ -24,7 +23,11 @@ export const SOCIAL_LINKS = {
 // every research entry, so this is a constant, not per-entry frontmatter.
 export const AUTHOR = {
 	name: 'Amul Bham',
-	affiliation: 'Independent Researcher',
+	// T28.2 — the author's public PROFESSIONAL ROLE (an occupation), shown in the
+	// article masthead and used as the About `Person.jobTitle`. Deliberately not
+	// named `affiliation`: this is not an institution or employer, and no
+	// institutional affiliation is claimed anywhere on the site.
+	role: 'Systems Researcher',
 	location: 'Corona, CA, USA',
 	email: 'amul.bham@gmail.com',
 	// Universal identity, rendered by AuthorNote.astro at the end of every
@@ -37,7 +40,7 @@ export const AUTHOR = {
 	// piece actually has them), no DOI, no contact instructions (the
 	// masthead above already owns correspondence) — just who the author is
 	// and what the throughline of the work actually is.
-	bio: 'Amul Bham is an independent AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy.',
+	bio: 'Amul Bham is a systems researcher and AI systems architect. His work develops the Cognitive Physics framework and the Mission Brief Protocol (MBP) — first-principles research into the structural conditions under which a reasoning system produces knowledge rather than prediction — and applies that same structural lens to adjacent domains, from self-organizing systems to public policy.',
 } as const;
 
 // Collection id (folder slug) pinned in Spotlight.astro on the homepage.
@@ -46,7 +49,7 @@ export const AUTHOR = {
 // schema field would make "which piece is pinned" a fact scattered across
 // content files instead of one place to look). A wrong slug fails the build
 // (Spotlight.astro throws via getEntry) rather than silently showing nothing.
-export const HOMEPAGE_SPOTLIGHT = 'the-lab-bubble';
+export const HOMEPAGE_SPOTLIGHT = 'cybernetics-structural-science';
 
 // Sitewide content license — shown in ArticleMasthead.astro, the footer, and
 // each entry's JSON-LD `license` field. Single source of truth so these
