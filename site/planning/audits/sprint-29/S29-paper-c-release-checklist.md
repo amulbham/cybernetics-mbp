@@ -1,6 +1,6 @@
 # Sprint 29 — Paper C release checklist (T29.5 and the production gate)
 
-Status: PLANNING CHECKLIST, 2026-11-12. T29.5 **SEALED 2026-11-13** against `da36826` ([seal record](S29-T29.5-seal-record.md)); implementation and rehearsal are authorized. Production promotion, Zenodo publication and indexing changes each need their own seal and owner authorization. Nothing in items 3–12 has been run.
+Status: **ALL ITEMS CLOSED — 2026-11-14.** Production commit `1d7320b`, run 146 (success). Zenodo deposit done (owner-reported). T29.5 sealed 2026-11-13 against `da36826` ([seal record](S29-T29.5-seal-record.md)). [Sprint 29 closure record](S29-sprint-closure.md).
 Purpose: list every gate between an accepted staging preview and a published Paper C, with who proves it and what evidence closes it, so none is assumed from the staging preview.
 
 ## What the staging preview does and does not prove

@@ -1,8 +1,8 @@
 # Sprint 29 — planning and review entry point
 
-Status: T29.3a CLOSED / T29.4 SEALED (`49221e2c…`) / NO HOSTED AUTHORITY
-Updated: 2026-11-13 (America/Los_Angeles)
-Current intent: publish finalized Paper C through the first safe forward PDF path, only after exact candidate and release evidence are accepted.
+Status: **SPRINT 29 CLOSED** — Paper C live at production / Zenodo deposit done / All 12 release checklist items closed
+Updated: 2026-11-14 (America/Los_Angeles)
+Closure record: [S29-sprint-closure.md](S29-sprint-closure.md)
 Exact next gate: after [Planner acceptance and closure of T29.3a](S29-T29.3a-closure-status.md), the owner decides whether to seal the [T29.4 staging ticket](../../tickets/T29.4-paper-c-staging-preview.md). Staging upload needs the seal and an exact-tuple GO; production, Zenodo and indexing each need their own. The [release checklist](S29-paper-c-release-checklist.md) lists the T29.5 gates. The primary-source claim audit stays open.
 
 ## What changed
