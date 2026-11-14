@@ -9,7 +9,7 @@ scholarly:
   versionDoi: 'https://doi.org/10.5281/zenodo.24120333'
   printAuthorNote: 'Amul Bham is a systems researcher working across cybernetics, self-organizing systems, AI systems architecture, and cognition. His research examines how complex systems maintain organization, how knowledge becomes reliable, and how these principles can inform the design of verifiable AI systems.'
 description: "Self-organizing systems — biological cells, financial markets, immune systems, ant colonies, cognitive systems — maintain organized structure without requiring a central coordinating authority across different scales and substrates. This paper proposes Cognitive Physics as the structural science of self-organizing systems, grounded in seven candidate structural invariants. The framework connects cybernetic accounts of feedback and regulation with complexity-science accounts of emergence, asking whether different mechanisms satisfy common organizational requirements across systems. Drawing on thermodynamics, information theory, dynamical systems, systems biology, and complexity science, it proposes that all seven conditions are jointly necessary for self-organization. The paper develops prospective tests of these ideas and uses the framework to distinguish possible causes of hallucination, sycophancy, and long-context failure in AI systems."
-excerpt: 'Seven candidate conditions for self-organization — examined across biology, economics, and artificial intelligence.'
+excerpt: 'A Cognitive Physics framework connecting cybernetics and self-organizing systems through seven candidate structural invariants.'
 tags:
   - cybernetics
   - self-organizing systems
