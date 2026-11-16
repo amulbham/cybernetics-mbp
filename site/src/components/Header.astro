@@ -155,4 +155,25 @@ const isSearchActive = Astro.url.pathname === '/search' || Astro.url.pathname ==
 			display: none;
 		}
 	}
+	/* T30.4 — the header's content has a hard minimum width (~13.5em), so with
+	   enlarged system text on a narrow phone the controls ran off the right edge.
+	   Measured against the header itself in em, so it follows text size as well as
+	   viewport width: first tighten padding and gaps, then (only if it still
+	   can't fit) let the controls drop to a second row. When the header fits, none
+	   of this applies. */
+	header {
+		container-type: inline-size;
+	}
+	@container (max-width: 13.5em) {
+		nav a {
+			padding-inline: 0.15em;
+		}
+		.right-controls {
+			gap: 0.35em;
+			margin-left: auto;
+		}
+		nav {
+			flex-wrap: wrap;
+		}
+	}
 </style>
