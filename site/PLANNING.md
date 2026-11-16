@@ -56,6 +56,29 @@ Tool bindings for each role live in the orchestrator's configuration, not in thi
 
 Planner and Executor roles may span multiple physical sessions. Before context compaction becomes necessary, the active role must produce a bounded handoff and stop. A replacement session independently recovers authority from repository state before continuing. Planner handoffs may carry transient planning state; Executor handoffs may carry execution progress only and never expand or reinterpret the sealed contract. Conversation summaries and automatic compaction are not project authority.
 
+### Local-first execution (T30.2)
+
+The Executor is Claude Code in the persistent local checkout, working from `staging`. This adds no authority; the rules above and §7 still govern.
+
+**Ticket intake.** Approved tickets and planning state live on `planner/context` and are read, never merged, so no planning history enters `staging` or `main`:
+
+```sh
+git fetch origin planner/context
+git show origin/planner/context:planner/STATE.md                   # objective, approvals, next gate
+git show origin/planner/context:site/planning/tickets/<ticket>.md  # the ticket
+git show <seal-commit>:site/planning/tickets/<ticket>.md           # as sealed; the ticket names the commit
+```
+
+The sealed text at its seal commit is the authority; report the ticket id and commit used. Do not copy the ticket into the working tree, and stage files by explicit path, never `git add -A`. The Authorized-paths warning in `.claude/hooks/guard.mjs` reads only tickets in the working tree and is advisory, so the Executor holds the diff to the ticket's scope itself.
+
+**Operating contract.**
+
+- An approved ticket authorizes its bounded implementation. The Executor edits, tests, troubleshoots and runs the local preview (`site-dev` in `.claude/launch.json`, Astro on 4321) within that scope, with no per-step approval.
+- Owner review of the local preview comes before a feature's first `staging` push, unless the owner authorizes direct staging delivery. Once authorized, the Executor commits, pushes `staging`, monitors the Actions run and verifies the hosted result without further approval.
+- Production always needs separate explicit owner authorization (`AGENTS.md` "Deploy workflow").
+- Stop and escalate for blockers, scope expansion, destructive operations and scholarly-content changes (§7).
+- Manuscript accuracy and scholarly approval belong to the research/editorial process. Website work implements approved content and verifies fidelity, presentation, metadata, accessibility and technical integrity; it adds no scholarly review gate.
+
 ### Repository and deployed artifacts — verification authority
 
 The source tree, diffs, validators, build output, workflow state, staging deployment, and production deployment determine what is true. Agent narration is evidence to inspect, not the final authority.

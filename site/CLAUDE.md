@@ -26,7 +26,8 @@ Personal research hub for Amul Bham (amulbham.com): Astro 7, static output, Clou
 - `npm run build`
 - `npm run build:pdfs`
 - `npm run validate:pdfs`
-- `astro dev --background` (see `AGENTS.md` "## Development" for stop/status)
+- `astro dev --background` (see `AGENTS.md` "## Development" for stop/status); Claude Code Desktop preview: `site-dev` in `.claude/launch.json`
+- `npm run preflight:production` — release candidates only, before the owner pushes `main` (`AGENTS.md` "Deploy workflow", batch production release)
 
 ## Starting work
 
