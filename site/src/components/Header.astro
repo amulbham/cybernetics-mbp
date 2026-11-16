@@ -118,11 +118,22 @@ const isSearchActive = Astro.url.pathname === '/search' || Astro.url.pathname ==
 		display: flex;
 		align-items: center;
 		gap: 0.75em;
+		/* T30.5 — the oversized search box used to set the header's height (36px + the
+		   `nav a` padding + its 3px of borders). Now that it is a true 36px circle, this
+		   keeps the header exactly as tall as before, so nothing around it moves. */
+		padding-block: calc(1em + 1.5px);
 	}
 	/* Matches .theme-toggle's box exactly (same 2.25rem circle, same border/
 	   hover treatment) so the two read as one utility pair, not two different
 	   button styles next to each other. */
-	.search-control {
+	/* T30.5 — `nav a` (padding, `border-bottom: 2px solid transparent`) is more
+	   specific than a bare `.search-control`, so it silently won: the control was a
+	   ~52x66 box with a transparent bottom border (an open arch). `nav a.search-control`
+	   outranks it. `border-box` matches the button-based .theme-toggle (an <a> is
+	   content-box by default, which made the circle 2px larger than its pair). */
+	nav a.search-control {
+		box-sizing: border-box;
+		position: relative;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -134,19 +145,29 @@ const isSearchActive = Astro.url.pathname === '/search' || Astro.url.pathname ==
 		background: transparent;
 		color: var(--text-primary);
 	}
-	.search-control:hover {
+	/* The circle is now its intended 36px, smaller than the box it used to render as;
+	   an invisible 44px hit area keeps it comfortable to tap. */
+	nav a.search-control::after {
+		content: '';
+		position: absolute;
+		inset: -5px;
+	}
+	nav a.search-control:hover {
 		background: var(--bg-subtle);
 	}
 	/* A circular control can't take a text link's border-bottom underline cue
 	   without looking like a broken shape — a full border ring is the same
 	   signal (border color = current location), adapted to the shape. */
-	.search-control[aria-current='page'] {
+	nav a.search-control[aria-current='page'] {
 		border-color: var(--accent);
 	}
 
 	@media (max-width: 767px) {
 		nav a {
 			padding: 0.75em 0.4em;
+		}
+		.right-controls {
+			padding-block: calc(0.75em + 1.5px);
 		}
 		.home-link {
 			display: none;
