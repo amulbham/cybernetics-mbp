@@ -65,11 +65,11 @@ The Executor is Claude Code in the persistent local checkout, working from `stag
 ```sh
 git fetch origin planner/context
 git show origin/planner/context:planner/STATE.md                   # objective, approvals, next gate
-git show origin/planner/context:site/planning/tickets/<ticket>.md  # the ticket
-git show <seal-commit>:site/planning/tickets/<ticket>.md           # as sealed; the ticket names the commit
+git log origin/planner/context --format='%h %s' -- site/planning/tickets/<ticket>.md  # the seal commit is the one that sets Status: SEALED
+git show <seal-commit>:site/planning/tickets/<ticket>.md                              # the ticket exactly as sealed
 ```
 
-The sealed text at its seal commit is the authority; report the ticket id and commit used. Do not copy the ticket into the working tree, and stage files by explicit path, never `git add -A`. The Authorized-paths warning in `.claude/hooks/guard.mjs` reads only tickets in the working tree and is advisory, so the Executor holds the diff to the ticket's scope itself.
+The ticket as it stands at its seal commit is the authority. The "against planning commit" its Status line names is the reviewed base, not the seal, and the ticket at that commit may still read DRAFT. If the tip text differs from the seal commit's, report the difference and ask which governs. Report the ticket id and seal commit used. Do not copy the ticket into the working tree, and stage files by explicit path, never `git add -A`. The Authorized-paths warning in `.claude/hooks/guard.mjs` reads only tickets in the working tree and is advisory, so the Executor holds the diff to the ticket's scope itself.
 
 **Operating contract.**
 
