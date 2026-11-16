@@ -79,6 +79,8 @@ The ticket as it stands at its seal commit is the authority. The "against planni
 - Stop and escalate for blockers, scope expansion, destructive operations and scholarly-content changes (§7).
 - Manuscript accuracy and scholarly approval belong to the research/editorial process. Website work implements approved content and verifies fidelity, presentation, metadata, accessibility and technical integrity; it adds no scholarly review gate.
 
+**Session handoff.** `.claude/SESSION_HANDOFF.md` carries working context between local coding sessions only. It is local and Git-ignored through `.git/info/exclude` (never committed or pushed), written only when the owner asks for a checkpoint, context reset or handoff, and read only when the owner directs. It holds the current branch and commit, the active ticket and objective, work completed and files changed, tests and results, uncommitted work and blockers, and exact next actions. It is context, not authority: the incoming session verifies each claim against Git and the approved ticket. `.git/info/exclude` is not cloned, so a fresh clone needs `printf '.claude/SESSION_HANDOFF.md\n' >> "$(git rev-parse --git-common-dir)/info/exclude"`.
+
 ### Repository and deployed artifacts — verification authority
 
 The source tree, diffs, validators, build output, workflow state, staging deployment, and production deployment determine what is true. Agent narration is evidence to inspect, not the final authority.
