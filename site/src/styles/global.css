@@ -798,8 +798,16 @@ pre.astro-code span {
    below 1100px only — at the desktop breakpoint the rail sits beside the
    prose, not above it, so existing anchor behavior stays exactly as it
    was; no desktop offset invented. */
+/* T30.4 — bibliography entries (id="ref-N", from rehype-references) are
+   citation destinations too. Desktop has no sticky bar to clear (only the 2px
+   progress line), so they just get breathing room; below 1100px they share the
+   sticky-TOC offset below, which they previously lacked (entries landed under it). */
+.references-list li[id] {
+	scroll-margin-top: var(--space-4);
+}
 @media (max-width: 1099px) {
-	.prose h2[id] {
+	.prose h2[id],
+	.references-list li[id] {
 		scroll-margin-top: var(--toc-mobile-offset);
 	}
 }
