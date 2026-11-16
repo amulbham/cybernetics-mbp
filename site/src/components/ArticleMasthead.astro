@@ -20,6 +20,14 @@ const { format, doi, scholarly, candidate } = Astro.props;
 // Same derivation AuthorNote.astro uses: the visible ORCID text must never
 // be a second, hand-typed copy of SOCIAL_LINKS.orcid (the href).
 const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
+
+// A DOI is one long unbroken token, so on a narrow column the global
+// overflow-wrap fallback split it mid-token and could strand a few digits
+// ("…zenodo.24120" / "332"). The visible text must stay exactly as is (the
+// publishing-facts validator reads it from the built HTML), so the link is
+// instead scaled to fit its column; see `.doi` below. This is its length in
+// characters, for that calculation.
+const doiChars = doi ? (scholarly ? doi : doi.replace(/^https?:\/\//, '')).length : 0;
 ---
 
 {scholarly ? (
@@ -28,7 +36,7 @@ const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
 		<p>{AUTHOR.role}</p>
 		<p><a class="orcid" href={SOCIAL_LINKS.orcid}>{orcidLabel}</a></p>
 		{candidate && <p class="candidate-status">Candidate specimen — not published</p>}
-		{doi && <p>{candidate ? 'Intended concept DOI (public verification pending):' : 'DOI:'} <a href={doi}>{doi}</a></p>}
+		{doi && <p>{candidate ? 'Intended concept DOI (public verification pending):' : 'DOI:'} <a class="doi" style={`--doi-chars:${doiChars}`} href={doi}>{doi}</a></p>}
 		<p>{formatLabel(format)} · Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
 	</div>
 ) : (
@@ -45,7 +53,7 @@ const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
 			doi && (
 				<>
 					{' · '}
-					<a href={doi}>{doi.replace(/^https?:\/\//, '')}</a>
+					<a class="doi" style={`--doi-chars:${doiChars}`} href={doi}>{doi.replace(/^https?:\/\//, '')}</a>
 				</>
 			)
 		}
@@ -64,6 +72,19 @@ const orcidLabel = SOCIAL_LINKS.orcid.replace(/^https?:\/\//, '');
 	}
 	.masthead p:last-child {
 		margin-bottom: 0;
+	}
+	/* The DOI is one unbreakable token; scale it so the whole token fits the column
+	   instead of the global overflow-wrap fallback splitting it mid-token and
+	   stranding a few digits. A character is 0.62em wide here (monospace 0.6em plus
+	   the .meta letter-spacing of 0.02em); 0.63em adds slack. Never larger than the
+	   normal .meta size (so wide columns are unchanged), never smaller than 0.59rem
+	   (about 9.4px, which is what a 320px screen needs); below that it falls back to the
+	   old mid-token wrap rather than becoming unreadable. */
+	.masthead {
+		container-type: inline-size;
+	}
+	.doi {
+		font-size: clamp(0.59rem, calc(100cqi / (var(--doi-chars) * 0.63)), var(--text-xs));
 	}
 	.name {
 		font-family: var(--font-atkinson);
