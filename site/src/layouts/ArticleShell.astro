@@ -89,9 +89,16 @@ const { title, subtitle, pubDate, updatedDate, minutesRead, utcDates } = Astro.p
 		padding: 1em 0;
 		text-align: center;
 		line-height: 1;
+		container-type: inline-size;
 	}
+	/* The h1 keeps the global --text-4xl, but never larger than the title block
+	   can hold: sized to its own width (cqi), so an ordinary long word fits on a
+	   line instead of reaching the global `overflow-wrap: break-word` fallback,
+	   which splits mid-word. That fallback stays as the last resort for a truly
+	   unbreakable string. The cap leaves wide viewports unchanged. */
 	.title h1 {
 		margin: 0 0 0.5em 0;
+		font-size: min(var(--text-4xl), 14.5cqi);
 	}
 	.subtitle {
 		font-style: italic;
