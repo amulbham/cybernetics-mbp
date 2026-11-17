@@ -248,6 +248,19 @@
       "zenodoAnchors": []
     },
     {
+      "id": "the-latency-trap",
+      "route": "/research/ai-systems/the-latency-trap/",
+      "format": "essay",
+      "title": "The Latency Trap",
+      "pubDate": "2026-11-17",
+      "revisedDate": null,
+      "doi": null,
+      "pdfPath": null,
+      "ogImagePath": "open-graph/ai-systems/the-latency-trap.png",
+      "zenodoTokens": {},
+      "zenodoAnchors": []
+    },
+    {
       "id": "how-frontier-model-training-became-a-public-utility",
       "route": "/research/essays/how-frontier-model-training-became-a-public-utility/",
       "format": "essay",
