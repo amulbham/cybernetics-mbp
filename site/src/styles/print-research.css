@@ -392,12 +392,20 @@ h6 {
 	margin: 0 0 0.6em;
 }
 /* Running prose hyphenates (Vivliostyle's own dictionaries, lang="en") so
-   justified lines stay even; headings, tables, and references stay manual. */
+   justified lines stay even; headings, tables, and references stay manual.
+   Conservative standard (T30.6, "specimen 3"): a break needs a word of 9+
+   letters with 4+ on each side, which roughly halves the hyphens and removes
+   short fragments (sci-ence, pro-poses). Chromium justifies by stretching
+   spaces only, so the small negative word-spacing lets a line take one more
+   word and keeps justified gaps no looser than before. Do not "restore"
+   hyphenate-limit-lines: the pinned renderer ignores it (verified, 0 of 43
+   pages changed), and banning hyphenation outright opens gaps up to 3.7x.
+   Rationale and limits: PUBLISHING.md "PDF typography standard". */
 .prose p,
 .prose li {
 	hyphens: auto;
-	hyphenate-limit-chars: 7 3 3;
-	hyphenate-limit-lines: 2;
+	hyphenate-limit-chars: 9 4 4;
+	word-spacing: -0.04em;
 }
 .prose ul,
 .prose ol {
