@@ -3,6 +3,7 @@ title: "The Chisel Fallacy: What AI Detection Misses and What the Intellectual W
 subtitle: "Pangram Is a Very Sophisticated Way of Asking the Wrong Question"
 format: paper
 category: knowledge-work
+license: 'cc-by-nc-4.0'
 pubDate: 2026-09-22
 dateModified: 2026-10-18
 description: "A detector can be accurate while the inference drawn from its score is still the fallacy."

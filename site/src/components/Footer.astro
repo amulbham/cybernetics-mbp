@@ -6,6 +6,15 @@ import SocialLinks from './SocialLinks.astro';
 
 const today = new Date();
 
+// The footer shows the page's own license when it has one (a research work,
+// passed down by ResearchLayout via ArticleShell, T30.8). Pages that are not a
+// work (home, About, listings, search, 404) and the IWL companion show the
+// sitewide notice in consts.ts.
+interface Props {
+	license?: { label: string; url: string };
+}
+const { license = LICENSE } = Astro.props;
+
 // Category navigation: all four categories, unconditionally, regardless of
 // entry count — navigation, not a content listing. Never hardcode the list
 // here; CATEGORIES is the source.
@@ -16,7 +25,7 @@ const today = new Date();
 	<div class="footer-inner">
 		<div class="footer-top">
 			<p class="copyright">
-				&copy; {today.getFullYear()} Amul Bham. Licensed <a href={LICENSE.url}>{LICENSE.label}</a>.
+				&copy; {today.getFullYear()} Amul Bham. Licensed <a href={license.url}>{license.label}</a>.
 			</p>
 			<SocialLinks />
 		</div>

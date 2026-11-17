@@ -25,9 +25,15 @@ interface Props {
 	minutesRead?: number;
 	/** Show dates as UTC calendar days (forward scholarly pages; see FormattedDate). */
 	utcDates?: boolean;
+	/**
+	 * The work's effective license (ResearchLayout, T30.8), so the footer never
+	 * contradicts the masthead on a research page. Omitted for the IWL companion,
+	 * which has no per-IWL license field and keeps the sitewide notice.
+	 */
+	license?: { label: string; url: string };
 }
 
-const { title, subtitle, pubDate, updatedDate, minutesRead, utcDates } = Astro.props;
+const { title, subtitle, pubDate, updatedDate, minutesRead, utcDates, license } = Astro.props;
 ---
 
 <ScrollProgress />
@@ -63,7 +69,7 @@ const { title, subtitle, pubDate, updatedDate, minutesRead, utcDates } = Astro.p
 		</div>
 	</article>
 </main>
-<Footer />
+<Footer license={license} />
 
 <style>
 	main {

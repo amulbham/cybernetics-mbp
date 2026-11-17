@@ -160,6 +160,32 @@ outputCase('O40', 'footer identity link removed from a category page', (d) => ed
 outputCase('O41', 'essay control links an own-origin PDF', (d) => editPage(d, LB.route, rep('</body>', `<a href="${fx.siteOrigin}/research/ai-systems/the-lab-bubble/the-lab-bubble.pdf">PDF</a></body>`)), 'PDF');
 outputCase('O42', 'paper pubDate shown wrongly in visible <time>', (d) => editPage(d, PA.route, rep(`datetime="${PA.pubDate}T00:00:00.000Z"`, 'datetime="2025-01-02T00:00:00.000Z"')), '<time');
 
+// ---- T30.8 per-work license cases ---------------------------------------------
+// Each work states its own expected license in the fixture; the masthead, the footer and the JSON-LD must all
+// agree with it, the sitewide notice must stay off work pages and per-work licenses off non-work pages, and a
+// lost legacy override or a silent substitution must be detected.
+{
+	const LT = entry('the-latency-trap'); // forward default, CC BY 4.0
+	const CS = entry('cybernetics-structural-science'); // scholarly paper, CC BY 4.0
+	const BY = Object.keys(fx.licenses).find((u) => fx.licenses[u] === 'CC BY 4.0');
+	const NC = Object.keys(fx.licenses).find((u) => fx.licenses[u] === 'CC BY-NC 4.0');
+	// Replace the nth visible "Licensed <a>…</a>" notice (0 = masthead, 1 = footer, in document order).
+	const swapNotice = (nth, url) => (t) => {
+		let i = -1;
+		return t.replace(/Licensed\s*<a\b[^>]*>[^<]*<\/a>/g, (m) => (++i === nth ? `Licensed <a href="${url}">${fx.licenses[url]}</a>` : m));
+	};
+	const allNotices = (url) => (t) => t.replace(/Licensed\s*<a\b[^>]*>[^<]*<\/a>/g, `Licensed <a href="${url}">${fx.licenses[url]}</a>`);
+	const jsonLd = (url) => (t) => t.replace(/"license":"[^"]*"/g, `"license":"${url}"`);
+	outputCase('L01', 'default-license work: masthead shows the other license', (d) => editPage(d, LT.route, swapNotice(0, NC)), 'visible license notice');
+	outputCase('L02', 'default-license work: footer falls back to the sitewide notice', (d) => editPage(d, LT.route, swapNotice(1, NC)), 'visible license notice');
+	outputCase('L03', 'default-license work: JSON-LD license differs from the visible notices', (d) => editPage(d, LT.route, jsonLd(NC)), 'JSON-LD license');
+	outputCase('L04', 'silent substitution: every surface consistently shows the wrong license', (d) => editPage(d, LT.route, (t) => jsonLd(NC)(allNotices(NC)(t))), 'license');
+	outputCase('L05', 'legacy override lost: an NC-published work renders every surface as CC BY 4.0', (d) => editPage(d, LB.route, (t) => jsonLd(BY)(allNotices(BY)(t))), 'license');
+	outputCase('L06', 'scholarly paper footer contradicts its masthead (the pre-T30.8 discrepancy)', (d) => editPage(d, CS.route, swapNotice(1, NC)), 'visible license notice');
+	outputCase('L07', 'a non-work page (About) shows a per-work license', (d) => editPage(d, '/about/', allNotices(BY)), 'non-work page');
+	outputCase('L08', 'a work page carries a third, unsupported license notice', (d) => editPage(d, LT.route, rep('</body>', '<p>Licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p></body>')), 'visible license notice|expected 2');
+}
+
 // ---- fixture-level cases ------------------------------------------------------
 record('F01', 'fixture: legacy exception on a non-About date mode is invalid', true, run(base, withFixture((f) => (f.profilePage.dateCreated = { mode: 'legacy-build-timestamp' }))), 'fixture invalid');
 record('F02', 'fixture: TARGET phase may not carry the legacy exception', true, run(base, withFixture((f) => { f.phase = 'TARGET'; f.profilePage.dateModified = { mode: 'legacy-build-timestamp' }; })), 'fixture invalid');
@@ -171,6 +197,12 @@ record('F07', 'fixture drift: approved license changed', true, run(base, withFix
 record('F08', 'fixture drift: approved About jobTitle changed', true, run(base, withFixture((f) => (f.profilePage.jobTitle = 'Professor'))), 'jobTitle');
 record('F09', 'fixture drift: approved revision date added where none exists', true, run(base, withFixture((f) => (f.entries.find((e) => e.id === PA.id).revisedDate = '2026-11-03'))), 'dateModified|article:modified_time|<time');
 record('F10', 'fixture: unknown phase value is invalid', true, run(base, withFixture((f) => (f.phase = 'WHATEVER'))), 'fixture invalid');
+// T30.8: per-work license facts
+record('F11', 'fixture: an entry without its own license is invalid (no fallback to the sitewide notice)', true, run(base, withFixture((f) => delete f.entries.find((e) => e.id === LB.id).license)), 'fixture invalid');
+record('F12', 'fixture: an entry license outside the supported set is invalid', true, run(base, withFixture((f) => (f.entries.find((e) => e.id === LB.id).license = 'https://creativecommons.org/licenses/by-sa/4.0/'))), 'fixture invalid');
+record('F13', 'fixture drift: a legacy work is recorded as CC BY 4.0 while the build renders CC BY-NC 4.0', true, run(base, withFixture((f) => (f.entries.find((e) => e.id === LB.id).license = 'https://creativecommons.org/licenses/by/4.0/'))), 'license');
+record('F14', 'fixture: the supported-license table is required', true, run(base, withFixture((f) => delete f.licenses)), 'fixture invalid');
+record('F15', 'fixture: the sitewide notice must be a supported license', true, run(base, withFixture((f) => (f.license = { url: 'https://creativecommons.org/licenses/by-sa/4.0/', label: 'CC BY-SA 4.0' }))), 'fixture invalid');
 
 // ---- structural self-tests ----------------------------------------------------
 {

@@ -40,7 +40,7 @@ An Intellectual Work Ledger is a subordinate companion object, not a fourth rese
 4. Route derives from the parent, never authored: `/research/{category}/{slug}/iwl/` (`iwlPath()` in `research-routing.ts`).
 5. Renders through `IwlLayout.astro` — deliberately plain, reuses generic shell mechanics, never `ResearchLayout.astro`. Zero JSON-LD (deliberate semantic silence, matching `backstory`). No PDF (structurally out of `build-research-pdfs.mjs`'s scope). Normal Pagefind indexing, no opt-out.
 6. Bidirectional human navigation only: Article→IWL in the existing `after-title` masthead area; IWL→Article via an explicit "Companion to" line. Neither side authors a reciprocal ID/URL field.
-7. Licensing: the sitewide `LICENSE` constant, same as every research entry — no per-IWL license field, so a source draft's own license text must be reconciled away during conversion.
+7. Licensing: the sitewide notice (`LICENSE` in `consts.ts`, CC BY-NC 4.0), not a per-work license — research entries carry per-work licenses ("Forward publication licensing standard (T30.8)" below), but there is no per-IWL license field, so a source draft's own license text must be reconciled away during conversion, and an IWL of a work with a different license needs its own decision.
 8. The authored body (however many internal surfaces a real IWL uses — Development Ledger, Decision Record, and the rest) is prose-first authored Markdown, not schema. OPAQUE V1, accepted at T15.1: no inner machine schema was earned for the current Research Object MVP. Reopen inner formalization only when a later accepted operation demonstrably cannot be performed, or becomes unsafe or meaning-losing, after this outer contract and an appropriate editorial convention have been tried.
 
 Full field-level detail and the file map: `AGENTS.md`'s "IWL — the Intellectual Work Ledger companion object."
@@ -55,8 +55,22 @@ Full procedure: `.claude/skills/content-manager/`. Full rationale: `AGENTS.md`'s
 - Every `## References` entry is a verified real URL (a DOI where one exists). The one exception: a legitimate print, archival or reported source with no verified landing page may stay unlinked when the Product Authority approves it and the evidence file records it — never guess or fabricate a URL (Desk: 18 entries, `planning/audits/T20.0-desk-pilot-evidence.md`). Show each link as its own path — a DOI as `doi.org/10.…`, a web source as host/path — never a generic `[DOI]`/`[Source]`. Ordered list only, with no blank line between entries (a blank line makes the list loose and stops most author-year citations from linking) — the numbering is load-bearing, it's what `id="ref-N"` keys off.
 - Tags: sentence case, except a piece's own coined proper nouns.
 - Do not hand-type a byline. The masthead is automatic from `consts.ts`.
+- License: omit `license` and the entry is **CC BY 4.0** (T30.8). Set `license: 'cc-by-nc-4.0'` only for a work already published under CC BY-NC or by owner decision; any other value fails the build. Never type a license into the body — the masthead, footer and JSON-LD derive it. Details: "Forward publication licensing standard (T30.8)".
 - Images live in the entry's own slug folder.
 - Citation routing is a three-layer decision (inline → `#ref-N` on-page, reference entry → real external URL, essay narrative cite → manual outbound link) — see `CONTENT-MODULES.md`'s Citation links → Routing subsection, not restated here.
+
+### Manuscript intake paths (T30.7)
+
+Two intake paths exist for a new work. Both use the same publication architecture (content schema, content modules, validators, facts fixture); they differ only in who decides the editorial presentation.
+
+| | Author-directed intake | Assisted editorial intake |
+|---|---|---|
+| Manuscript | carries its own primitive, Key findings and emphasis instructions | ordinary prose |
+| Executor | implements those decisions | proposes them (primitives, Key findings, citation links, bold) and records the rationale |
+| Review | minimal editorial review | one editorial refinement pass, then acceptance |
+| Suited to | major papers | lighter commentary (T30.7, *The Latency Trap*, was the first) |
+
+In both: the pinned manuscript's prose, claims, caveats and references are preserved; primitives and emphasis move or mark existing text (never duplicated, never new claims; a paragraph may be split to isolate a primitive); Key findings are the only authored text and are owner-approved; essay citations are in-sentence links to the reference-list URL; the entry resolves its license by default (CC BY 4.0) unless it carries a supported override; and the new entry needs its reviewed row in `scripts/fixtures/publishing-facts.json` in the same commit.
 
 ### Revising a published paper (T23.0 flow)
 
@@ -191,6 +205,16 @@ Body text stays justified. Headings, titles, table cells and the References list
 **Scope.** The standard applies to PDFs typeset from now on: new publications and explicitly authorized publication revisions. It never regenerates, replaces or re-hashes a published PDF. The seven approved production PDFs, `release-pdfs/` and the pinned guard fixtures are unchanged by it and stay carried over byte for byte; Paper C's approved PDF (`875124010f8d5c1f3a525dfcce8cb8bd0ff1f1d730ee73ca342c2e4c3a6ad3b8`) keeps its published, pre-standard typography. Papers A and B are untouched. A staging or local `build:pdfs` typesets fresh PDFs with the new standard, which is expected and not a publication.
 
 **Validating a change to this standard.** Render a disposable specimen outside `dist/` and `release-pdfs/` (a transient copy of the build served locally, the real Vivliostyle CLI, output to an untracked directory) and compare hyphen count, longest hyphen run, short-fragment breaks and justified-line spacing against the numbers above before changing any value. Page count, headings and text content must not change.
+
+### Forward publication licensing standard (T30.8)
+
+Owner-approved 2026-11-17. A work's license is decided in one place, `effectiveLicense()` in `src/lib/license.ts`; nothing else computes one.
+
+- **Default.** An entry with no `license` frontmatter is **CC BY 4.0**.
+- **Override.** `license: 'cc-by-4.0'` or `'cc-by-nc-4.0'` (the supported set, `LICENSES`). An unsupported value, including a label such as `CC BY 4.0`, fails the content schema; it is never coerced. A forward `scholarly` paper is CC BY 4.0 (T29.5), and a contradicting `license` fails the build.
+- **Legacy.** The eight entries published before the standard (*Paper A*, *Three SOS*, FAFSA, *The Chisel Fallacy*, *The Desk*, *Paper B*, *The Lab Bubble*, *Frontier Model Training*) carry an explicit `license: 'cc-by-nc-4.0'`, a frontmatter-only edit, so their effective license is unchanged. Paper C stays CC BY 4.0. No work is relicensed retroactively, and no frozen PDF or Zenodo deposit changes: a PDF keeps the notice it was typeset with. Never remove a legacy override to "tidy" it; the oracle and `test:license` fail.
+- **Surfaces.** The one resolved license feeds the masthead line (which is also page 1 of any PDF typeset from the page, so a future PDF respects it), the footer on a work page, and JSON-LD `license`. Pages that are not a work (home, About, listings, search, 404) and the IWL companion line show the **sitewide notice**, CC BY-NC 4.0 (`LICENSE` in `consts.ts`, owner decision 2026-08-24), which is a different thing from a per-work license. Until T30.8, Paper C's page footer printed the sitewide CC BY-NC notice under a CC BY 4.0 masthead; the footer now follows the work.
+- **Validation.** Each fixture entry records its own expected `license` (and `licenses` maps each supported URL to its label); `validate-publishing-facts` requires the JSON-LD and both visible notices to match it and keeps per-work licenses off non-work pages. `npm run test:license` covers resolution, source-versus-fixture preservation and self-tests; `npm run test:facts` adds cases L01–L08 and F11–F15. Adding a third license is a reviewed change to `LICENSES`, the fixture and tests (R08 pins the set).
 
 ### Publication identity, frozen PDFs and the facts oracle — current rules (Sprint 28)
 

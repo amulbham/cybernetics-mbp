@@ -1,6 +1,8 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
+import { LICENSES } from './lib/license';
+
 export const SITE_TITLE = 'Amul Bham';
 export const SITE_DESCRIPTION =
 	'Independent research on how ideas emerge, how systems organize, and how technology and institutions shape the conditions for discovery.';
@@ -51,10 +53,13 @@ export const AUTHOR = {
 // (Spotlight.astro throws via getEntry) rather than silently showing nothing.
 export const HOMEPAGE_SPOTLIGHT = 'cybernetics-structural-science';
 
-// Sitewide content license — shown in ArticleMasthead.astro, the footer, and
-// each entry's JSON-LD `license` field. Single source of truth so these
-// three can't drift out of sync with each other.
+// SITEWIDE notice license (owner decision 2026-08-24): the footer on pages that
+// are not a research work (home, About, listings, search, 404) and the IWL
+// companion line, which has no per-IWL license field. It is NOT the license of
+// any research work: since T30.8 each work's license is resolved by
+// `effectiveLicense()` in src/lib/license.ts (forward default CC BY 4.0; works
+// published earlier carry an explicit `license` override).
 export const LICENSE = {
-	label: 'CC BY-NC 4.0',
-	url: 'https://creativecommons.org/licenses/by-nc/4.0/',
+	label: LICENSES['cc-by-nc-4.0'].label,
+	url: LICENSES['cc-by-nc-4.0'].url,
 } as const;

@@ -3,6 +3,7 @@ title: 'The Lab Bubble'
 subtitle: 'Why Internal AI Experience Doesn''t Always Translate to Customer Reality'
 format: 'essay'
 category: 'ai-systems'
+license: 'cc-by-nc-4.0'
 pubDate: 2026-10-30
 description: "How inference budgets, model choice, and learning histories shape AI workflows—and why internal product intuition needs testing under customer conditions."
 excerpt: "How inference budgets, model choice, and learning histories shape AI workflows—and why internal product intuition needs testing under customer conditions."

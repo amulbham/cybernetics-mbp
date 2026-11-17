@@ -3,6 +3,7 @@ title: "The Desk Is Where You Write It Down"
 subtitle: "Why Knowledge Work Has the Wrong Model of Discovery"
 format: paper
 category: knowledge-work
+license: 'cc-by-nc-4.0'
 pubDate: 2026-10-14
 description: >-
   This paper develops an operational distinction between discovery and capture in knowledge work. Discovery includes the formation of new connections, reframes, and insights; capture makes such material durable through documentation, testing, refinement, and communication. The activities are distinguishable but not mutually exclusive. The incubation and illumination concepts formalized by Graham Wallas (1926) provide an established vocabulary for one recurring path to insight: sustained engagement followed by release from deliberate search.
