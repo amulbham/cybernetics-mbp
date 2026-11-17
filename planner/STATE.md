@@ -1,9 +1,11 @@
 # Planner state — research website
 
 Snapshot: **2026-11-17** (America/Los_Angeles).
-Primary intent: **Sprint 30 ACTIVE — T30.1–T30.5 completed; T30.6 forward PDF standard implementation approved, completion pending; T30.7 approved for local essay intake.**
+Primary intent: **Sprint 30 ACTIVE — T30.7 local editorial result accepted for staging; T30.8 approved as final forward licensing ticket; consolidated release review follows.**
 
 ## Resume — active gate
+
+- **2026-11-17 — T30.7/T30.8 decision:** Latency Trap local editorial result accepted (six exact primitives, four findings with interruption qualification, 14 inline source links, three bold passages; Executor-reported build/facts pass). Staging delivery authorized, not yet verified. T30.8 approved after T30.7 staging: forward CC BY 4.0 default, correct unpublished Latency Trap, preserve existing work licenses and seven frozen PDFs, document both intake paths. [T30.8](../site/planning/tickets/T30.8-forward-publication-license.md) is final intended implementation ticket. Consolidated sprint review and separate production authorization follow. T30.6 forward implementation evidence remains to reconcile.
 
 - **2026-11-17 CURRENT — SPRINT 30.** T30.4 staging `78f2c93` (#149 success); T30.5 staging `fbd67d1` (#150 success), warning disposition pending report. T30.6 investigation complete; specimen 3 approved for forward-only shared print implementation, no existing PDF changes; execution evidence pending. T30.7 approved for local end-to-end intake of The Latency Trap: owner accepted pinned v6 as-is, HTML-only essay in ai-systems, Executor selects existing research primitives. [Ticket](../site/planning/tickets/T30.7-latency-trap-article-intake.md). No PDF or DOI. [Checkpoint](checkpoints/2026-11-17-sprint-30-typography-and-intake.md). No production authorization.
 
