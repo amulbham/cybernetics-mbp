@@ -9,7 +9,8 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import FromTheAuthor from '../components/FromTheAuthor.astro';
 import RelatedResearch from '../components/RelatedResearch.astro';
 import TableOfContents from '../components/TableOfContents.astro';
-import { AUTHOR, LICENSE, SOCIAL_LINKS } from '../consts';
+import { AUTHOR, SOCIAL_LINKS } from '../consts';
+import { effectiveLicense } from '../lib/license';
 import relationsRaw from '../data/research-relations.json';
 import projectionsRaw from '../data/research-relation-projections.json';
 import { relationsSchema } from '../lib/research-relations';
@@ -65,6 +66,7 @@ const {
 	heroImageAlt,
 	readerNote,
 	scholarly,
+	license: licenseOverride,
 	reviewMode,
 } = Astro.props;
 
@@ -73,7 +75,11 @@ const {
 // routes the page (T19.0).
 const isPaper = format === 'paper';
 const candidate = reviewMode === 'candidate';
-const licenseUrl = scholarly ? 'https://creativecommons.org/licenses/by/4.0/' : LICENSE.url;
+// T30.8: one resolution (src/lib/license.ts) feeds the masthead (and so the
+// printed PDF), the footer and the JSON-LD `license` below; it throws on an
+// unsupported or contradictory input rather than substituting another license.
+const workLicense = effectiveLicense({ license: licenseOverride, scholarly });
+const licenseUrl = workLicense.url;
 const categoryLabel = categoryLabelFromSegment(category);
 const categoryUrl = categoryPath(category);
 
@@ -358,6 +364,7 @@ const citationPublicationDate = isPaper
 			updatedDate={dateModified}
 			minutesRead={minutesRead}
 			utcDates={!!scholarly}
+			license={workLicense}
 		>
 			<Fragment slot="hero">
 				{
@@ -372,7 +379,7 @@ const citationPublicationDate = isPaper
 				<Breadcrumbs items={breadcrumbItems} />
 			</Fragment>
 			<Fragment slot="after-title">
-				<ArticleMasthead format={format} doi={doi} scholarly={!!scholarly} candidate={candidate} />
+				<ArticleMasthead format={format} doi={doi} scholarly={!!scholarly} candidate={candidate} license={workLicense} />
 				{
 					tags.length > 0 && (
 						<ul class="tags">

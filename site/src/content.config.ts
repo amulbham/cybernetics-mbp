@@ -2,6 +2,7 @@ import { defineCollection, reference, type SchemaContext } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { CATEGORY_SLUGS } from './lib/categories';
+import { LICENSE_IDS, licenseInputsConflict } from './lib/license';
 
 // Everything published — papers, essays, memos — lives in one collection,
 // distinguished by `format`, not split across separate collections. Unified
@@ -95,6 +96,12 @@ const researchSchema = ({ image }: SchemaContext) =>
 				// approximate public claim. This schema itself is unchanged by
 				// that decision — the asymmetry lives entirely in the layout and
 				// the semantic validator, not here.
+				// T30.8 — per-work license override. Absent means the forward
+				// default, CC BY 4.0 (src/lib/license.ts). Entries published before
+				// that decision carry `cc-by-nc-4.0` explicitly so their effective
+				// license is unchanged. An unsupported value fails the build (enum);
+				// see the `scholarly` contradiction refine below.
+				license: z.enum(LICENSE_IDS).optional(),
 				scholarly: z.object({
 					versionDoi: z.url().regex(/^https:\/\/doi\.org\/10\.[^/]+\/.+/),
 					printAuthorNote: z.string().trim().min(1),
@@ -118,6 +125,10 @@ const researchSchema = ({ image }: SchemaContext) =>
 			.refine((data) => !data.scholarly || (data.format === 'paper' && !!data.doi && data.doi !== data.scholarly.versionDoi), {
 				message: 'Forward scholarly papers require distinct concept and version DOI inputs',
 				path: ['scholarly'],
+			})
+			.refine((data) => !licenseInputsConflict(data), {
+				message: 'A forward scholarly paper is CC BY 4.0; a different `license` contradicts it',
+				path: ['license'],
 			})
 			.refine((data) => !data.heroImage || !!data.heroImageAlt, {
 				message: 'heroImageAlt is required whenever heroImage is set',

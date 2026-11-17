@@ -111,7 +111,7 @@ Visually, `#ref-*` links are ink + dotted underline (Sprint 6.4) — a page with
 ### Masthead
 
 - **Trigger**: none — renders unconditionally on every research page.
-- **Produces**: name/affiliation/correspondence/format/license, sourced from `AUTHOR`/`LICENSE`/`SOCIAL_LINKS` in `src/consts.ts` plus the entry's `format` and optional `doi` frontmatter field.
+- **Produces**: name/affiliation/correspondence/format from `AUTHOR`/`SOCIAL_LINKS` in `src/consts.ts` plus the entry's `format` and optional `doi` frontmatter field; the license line is the work's effective license (`src/lib/license.ts`, T30.8: default CC BY 4.0, optional `license` frontmatter override).
 - **Constraints**: zero per-entry frontmatter needed for the universal parts — if you're hand-typing a byline into a piece's body, that's a bug, not a style choice.
 - **Files**: `src/components/ArticleMasthead.astro`, rendered by `src/layouts/ResearchLayout.astro`.
 

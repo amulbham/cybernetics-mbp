@@ -5,7 +5,8 @@
 // every entry. Hand-typing it per piece is exactly how two early pieces
 // drifted into different formats from each other. See AGENTS.md.
 import type { CollectionEntry } from 'astro:content';
-import { AUTHOR, LICENSE, SOCIAL_LINKS } from '../consts';
+import { AUTHOR, SOCIAL_LINKS } from '../consts';
+import type { WorkLicense } from '../lib/license';
 import { formatLabel } from '../lib/research-routing';
 
 interface Props {
@@ -13,9 +14,11 @@ interface Props {
 	doi?: string;
 	scholarly?: boolean;
 	candidate?: boolean;
+	/** The work's effective license (resolved once by ResearchLayout). Never a sitewide constant. */
+	license: WorkLicense;
 }
 
-const { format, doi, scholarly, candidate } = Astro.props;
+const { format, doi, scholarly, candidate, license } = Astro.props;
 
 // Same derivation AuthorNote.astro uses: the visible ORCID text must never
 // be a second, hand-typed copy of SOCIAL_LINKS.orcid (the href).
@@ -37,7 +40,7 @@ const doiChars = doi ? (scholarly ? doi : doi.replace(/^https?:\/\//, '')).lengt
 		<p><a class="orcid" href={SOCIAL_LINKS.orcid}>{orcidLabel}</a></p>
 		{candidate && <p class="candidate-status">Candidate specimen — not published</p>}
 		{doi && <p>{candidate ? 'Intended concept DOI (public verification pending):' : 'DOI:'} <a class="doi" style={`--doi-chars:${doiChars}`} href={doi}>{doi}</a></p>}
-		<p>{formatLabel(format)} · Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+		<p>{formatLabel(format)} · Licensed <a href={license.url}>{license.label}</a></p>
 	</div>
 ) : (
 <div class="masthead meta">
@@ -58,7 +61,7 @@ const doiChars = doi ? (scholarly ? doi : doi.replace(/^https?:\/\//, '')).lengt
 			)
 		}
 	</p>
-	<p>{formatLabel(format)} · Licensed <a href={LICENSE.url}>{LICENSE.label}</a></p>
+	<p>{formatLabel(format)} · Licensed <a href={license.url}>{license.label}</a></p>
 </div>
 )}
 

@@ -13,6 +13,7 @@
     "validate:semantics": "tsx scripts/validate-research-semantics.mjs",
     "validate:facts": "node scripts/validate-publishing-facts.mjs",
     "test:facts": "node scripts/test-publishing-facts.mjs",
+    "test:license": "tsx scripts/test-license-resolution.mjs",
     "preflight:production": "node scripts/preflight-production.mjs",
     "deploy:pages": "wrangler pages deploy dist",
     "preview": "astro preview",

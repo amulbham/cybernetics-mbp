@@ -60,6 +60,8 @@ function decode(s) {
 		.replace(/&amp;/g, '&');
 }
 const textOf = (html) => decode(html.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
+// Every visible "Licensed <a href=URL>LABEL</a>" notice on a page, in document order (T30.8).
+const licenseNotices = (html) => [...html.matchAll(/Licensed\s*<a\b[^>]*\bhref="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map((x) => ({ url: decode(x[1]), label: textOf(x[2]) }));
 
 function metas(html) {
 	const out = [];
@@ -132,6 +134,10 @@ function loadFixture() {
 	if (!['BASELINE', 'TARGET'].includes(fx.phase)) bad('phase must be BASELINE or TARGET');
 	if (typeof fx.siteOrigin !== 'string' || !/^https:\/\/[^/]+$/.test(fx.siteOrigin)) bad('siteOrigin must be an https origin without a trailing slash');
 	if (!fx.license || typeof fx.license.url !== 'string' || typeof fx.license.label !== 'string') bad('license {url,label} required');
+	// T30.8: per-work licenses. `licenses` maps every supported license URL to its label; the top-level `license`
+	// is the SITEWIDE notice (non-work pages) and must be one of them. Each entry states its own expected license.
+	if (!fx.licenses || typeof fx.licenses !== 'object' || Object.keys(fx.licenses).length === 0) bad('licenses {url: label} required');
+	else if (fx.license && fx.licenses[fx.license.url] !== fx.license.label) bad('license (sitewide notice) must appear in licenses with the same label');
 	const p = fx.person;
 	if (!p || typeof p.name !== 'string' || typeof p['@id'] !== 'string' || typeof p.url !== 'string' || !Array.isArray(p.sameAs)) bad('person {@id,name,url,sameAs[]} required');
 	else if (new Set(p.sameAs).size !== p.sameAs.length) bad('person.sameAs contains duplicates');
@@ -164,6 +170,7 @@ function loadFixture() {
 		if (e.format === 'essay' && e.doi !== null) bad(`${e.id}: essay must have doi null`);
 		if (typeof e.title !== 'string' || !e.title || typeof e.route !== 'string' || typeof e.ogImagePath !== 'string') bad(`${e.id}: title/route/ogImagePath required`);
 		if (!e.zenodoTokens || typeof e.zenodoTokens !== 'object' || !Array.isArray(e.zenodoAnchors)) bad(`${e.id}: zenodoTokens{} and zenodoAnchors[] required`);
+		if (typeof e.license !== 'string' || !fx.licenses || !(e.license in fx.licenses)) bad(`${e.id}: license must be one of the supported license URLs in licenses{}`);
 	}
 	if (failures.length) {
 		console.error(`validate-publishing-facts: fixture invalid:\n${failures.map((f) => `  - ${f}`).join('\n')}`);
@@ -265,8 +272,16 @@ function checkEntry(e) {
 	if (a.headline !== e.title) fail(scope, `JSON-LD headline ${JSON.stringify(a.headline)} !== ${JSON.stringify(e.title)}`);
 	if (a.url !== url) fail(scope, `JSON-LD url ${JSON.stringify(a.url)} !== ${JSON.stringify(url)}`);
 	if (a.mainEntityOfPage?.['@id'] !== url) fail(scope, `JSON-LD mainEntityOfPage.@id ${JSON.stringify(a.mainEntityOfPage?.['@id'])} !== ${JSON.stringify(url)}`);
-	const entryLicense = e.license ?? FX.license.url;
+	// T30.8: every entry states its own expected license; there is no fallback to the sitewide notice.
+	const entryLicense = e.license;
 	if (a.license !== entryLicense) fail(scope, `JSON-LD license ${JSON.stringify(a.license)} !== ${JSON.stringify(entryLicense)}`);
+	// Visible notices (masthead and footer) must agree with the same per-work license: URL and label.
+	{
+		const want = { url: entryLicense, label: FX.licenses[entryLicense] };
+		const notices = licenseNotices(html);
+		if (notices.length !== 2) fail(scope, `expected 2 visible "Licensed" notices (masthead, footer), found ${notices.length}`);
+		for (const n of notices) if (n.url !== want.url || n.label !== want.label) fail(scope, `visible license notice ${JSON.stringify(n)} !== ${JSON.stringify(want)}`);
+	}
 	const imageUrl = `${ORIGIN}/${e.ogImagePath}`;
 	if (a.image !== imageUrl) fail(scope, `JSON-LD image ${JSON.stringify(a.image)} !== ${JSON.stringify(imageUrl)}`);
 	for (const key of ['og:image', 'og:image:url']) {
@@ -432,6 +447,11 @@ for (const p of allPages) {
 	}
 	const actual = identityLinks(html);
 	if (!sameSet(actual, expected)) fail(`links:${p.route}`, `identity links ${JSON.stringify([...actual].sort())} !== ${JSON.stringify([...expected].sort())}`);
+	// T30.8: a page that is not a research work (home, About, listings, search, 404, the IWL companion) only ever
+	// shows the SITEWIDE notice; a per-work license must never leak onto it, nor the sitewide notice onto a work.
+	if (!expectedRoutes.includes(p.route)) {
+		for (const n of licenseNotices(html)) if (n.url !== FX.license.url || n.label !== FX.license.label) fail(`license:${p.route}`, `non-work page shows ${JSON.stringify(n)}, expected the sitewide notice ${JSON.stringify(FX.license)}`);
+	}
 }
 
 // ---------------------------------------------------------------------------

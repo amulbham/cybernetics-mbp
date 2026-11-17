@@ -2,6 +2,7 @@
 title: 'Cognition as a Self-Organizing System'
 format: 'paper'
 category: 'cybernetics'
+license: 'cc-by-nc-4.0'
 pubDate: 2026-09-30
 dateModified: 2026-11-02
 doi: 'https://doi.org/10.5281/zenodo.23068820'
