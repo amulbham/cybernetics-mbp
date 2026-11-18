@@ -22,27 +22,26 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 ## Branch strategy — avoid involuntary production deployment
 
 - **`main`** is the source and deploy branch for the live site; a push, a manual run of the deploy workflow, or a re-run triggers the full publication pipeline. A commit is live once the run's Cloudflare upload step succeeds; later checks can still fail, so a red run is not proof that nothing deployed. **`staging`** also deploys. Do not use either for routine Planner checkpoints.
-- **`planner/context`** is the long-lived working-memory branch. Commit `planner/STATE.md` and `planner/checkpoints/` there when useful. It does **not** trigger the configured site workflow, whose push trigger covers `main` and `staging` only (a manual run is a separate, approval-gated action; see the owner guide).
+- **`planner/context`** is the long-lived working-memory branch. Push-triggered site deploys run on `main` and `staging` only. A manual run is a separate, approval-gated action (see the owner guide).
 - **`docs/launch-handoff-2026-10-16`** is the historical initial release-documentation branch. PR #1 was closed without merge as superseded by the combined S6 release at `main @ 5bf8518`; its branch/history are retained. Read current main for deployed source.
 - No automatic whole-branch promotion from `planner/context` to `main`. Promote selected verified/approved changes deliberately into canonical files as a scoped PR/ticket. Don't merge `staging` wholesale into `main`.
-- A later release may leave `planner/context` behind `main` for code. Read live `main` separately, and periodically reconcile only documentation pointers. A branch name is not a proof of freshness.
 
 ## Boot procedure for every fresh Planner chat
 
 1. Read **`planner/STATE.md` from `planner/context`** first (current objective and next gate), then root `HANDOFF.md` for the map of where facts live, and the latest relevant checkpoint. `main` may still hold an older `HANDOFF.md` until a selective promotion is approved; STATE and `planner/context` win on working state. PR #1 is closed/superseded. Recheck main before treating any snapshot as deployed truth.
-2. Check remote heads for `main`, `staging`, `planner/context`; recent deploy runs and open relevant PRs. Distinguish reported production checks from independently examined ones.
+2. Refresh the remote-tracking refs as described below. Check recent deploy runs and open relevant PRs. Distinguish reported production checks from independently examined ones.
 3. Read `site/ROADMAP.md`, `site/AGENTS.md`, `site/PLANNING.md`, `site/PUBLISHING.md` and the relevant ticket/code from the branch where each actually exists. Retrieve **only relevant** dated checkpoints; no need to ingest the entire archive.
 4. Summarize in five short categories: verified state, Product Authority approvals, unresolved/unverified claims, current objective, proposed next action. Ask one question only if a decision is essential.
 5. Plan and review normally. Do not assume GitHub state from a checkpoint is still current. Do not push or deploy without appropriate approval.
 
-## Local-first operating model — Sprint 30 (2026-11-17)
+## Local-first Planner operation
 
-The owner accepted this workflow after the successful Sprint 30 release; see [closure](../site/planning/audits/S30-sprint-closure.md) and [workflow findings](checkpoints/2026-11-17-sprint-30-workflow-findings.md).
-- Planner commits the canonical delta-only ticket to `planner/context`, using `site/PLANNING.md` and the ticket/completion templates. R0–R3 proof and length caps remain binding. Optional independent Reviewer inspects the exact draft commit and classifies BLOCKER/REQUIRED/OPTIONAL; resolve required findings before seal. Do not waive independent evidence required by risk.
-- Owner sets product scope and approves the seal. Claude Code uses the persistent local checkout; read the approved Planner commit with git, never merge the planning branch. Implement and validate locally, obtain staging authorization as specified by the seal, push scoped changes and verify closed-indexing hosted preview.
-- For a release, assemble only accepted product changes on current main, run full production preflight on the exact candidate, return the SHA and readiness report. Owner authorizes and performs final main push; Actions executes Wrangler and mandatory seven-PDF protection, then verify live results. No automatic wholesale staging merge or promotion of staging-only governance.
-- Use staging's local-first operational instructions and current implementation files; read main for production truth. Older status paragraphs in ROADMAP/AGENTS are not verified current state. The closeout records documentary lag for scoped later reconciliation.
-- Two manuscript intake routes share one publication pipeline: author-directed primitive map, or assisted editorial selection with owner review. Preserve approved prose, metadata and artifact custody; avoid unnecessary new review gates.
+Codex is the primary Planner in a dedicated local clone on `planner/context`. Claude Code executes in a separate checkout on `staging`. The Product Authority approved the transition after the continuity test. See the [transition checkpoint](checkpoints/2026-11-18-local-codex-planner-transition.md) and [Sprint 30 closure](../site/planning/audits/S30-sprint-closure.md).
+
+- **Draft locally.** Develop and refine planning documents in the Planner checkout. Commit at meaningful checkpoints. Push approved decisions, sealed tickets and session handoffs to `origin/planner/context` so they can be recovered by the next session or the Executor.
+- **Fetch before planning or verification.** Run `git fetch origin` to refresh `origin/planner/context`, `origin/staging` and `origin/main`. Read the operating instructions and implementation from `origin/staging` and the production source from `origin/main`. Inspect those refs in place with commands such as `git show origin/staging:site/PLANNING.md` and `git show origin/main:site/ROADMAP.md`. Check deploy evidence when establishing what is live.
+- **Use the existing governance.** Read `site/PLANNING.md` from `origin/staging` for role authority, risk-based review and sealing, execution and completion review. Use `site/AGENTS.md`, `site/PUBLISHING.md` and the current workflow on the relevant refs for publication and release safeguards. The Sprint 30 closure records known documentary lag.
+- **External review.** When requested and once a model is configured, support independent review against the exact draft commit using the existing pre-seal review protocol. Apply the protocol's review and evidence requirements for the ticket's risk class.
 
 ## Checkpointing and promotion
 

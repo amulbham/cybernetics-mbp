@@ -1,13 +1,14 @@
 # Planner state — research website
 
-Snapshot: **2026-11-17** (America/Los_Angeles).
-Primary intent: **Sprint 30 CLOSED — fresh Planner continuity test, then Sprint 31 product direction.**
+Snapshot: **2026-11-18** (America/Los_Angeles).
+Primary intent: **Sprint 30 CLOSED — Planner continuity accepted, Sprint 31 product direction pending.**
 
 ## Resume — active gate
 
 - VERIFIED: main `ee3ebc6ccf658a7005e219830db247f2c8c75c89`, staging `15c37e9a17b2c1fe65317a3a62d0aea4f4d14128`. [Production run #154](https://github.com/amulbham/cybernetics-mbp/actions/runs/44222302915) and [staging #153](https://github.com/amulbham/cybernetics-mbp/actions/runs/44158502957) succeeded. Recheck remote refs including planner/context and current runs on resume.
 - Product Authority confirms final production push/post-check and requests handoff to next sprint. [Sprint 30 closure record](../site/planning/audits/S30-sprint-closure.md) holds ticket dispositions, independently inspected scope/CI evidence and unresolved findings. No active execution/release authorization.
-- Next action: fresh Planner reads this file, [README](README.md), root [HANDOFF](../HANDOFF.md), closure record; verifies live repo and summarizes recovered state and possible Sprint 31 direction for owner discussion. No new ticket or sprint scope authorized yet. Test continuity without previous conversation; report any gaps.
+- APPROVED: the Product Authority accepted the continuity test and designated local Codex as primary Planner. See the [transition checkpoint](checkpoints/2026-11-18-local-codex-planner-transition.md).
+- Next action: discuss the desired Sprint 31 product outcome with the Product Authority. Sprint scope and ticket drafting await that direction.
 
 ## Delivered baseline
 
@@ -19,8 +20,7 @@ Primary intent: **Sprint 30 CLOSED — fresh Planner continuity test, then Sprin
 
 ## Operating model
 
-- [README](README.md) records accepted local-first workflow; [workflow checkpoint](checkpoints/2026-11-17-sprint-30-workflow-findings.md), [local-first reconciliation](checkpoints/2026-11-16-sprint-30-local-first-reconciliation.md), [typography/intake](checkpoints/2026-11-17-sprint-30-typography-and-intake.md).
-- Planner commits canonical delta-only tickets to planner/context, optional exact-commit independent reviewer (BLOCKER/REQUIRED/OPTIONAL), owner seal and risk-required evidence. Use site/PLANNING.md and standard ticket/completion templates, R0–R3 and length caps. No redundant gates.
+- The [Planner README](README.md#local-first-planner-operation) owns local drafting, Git synchronization and external review instructions. Read `site/PLANNING.md` from `origin/staging` for governing roles, risk-based review and ticket seals. See the [Sprint 30 workflow checkpoint](checkpoints/2026-11-17-sprint-30-workflow-findings.md) for rationale.
 - Executor works on persistent local Windows checkout, reads planner/context without merging, runs checks and routine Git/CLI within ticket authority; staging push authorization per seal, closed-indexing hosted preview. Prepare scoped release on main baseline, run exact-candidate preflight; owner final main push, CI/Wrangler upload and post-deploy verification. No wholesale staging merge.
 - Two intake paths: author-directed primitive map or assisted editorial selection with owner review. Preserve approved source and metadata; separate scholarly artifact custody.
 - For current behavior read actual code and canonical docs on correct branch: staging operational instructions, main production. Some older ROADMAP/AGENTS status text is stale; closure records discrepancy. Do not treat stale five/six-PDF snapshots as current. Current workflow/guard and verified release evidence win.
