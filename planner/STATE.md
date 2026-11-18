@@ -1,14 +1,14 @@
 # Planner state — research website
 
 Snapshot: **2026-11-18** (America/Los_Angeles).
-Primary intent: **Sprint 31 research reading surface — proposed scope and local workflow pilot. Sprint 30 CLOSED.**
+Primary intent: **Sprint 31 research reading surface — contract frozen, T31.0 baseline audit next. Sprint 30 CLOSED.**
 
 ## Resume — active gate
 
 - VERIFIED: main `ee3ebc6ccf658a7005e219830db247f2c8c75c89`, staging `15c37e9a17b2c1fe65317a3a62d0aea4f4d14128`. [Production run #154](https://github.com/amulbham/cybernetics-mbp/actions/runs/44222302915) and [staging #153](https://github.com/amulbham/cybernetics-mbp/actions/runs/44158502957) succeeded. Recheck remote refs including planner/context and current runs on resume.
 - Product Authority confirms final production push/post-check and requests handoff to next sprint. [Sprint 30 closure record](../site/planning/audits/S30-sprint-closure.md) holds ticket dispositions, independently inspected scope/CI evidence and unresolved findings. No active execution/release authorization.
 - APPROVED: the Product Authority accepted the continuity test and designated local Codex as primary Planner. See the [transition checkpoint](checkpoints/2026-11-18-local-codex-planner-transition.md).
-- Product direction: deliver a cohesive reading experience, accessible document semantics, reliable forward PDFs with all seven frozen PDFs preserved, and a demonstrated local-first multi-model workflow. The owner confirmed these outcomes and authorized Grok's independent review of the [proposed contract](../site/planning/sprints/sprint-31-reading-surface.md). The sprint closes after verified production release and post-sprint documentation and state updates. See the [workflow pilot checkpoint](checkpoints/2026-11-18-sprint-31-local-workflow-pilot.md). Sprint scope and ticket execution await their approval gates.
+- APPROVED: the Product Authority accepted Grok's refinements and the [Sprint 31 contract](../site/planning/sprints/sprint-31-reading-surface.md) incorporates all four required findings. The [review](../site/planning/audits/sprint-31/S31-grok-whole-sprint-review.md) and [CLI process record](../site/planning/audits/sprint-31/S31-grok-review-process.md) preserve the evidence. Next gate: prepare T31.0 for the Product Authority's ticket seal, then provide the handoff prompt. Sprint closure requires verified production release and post-sprint documentation and state updates.
 
 ## Delivered baseline
 

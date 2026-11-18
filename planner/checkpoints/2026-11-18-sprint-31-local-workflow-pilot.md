@@ -4,7 +4,8 @@
 
 - The Product Authority accepted the continuity test. The transition, operating instructions, and resume state were published together at `b0bb93a` on `origin/planner/context` and verified against the remote ref.
 - The Planner fetched the three refs before planning, checked staging's risk tiers and current templates, and compared the supplied reading-surface preview with committed staging source. The preview could inform the [local sprint draft](../../site/planning/sprints/sprint-31-reading-surface.md) directly from the separate Executor checkout. The intake's six-PDF snapshot and CSS-only proposal required reconciliation with the current seven-PDF guard and the new heading request.
-- Grok Build CLI `1.0.70` returned `GROK_SMOKE_OK` and exited successfully in a single-turn headless test from a temporary directory. The prompt contained only the connection check. The Sprint 31 review, exact-seal retrieval, implementation handoff, evidence review, and closeout are pending.
+- Grok Build CLI `1.0.70` returned `GROK_SMOKE_OK` and exited successfully in a single-turn headless test from a temporary directory. The prompt contained only the connection check.
+- Grok Build reviewed the plan at `12a51ad` and returned four required corrections. The Product Authority accepted the refinements and the sprint contract incorporates them. See the [review](../../site/planning/audits/sprint-31/S31-grok-whole-sprint-review.md) and [exact CLI process, inputs, timings, and optimization proposals](../../site/planning/audits/sprint-31/S31-grok-review-process.md). Exact-seal retrieval, implementation handoff, evidence review, and closeout are pending.
 
 ## Process being tested
 
