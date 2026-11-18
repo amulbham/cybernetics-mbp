@@ -35,6 +35,15 @@ This follows the source-of-truth and promotion rules in `site/PLANNING.md` §3. 
 4. Summarize in five short categories: verified state, Product Authority approvals, unresolved/unverified claims, current objective, proposed next action. Ask one question only if a decision is essential.
 5. Plan and review normally. Do not assume GitHub state from a checkpoint is still current. Do not push or deploy without appropriate approval.
 
+## Local-first operating model — Sprint 30 (2026-11-17)
+
+The owner accepted this workflow after the successful Sprint 30 release; see [closure](../site/planning/audits/S30-sprint-closure.md) and [workflow findings](checkpoints/2026-11-17-sprint-30-workflow-findings.md).
+- Planner commits the canonical delta-only ticket to `planner/context`, using `site/PLANNING.md` and the ticket/completion templates. R0–R3 proof and length caps remain binding. Optional independent Reviewer inspects the exact draft commit and classifies BLOCKER/REQUIRED/OPTIONAL; resolve required findings before seal. Do not waive independent evidence required by risk.
+- Owner sets product scope and approves the seal. Claude Code uses the persistent local checkout; read the approved Planner commit with git, never merge the planning branch. Implement and validate locally, obtain staging authorization as specified by the seal, push scoped changes and verify closed-indexing hosted preview.
+- For a release, assemble only accepted product changes on current main, run full production preflight on the exact candidate, return the SHA and readiness report. Owner authorizes and performs final main push; Actions executes Wrangler and mandatory seven-PDF protection, then verify live results. No automatic wholesale staging merge or promotion of staging-only governance.
+- Use staging's local-first operational instructions and current implementation files; read main for production truth. Older status paragraphs in ROADMAP/AGENTS are not verified current state. The closeout records documentary lag for scoped later reconciliation.
+- Two manuscript intake routes share one publication pipeline: author-directed primitive map, or assisted editorial selection with owner review. Preserve approved prose, metadata and artifact custody; avoid unnecessary new review gates.
+
 ## Checkpointing and promotion
 
 - Create a checkpoint after a **meaningful cluster** of decisions, a review with consequences, an earned finding, or a session handoff — not after every turn. Suggest one when context risks becoming difficult to recover; wait for the Product Authority to approve it unless explicit standing write permission is granted.
