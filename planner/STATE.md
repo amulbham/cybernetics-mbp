@@ -9,6 +9,7 @@ Primary intent: **Sprint 31 research reading surface — contract frozen, T31.0 
 - Product Authority confirms final production push/post-check and requests handoff to next sprint. [Sprint 30 closure record](../site/planning/audits/S30-sprint-closure.md) holds ticket dispositions, independently inspected scope/CI evidence and unresolved findings. No active execution/release authorization.
 - APPROVED: the Product Authority accepted the continuity test and designated local Codex as primary Planner. See the [transition checkpoint](checkpoints/2026-11-18-local-codex-planner-transition.md).
 - APPROVED: the Product Authority accepted Grok's refinements and the [Sprint 31 contract](../site/planning/sprints/sprint-31-reading-surface.md) incorporates all four required findings. The [review](../site/planning/audits/sprint-31/S31-grok-whole-sprint-review.md) and [CLI process record](../site/planning/audits/sprint-31/S31-grok-review-process.md) preserve the evidence. Next gate: prepare T31.0 for the Product Authority's ticket seal, then provide the handoff prompt. Sprint closure requires verified production release and post-sprint documentation and state updates.
+- APPROVED for Sprint 31: follow the [lightweight Grok pilot](checkpoints/2026-11-18-sprint-31-local-workflow-pilot.md#lightweight-grok-review-for-the-rest-of-sprint-31). The Product Authority confirms each Grok call. T31.0 follows the standard R0 Planner self-check.
 
 ## Delivered baseline
 

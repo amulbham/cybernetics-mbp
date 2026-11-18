@@ -13,4 +13,13 @@ Discuss the product outcome and refine the sprint draft locally. At the review c
 
 For each ticket, use the risk-based review and seal procedure in `site/PLANNING.md` on `origin/staging`. Push the approved seal to `origin/planner/context` and give the Product Authority a copy-ready prompt containing the ticket path and seal SHA. The Product Authority sends it to the Executor. The Planner independently verifies the returned evidence before shaping the next ticket.
 
-The Product Authority confirmed that closure includes the final production push, post-deploy verification, and documentation and state updates. At closeout, record the reviewed plan SHA, seal and implementation SHAs, how the Executor retrieved the ticket, decisions or rework caused by review, and any friction in Git synchronization, local preview, or evidence transfer. Apply durable workflow changes in the [Planner instructions](../README.md#local-first-planner-operation) only when the pilot establishes a need.
+## Lightweight Grok review for the rest of Sprint 31
+
+- The Product Authority confirms each Grok invocation. Start with the review and verification requirements for the ticket's risk class. R0 uses the Planner self-check. Any required independent reviewer count, verification, seal, or deployment approval still applies.
+- For an approved Grok review, supply the exact candidate and only the evidence needed to review it. Explore beyond those sources when a specific uncertainty warrants it. Request concise, actionable `BLOCKER` / `REQUIRED` / `OPTIONAL` findings and default to one invocation.
+- Reconcile each material finding against targeted repository evidence. Request another review only when a material revision or unresolved finding warrants it. Obtain Product Authority confirmation before another Grok call.
+- Log the reviewed candidate and context supplied, model, invocation count, duration, input and output tokens when available, and any retries or unnecessary steps. Use the [whole-sprint run](../../site/planning/audits/sprint-31/S31-grok-review-process.md) as the initial comparison and mark unavailable measurements explicitly.
+
+## Closeout
+
+The Product Authority confirmed that closure includes the final production push, post-deploy verification, and documentation and state updates. Record the reviewed plan SHA, seal and implementation SHAs, how the Executor retrieved the ticket, decisions or rework caused by review, and friction in Git synchronization, local preview, or evidence transfer. Describe the actual end-to-end review process, identify avoidable cost and delays, and propose a simpler reusable protocol. Review the pilot findings with the Product Authority before adopting any change to the standing [Planner instructions](../README.md#local-first-planner-operation).
