@@ -1,14 +1,14 @@
 # Planner state — research website
 
 Snapshot: **2026-11-18** (America/Los_Angeles).
-Primary intent: **Sprint 30 CLOSED — Planner continuity accepted, Sprint 31 product direction pending.**
+Primary intent: **Sprint 31 research reading surface — proposed scope and local workflow pilot. Sprint 30 CLOSED.**
 
 ## Resume — active gate
 
 - VERIFIED: main `ee3ebc6ccf658a7005e219830db247f2c8c75c89`, staging `15c37e9a17b2c1fe65317a3a62d0aea4f4d14128`. [Production run #154](https://github.com/amulbham/cybernetics-mbp/actions/runs/44222302915) and [staging #153](https://github.com/amulbham/cybernetics-mbp/actions/runs/44158502957) succeeded. Recheck remote refs including planner/context and current runs on resume.
 - Product Authority confirms final production push/post-check and requests handoff to next sprint. [Sprint 30 closure record](../site/planning/audits/S30-sprint-closure.md) holds ticket dispositions, independently inspected scope/CI evidence and unresolved findings. No active execution/release authorization.
 - APPROVED: the Product Authority accepted the continuity test and designated local Codex as primary Planner. See the [transition checkpoint](checkpoints/2026-11-18-local-codex-planner-transition.md).
-- Next action: discuss the desired Sprint 31 product outcome with the Product Authority. Sprint scope and ticket drafting await that direction.
+- Product direction: improve the research reading surface, render subtitle and Key Findings headings, and assess Sprint 30 carry-forward scope. The owner confirmed closure after verified production release and post-sprint documentation and state updates. Next gate: independent whole-sprint review of the [proposed contract](../site/planning/sprints/sprint-31-reading-surface.md). The [workflow pilot checkpoint](checkpoints/2026-11-18-sprint-31-local-workflow-pilot.md) records the successful Grok CLI connection test. Sprint scope and ticket execution await their approval gates.
 
 ## Delivered baseline
 
@@ -25,7 +25,7 @@ Primary intent: **Sprint 30 CLOSED — Planner continuity accepted, Sprint 31 pr
 - Two intake paths: author-directed primitive map or assisted editorial selection with owner review. Preserve approved source and metadata; separate scholarly artifact custody.
 - For current behavior read actual code and canonical docs on correct branch: staging operational instructions, main production. Some older ROADMAP/AGENTS status text is stale; closure records discrepancy. Do not treat stale five/six-PDF snapshots as current. Current workflow/guard and verified release evidence win.
 
-## Deferred findings / no Sprint 31 commitment
+## Deferred findings from Sprint 30
 
 Read current main ROADMAP plus closure's findings ledger. Legacy PDF test harness debt; screen header rules leaking into rebuilt PDFs; unverified first-table header difference; sitewide/IWL license decision; DOI at 320px and mobile nav shift; scholarlyReview warning unresolved; Paper C missing route-history row reported, new redirect requires authorization; older Chisel/IWL, corpus table/anchor and historical PDF citation work. Documentary lag and local-only standalone reports remain noted. None requires reopening Sprint 30 based on current evidence. Prioritize with owner; no automatic remediation.
 
