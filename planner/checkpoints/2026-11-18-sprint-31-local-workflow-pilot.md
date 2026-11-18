@@ -7,6 +7,7 @@
 - Grok Build CLI `1.0.70` returned `GROK_SMOKE_OK` and exited successfully in a single-turn headless test from a temporary directory. The prompt contained only the connection check.
 - Grok Build reviewed the plan at `12a51ad` and returned four required corrections. The Product Authority accepted the refinements and the sprint contract incorporates them. See the [review](../../site/planning/audits/sprint-31/S31-grok-whole-sprint-review.md) and [exact CLI process, inputs, timings, and optimization proposals](../../site/planning/audits/sprint-31/S31-grok-review-process.md).
 - The first exact-seal handoff worked. The Executor reported using `1128ca4` from `origin/planner/context` and audited scratch staging without tracked edits. The [Planner reconciliation](../../site/planning/audits/sprint-31/S31-T31.0-baseline-review.md) records the checked artifacts, decisions, and limitations. Grok invocations for this R0 ticket: zero. Implementation handoff and production closeout are still ahead.
+- [T31.1](../../site/planning/audits/sprint-31/S31-T31.1-pre-seal-review.md) completed the first lightweight R2 review in one low-effort invocation. A 19,653-byte focused packet produced three required clarifications in 201.17 seconds. Reconciliation used targeted source evidence.
 
 ## Process being tested
 

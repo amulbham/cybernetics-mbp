@@ -1,7 +1,7 @@
 # Planner state — research website
 
 Snapshot: **2026-11-18** (America/Los_Angeles).
-Primary intent: **Sprint 31 research reading surface — T31.0 accepted, T31.1 reading treatment next. Sprint 30 CLOSED.**
+Primary intent: **Sprint 31 research reading surface — T31.1 sealed for local implementation. Sprint 30 CLOSED.**
 
 ## Resume — active gate
 
@@ -9,7 +9,8 @@ Primary intent: **Sprint 31 research reading surface — T31.0 accepted, T31.1 r
 - The Product Authority confirmed Sprint 30's final production push and post-check. The [Sprint 30 closure record](../site/planning/audits/S30-sprint-closure.md) holds ticket dispositions, independently inspected scope and CI evidence, and unresolved findings.
 - APPROVED: the Product Authority accepted the continuity test and designated local Codex as primary Planner. See the [transition checkpoint](checkpoints/2026-11-18-local-codex-planner-transition.md).
 - APPROVED: the Product Authority accepted Grok's refinements and the [Sprint 31 contract](../site/planning/sprints/sprint-31-reading-surface.md) incorporates all four required findings. The [review](../site/planning/audits/sprint-31/S31-grok-whole-sprint-review.md) and [CLI process record](../site/planning/audits/sprint-31/S31-grok-review-process.md) preserve the evidence. Sprint closure requires verified production release and post-sprint documentation and state updates.
-- ACCEPTED WITH FOLLOW-UP: the [T31.0 reconciliation](../site/planning/audits/sprint-31/S31-T31.0-baseline-review.md) establishes the reading baseline and confirms the forward-PDF fix. Next gate: T31.1 reading treatment draft and its R2 outside review. T31.2 follows accepted T31.1.
+- ACCEPTED WITH FOLLOW-UP: the [T31.0 reconciliation](../site/planning/audits/sprint-31/S31-T31.0-baseline-review.md) establishes the reading baseline and confirms the forward-PDF fix. T31.2 follows accepted T31.1.
+- SEALED: [T31.1 — Reading surface treatment](../site/planning/tickets/T31.1-reading-surface-treatment.md) is ready for the owner's handoff after the [R2 outside review](../site/planning/audits/sprint-31/S31-T31.1-pre-seal-review.md). The seal authorizes local work. The Product Authority reviews the preview and decides on staging delivery.
 - APPROVED for Sprint 31: follow the [lightweight Grok pilot](checkpoints/2026-11-18-sprint-31-local-workflow-pilot.md#lightweight-grok-review-for-the-rest-of-sprint-31). The Product Authority confirms each Grok call.
 
 ## Delivered baseline
