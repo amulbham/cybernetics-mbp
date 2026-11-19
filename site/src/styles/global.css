@@ -68,6 +68,17 @@
 	--alert-warning: #7c5f26;
 	--alert-caution: #9b3b32;
 
+	/* Argument-role inks for research primitives (T31.1). Same hues as the
+	   alert inks under their own names, so retuning an alert never recolors a
+	   definition. Read only inside the @media screen reading-surface block
+	   below; print keeps its single accent rule. Light values verified against
+	   their own composited 8% wash, dark values in both dark paths. */
+	--primitive-definition: #2e4a68;
+	--primitive-key-idea: #2e4a68;
+	--primitive-evidence: #2d6a52;
+	--primitive-counterpoint: #7c5f26;
+	--primitive-implication: #4a5563;
+
 	--focus-ring: var(--accent);
 	--focus-ring-width: 2px;
 	--focus-ring-offset: 2px;
@@ -100,6 +111,12 @@
 	--alert-important: #a0a8b4;
 	--alert-warning: #d4b36a;
 	--alert-caution: #e07068;
+
+	--primitive-definition: #8fa8c4;
+	--primitive-key-idea: #8fa8c4;
+	--primitive-evidence: #6fba9a;
+	--primitive-counterpoint: #d4b36a;
+	--primitive-implication: #a0a8b4;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -125,6 +142,11 @@
 		--alert-important: #a0a8b4;
 		--alert-warning: #d4b36a;
 		--alert-caution: #e07068;
+		--primitive-definition: #8fa8c4;
+		--primitive-key-idea: #8fa8c4;
+		--primitive-evidence: #6fba9a;
+		--primitive-counterpoint: #d4b36a;
+		--primitive-implication: #a0a8b4;
 	}
 }
 
@@ -459,9 +481,10 @@ tbody tr:hover {
 }
 
 /* Research primitives (rehype-research-primitive.mjs): definition, key-idea,
-   evidence, counterpoint, implication. One surface, one signal — the label
-   distinguishes kind, not a per-kind fill color (see design-system/do-not.md
-   — "do not invent a rainbow of cards"). Unscoped for the same reason as
+   evidence, counterpoint, implication. This is the print and non-screen
+   baseline: one surface, one rule, the label word distinguishes kind. The
+   screen-only kind treatment (T31.1) layers on top in the reading-surface
+   block at the end of this file. Unscoped for the same reason as
    .references/.key-findings above. */
 .research-primitive {
 	margin: 2.5em 0;
@@ -830,4 +853,103 @@ body.lab-bubble-article .prose > h2 + p {
 /* Forward scholarly projections: screen keeps the source matrix and website bio. */
 .scholarly-print-only {
 	display: none;
+}
+
+/* T31.1 — reading surface. Screen only: print-research.css and the forward PDF
+   keep the baseline label-and-rule treatment above. Kind color is the second
+   signal; the label word stays the first. Wash and ink pairs are tokens
+   (--primitive-*), so all three theme paths resolve through the same rules. */
+@media screen {
+	.research-primitive {
+		background: color-mix(in oklab, var(--primitive-definition) 8%, transparent);
+		border-left-color: var(--primitive-definition);
+	}
+	.research-primitive-label {
+		color: var(--primitive-definition);
+		padding-bottom: 0.55em;
+		border-bottom: 1px solid color-mix(in oklab, currentColor 28%, transparent);
+	}
+	.research-primitive--evidence {
+		background: color-mix(in oklab, var(--primitive-evidence) 8%, transparent);
+		border-left-color: var(--primitive-evidence);
+	}
+	.research-primitive--evidence .research-primitive-label {
+		color: var(--primitive-evidence);
+	}
+	.research-primitive--counterpoint {
+		background: color-mix(in oklab, var(--primitive-counterpoint) 8%, transparent);
+		border-left-color: var(--primitive-counterpoint);
+	}
+	.research-primitive--counterpoint .research-primitive-label {
+		color: var(--primitive-counterpoint);
+	}
+	.research-primitive--implication {
+		background: color-mix(in oklab, var(--primitive-implication) 8%, transparent);
+		border-left-color: var(--primitive-implication);
+	}
+	.research-primitive--implication .research-primitive-label {
+		color: var(--primitive-implication);
+	}
+	/* Key idea shares steel with Definition, so it is told apart by surface and
+	   size instead of hue: raised paper and a larger body, still under a pull
+	   quote. Body copy is 20px; the lift is relative to the prose size. */
+	.research-primitive--key-idea {
+		background: var(--bg-raised);
+		border-left-color: var(--primitive-key-idea);
+	}
+	.research-primitive--key-idea .research-primitive-label {
+		color: var(--primitive-key-idea);
+	}
+	.research-primitive--key-idea .research-primitive-body {
+		font-size: 1.15em;
+		line-height: 1.45;
+	}
+
+	/* Key Findings: a raised panel with a plain outline and no side bar (the
+	   primitives carry the bar), a compact mono section label, accent markers
+	   and clearer item spacing. The h2 and native list stay as authored. */
+	.key-findings {
+		background: var(--bg-raised);
+	}
+	.key-findings-heading {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		line-height: 1.4;
+		color: var(--accent);
+		padding-bottom: 0.75em;
+		margin: 0 0 1em;
+		border-bottom: 1px solid var(--border);
+	}
+	.key-findings-list li {
+		margin-bottom: 1em;
+		padding-left: 0.2em;
+	}
+	.key-findings-list li::marker {
+		color: var(--accent);
+	}
+
+	/* Research-body section rhythm. A research article is recognised by its
+	   masthead, which the shared article shell renders only for research pages
+	   (the IWL companion and About reuse .prose without one). Lab Bubble keeps
+	   its own T26.2 rhythm above, so it is excluded here rather than out-ranked:
+	   its first section heading follows the mobile TOC with no rule, and would
+	   otherwise pick up the new top gap. */
+	body:not(.lab-bubble-article) .prose:where(:has(> .title .masthead)) > h2 {
+		margin-top: 2.75em;
+	}
+	body:not(.lab-bubble-article) .prose:where(:has(> .title .masthead)) > hr {
+		margin: 2.75em 0 1.35em;
+	}
+	body:not(.lab-bubble-article) .prose:where(:has(> .title .masthead)) > hr + h2 {
+		margin-top: 0;
+	}
+}
+
+@media screen and (max-width: 720px) {
+	.prose:where(:has(> .title .masthead)) > h2 {
+		font-size: var(--text-2xl);
+	}
 }

@@ -7,8 +7,8 @@ All defined in `src/styles/global.css`, in three places kept in sync by conventi
 | Token | Light | Dark | Role |
 |---|---|---|---|
 | `--bg` | `#f4f1ea` | `#0e1013` | Page field |
-| `--bg-raised` | `#fbfaf6` | `#16191e` | Cards, elevated chrome |
-| `--bg-subtle` | `#ebe7de` | `#1c2026` | Footer, key-findings, mobile TOC, inline code, table header |
+| `--bg-raised` | `#fbfaf6` | `#16191e` | Cards, elevated chrome, key-findings and key-idea on screen |
+| `--bg-subtle` | `#ebe7de` | `#1c2026` | Footer, key-findings and research primitives in print, mobile TOC, inline code, table header |
 | `--border` | `#d5d0c6` | `#2a2f36` | Hairline |
 | `--text-primary` | `#1c1d1f` | `#ede9e1` | Ink |
 | `--text-secondary` | `#5c6168` | `#9aa0a8` | Meta, lede, captions |
@@ -40,6 +40,20 @@ All defined in `src/styles/global.css`, in three places kept in sync by conventi
 | `--alert-caution` | `#9b3b32` | `#e07068` |
 
 **If contrast is ever re-checked and something fails: darken the text token, not the wash.**
+
+## Primitive inks (research primitives, T31.1)
+
+Same hues as the alert inks, named for the argument role so retuning an alert never recolors a definition. Read only inside `@media screen` in `global.css`; print keeps the shared `--accent` rule and `--bg-subtle` fill. Each token is defined in all three places above and resolves as follows:
+
+| Token | Default light (`:root`) | Explicit dark (`[data-theme='dark']`) | System dark (`prefers-color-scheme`, no override) |
+|---|---|---|---|
+| `--primitive-definition` | `#2e4a68` | `#8fa8c4` | `#8fa8c4` |
+| `--primitive-key-idea` | `#2e4a68` | `#8fa8c4` | `#8fa8c4` |
+| `--primitive-evidence` | `#2d6a52` | `#6fba9a` | `#6fba9a` |
+| `--primitive-counterpoint` | `#7c5f26` | `#d4b36a` | `#d4b36a` |
+| `--primitive-implication` | `#4a5563` | `#a0a8b4` | `#a0a8b4` |
+
+The wash is `color-mix(in oklab, <ink> 8%, transparent)` over the page field (Key idea uses `--bg-raised` instead). Measured label-to-composited-fill contrast, lowest across all primitives on the corpus pages: light 7.17 / 8.76 / 5.06 / **4.75** / 6.00 (definition / key idea / evidence / counterpoint / implication — counterpoint is the narrowest margin), both dark paths 7.06 / 7.19 / 7.48 / 8.48 / 7.19. All clear 4.5:1; if one is retuned, darken the ink, not the wash.
 
 ## Everything else
 
