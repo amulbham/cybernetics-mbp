@@ -28,6 +28,10 @@ Primary intent: **Sprint 31 research reading surface — T31.1 sealed for local 
 - Two intake paths: author-directed primitive map or assisted editorial selection with owner review. Preserve approved source and metadata; separate scholarly artifact custody.
 - For current behavior read actual code and canonical docs on correct branch: staging operational instructions, main production. Some older ROADMAP/AGENTS status text is stale; closure records discrepancy. Do not treat stale five/six-PDF snapshots as current. Current workflow/guard and verified release evidence win.
 
+## Approved next-sprint intake — Sprint 32
+
+- APPROVED 2026-11-19: isolated design sandbox. Cursor product discovery and Claude Code governed engineering should run in separate Git worktrees on sandbox/design and staging. Safely inventory, back up and migrate existing uncommitted owner experiments (including untracked files) before any cleanup; verify preservation, independent dev servers and scoped staging delivery. Document prototype-to-ticket handoff. No implementation or branch creation until Sprint 31 closes and Sprint 32 scope is sealed. Task number deferred to sprint planning.
+
 ## Deferred findings from Sprint 30
 
 Read current main ROADMAP plus closure's findings ledger. Legacy PDF test harness debt; screen header rules leaking into rebuilt PDFs; unverified first-table header difference; sitewide/IWL license decision; DOI at 320px and mobile nav shift; scholarlyReview warning unresolved; Paper C missing route-history row reported, new redirect requires authorization; older Chisel/IWL, corpus table/anchor and historical PDF citation work. Documentary lag and local-only standalone reports remain noted. None requires reopening Sprint 30 based on current evidence. Prioritize with owner; no automatic remediation.
