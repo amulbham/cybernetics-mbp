@@ -288,6 +288,12 @@ main,
 	font-size: 12.5pt;
 	font-style: italic;
 	color: var(--text-secondary);
+	/* T31.3: the research subtitle is a native h2. Keep what the former
+	   paragraph inherited: centered, and the running-prose hyphenation. */
+	text-align: center;
+	hyphens: auto;
+	hyphenate-limit-chars: 9 4 4;
+	word-spacing: -0.04em;
 }
 .title .masthead {
 	order: 3;
