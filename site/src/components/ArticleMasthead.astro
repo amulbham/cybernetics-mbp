@@ -86,8 +86,12 @@ const doiChars = doi ? (scholarly ? doi : doi.replace(/^https?:\/\//, '')).lengt
 	.masthead {
 		container-type: inline-size;
 	}
-	.doi {
-		font-size: clamp(0.59rem, calc(100cqi / (var(--doi-chars) * 0.63)), var(--text-xs));
+	/* Screen only (T31.2): unscoped, this size outranked the print masthead's
+	   10pt and shrank the PDF DOI to 8.25pt; in print the link inherits 10pt. */
+	@media screen {
+		.doi {
+			font-size: clamp(0.59rem, calc(100cqi / (var(--doi-chars) * 0.63)), var(--text-xs));
+		}
 	}
 	.name {
 		font-family: var(--font-atkinson);
