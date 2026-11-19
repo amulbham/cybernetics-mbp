@@ -104,7 +104,14 @@ const { title, subtitle, pubDate, updatedDate, minutesRead, utcDates, license } 
 	   unbreakable string. The cap leaves wide viewports unchanged. */
 	.title h1 {
 		margin: 0 0 0.5em 0;
-		font-size: min(var(--text-4xl), 14.5cqi);
+	}
+	/* Screen only (T31.2): this scoped size outranks print-research.css's
+	   .title h1 (19pt, 20pt scholarly-forward) on specificity, so unscoped it
+	   leaked a 33.57pt title into every forward PDF. */
+	@media screen {
+		.title h1 {
+			font-size: min(var(--text-4xl), 14.5cqi);
+		}
 	}
 	.subtitle {
 		font-style: italic;
