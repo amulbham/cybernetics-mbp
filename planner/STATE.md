@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 intake reported, author decisions partly approved; NOT YET READY TO BUILD.**
+Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 final decisions recorded and READY TO DRAFT T32.3; no T32.3 seal or execution.**
 
 ## Resume — active gate
+
+- CURRENT 2026-11-23: [T32.2 final decision register](../site/planning/audits/sprint-32/T32.2-final-decision-register.md) committed `dfa01f2`: all author-owned inputs from Executor's 37-row matrix dispositioned, including work DOI `10.5281/zenodo.24470068`, version DOI `10.5281/zenodo.24470069` (both unverified pending T32.4), verbatim print author note, IWL public omission, local-only `pubDate: 2000-01-01` with zero-hit staged-diff tripwire, approved tags/excerpt/Key Findings, figure and heading treatment. Planner assesses READY TO DRAFT T32.3 (not release-ready). Next: draft T32.3 local PDF-priority/HTML specimens with independent pre-seal review and owner seal. No staging/production or implementation authorization.
+
 
 - CURRENT 2026-11-23: [T32.2 author decision record](../site/planning/audits/sprint-32/T32.2-author-decisions-2026-11-23.md) committed `0d79ad6`: approved exact shared excerpt, eight website tags, four Key Findings, preservation of authored primitives; D1/2/8/9/10/11 approved directions; primary work-level DOI `10.5281/zenodo.24470068`. PDF-priority QA for eventual T32.3 (shared HTML source, early disposable website-generated PDF, then complete local HTML/PDF owner review before staging). Pending: exact print author-note fit, explicit IWL sentence decision, safe local specimen version DOI handling, reconciliation against Executor 37-row matrix. Distinct version DOI required before final freeze. T32.2 NOT CLOSED; T32.3 NOT DRAFTED/SEALED. Next: Executor reconciles intake matrix, stops for remaining owner decisions; no product edits.
 
