@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 31 CLOSED; Sprint 32 planning next.**
+Primary intent: **Sprint 32 content-publication contract drafted for independent review; T32.0 not sealed.**
 
 ## Resume — active gate
+
+- APPROVED DIRECTION 2026-11-23: [Sprint 32 draft](../site/planning/sprints/sprint-32-mathematical-discovery-publication.md) at a0de877. Three workstreams: first isolate Cursor design sandbox safely; correct outdated homepage Independent research meta description and audit active identity/schema; publish V17.3 Mathematical Discovery as HTML plus final PDF generated and frozen through website pipeline. Author-supplied work-level DOI https://doi.org/10.5281/zenodo.24470068. IWL excluded; manuscript IWL mention is editorial decision item. Source research blob 6db19bf522e2606b8269b98199ca1cda084612ff is editorially approved for development, not frozen. Seven existing PDFs protected; eighth publication requires custody/guard upgrade and separate owner release. Next: independent sprint contract review, reconcile, seal T32.0; no implementation authorized yet.
+
 
 - CLOSED: [Sprint 31 closure](../site/planning/audits/sprint-31/S31-sprint-closure.md) approved 2026-11-23. [Sprint contract](../site/planning/sprints/sprint-31-reading-surface.md) marked closed; [workflow pilot](checkpoints/2026-11-18-sprint-31-local-workflow-pilot.md) reconciled. T31.0 audit; T31.1 reading treatment; T31.2 forward PDF title/DOI; T31.3 semantic subtitle; T31.4 release all accepted.
 - VERIFIED remote main `83fa4bfd11bce10c01dded02d83a99a23595c11c`, staging `318b75408f5f5e96ae2d329f58cb16cd3971b234`. Main release `016396f00bd160d39a16644660ef4cc2d67f140e` workflow [44631124056](https://github.com/amulbham/cybernetics-mbp/actions/runs/44631124056) succeeded; Executor reported seven live PDF SHA-256 matches and reading/indexing checks. Docs-only main follow-up `83fa4bf` changed ROADMAP/CHANGELOG only; separate follow-up workflow not independently confirmed. No further release authorized.
