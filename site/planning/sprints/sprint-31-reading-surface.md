@@ -1,6 +1,6 @@
 # Sprint 31 — Research reading surface
 
-Status: EXECUTING — contract frozen and T31.0 audit accepted with follow-up
+Status: CLOSED — Product Authority approved 2026-11-23; production released and verified (see [closure record](../audits/sprint-31/S31-sprint-closure.md))
 Risk ceiling: R2 for the reading surface and forward print work, R3 for a separately authorized production release
 Branch: staging for execution, planner/context for the contract and seals
 Depends on: Sprint 30 closure and the accepted [local Planner transition](../../../planner/checkpoints/2026-11-18-local-codex-planner-transition.md)
@@ -9,6 +9,8 @@ Unlocks: A verified reading treatment across the corpus and an evidenced local P
 Review: Grok reviewed `12a51ad`. The four required findings are reflected in the ticket gates, validation plan, and documentation targets below. See the [review](../audits/sprint-31/S31-grok-whole-sprint-review.md) and [CLI process record](../audits/sprint-31/S31-grok-review-process.md).
 
 Baseline: the [T31.0 reconciliation](../audits/sprint-31/S31-T31.0-baseline-review.md) establishes the reading baseline and confirms that T31.2 is needed.
+
+Closeout: implementation production release at `016396f00bd160d39a16644660ef4cc2d67f140e` (Actions `44631124056` successful); docs-only follow-up `83fa4bfd11bce10c01dded02d83a99a23595c11c`. Seven approved PDFs preserved. Original proposed Key idea `1.15em` superseded by owner-approved `1.07em`. Local Planner pilot superseded by cloud Planner. See closure for verification limits and Sprint 32 design-sandbox intake.
 
 ## Core question
 
