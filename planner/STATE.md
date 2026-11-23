@@ -5,6 +5,9 @@ Primary intent: **Sprint 32 OPEN; T32.3 SEALED for local HTML/PDF specimen imple
 
 ## Resume — active gate
 
+- PROCESS FOLLOW-UP 2026-11-23: [T32.3 routine-worktree approval friction](../site/planning/audits/sprint-32/T32.3-process-friction-post-sprint-followup.md) logged at `4e44029` for **post-Sprint-32 documentation calibration**. Proposal: sealed implementation ticket + passing safety preflight should permit nondestructive isolated worktree creation, local deps/build/tests/commits without repeated owner approval; retain explicit gates for protected checkout/sandbox changes, destructive operations, scope changes, staging push and publication/release. Do not modify `site/PLANNING.md` or `site/AGENTS.md` mid-sprint; do not retroactively change sealed T32.3. Owner's proposed handoff message not independently confirmed as sent.
+
+
 - CURRENT 2026-11-23: **T32.3 SEALED** at `f79b40d063207312b01dfab6adbd6c26e47d321b` after Product Authority approval of revised draft `1d9713abb40407defbc720eb66ff5c41443ee2f0`; Grok provisional ACCEPT, zero BLOCKER/REQUIRED, OPTIONAL-1 incorporated. Claude Code may begin sealed ticket with read-only preflight, but **must obtain separate owner confirmation before creating/moving worktrees or beginning source projection**. Provisional specimen `pubDate: 2026-11-23`, reconfirm actual release date at T32.4. Local HTML/PDF QA and owner review only; no staging push, source freeze, DOI registration, release or production action authorized.
 
 
