@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 SEALED for read-only complete V17.3 intake.**
+Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 intake reported, author decisions partly approved; NOT YET READY TO BUILD.**
 
 ## Resume — active gate
+
+- CURRENT 2026-11-23: [T32.2 author decision record](../site/planning/audits/sprint-32/T32.2-author-decisions-2026-11-23.md) committed `0d79ad6`: approved exact shared excerpt, eight website tags, four Key Findings, preservation of authored primitives; D1/2/8/9/10/11 approved directions; primary work-level DOI `10.5281/zenodo.24470068`. PDF-priority QA for eventual T32.3 (shared HTML source, early disposable website-generated PDF, then complete local HTML/PDF owner review before staging). Pending: exact print author-note fit, explicit IWL sentence decision, safe local specimen version DOI handling, reconciliation against Executor 37-row matrix. Distinct version DOI required before final freeze. T32.2 NOT CLOSED; T32.3 NOT DRAFTED/SEALED. Next: Executor reconciles intake matrix, stops for remaining owner decisions; no product edits.
+
 
 - CURRENT 2026-11-23: T32.2 complete publication intake SEALED at `67ffd65e585a6b5cec46d769068f6fe632faba75`, reviewed draft `ffbee66185dd60d3b5e9f63db09889f9094274f7`. Grok provisional ACCEPT, zero BLOCKER/REQUIRED, OPTIONAL-1 adopted: explicit dispositions for every missing/author-decision input; blocked required items prevent READY TO BUILD. Next: Claude Code read-only source/asset/schema inventory and complete publication-input matrix, present one owner decision batch, STOP. No rendering or staging push until separately sealed T32.3 and owner local-preview approval.
 
