@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 OPEN; T32.0 closed; T32.1 sealed, Phase A audit next.**
+Primary intent: **Sprint 32 OPEN; T32.0 and T32.1 closed; T32.2 V17.3 intake next.**
 
 ## Resume — active gate
+
+- T32.1 ACCEPTED/CLOSED on staging: implementation `e2041196efda38eae1cd701b1a69bd6b76ce81b2` (two approved identity strings) and docs `465b1bb8c5f2fed1b20e8a819a96626202031992` (AGENTS.md sandbox workflow). [Reconciliation](../site/planning/audits/sprint-32/T32.1-completion-reconciliation.md) at `3232c11`; Git diffs inspected, hosted staging and Actions `45228240472` success Executor-reported. Production still old copy pending R3 release. Owner 4321 server unexpectedly down; sandbox 4400 remains serving; no restart authorized or required for closure. Next draft T32.2 editorial source/asset intake and publication decision register. Sprint 32 OPEN.
+
 
 - T32.1 SEALED at `9c5dbabdee1cd69f51611491a1765c5026f98c05` after Grok ACCEPT review of draft `9bfae6f`. OPTIONAL-1 incorporated: four protected local tracked modifications explicitly named. Next: Claude Code executes **read-only Phase A** audit of active identity/metadata and built output, returns exact before/after proposed copy, and STOPS for owner wording/path approval. No Phase B source changes, staging push, Cursor changes or production release authorized.
 
