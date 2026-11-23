@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 OPEN; T32.0 accepted and closed; T32.1 drafted for pre-seal review.**
+Primary intent: **Sprint 32 OPEN; T32.0 closed; T32.1 sealed, Phase A audit next.**
 
 ## Resume — active gate
+
+- T32.1 SEALED at `9c5dbabdee1cd69f51611491a1765c5026f98c05` after Grok ACCEPT review of draft `9bfae6f`. OPTIONAL-1 incorporated: four protected local tracked modifications explicitly named. Next: Claude Code executes **read-only Phase A** audit of active identity/metadata and built output, returns exact before/after proposed copy, and STOPS for owner wording/path approval. No Phase B source changes, staging push, Cursor changes or production release authorized.
+
 
 - CURRENT 2026-11-23: T32.0 ACCEPTED/CLOSED based on Executor completion report and owner confirmation; [reconciliation](../site/planning/audits/sprint-32/T32.0-completion-reconciliation.md) committed `ac274152`. Local-only design/cursor-sandbox worktree and port 4400 functioning, original staging checkout/4321 preserved, 41-file SHA backup restorable; patch-only Paper C line-ending difference nonblocking. Planner did not directly inspect local machine. Keep sandbox/backup intact.
 - T32.1 [DRAFT](../site/planning/tickets/T32.1-identity-metadata-alignment.md) at `9bfae6f`: audit live identity and metadata, present exact before/after copy to owner, then separate implementation approval. Next: independent pre-seal review of T32.1; no source edits or staging/production authorization yet. Sprint 32 remains open for V17.3 HTML/final website-generated PDF and R3 custody/release.
