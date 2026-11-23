@@ -5,6 +5,9 @@ Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 final decisions reco
 
 ## Resume — active gate
 
+- CURRENT 2026-11-23: T32.3 Grok pre-seal review of `f65cf68` provisional ACCEPT (zero BLOCKER/REQUIRED); OPTIONAL-1 binary worktree-safety stop incorporated. Owner changed provisional specimen `pubDate` to **2026-11-23**; T32.4 must reconfirm actual release date before PDF freeze. Revised [T32.3 draft](../site/planning/tickets/T32.3-v17-3-local-html-pdf-specimens.md) at `1d9713a`; [T32.2 register](../site/planning/audits/sprint-32/T32.2-final-decision-register.md) amended at `7589427`. Ticket remains DRAFT/UNSEALED. Next: Product Authority seal; no implementation or staging push yet.
+
+
 - CURRENT 2026-11-23: T32.3 [DRAFT](../site/planning/tickets/T32.3-v17-3-local-html-pdf-specimens.md) committed `f65cf68`: local-only V17.3 scholarly HTML + early website-pipeline PDF, first-class print/glyph/table QA, shared source, six original figures, all author-approved metadata, seven-PDF preservation, explicit owner checkout/sandbox protection and owner approval of both specimens before staging. Next: Grok independent pre-seal review; reconcile BLOCKER/REQUIRED/OPTIONAL; Product Authority seal. NO T32.3 execution or product push authorized.
 
 
