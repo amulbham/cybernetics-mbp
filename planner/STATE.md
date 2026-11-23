@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 final decisions recorded and READY TO DRAFT T32.3; no T32.3 seal or execution.**
+Primary intent: **Sprint 32 OPEN; T32.3 SEALED for local HTML/PDF specimen implementation only; staging and publication remain gated.**
 
 ## Resume — active gate
+
+- CURRENT 2026-11-23: **T32.3 SEALED** at `f79b40d063207312b01dfab6adbd6c26e47d321b` after Product Authority approval of revised draft `1d9713abb40407defbc720eb66ff5c41443ee2f0`; Grok provisional ACCEPT, zero BLOCKER/REQUIRED, OPTIONAL-1 incorporated. Claude Code may begin sealed ticket with read-only preflight, but **must obtain separate owner confirmation before creating/moving worktrees or beginning source projection**. Provisional specimen `pubDate: 2026-11-23`, reconfirm actual release date at T32.4. Local HTML/PDF QA and owner review only; no staging push, source freeze, DOI registration, release or production action authorized.
+
 
 - CURRENT 2026-11-23: T32.3 Grok pre-seal review of `f65cf68` provisional ACCEPT (zero BLOCKER/REQUIRED); OPTIONAL-1 binary worktree-safety stop incorporated. Owner changed provisional specimen `pubDate` to **2026-11-23**; T32.4 must reconfirm actual release date before PDF freeze. Revised [T32.3 draft](../site/planning/tickets/T32.3-v17-3-local-html-pdf-specimens.md) at `1d9713a`; [T32.2 register](../site/planning/audits/sprint-32/T32.2-final-decision-register.md) amended at `7589427`. Ticket remains DRAFT/UNSEALED. Next: Product Authority seal; no implementation or staging push yet.
 
