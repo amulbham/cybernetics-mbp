@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 OPEN; T32.0 and T32.1 closed; T32.2 V17.3 intake next.**
+Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 SEALED for read-only complete V17.3 intake.**
 
 ## Resume — active gate
+
+- CURRENT 2026-11-23: T32.2 complete publication intake SEALED at `67ffd65e585a6b5cec46d769068f6fe632faba75`, reviewed draft `ffbee66185dd60d3b5e9f63db09889f9094274f7`. Grok provisional ACCEPT, zero BLOCKER/REQUIRED, OPTIONAL-1 adopted: explicit dispositions for every missing/author-decision input; blocked required items prevent READY TO BUILD. Next: Claude Code read-only source/asset/schema inventory and complete publication-input matrix, present one owner decision batch, STOP. No rendering or staging push until separately sealed T32.3 and owner local-preview approval.
+
 
 - T32.1 ACCEPTED/CLOSED on staging: implementation `e2041196efda38eae1cd701b1a69bd6b76ce81b2` (two approved identity strings) and docs `465b1bb8c5f2fed1b20e8a819a96626202031992` (AGENTS.md sandbox workflow). [Reconciliation](../site/planning/audits/sprint-32/T32.1-completion-reconciliation.md) at `3232c11`; Git diffs inspected, hosted staging and Actions `45228240472` success Executor-reported. Production still old copy pending R3 release. Owner 4321 server unexpectedly down; sandbox 4400 remains serving; no restart authorized or required for closure. Next draft T32.2 editorial source/asset intake and publication decision register. Sprint 32 OPEN.
 
