@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 content-publication contract drafted for independent review; T32.0 not sealed.**
+Primary intent: **Sprint 32 contract SEALED; T32.0 design sandbox drafted for independent pre-seal review.**
 
 ## Resume — active gate
+
+- SPRINT 32 SEALED at `be14f1f01423a03376dcb386744963a66330f70a` against reviewed `71c206f`; Grok REQUIRED DOI/IWL clarifications integrated. T32.0 [draft](../site/planning/tickets/T32.0-design-sandbox-isolation.md) committed `10b8f014061249a00c71b9bbcaa3a92637af66c9`, **not sealed and no execution authorized**. Next: independent T32.0 pre-seal review; reconcile BLOCKER/REQUIRED/OPTIONAL; owner authorizes ticket seal. Ticket starts with read-only local inventory, and explicitly stops for separate owner approval before moving or copying experiments, creating worktree or altering processes. Current worktree/port status is Executor-reported only.
+
 
 - APPROVED DIRECTION 2026-11-23: [Sprint 32 draft](../site/planning/sprints/sprint-32-mathematical-discovery-publication.md) at a0de877. Three workstreams: first isolate Cursor design sandbox safely; correct outdated homepage Independent research meta description and audit active identity/schema; publish V17.3 Mathematical Discovery as HTML plus final PDF generated and frozen through website pipeline. Author-supplied work-level DOI https://doi.org/10.5281/zenodo.24470068. IWL excluded; manuscript IWL mention is editorial decision item. Source research blob 6db19bf522e2606b8269b98199ca1cda084612ff is editorially approved for development, not frozen. Seven existing PDFs protected; eighth publication requires custody/guard upgrade and separate owner release. Next: independent sprint contract review, reconcile, seal T32.0; no implementation authorized yet.
 
