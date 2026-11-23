@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import RecentResearch from '../components/RecentResearch.astro';
 import Spotlight from '../components/Spotlight.astro';
+import ExploreLinks from '../components/ExploreLinks.astro';
 import { HOMEPAGE_SPOTLIGHT, SITE_TITLE } from '../consts';
 import { personIdentity } from '../lib/structured-data';
 
@@ -87,6 +88,8 @@ const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c
 			</section>
 
 			<Spotlight />
+
+			<ExploreLinks />
 
 			<RecentResearch variant="feed" excludeId={HOMEPAGE_SPOTLIGHT} limit={5} />
 

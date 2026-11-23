@@ -53,6 +53,18 @@ export const AUTHOR = {
 // (Spotlight.astro throws via getEntry) rather than silently showing nothing.
 export const HOMEPAGE_SPOTLIGHT = 'cybernetics-structural-science';
 
+// Homepage “Explore” chips — hard-set wayfinding (categories and tags).
+// Categories must be registered slugs; tags must match a `tags[]` value exactly.
+// Validated at build time in ExploreLinks.astro.
+export const HOMEPAGE_EXPLORE_LINKS = [
+	{ kind: 'category', slug: 'cybernetics' },
+	{ kind: 'category', slug: 'knowledge-work' },
+	{ kind: 'category', slug: 'ai-systems' },
+	{ kind: 'category', slug: 'essays' },
+	{ kind: 'tag', tag: 'cognitive physics' },
+	{ kind: 'tag', tag: 'self-organizing systems' },
+] as const;
+
 // SITEWIDE notice license (owner decision 2026-08-24): the footer on pages that
 // are not a research work (home, About, listings, search, 404) and the IWL
 // companion line, which has no per-IWL license field. It is NOT the license of

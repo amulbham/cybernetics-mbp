@@ -953,3 +953,152 @@ body.lab-bubble-article .prose > h2 + p {
 		font-size: var(--text-2xl);
 	}
 }
+
+/* Article tables — screen preview mock (2026-11-19). Planner intake only; not
+   locked product truth. Touches default scroll wrappers and responsive-records
+   projections. Print/PDF unchanged. */
+@media screen {
+	/* Wide tables that still use horizontal scroll (corpus default). */
+	@media (max-width: 1099px) {
+		.table-container:not([data-table-layout='responsive-records']) {
+			background:
+				linear-gradient(to right, var(--bg) 16px, transparent 48px) 0 0 / 48px 100% no-repeat local,
+				linear-gradient(to left, var(--bg) 16px, transparent 48px) 100% 0 / 48px 100% no-repeat local,
+				var(--bg);
+		}
+		.table-container:not([data-table-layout='responsive-records']) thead th:first-child,
+		.table-container:not([data-table-layout='responsive-records']) tbody td:first-child {
+			position: sticky;
+			left: 0;
+			z-index: 1;
+			background: var(--bg);
+			box-shadow: 1px 0 0 var(--border);
+		}
+		.table-container:not([data-table-layout='responsive-records']) thead th:first-child {
+			background: var(--bg-subtle);
+			z-index: 2;
+		}
+		.table-container:not([data-table-layout='responsive-records']) tbody tr:hover td:first-child {
+			background: var(--bg-subtle);
+		}
+	}
+
+	/* responsive-records: card stack on narrow viewports (Desk + Structural Science mock). */
+	@media (max-width: 1099px) {
+		.table-container[data-table-layout='responsive-records'] {
+			margin: 2em 0;
+			padding: 0;
+			border: none;
+			background: transparent;
+			overflow: visible;
+		}
+		.table-container[data-table-layout='responsive-records'] .table-record {
+			padding: var(--space-4);
+			margin: 0 0 0.85em;
+			border: 1px solid var(--border);
+			border-radius: var(--radius-md);
+			background: var(--bg-raised);
+		}
+		.table-container[data-table-layout='responsive-records'] .table-record:last-child {
+			margin-bottom: 0;
+			border-bottom: 1px solid var(--border);
+		}
+		.table-container[data-table-layout='responsive-records'] .table-record dt:first-child + dd {
+			font-size: var(--text-base);
+			line-height: 1.4;
+			color: var(--text-primary);
+		}
+	}
+
+	@media (min-width: 1100px) {
+		/* Opted-in tables: no nested horizontal scroll; widen to --content-width-wide
+		   inside the 720px prose column so dense matrices (e.g. 8-column appendix)
+		   wrap at word boundaries instead of mid-word (avoid overflow-wrap: anywhere). */
+		.prose .table-container[data-table-layout='responsive-records'] {
+			overflow-x: visible;
+			box-sizing: border-box;
+			width: min(var(--content-width-wide), calc(100vw - 2.5rem));
+			margin-left: calc(50% - min(var(--content-width-wide), calc(100vw - 2.5rem)) / 2);
+			margin-right: calc(50% - min(var(--content-width-wide), calc(100vw - 2.5rem)) / 2);
+		}
+		.table-container[data-table-layout='responsive-records'] table {
+			table-layout: auto;
+			width: 100%;
+			min-width: 0;
+		}
+		.table-container[data-table-layout='responsive-records'] thead th,
+		.table-container[data-table-layout='responsive-records'] tbody td {
+			overflow-wrap: break-word;
+			word-break: normal;
+			hyphens: manual;
+			padding: var(--space-2) var(--space-3);
+		}
+		.table-container[data-table-layout='responsive-records'] tbody td {
+			font-size: 0.8125rem;
+			line-height: 1.5;
+		}
+
+		.table-container[data-table-layout='responsive-records'] tbody tr:nth-child(even) {
+			background-color: color-mix(in oklab, var(--bg-subtle) 55%, transparent);
+		}
+		.table-container[data-table-layout='responsive-records'] tbody tr:hover {
+			background-color: var(--bg-subtle);
+		}
+
+		/* Eight-column reference grids: bias width toward text-heavy columns. */
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8)) {
+			table-layout: fixed;
+		}
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			th:nth-child(1),
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			td:nth-child(1) {
+			width: 3%;
+		}
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			th:nth-child(8),
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			td:nth-child(8) {
+			width: 5%;
+		}
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			th:nth-child(4),
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			td:nth-child(4),
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			th:nth-child(5),
+		.table-container[data-table-layout='responsive-records']
+			table:has(thead tr > th:first-child:nth-last-child(8))
+			td:nth-child(5) {
+			width: 16%;
+		}
+
+		/* Default wrappers (corpus): fit prose column; wrap like body copy. */
+		.table-container:not([data-table-layout='responsive-records']) {
+			overflow-x: visible;
+		}
+		.table-container:not([data-table-layout='responsive-records']) table {
+			table-layout: auto;
+			width: 100%;
+			min-width: 0;
+		}
+		.table-container:not([data-table-layout='responsive-records']) thead th {
+			white-space: normal;
+			vertical-align: bottom;
+			line-height: 1.35;
+		}
+		.table-container:not([data-table-layout='responsive-records']) tbody td {
+			overflow-wrap: break-word;
+			word-break: normal;
+			hyphens: manual;
+		}
+	}
+}

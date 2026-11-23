@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import { HOMEPAGE_EXPLORE_LINKS } from '../consts';
+import { categoryLabel, isCategorySlug } from '../lib/categories';
+import { categoryPath } from '../lib/research-routing';
+import { slugifyTag } from '../lib/tags';
+import Badge from './Badge.astro';
+
+const entries = await getCollection('research');
+
+function tagIsUsed(tag: string): boolean {
+	return entries.some((entry) => entry.data.tags.includes(tag));
+}
+
+type ResolvedLink = { label: string; href: string };
+
+const links: ResolvedLink[] = HOMEPAGE_EXPLORE_LINKS.map((item) => {
+	if (item.kind === 'category') {
+		if (!isCategorySlug(item.slug)) {
+			throw new Error(`HOMEPAGE_EXPLORE_LINKS category slug "${item.slug}" is not registered`);
+		}
+		return {
+			label: categoryLabel(item.slug),
+			href: categoryPath(item.slug),
+		};
+	}
+	if (!tagIsUsed(item.tag)) {
+		throw new Error(
+			`HOMEPAGE_EXPLORE_LINKS tag "${item.tag}" does not match any entry tags[] value exactly`,
+		);
+	}
+	return {
+		label: item.tag,
+		href: `/tags/${slugifyTag(item.tag)}/`,
+	};
+});
+---
+
+{
+	links.length > 0 && (
+		<section class="explore-links" aria-labelledby="explore-links-label">
+			<p id="explore-links-label" class="meta explore-links-label">
+				Explore
+			</p>
+			<ul class="explore-links-list">
+				{links.map(({ label, href }) => (
+					<li>
+						<a class="explore-links-chip" href={href}>
+							<Badge variant="neutral">{label}</Badge>
+						</a>
+					</li>
+				))}
+			</ul>
+		</section>
+	)
+}
+
+<style>
+	.explore-links {
+		max-width: var(--content-width-wide);
+		margin: -1.5em auto 2.5em;
+	}
+	.explore-links-label {
+		margin: 0 0 0.75em;
+	}
+	.explore-links-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.65em 0.85em;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.explore-links-chip {
+		display: inline-flex;
+		text-decoration: none;
+		border-radius: var(--radius-full);
+	}
+	.explore-links-chip:hover :global(.badge) {
+		background-color: color-mix(in oklab, var(--accent) 12%, var(--bg-subtle));
+		color: var(--accent);
+	}
+	.explore-links-chip:focus-visible {
+		outline: var(--focus-ring-width) solid var(--focus-ring);
+		outline-offset: var(--focus-ring-offset);
+	}
+</style>

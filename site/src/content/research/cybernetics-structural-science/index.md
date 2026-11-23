@@ -211,6 +211,8 @@ They are not independent in practice. Feedback can contribute to both accountabi
 
 The following mapping summarizes the principal proposed relationships between familiar cybernetic mechanisms and the seven conditions. These are functional correspondences, not one-to-one identities or established derivations.
 
+<!-- table-layout: responsive-records -->
+
 | **Cybernetic mechanism** | **Proposed condition** | **Candidate functional correspondence** |
 |---|---|---|
 | Feedback loops | Ledger (1) | Feed consequences of earlier activity into subsequent regulation; do not necessarily create a complete evidentiary account |
@@ -231,6 +233,8 @@ The mapping raises a causal question. Feedback can make an output responsive to 
 Having introduced the seven conditions and their possible cybernetic correspondences, the next question is what would challenge them. Established work on feedback, communication, and collective organization offers cases where particular mechanisms are stressed or disrupted. The issue is whether those observations discriminate the proposed functions from alternative explanations.
 
 A working system can make a mechanism look indispensable when it is merely one of several routes to the same result. Failure cases introduce pressure. They show what a system actually loses when a particular route is obstructed, but disrupting a mechanism does not demonstrate that an invariant has been removed.
+
+<!-- table-layout: responsive-records -->
 
 | **Proposed condition** | **Failure prediction if the function is absent** |
 |---|---|
@@ -269,6 +273,8 @@ Cybernetics also developed a distinction between describing observed systems and
 Cognitive Physics proposes that the same seven candidate conditions apply to independently qualifying self-organizing systems across first- and second-order analyses. The object of investigation may be an observed system, an observing system, or a defined observer–observed coupling. Including the observer changes which relationships fall within the analysis and how the conditions must be investigated. The proposed organizational requirements remain the same, although their mechanisms and operational measures may differ. This is the framework’s candidate structural connection between the two traditions. Their distinct epistemological questions remain open.
 
 **Rival explanations and a differential test (proposed, not performed).** Existing traditions offer structural explanations (Ashby, 1956; Haken, 1983; Maturana & Varela, 1980; Nicolis & Prigogine, 1977). The proposed contribution must be a testable prediction remaining after strong rivals receive comparable inputs and modeling resources.
+
+<!-- table-layout: responsive-records -->
 
 | Account | Already explains | Differential test proposed for Paper C |
 |---|---|---|
@@ -327,6 +333,8 @@ The proposed partition accounts for each of the seven conditions by identifying 
 
 A partition must specify a model, not relabel the same measurements. One proposed comparison uses the same seven independently measured main effects and, as a testable restriction, **only the five within-cluster pairwise interaction terms** under each mapping. Group labels do not logically entail those restrictions; they need prespecified functional motivation.
 
+<!-- table-layout: responsive-records -->
+
 | Candidate | M / S / V | Distinguishing hypothesis, not observed result |
 |---|---|---|
 | Proposed | {2,5} / {4,7} / {1,3,6} | Recovery-sensitive effect of Persistence (6) interacts with Ledger/Distinguishability (1,3); Discrimination (3) interacts with (1,6) |
@@ -350,6 +358,8 @@ An empirical law would require substrate-independent definitions or justified no
 The product predicts that **the same increase in M produces a larger increase in C when S and V are higher**, assuming independently defined measures on compatible positive scales and holding S and V fixed within each comparison. Structural constraints and verification therefore affect the return on additional generative activity. This predicted interaction can be tested against other functional forms.
 
 Section 6.2 illustrates the product’s conditional prediction through a classroom example.
+
+<!-- table-layout: responsive-records -->
 
 | **Term** | **Definition** | **Conditions** |
 |---|---|---|
@@ -417,6 +427,8 @@ The relation is complementary rather than a hierarchy in which cybernetics conta
 Gershenson (2025) argues that self-organization describes systems relative to an observer's purposes rather than being an intrinsic property independent of description. This paper investigates whether independently specified structural conditions offer a useful, more restrictive comparison. The literature contains substantial structural approaches, but a common description of self-organization remains debated. This paper proposes a particular synthesis of candidate cross-substrate conditions; whether it advances that debate depends on comparative tests and the treatment of difficult boundary cases.
 
 The Santa Fe tradition in complexity science provides another way into the same problem. The table gives one entry question for each tradition. The questions overlap, and the proposed synthesis can be tested where they meet.
+
+<!-- table-layout: responsive-records -->
 
 | Tradition or program | Entry question | Role in the proposed synthesis |
 |---|---|---|
@@ -568,6 +580,8 @@ The next test is therefore more demanding. If the seven conditions identify genu
 
 Why can a class finish more problems without getting better at fractions? Ask a student to compare 3/8 with 1/4 and then 1/8 with 1/6, using the same whole. The student picks the fraction with the larger denominator both times. The rule happens to give the right answer in the first comparison and gives the wrong answer in the second. Hearing the explanation tells the teacher what the score on the first problem leaves open.
 
+<!-- table-layout: responsive-records -->
+
 | Term | Role in the lesson | What to observe |
 |---|---|---|
 | **M · Generative motion** | Students attempt comparisons, try strategies, explain their reasoning, and revise it. | Opportunities to reason and how students use them, including strategy changes and revisions. |
@@ -597,6 +611,8 @@ The second question does not require assuming the first.
 
 Paper B proposed cognitive interpretations of the seven conditions using the earlier terminology inherited from Paper A. The refined vocabulary permits a broader functional comparison without changing the historical relationship among the papers.
 
+<!-- table-layout: responsive-records -->
+
 | Condition | Proposed cognitive function | Candidate failure signature |
 |---|---|---|
 | **1. Ledger (V)** | Preserve accountable relationships between evidence, state changes, and outputs | Unsupported claims, fabricated citations, untraceable conclusions |
@@ -608,6 +624,8 @@ Paper B proposed cognitive interpretations of the seven conditions using the ear
 | **7. Hierarchy (S)** | Preserve functional relationships among organizational dependencies | Conclusions built on unsupported intermediate results |
 
 The table identifies possible diagnostic signatures, not one-to-one causal assignments. To see what a complete classification would require, consider a hypothetical retrieval-assisted research agent tasked with producing a literature synthesis. Its defined boundary includes a language model, document retrieval, citation checking, task-state storage, and a dependency record for intermediate conclusions.
+
+<!-- table-layout: responsive-records -->
 
 | Condition | Evidence to inspect in the specified agent | Assessment before testing |
 |---|---|---|
@@ -679,6 +697,8 @@ This illustrates a proposed interaction among the functional groups. It does not
 
 The failure cases suggest three ways to intervene in an AI system. Each mechanism supports a specific function and gives investigators something they can check separately from the quality of the final answer.
 
+<!-- table-layout: responsive-records -->
+
 | Condition | Candidate mechanism | What to check |
 |---|---|---|
 | **Continuity** | Save task state and its established dependencies at each stage. Link snapshots using SHA-256 digests and verify the chain against a trusted checkpoint before restoring the state. | Check separately whether the expected snapshot was recovered intact, whether the relevant dependency survived the handoff, and whether it influenced the next inference. The hash check addresses the first question. |
@@ -692,6 +712,8 @@ These hypotheses become scientifically useful when the proposed organizational f
 The same base model can operate with different retrieval, state-retention, conflict-resolution, and evidence-checking configurations. Holding tasks and available information constant where possible, investigators can compare how targeted architectural interventions affect the functions attributed to M, S, and V.
 
 Candidate measures and outcomes include:
+
+<!-- table-layout: responsive-records -->
 
 | Function | Independent candidate measure | Downstream outcome |
 |---|---|---|
@@ -875,6 +897,8 @@ Three refinements deserve particular emphasis. Persistence ≠ duration — the 
 
 **Term Definitions**
 
+<!-- table-layout: responsive-records -->
+
 | **Term** | **Name** | **Definition** | **Conditions** |
 |---|---|---|---|
 | C | Organized output | Organized output: a structured result produced or sustained by a system; not raw volume and not restricted to knowledge production | — |
@@ -898,6 +922,8 @@ V groups accountability, distinguishability, and active preservation. A discrete
 
 GLC provides the proposed general form, DYL refines it downstream, and CIL offers a provisional comparison:
 
+<!-- table-layout: responsive-records -->
+
 | Formulation | Factors | Relationship to GLC |
 |---|---|---|
 | GLC | M × S × V | Candidate general organized-output relationship |
@@ -911,6 +937,8 @@ DYL adapts the multiplicative structure for discovery-specific mechanisms withou
 ## Appendix C — Current Status of the Structural Hypothesis
 
 The seven-condition framework makes three related claims: that the proposed conditions capture recurring organizational requirements, that they group into three functional categories, and that their relationship can be represented by a multiplicative law. These claims are connected, but none follows automatically from the others.
+
+<!-- table-layout: responsive-records -->
 
 | Question | Current assessment |
 |---|---|
