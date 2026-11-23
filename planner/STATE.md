@@ -1,9 +1,12 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 contract SEALED; T32.0 design sandbox drafted for independent pre-seal review.**
+Primary intent: **Sprint 32 SEALED; T32.0 SEALED, read-only inventory authorized; owner migration approval pending.**
 
 ## Resume — active gate
+
+- T32.0 SEALED `30c97a9bc3c9ee9204ad1b52100a9fda2093c9cf` after Grok provisional ACCEPT WITH REQUIRED; incorporated checksum-verified independently restorable tracked+untracked backup before any worktree creation, Windows short-path check and protection of all owner-owned ports. Executor may perform **read-only inventory and present migration plan only**, then STOP for explicit owner approval of actual backup/worktree/migration actions. Do not interpret ticket seal as that separate approval. Next: send sealed ticket to Claude Code and review inventory.
+
 
 - SPRINT 32 SEALED at `be14f1f01423a03376dcb386744963a66330f70a` against reviewed `71c206f`; Grok REQUIRED DOI/IWL clarifications integrated. T32.0 [draft](../site/planning/tickets/T32.0-design-sandbox-isolation.md) committed `10b8f014061249a00c71b9bbcaa3a92637af66c9`, **not sealed and no execution authorized**. Next: independent T32.0 pre-seal review; reconcile BLOCKER/REQUIRED/OPTIONAL; owner authorizes ticket seal. Ticket starts with read-only local inventory, and explicitly stops for separate owner approval before moving or copying experiments, creating worktree or altering processes. Current worktree/port status is Executor-reported only.
 
