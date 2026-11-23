@@ -5,6 +5,9 @@ Primary intent: **Sprint 32 OPEN; T32.0/T32.1 closed; T32.2 final decisions reco
 
 ## Resume — active gate
 
+- CURRENT 2026-11-23: T32.3 [DRAFT](../site/planning/tickets/T32.3-v17-3-local-html-pdf-specimens.md) committed `f65cf68`: local-only V17.3 scholarly HTML + early website-pipeline PDF, first-class print/glyph/table QA, shared source, six original figures, all author-approved metadata, seven-PDF preservation, explicit owner checkout/sandbox protection and owner approval of both specimens before staging. Next: Grok independent pre-seal review; reconcile BLOCKER/REQUIRED/OPTIONAL; Product Authority seal. NO T32.3 execution or product push authorized.
+
+
 - CURRENT 2026-11-23: [T32.2 final decision register](../site/planning/audits/sprint-32/T32.2-final-decision-register.md) committed `dfa01f2`: all author-owned inputs from Executor's 37-row matrix dispositioned, including work DOI `10.5281/zenodo.24470068`, version DOI `10.5281/zenodo.24470069` (both unverified pending T32.4), verbatim print author note, IWL public omission, local-only `pubDate: 2000-01-01` with zero-hit staged-diff tripwire, approved tags/excerpt/Key Findings, figure and heading treatment. Planner assesses READY TO DRAFT T32.3 (not release-ready). Next: draft T32.3 local PDF-priority/HTML specimens with independent pre-seal review and owner seal. No staging/production or implementation authorization.
 
 
