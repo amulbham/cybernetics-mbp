@@ -1,6 +1,6 @@
 # Sprint 32 — Mathematical Discovery publication and identity alignment
 
-Status: REVIEWED — required clarifications incorporated; Product Authority approved direction 2026-11-23; no ticket sealed
+Status: SEALED — Product Authority approved 2026-11-23; against reviewed planning commit 71c206f09fb51c6f849597a427fdc7a6ecfc55c4; no implementation ticket sealed
 Type: CONTENT-PUBLICATION sprint, with bounded design-sandbox infrastructure
 Risk: R0/R1 audit and isolation; R2 manuscript rendering; R3 publication identity, PDF custody and production release
 Branches: planner/context planning only; staging implementation; main owner-authorized release; isolated sandbox/design worktree after ticket seal
@@ -45,4 +45,4 @@ Ticket numbers provisional; only prepare next ticket when preceding evidence ear
 Owner-approved article and pipeline-produced frozen PDF, verified work-level DOI metadata and site identity, 8/8 published PDF custody, successful guarded production release, clean design sandbox, closure and updated state. Any unmet publication gate remains OPEN, not silently treated as complete.
 
 ## Review reconciliation — 2026-11-23
-Grok independent review of planner/context `04cecf21f4912d6e428bb2ba4eb5838a2542bd0e`: provisional ACCEPT WITH REQUIRED; REQUIRED-1 DOI remains unverified until T32.4, REQUIRED-2 IWL mention is T32.2 editorial decision only. Both incorporated without expanding scope. OPTIONAL-1 keep T32.0 R1 unless actual inventory earns R2; OPTIONAL-2 homepage description remains proposed pending built-output inspection and owner copy approval. No seal or execution authority follows from this draft alone.
+Grok independent review of planner/context `04cecf21f4912d6e428bb2ba4eb5838a2542bd0e`: provisional ACCEPT WITH REQUIRED; REQUIRED-1 DOI remains unverified until T32.4, REQUIRED-2 IWL mention is T32.2 editorial decision only. Both incorporated without expanding scope. OPTIONAL-1 keep T32.0 R1 unless actual inventory earns R2; OPTIONAL-2 homepage description remains proposed pending built-output inspection and owner copy approval. The Product Authority subsequently authorized sealing this sprint contract. This sprint seal establishes direction only; T32.0 requires its own review and seal before execution.
