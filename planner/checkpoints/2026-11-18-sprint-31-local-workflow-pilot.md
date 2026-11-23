@@ -25,3 +25,13 @@ For each ticket, use the risk-based review and seal procedure in `site/PLANNING.
 ## Closeout
 
 The Product Authority confirmed that closure includes the final production push, post-deploy verification, and documentation and state updates. Record the reviewed plan SHA, seal and implementation SHAs, how the Executor retrieved the ticket, decisions or rework caused by review, and friction in Git synchronization, local preview, or evidence transfer. Describe the actual end-to-end review process, identify avoidable cost and delays, and propose a simpler reusable protocol. Review the pilot findings with the Product Authority before adopting any change to the standing [Planner instructions](../README.md#local-first-planner-operation).
+
+## Final result — 2026-11-23
+
+Sprint 31 CLOSED by Product Authority after production release `016396f`, successful run `44631124056`, docs-only follow-up `83fa4bf`, and reported cleanup. See [closure record](../../site/planning/audits/sprint-31/S31-sprint-closure.md) for exact gates, evidence limits and deferred findings.
+
+The original local Codex primary-Planner experiment was superseded during the sprint: cloud ChatGPT became primary Planner; Claude Code remained the local Executor; the owner coordinated independent reviewer feedback. Preserve the earlier observations as pilot evidence, not current operating instructions. The low-effort review packet worked but took 201.17s; later manually supplied review packets were accepted with no required changes. A second R3 review was waived by the owner for T31.4 only. The standing review policy was not rewritten.
+
+The successful reusable path was: reviewed scope → exact seal on planner/context → Executor git show without merging → local isolated preview and owner visual review → scoped staging commit and hosted checks → clean product-only main candidate with exact-candidate preflight → owner production push → production guards and fresh live artifact checks → separate Planner closeout. Git and evidence friction: historical state lagged behind ticket progress, local scratch evidence was not cloud-accessible for independent inspection, and shared Cursor/Executor checkout required careful exclusion of uncommitted work. The owner approved a Sprint 32 isolated design worktree as the next infrastructure intake, with migration and backup of existing experiments before cleanup.
+
+No standing policy change beyond recording current cloud Planner authority is adopted by this checkpoint. Review any further workflow changes with the Product Authority.
