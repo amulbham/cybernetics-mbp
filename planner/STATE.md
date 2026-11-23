@@ -1,9 +1,13 @@
 # Planner state — research website
 
 Snapshot: **2026-11-23** (America/Los_Angeles).
-Primary intent: **Sprint 32 SEALED; T32.0 SEALED, read-only inventory authorized; owner migration approval pending.**
+Primary intent: **Sprint 32 OPEN; T32.0 accepted and closed; T32.1 drafted for pre-seal review.**
 
 ## Resume — active gate
+
+- CURRENT 2026-11-23: T32.0 ACCEPTED/CLOSED based on Executor completion report and owner confirmation; [reconciliation](../site/planning/audits/sprint-32/T32.0-completion-reconciliation.md) committed `ac274152`. Local-only design/cursor-sandbox worktree and port 4400 functioning, original staging checkout/4321 preserved, 41-file SHA backup restorable; patch-only Paper C line-ending difference nonblocking. Planner did not directly inspect local machine. Keep sandbox/backup intact.
+- T32.1 [DRAFT](../site/planning/tickets/T32.1-identity-metadata-alignment.md) at `9bfae6f`: audit live identity and metadata, present exact before/after copy to owner, then separate implementation approval. Next: independent pre-seal review of T32.1; no source edits or staging/production authorization yet. Sprint 32 remains open for V17.3 HTML/final website-generated PDF and R3 custody/release.
+
 
 - T32.0 SEALED `30c97a9bc3c9ee9204ad1b52100a9fda2093c9cf` after Grok provisional ACCEPT WITH REQUIRED; incorporated checksum-verified independently restorable tracked+untracked backup before any worktree creation, Windows short-path check and protection of all owner-owned ports. Executor may perform **read-only inventory and present migration plan only**, then STOP for explicit owner approval of actual backup/worktree/migration actions. Do not interpret ticket seal as that separate approval. Next: send sealed ticket to Claude Code and review inventory.
 
