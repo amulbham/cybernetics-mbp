@@ -5,7 +5,7 @@ import { LICENSES } from './lib/license';
 
 export const SITE_TITLE = 'Amul Bham';
 export const SITE_DESCRIPTION =
-	'Independent research on how ideas emerge, how systems organize, and how technology and institutions shape the conditions for discovery.';
+	'Research by Amul Bham on cybernetics, self-organizing systems, AI, and the structural conditions of knowledge and discovery.';
 
 // Single source of truth for the site owner's identity/social profiles —
 // used by SocialLinks.astro (footer chips: linkedin/github/orcid),
